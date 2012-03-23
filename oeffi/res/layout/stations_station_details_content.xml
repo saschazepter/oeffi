@@ -74,4 +74,19 @@
         </FrameLayout>
     </LinearLayout>
 
+    <FrameLayout
+        android:id="@+id/stations_station_details_map_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foreground="@drawable/view_shadow_right"
+        android:foregroundGravity="left|fill_vertical" >
+
+        <de.schildbach.oeffi.OeffiMapView
+            android:id="@+id/stations_station_details_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:apiKey="@string/maps_api_key"
+            android:clickable="true" />
+    </FrameLayout>
+
 </LinearLayout>
