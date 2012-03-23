@@ -35,12 +35,14 @@ import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.android.maps.GeoPoint;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.MyActionBar;
 import de.schildbach.oeffi.OeffiActivity;
+import de.schildbach.oeffi.OeffiMapView;
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.StationsAware;
 import de.schildbach.oeffi.network.NetworkProviderFactory;
@@ -64,6 +66,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Typeface;
@@ -127,6 +130,7 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
     private DeparturesAdapter listAdapter;
     private TextView resultStatusView;
     private TextView disclaimerSourceView;
+    private OeffiMapView mapView;
 
     private BroadcastReceiver tickReceiver;
 
@@ -186,6 +190,9 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
         listView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         listAdapter = new DeparturesAdapter(this);
         listView.setAdapter(listAdapter);
+
+        mapView = (OeffiMapView) findViewById(R.id.stations_station_details_map);
+        mapView.setStationsAware(this);
 
         resultStatusView = (TextView) findViewById(R.id.stations_station_details_result_status);
 
@@ -292,6 +299,8 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
         registerReceiver(tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
 
         load();
+
+        updateFragments();
     }
 
     @Override
@@ -314,6 +323,17 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
     @Override
     public void onAttachedToWindow() {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+    }
+
+    @Override
+    public void onConfigurationChanged(final Configuration config) {
+        super.onConfigurationChanged(config);
+
+        updateFragments();
+    }
+
+    private void updateFragments() {
+        updateFragments(R.id.stations_station_details_list_fragment, R.id.stations_station_details_map_fragment);
     }
 
     private void updateGUI() {
@@ -516,6 +536,9 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
         }
 
         selectedFavState = FavoriteStationsProvider.favState(getContentResolver(), selectedNetwork, selectedStation);
+
+        if (selectedStation.hasLocation())
+            mapView.getController().animateTo(new GeoPoint(selectedStation.lat, selectedStation.lon));
 
         updateGUI();
 

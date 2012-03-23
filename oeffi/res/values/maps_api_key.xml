@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <!-- release -->
+    <string name="maps_api_key">0_5QxtRHdv6pmRUua3pONjL2g8sntEaJMU_e69w</string>
+
+</resources>
