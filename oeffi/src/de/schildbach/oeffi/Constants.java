@@ -47,6 +47,8 @@ public class Constants {
     public static final int MAX_NUMBER_OF_STOPS = 150;
     public static final int MAX_HISTORY_ENTRIES = 50;
     public static final float BEARING_ACCURACY_THRESHOLD = 0.5f;
+    public static final int INITIAL_MAP_ZOOM_LEVEL_NETWORK = 12;
+    public static final int INITIAL_MAP_ZOOM_LEVEL = 17;
     public static final int MAX_TRIES_ON_IO_PROBLEM = 2;
 
     public static final Locale DEFAULT_LOCALE = Locale.GERMAN;

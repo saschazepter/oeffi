@@ -25,6 +25,8 @@
 
     <item name="trips_overview_entry_public_box_fraction" type="fraction">75%</item>
 
+    <dimen name="layout_list_width">390dp</dimen>
+
     <integer name="max_departures_per_station">6</integer>
 
 </resources>
