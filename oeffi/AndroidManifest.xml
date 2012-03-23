@@ -380,6 +380,11 @@
             android:name=".plans.PlanContentProvider"
             android:authorities="de.schildbach.oeffi.plans"
             android:exported="false" />
+
+        <uses-library android:name="com.google.android.maps" />
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
     </application>
 
 </manifest>

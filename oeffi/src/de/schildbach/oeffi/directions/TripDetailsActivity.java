@@ -34,7 +34,9 @@ import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.LocationAware;
 import de.schildbach.oeffi.MyActionBar;
 import de.schildbach.oeffi.OeffiActivity;
+import de.schildbach.oeffi.OeffiMapView;
 import de.schildbach.oeffi.R;
+import de.schildbach.oeffi.TripAware;
 import de.schildbach.oeffi.directions.TimeSpec.DepArr;
 import de.schildbach.oeffi.stations.LineView;
 import de.schildbach.oeffi.stations.NetworkContentProvider;
@@ -65,6 +67,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -118,6 +121,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
     private BroadcastReceiver tickReceiver;
 
     private ViewGroup legsGroup;
+    private OeffiMapView mapView;
     private ToggleImageButton trackButton;
 
     private NetworkId network;
@@ -125,6 +129,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
     private Date highlightedTime;
     private Location highlightedLocation;
     private Point location;
+    private int selectedLegIndex = -1;
 
     private final Map<Leg, Boolean> legExpandStates = new HashMap<>();
     private Intent scheduleTripIntent;
@@ -223,12 +228,16 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
                                 location = LocationHelper.locationToPoint(lastKnownLocation);
                             else
                                 location = null;
+                            mapView.setLocationAware(TripDetailsActivity.this);
                         }
                     } else {
                         locationManager.removeUpdates(TripDetailsActivity.this);
                         location = null;
+
+                        mapView.setLocationAware(null);
                     }
 
+                    mapView.zoomToAll(Constants.INITIAL_MAP_ZOOM_LEVEL);
                     updateGUI();
                 }
             });
@@ -281,6 +290,31 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
 
         final TextView disclaimerSourceView = (TextView) findViewById(R.id.directions_trip_details_disclaimer_source);
         updateDisclaimerSource(disclaimerSourceView, network.name(), null);
+
+        mapView = (OeffiMapView) findViewById(R.id.directions_trip_details_map);
+        mapView.setTripAware(new TripAware() {
+            public Trip getTrip() {
+                return trip;
+            }
+
+            public void selectLeg(final int partIndex) {
+                selectedLegIndex = partIndex;
+                mapView.invalidate();
+                mapView.zoomToAll(Constants.INITIAL_MAP_ZOOM_LEVEL);
+            }
+
+            public boolean hasSelection() {
+                return selectedLegIndex != -1;
+            }
+
+            public boolean isSelectedLeg(final Leg part) {
+                if (!hasSelection())
+                    return false;
+
+                return trip.legs.get(selectedLegIndex).equals(part);
+            }
+        });
+        mapView.zoomToAll(Constants.INITIAL_MAP_ZOOM_LEVEL);
     }
 
     @Override
@@ -297,6 +331,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         registerReceiver(tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
 
         updateGUI();
+        updateFragments();
     }
 
     @Override
@@ -319,6 +354,13 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
     @Override
     public void onAttachedToWindow() {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+    }
+
+    @Override
+    public void onConfigurationChanged(final Configuration config) {
+        super.onConfigurationChanged(config);
+
+        updateFragments();
     }
 
     private String requestLocationUpdates() {
@@ -347,6 +389,10 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
 
     public void onProviderDisabled(final String provider) {
         locationManager.removeUpdates(TripDetailsActivity.this);
+
+        final String newProvider = requestLocationUpdates();
+        if (newProvider == null)
+            mapView.setLocationAware(null);
     }
 
     public void onStatusChanged(final String provider, final int status, final Bundle extras) {
@@ -364,6 +410,10 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         return null;
     }
 
+    private void updateFragments() {
+        updateFragments(R.id.directions_trip_details_list_frame, R.id.directions_trip_details_map_frame);
+    }
+
     private void updateGUI() {
         final Date now = new Date();
         updateHighlightedTime(now);
@@ -378,6 +428,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
             i++;
         }
 
+        mapView.invalidate();
     }
 
     private void updateHighlightedTime(final Date now) {
