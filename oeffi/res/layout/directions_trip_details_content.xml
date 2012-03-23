@@ -134,4 +134,19 @@
         </LinearLayout>
     </FrameLayout>
 
+    <FrameLayout
+        android:id="@+id/directions_trip_details_map_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foreground="@drawable/view_shadow_right"
+        android:foregroundGravity="left|fill_vertical" >
+
+        <de.schildbach.oeffi.OeffiMapView
+            android:id="@+id/directions_trip_details_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:apiKey="@string/maps_api_key"
+            android:clickable="true" />
+    </FrameLayout>
+
 </LinearLayout>
