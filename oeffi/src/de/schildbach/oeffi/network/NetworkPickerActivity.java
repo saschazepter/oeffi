@@ -31,8 +31,11 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.schildbach.oeffi.AreaAware;
 import de.schildbach.oeffi.Constants;
+import de.schildbach.oeffi.LocationAware;
 import de.schildbach.oeffi.MyActionBar;
+import de.schildbach.oeffi.OeffiMapView;
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.network.list.NetworkClickListener;
 import de.schildbach.oeffi.network.list.NetworkContextMenuItemListener;
@@ -46,6 +49,7 @@ import de.schildbach.oeffi.util.LocationHelper;
 import de.schildbach.pte.AbstractNavitiaProvider;
 import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.NetworkProvider;
+import de.schildbach.pte.dto.Location;
 import de.schildbach.pte.dto.Point;
 
 import android.Manifest;
@@ -56,6 +60,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.location.Address;
 import android.location.Criteria;
@@ -73,6 +78,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class NetworkPickerActivity extends Activity implements ActivityCompat.OnRequestPermissionsResultCallback,
         LocationHelper.Callback, NetworkClickListener, NetworkContextMenuItemListener {
@@ -86,6 +93,7 @@ public class NetworkPickerActivity extends Activity implements ActivityCompat.On
     private MyActionBar actionBar;
     private RecyclerView listView;
     private NetworksAdapter listAdapter;
+    private OeffiMapView mapView;
 
     private final List<NetworkId> lastNetworks = new LinkedList<>();
 
@@ -128,6 +136,10 @@ public class NetworkPickerActivity extends Activity implements ActivityCompat.On
         listAdapter = new NetworksAdapter(this, network, this, this);
         listView.setAdapter(listAdapter);
 
+        mapView = (OeffiMapView) findViewById(R.id.network_picker_map);
+        ((TextView) findViewById(R.id.network_picker_map_disclaimer))
+                .setText(mapView.getTileProvider().getTileSource().getCopyrightNotice());
+
         if (network == null) {
             ((FrameLayout) findViewById(R.id.network_picker_firsttime_message_shadow)).setForeground(null);
         } else {
@@ -137,6 +149,40 @@ public class NetworkPickerActivity extends Activity implements ActivityCompat.On
                     finish();
                 }
             });
+            final NetworkId networkId = prefsGetNetworkId();
+            if (networkId != null) {
+                backgroundHandler.post(new GetAreaRunnable(NetworkProviderFactory.provider(networkId), handler) {
+
+                    @Override
+                    protected void onResult(final Point[] area) {
+                        mapView.setAreaAware(new AreaAware() {
+                            final Point[] myArea = area != null && area.length > 1 ? area : null;
+
+                            public Point[] getArea() {
+                                return myArea;
+                            }
+                        });
+                        mapView.setLocationAware(new LocationAware() {
+                            final Location referenceLocation = area != null && area.length == 1
+                                    ? Location.coord(area[0]) : null;
+
+                            public Point getDeviceLocation() {
+                                return deviceLocation;
+                            }
+
+                            public Location getReferenceLocation() {
+                                return referenceLocation;
+                            }
+
+                            public Float getDeviceBearing() {
+                                return null;
+                            }
+                        });
+
+                        mapView.zoomToAll();
+                    }
+                });
+            }
         }
 
         loadLastNetworks();
@@ -154,7 +200,20 @@ public class NetworkPickerActivity extends Activity implements ActivityCompat.On
     protected void onStart() {
         super.onStart();
 
+        updateFragments();
         maybeStartLocation();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        mapView.onPause();
+        super.onPause();
     }
 
     @Override
@@ -210,6 +269,8 @@ public class NetworkPickerActivity extends Activity implements ActivityCompat.On
 
         deviceLocation = here;
 
+        mapView.animateToLocation(here.getLatAsDouble(), here.getLonAsDouble());
+
         parseIndex();
         updateGUI();
 
@@ -230,6 +291,13 @@ public class NetworkPickerActivity extends Activity implements ActivityCompat.On
                 actionBar.stopProgress();
             }
         });
+    }
+
+    @Override
+    public void onConfigurationChanged(final Configuration config) {
+        super.onConfigurationChanged(config);
+
+        updateFragments();
     }
 
     @Override
@@ -267,8 +335,25 @@ public class NetworkPickerActivity extends Activity implements ActivityCompat.On
         }
     }
 
+    private void updateFragments() {
+        final Resources res = getResources();
+
+        final View listFrame = findViewById(R.id.network_picker_list_frame);
+        final boolean listShow = res.getBoolean(R.bool.layout_list_show);
+        listFrame.setVisibility(isInMultiWindowMode() || listShow ? View.VISIBLE : View.GONE);
+
+        final View mapFrame = findViewById(R.id.network_picker_map_frame);
+        final boolean mapShow = res.getBoolean(R.bool.layout_map_show);
+        mapFrame.setVisibility(!isInMultiWindowMode() && mapShow ? View.VISIBLE : View.GONE);
+
+        final LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) listFrame.getLayoutParams();
+        layoutParams.width = listShow && mapShow ? res.getDimensionPixelSize(R.dimen.layout_list_width)
+                : LinearLayout.LayoutParams.MATCH_PARENT;
+    }
+
     private void updateGUI() {
         listAdapter.notifyDataSetChanged();
+        mapView.invalidate();
     }
 
     private String prefsGetNetwork() {

@@ -21,6 +21,8 @@ import java.io.File;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import org.osmdroid.config.Configuration;
+import org.osmdroid.config.IConfigurationProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -83,6 +85,8 @@ public class Application extends android.app.Application {
         } catch (final NameNotFoundException x) {
             throw new RuntimeException(x);
         }
+
+        initMaps();
 
         log.info("=== Starting app version {} ({})", packageInfo.versionName, packageInfo.versionCode);
 
@@ -183,6 +187,12 @@ public class Application extends android.app.Application {
         log.addAppender(fileAppender);
         log.addAppender(logcatAppender);
         log.setLevel(Level.DEBUG);
+    }
+
+    private void initMaps() {
+        final IConfigurationProvider config = Configuration.getInstance();
+        config.setOsmdroidBasePath(new File(getCacheDir(), "org.osmdroid"));
+        config.setUserAgentValue(getPackageName());
     }
 
     private void migrateSelectedNetwork(final String fromName, final NetworkId to) {

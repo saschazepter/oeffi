@@ -29,11 +29,15 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager.TaskDescription;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public abstract class OeffiActivity extends Activity {
@@ -48,6 +52,27 @@ public abstract class OeffiActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
+    }
+
+    protected void updateFragments(final int listFrameResId, final int mapFrameResId) {
+        final Resources res = getResources();
+
+        final View listFrame = findViewById(listFrameResId);
+        final boolean listShow = res.getBoolean(R.bool.layout_list_show);
+        listFrame.setVisibility(isInMultiWindowMode() || listShow ? View.VISIBLE : View.GONE);
+
+        final View mapFrame = findViewById(mapFrameResId);
+        final boolean mapShow = res.getBoolean(R.bool.layout_map_show);
+        mapFrame.setVisibility(!isInMultiWindowMode() && mapShow ? View.VISIBLE : View.GONE);
+
+        listFrame.getLayoutParams().width = listShow && mapShow ? res.getDimensionPixelSize(R.dimen.layout_list_width)
+                : LinearLayout.LayoutParams.MATCH_PARENT;
+
+        final ViewGroup navigationDrawer = (ViewGroup) findViewById(R.id.navigation_drawer_layout);
+        if (navigationDrawer != null) {
+            final View child = navigationDrawer.getChildAt(1);
+            child.getLayoutParams().width = res.getDimensionPixelSize(R.dimen.layout_navigation_drawer_width);
+        }
     }
 
     protected String prefsGetNetwork() {

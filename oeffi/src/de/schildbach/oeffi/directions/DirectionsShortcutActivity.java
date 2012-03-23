@@ -197,7 +197,8 @@ public class DirectionsShortcutActivity extends OeffiActivity
     }
 
     private void query(final Point here) {
-        final String hereName = String.format(Locale.ENGLISH, "%.6f, %.6f", here.getLatAsDouble(), here.getLonAsDouble());
+        final String hereName = String.format(Locale.ENGLISH, "%.6f, %.6f", here.getLatAsDouble(),
+                here.getLonAsDouble());
 
         query(here, hereName);
     }

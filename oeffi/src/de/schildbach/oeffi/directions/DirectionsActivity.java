@@ -33,12 +33,18 @@ import java.util.Set;
 import javax.annotation.Nullable;
 import javax.net.ssl.SSLException;
 
+import org.osmdroid.api.IGeoPoint;
+import org.osmdroid.api.IMapController;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Overlay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.schildbach.oeffi.Constants;
+import de.schildbach.oeffi.FromViaToAware;
 import de.schildbach.oeffi.MyActionBar;
 import de.schildbach.oeffi.OeffiMainActivity;
+import de.schildbach.oeffi.OeffiMapView;
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.directions.TimeSpec.DepArr;
 import de.schildbach.oeffi.directions.list.QueryHistoryAdapter;
@@ -55,10 +61,12 @@ import de.schildbach.oeffi.util.ConnectivityBroadcastReceiver;
 import de.schildbach.oeffi.util.DialogBuilder;
 import de.schildbach.oeffi.util.DividerItemDecoration;
 import de.schildbach.oeffi.util.Formats;
+import de.schildbach.oeffi.util.GeocoderThread;
 import de.schildbach.oeffi.util.LocationUriParser;
 import de.schildbach.oeffi.util.Toast;
 import de.schildbach.oeffi.util.ToggleImageButton;
 import de.schildbach.oeffi.util.ToggleImageButton.OnCheckedChangeListener;
+import de.schildbach.oeffi.util.ZoomControls;
 import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.NetworkProvider;
 import de.schildbach.pte.NetworkProvider.Accessibility;
@@ -68,6 +76,7 @@ import de.schildbach.pte.NetworkProvider.TripFlag;
 import de.schildbach.pte.NetworkProvider.WalkSpeed;
 import de.schildbach.pte.dto.Location;
 import de.schildbach.pte.dto.LocationType;
+import de.schildbach.pte.dto.Point;
 import de.schildbach.pte.dto.Product;
 import de.schildbach.pte.dto.QueryTripsResult;
 import de.schildbach.pte.dto.SuggestLocationsResult;
@@ -90,7 +99,11 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.database.Cursor;
+import android.graphics.Canvas;
+import android.location.Address;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -106,6 +119,7 @@ import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
@@ -126,6 +140,7 @@ import okhttp3.HttpUrl;
 public class DirectionsActivity extends OeffiMainActivity implements ActivityCompat.OnRequestPermissionsResultCallback,
         QueryHistoryClickListener, QueryHistoryContextMenuItemListener {
     private ConnectivityManager connectivityManager;
+    private LocationManager locationManager;
 
     private ToggleImageButton buttonExpand;
     private LocationView viewFromLocation;
@@ -141,6 +156,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
     private RecyclerView viewQueryHistoryList;
     private QueryHistoryAdapter queryHistoryListAdapter;
     private TextView connectivityWarningView;
+    private OeffiMapView mapView;
 
     private TimeSpec time = null;
 
@@ -229,6 +245,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
         super.onCreate(savedInstanceState);
 
         connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         if (savedInstanceState != null) {
             restoreInstanceState(savedInstanceState);
@@ -257,6 +274,8 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
                     expandForm();
                 else
                     collapseForm();
+
+                updateMap();
             }
         });
         actionBar.addButton(R.drawable.ic_shuffle_white_24dp, R.string.directions_action_return_trip_title)
@@ -293,6 +312,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
 
         final LocationView.Listener locationChangeListener = new LocationView.Listener() {
             public void changed() {
+                updateMap();
                 queryHistoryListAdapter.clearSelectedEntry();
                 requestFocusFirst();
             }
@@ -414,6 +434,78 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
         queryHistoryListAdapter = new QueryHistoryAdapter(this, network, this, this);
         viewQueryHistoryList.setAdapter(queryHistoryListAdapter);
 
+        mapView = (OeffiMapView) findViewById(R.id.directions_map);
+        if (ContextCompat.checkSelfPermission(DirectionsActivity.this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            android.location.Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+            mapView.animateToLocation(location.getLatitude(), location.getLongitude());
+        }
+        mapView.getOverlays().add(new Overlay() {
+            private Location pinLocation;
+            private View pinView;
+
+            @Override
+            public void draw(final Canvas canvas, final MapView mapView, final boolean shadow) {
+                if (pinView != null)
+                    pinView.requestLayout();
+            }
+
+            @Override
+            public boolean onSingleTapConfirmed(final MotionEvent e, final MapView mapView) {
+                final IGeoPoint p = mapView.getProjection().fromPixels((int) e.getX(), (int) e.getY());
+                pinLocation = Location.coord(Point.fromDouble(p.getLatitude(), p.getLongitude()));
+
+                final View view = getLayoutInflater().inflate(R.layout.directions_map_pin, null);
+                final LocationTextView locationView = (LocationTextView) view
+                        .findViewById(R.id.directions_map_pin_location);
+                final View buttonGroup = view.findViewById(R.id.directions_map_pin_buttons);
+                buttonGroup.findViewById(R.id.directions_map_pin_button_from).setOnClickListener(new OnClickListener() {
+                    public void onClick(final View v) {
+                        viewFromLocation.setLocation(pinLocation);
+                        mapView.removeAllViews();
+                    }
+                });
+                buttonGroup.findViewById(R.id.directions_map_pin_button_to).setOnClickListener(new OnClickListener() {
+                    public void onClick(final View v) {
+                        viewToLocation.setLocation(pinLocation);
+                        mapView.removeAllViews();
+                    }
+                });
+                locationView.setLocation(pinLocation);
+                locationView.setShowLocationType(false);
+
+                // exchange view for the pin
+                if (pinView != null)
+                    mapView.removeView(pinView);
+                pinView = view;
+                mapView.addView(pinView, new MapView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT, p, MapView.LayoutParams.BOTTOM_CENTER, 0, 0));
+
+                new GeocoderThread(DirectionsActivity.this, p.getLatitude(), p.getLongitude(),
+                        new GeocoderThread.Callback() {
+                            public void onGeocoderResult(final Address address) {
+                                pinLocation = LocationView.addressToLocation(address);
+                                locationView.setLocation(pinLocation);
+                                locationView.setShowLocationType(false);
+                            }
+
+                            public void onGeocoderFail(final Exception exception) {
+                                log.info("Problem in geocoder: {}", exception.getMessage());
+                            }
+                        });
+
+                final IMapController controller = mapView.getController();
+                controller.animateTo(p);
+
+                return false;
+            }
+        });
+        ((TextView) findViewById(R.id.directions_map_disclaimer))
+                .setText(mapView.getTileProvider().getTileSource().getCopyrightNotice());
+
+        final ZoomControls zoom = (ZoomControls) findViewById(R.id.directions_map_zoom);
+        mapView.setZoomControls(zoom);
+
         connectivityReceiver = new ConnectivityBroadcastReceiver(connectivityManager) {
             @Override
             protected void onConnected() {
@@ -464,6 +556,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
     @Override
     protected void onResume() {
         super.onResume();
+        mapView.onResume();
 
         // can do directions?
         final NetworkProvider networkProvider = network != null ? NetworkProviderFactory.provider(network) : null;
@@ -491,6 +584,8 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
 
         setActionBarSecondaryTitleFromNetwork();
         updateGUI();
+        updateMap();
+        updateFragments();
     }
 
     @Override
@@ -532,6 +627,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
             tickReceiver = null;
         }
 
+        mapView.onPause();
         super.onPause();
     }
 
@@ -557,6 +653,13 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
     }
 
     @Override
+    public void onConfigurationChanged(final Configuration config) {
+        super.onConfigurationChanged(config);
+
+        updateFragments();
+    }
+
+    @Override
     public void onBackPressed() {
         if (isNavigationOpen())
             closeNavigation();
@@ -571,6 +674,10 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
             viewToLocation.requestFocus();
         else
             viewGo.requestFocus();
+    }
+
+    private void updateFragments() {
+        updateFragments(R.id.navigation_drawer_layout, R.id.directions_map_fragment);
     }
 
     private void updateGUI() {
@@ -673,6 +780,33 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
             }
         });
         builder.show();
+    }
+
+    private void updateMap() {
+        mapView.removeAllViews();
+        mapView.setFromViaToAware(new FromViaToAware() {
+            public Point getFrom() {
+                final Location from = viewFromLocation.getLocation();
+                if (from == null || !from.hasLocation())
+                    return null;
+                return new Point(from.lat, from.lon);
+            }
+
+            public Point getVia() {
+                final Location via = viewViaLocation.getLocation();
+                if (via == null || !via.hasLocation() || viewViaLocation.getVisibility() != View.VISIBLE)
+                    return null;
+                return new Point(via.lat, via.lon);
+            }
+
+            public Point getTo() {
+                final Location to = viewToLocation.getLocation();
+                if (to == null || !to.hasLocation())
+                    return null;
+                return new Point(to.lat, to.lon);
+            }
+        });
+        mapView.zoomToAll();
     }
 
     private void expandForm() {

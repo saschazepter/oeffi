@@ -398,4 +398,35 @@
         <include layout="@layout/navigation_drawer" />
     </android.support.v4.widget.DrawerLayout>
 
+    <FrameLayout
+        android:id="@+id/stations_map_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foreground="@drawable/view_shadow_right"
+        android:foregroundGravity="left|fill_vertical" >
+
+        <de.schildbach.oeffi.OeffiMapView
+            android:id="@+id/stations_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/stations_map_disclaimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|left"
+            android:layout_marginBottom="@dimen/list_entry_padding_vertical_lax"
+            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+            android:textSize="@dimen/font_size_disclaimer" />
+
+        <de.schildbach.oeffi.util.ZoomControls
+            android:id="@+id/stations_map_zoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="8dp"
+            android:orientation="vertical"
+            android:visibility="invisible" />
+    </FrameLayout>
+
 </LinearLayout>

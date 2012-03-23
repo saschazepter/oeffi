@@ -37,6 +37,7 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 
+import org.osmdroid.util.GeoPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,6 +50,7 @@ import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.LocationAware;
 import de.schildbach.oeffi.MyActionBar;
 import de.schildbach.oeffi.OeffiMainActivity;
+import de.schildbach.oeffi.OeffiMapView;
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.StationsAware;
 import de.schildbach.oeffi.directions.DirectionsActivity;
@@ -61,6 +63,7 @@ import de.schildbach.oeffi.util.DialogBuilder;
 import de.schildbach.oeffi.util.DividerItemDecoration;
 import de.schildbach.oeffi.util.LocationUriParser;
 import de.schildbach.oeffi.util.Toast;
+import de.schildbach.oeffi.util.ZoomControls;
 import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.NetworkProvider;
 import de.schildbach.pte.NetworkProvider.Capability;
@@ -85,6 +88,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.database.Cursor;
@@ -148,6 +152,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
     private String accurateLocationProvider, lowPowerLocationProvider;
 
     private MyActionBar actionBar;
+    private OeffiMapView mapView;
     private RecyclerView stationList;
     private LinearLayoutManager stationListLayoutManager;
     private StationsAdapter stationListAdapter;
@@ -237,6 +242,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                                     }
 
                                     stationListAdapter.notifyDataSetChanged();
+                                    mapView.invalidate();
                                 }
 
                                 updateGUI();
@@ -285,6 +291,15 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         networkSettingsButton.setOnClickListener(selectNetworkListener);
         final Button missingCapabilityButton = (Button) findViewById(R.id.stations_network_missing_capability_button);
         missingCapabilityButton.setOnClickListener(selectNetworkListener);
+
+        mapView = (OeffiMapView) findViewById(R.id.stations_map);
+        mapView.setStationsAware(this);
+        mapView.setLocationAware(this);
+        ((TextView) findViewById(R.id.stations_map_disclaimer))
+                .setText(mapView.getTileProvider().getTileSource().getCopyrightNotice());
+
+        final ZoomControls zoom = (ZoomControls) findViewById(R.id.stations_map_zoom);
+        mapView.setZoomControls(zoom);
 
         connectivityWarningView = (TextView) findViewById(R.id.stations_connectivity_warning_box);
         disclaimerSourceView = (TextView) findViewById(R.id.stations_disclaimer_source);
@@ -485,6 +500,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
     @Override
     protected void onResume() {
         super.onResume();
+        mapView.onResume();
 
         postLoadNextVisible(0);
     }
@@ -497,6 +513,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         stationsMap.clear();
 
         stationListAdapter.notifyDataSetChanged();
+        mapView.invalidate();
         loading = true;
 
         updateDisclaimerSource(disclaimerSourceView, network.name(), null);
@@ -508,9 +525,21 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
     }
 
     @Override
+    public void onConfigurationChanged(final Configuration config) {
+        super.onConfigurationChanged(config);
+
+        updateFragments();
+    }
+
+    private void updateFragments() {
+        updateFragments(R.id.navigation_drawer_layout, R.id.stations_map_fragment);
+    }
+
+    @Override
     protected void onPause() {
         saveProductFilter();
 
+        mapView.onPause();
         super.onPause();
     }
 
@@ -563,11 +592,15 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
             fixedLocation = locations != null && locations.length >= 1 ? locations[0] : null;
 
             if (fixedLocation != null) {
+                mapView.animateToLocation(fixedLocation.getLatAsDouble(), fixedLocation.getLonAsDouble());
+
                 findViewById(R.id.stations_location_clear).setOnClickListener(new OnClickListener() {
                     public void onClick(final View v) {
                         fixedLocation = null;
 
                         if (deviceLocation != null) {
+                            mapView.animateToLocation(deviceLocation.getLatAsDouble(), deviceLocation.getLonAsDouble());
+
                             final float[] distanceBetweenResults = new float[2];
 
                             // remove non-favorites and re-calculate distances
@@ -645,6 +678,9 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
     }
 
     private void updateGUI() {
+        // fragments
+        updateFragments();
+
         // filter indicator
         final boolean isActive = products.size() < Product.values().length;
         filterActionButton.setSelected(isActive);
@@ -986,6 +1022,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
 
         if (added || changed) {
             stationListAdapter.notifyDataSetChanged();
+            mapView.invalidate();
         }
 
         updateGUI();
@@ -1274,6 +1311,14 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
             }
         }
 
+        // scroll map
+        if (station != null && station.location.hasLocation())
+            mapView.getController()
+                    .animateTo(new GeoPoint(station.location.getLatAsDouble(), station.location.getLonAsDouble()));
+        else if (station == null && deviceLocation != null)
+            mapView.getController()
+                    .animateTo(new GeoPoint(deviceLocation.getLatAsDouble(), deviceLocation.getLonAsDouble()));
+
         postLoadNextVisible(0);
     }
 
@@ -1431,6 +1476,9 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
 
             final double hereLat = here.getLatitude();
             final double hereLon = here.getLongitude();
+
+            if (deviceLocation == null && fixedLocation == null)
+                mapView.animateToLocation(hereLat, hereLon);
 
             deviceLocation = Point.fromDouble(hereLat, hereLon);
 
