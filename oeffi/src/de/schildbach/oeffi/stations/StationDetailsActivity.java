@@ -35,7 +35,7 @@ import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.android.maps.GeoPoint;
+import com.amazon.geo.maps.GeoPoint;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 

@@ -22,7 +22,7 @@ dependencies {
     compile 'com.github.tony19:logback-android:1.1.1-8'
     compile 'com.google.code.findbugs:jsr305:3.0.0'
     testCompile 'junit:junit:4.12'
-    provided files('libs/maps.jar')
+    provided files('libs/amazonmaps-1.0.2.jar')
 }
 
 android {

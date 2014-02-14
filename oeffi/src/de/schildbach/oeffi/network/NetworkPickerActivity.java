@@ -31,7 +31,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.android.maps.MapActivity;
+import com.amazon.geo.maps.MapActivity;
 
 import de.schildbach.oeffi.AreaAware;
 import de.schildbach.oeffi.Constants;

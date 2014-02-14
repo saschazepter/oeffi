@@ -36,10 +36,10 @@ import javax.net.ssl.SSLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.android.maps.GeoPoint;
-import com.google.android.maps.MapController;
-import com.google.android.maps.MapView;
-import com.google.android.maps.Overlay;
+import com.amazon.geo.maps.GeoPoint;
+import com.amazon.geo.maps.MapController;
+import com.amazon.geo.maps.MapView;
+import com.amazon.geo.maps.Overlay;
 
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.FromViaToAware;

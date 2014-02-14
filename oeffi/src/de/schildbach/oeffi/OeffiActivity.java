@@ -20,7 +20,7 @@ package de.schildbach.oeffi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.android.maps.MapActivity;
+import com.amazon.geo.maps.MapActivity;
 
 import de.schildbach.oeffi.network.NetworkResources;
 import de.schildbach.oeffi.util.ErrorReporter;

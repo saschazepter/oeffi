@@ -76,7 +76,6 @@
             android:id="@+id/network_picker_map"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:apiKey="@string/maps_api_key"
             android:clickable="true" />
     </FrameLayout>
 
