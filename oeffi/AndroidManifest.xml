@@ -20,7 +20,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="de.schildbach.oeffi"
     android:versionCode="643"
-    android:versionName="10.4.11-aosp" >
+    android:versionName="10.4.11-google" >
 
     <uses-sdk
         android:minSdkVersion="16"
