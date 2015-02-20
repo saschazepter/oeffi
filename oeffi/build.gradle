@@ -36,6 +36,7 @@ android {
 
     defaultConfig {
         generatedDensities = ['hdpi', 'xhdpi']
+        versionName '10.0'
     }
 
     buildTypes {

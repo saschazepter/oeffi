@@ -361,12 +361,7 @@ public abstract class OeffiMainActivity extends OeffiActivity {
 
     private void downloadAndProcessMessages(final String network) {
         final HttpUrl.Builder remoteUrl = Constants.MESSAGES_BASE_URL.newBuilder();
-        final StringBuilder remoteFileName = new StringBuilder("messages");
-        final String flavor = applicationVersionFlavor();
-        if (flavor != null)
-            remoteFileName.append('-').append(flavor);
-        remoteFileName.append(".txt");
-        remoteUrl.addPathSegment(remoteFileName.toString());
+        remoteUrl.addPathSegment("messages-amazon.txt");
         remoteUrl.addEncodedQueryParameter("installer",
                 Strings.nullToEmpty(getPackageManager().getInstallerPackageName(getPackageName())));
         remoteUrl.addQueryParameter("task", taskName());
