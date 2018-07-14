@@ -51,21 +51,5 @@
             android:summary="\@oeffi"
             android:title="Twitter" />
     </PreferenceCategory>
-    <PreferenceCategory
-        android:key="about_donate"
-        android:title="@string/about_donate_title" >
-        <Preference
-            android:key="about_donate_bitcoin"
-            android:summary="@string/about_donate_bitcoin_summary"
-            android:title="@string/about_donate_bitcoin_title" />
-        <Preference
-            android:key="about_donate_flattr"
-            android:summary="@string/about_donate_flattr_summary"
-            android:title="@string/about_donate_flattr_title" />
-        <Preference
-            android:key="about_donate_euro"
-            android:summary="@string/about_donate_euro_summary"
-            android:title="@string/about_donate_euro_title" />
-    </PreferenceCategory>
 
 </PreferenceScreen>

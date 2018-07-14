@@ -12,7 +12,6 @@ configurations {
 
 dependencies {
     compile project(':enabler')
-    compile 'de.schildbach.wallet:integration-android:2.0'
     compile 'androidx.annotation:annotation:1.0.0'
     compile 'androidx.recyclerview:recyclerview:1.0.0'
     compile 'androidx.drawerlayout:drawerlayout:1.0.0'

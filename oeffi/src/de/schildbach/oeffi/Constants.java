@@ -34,11 +34,9 @@ public class Constants {
     public static final String PLAN_STATIONS_FILENAME = "plans-stations.txt";
 
     public static final String TWITTER_URL = "http://twitter.com/oeffi";
-    public static final String FLATTR_THING_URL = "http://flattr.com/thing/36806";
     public static final String MARKET_APP_URL = "market://details?id=%s";
     public static final String GOOGLE_PLAY_APP_URL = "https://play.google.com/store/apps/details?id=%s";
     public static final String COMMUNITY_GOOGLEPLUS_URL = "https://plus.google.com/communities/107613937661687598579";
-    public static final String BITCOIN_ADDRESS = "1PW21MuBgPnjfUQriwK7TnRADFotEhdysr";
 
     public static final long LOCATION_UPDATE_FREQ_MS = 10 * DateUtils.SECOND_IN_MILLIS;
     public static final int LOCATION_UPDATE_DISTANCE = 3;
