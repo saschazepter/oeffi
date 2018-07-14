@@ -27,7 +27,6 @@
     <string name="global_options_stations_comment">Departure times and delays</string>
     <string name="global_options_directions_comment">From door to door</string>
     <string name="global_options_plans_comment">For a rough overview</string>
-    <string name="global_options_donate_title">Donate</string>
     <string name="global_options_report_bug_title">Report bug</string>
     <string name="global_options_preferences_title">Preferences</string>
     <string name="global_options_about_title">About Offi</string>
@@ -57,13 +56,6 @@
     <string name="about_faq_summary">https://oeffi.schildbach.de/faq.html</string>
     <string name="about_feedback_title">Feedback</string>
     <string name="about_market_rate_title">Rate or Review Offi</string>
-    <string name="about_donate_title">Donations</string>
-    <string name="about_donate_bitcoin_title">Donate Bitcoins</string>
-    <string name="about_donate_bitcoin_summary">Bitcoin is an Internet currency.</string>
-    <string name="about_donate_flattr_title">Donate via Flattr</string>
-    <string name="about_donate_flattr_summary">Flattr is a microdonation system.</string>
-    <string name="about_donate_euro_title">Donate Euros</string>
-    <string name="about_donate_euro_summary">https://oeffi.schildbach.de/donate.html</string>
 
     <!-- network picker -->
     <string name="network_picker_firsttime_message">Because you are using Offi for the first time, you need to pick a region that suits you well. You
