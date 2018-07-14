@@ -10,8 +10,5 @@
     <header
             android:fragment="de.schildbach.oeffi.preference.AboutFragment"
             android:title="@string/about_title"/>
-    <header
-            android:fragment="de.schildbach.oeffi.preference.DonateFragment"
-            android:title="@string/about_donate_title"/>
 
 </preference-headers>

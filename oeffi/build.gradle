@@ -10,7 +10,6 @@ configurations {
 
 dependencies {
     compile project(':public-transport-enabler')
-    compile 'de.schildbach.wallet:integration-android:2.0'
     compile 'androidx.annotation:annotation:1.1.0'
     compile 'androidx.recyclerview:recyclerview:1.0.0'
     compile 'androidx.coordinatorlayout:coordinatorlayout:1.0.0'

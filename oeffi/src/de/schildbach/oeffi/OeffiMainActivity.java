@@ -33,7 +33,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import de.schildbach.oeffi.preference.AboutFragment;
-import de.schildbach.oeffi.preference.DonateFragment;
 import de.schildbach.oeffi.preference.PreferenceActivity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -322,11 +321,6 @@ public abstract class OeffiMainActivity extends OeffiActivity {
             finish();
             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
 
-            return true;
-        }
-
-        case R.id.global_options_donate: {
-            PreferenceActivity.start(this, DonateFragment.class.getName());
             return true;
         }
 
