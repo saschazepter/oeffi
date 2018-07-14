@@ -29,7 +29,6 @@
     <string name="global_options_plans_comment">For a rough overview</string>
     <string name="global_options_preferences_title">Preferences</string>
     <string name="global_options_about_title">About Offi</string>
-    <string name="global_options_donate_title">Donate</string>
 
     <!-- global preferences -->
     <string name="global_preferences_title">Common</string>
@@ -60,13 +59,6 @@
     <string name="about_report_bug_summary">Give feedback.</string>
     <string name="about_community_googleplus_title">Google+ Community</string>
     <string name="about_community_googleplus_summary">Discussions about the app.</string>
-    <string name="about_donate_title">Donations</string>
-    <string name="about_donate_bitcoin_title">Donate Bitcoins</string>
-    <string name="about_donate_bitcoin_summary">Bitcoin is an Internet currency.</string>
-    <string name="about_donate_flattr_title">Donate via Flattr</string>
-    <string name="about_donate_flattr_summary">Flattr is a microdonation system.</string>
-    <string name="about_donate_euro_title">Donate Euros</string>
-    <string name="about_donate_euro_summary">https://oeffi.schildbach.de/donate.html</string>
 
     <!-- network picker -->
     <string name="network_picker_firsttime_message">Because you are using Offi for the first time, you need to pick a region that suits you well. You
