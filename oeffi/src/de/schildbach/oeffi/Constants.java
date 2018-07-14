@@ -34,10 +34,8 @@ public class Constants {
     public static final String PLAN_STATIONS_FILENAME = "plans-stations.txt";
 
     public static final String TWITTER_URL = "http://twitter.com/oeffi";
-    public static final String FLATTR_THING_URL = "http://flattr.com/thing/36806";
     public static final String MARKET_APP_URL = "market://details?id=%s";
     public static final String GOOGLE_PLAY_APP_URL = "https://play.google.com/store/apps/details?id=%s";
-    public static final String BITCOIN_ADDRESS = "1PW21MuBgPnjfUQriwK7TnRADFotEhdysr";
 
     public static final String REPORT_EMAIL = "oeffi.app@gmail.com";
 
