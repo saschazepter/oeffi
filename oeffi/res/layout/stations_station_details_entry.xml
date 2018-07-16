@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/list_entry"
+    android:clipToPadding="false"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
+    android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
+    android:paddingRight="@dimen/list_entry_padding_horizontal_lax"
+    android:paddingTop="@dimen/list_entry_padding_vertical_lax" >
+
+    <!-- first row -->
+
+    <TextView
+        android:id="@+id/stations_station_entry_time_rel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true" />
+
+    <TextView
+        android:id="@+id/stations_station_entry_delay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/stations_station_entry_time_rel"
+        android:layout_toLeftOf="@id/stations_station_entry_time_rel"
+        android:textColor="#f00" />
+
+    <de.schildbach.oeffi.stations.LineView
+        android:id="@+id/stations_station_entry_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/stations_station_entry_time_rel"
+        android:maxWidth="96dp" />
+
+    <TextView
+        android:id="@+id/stations_station_entry_destination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/stations_station_entry_time_rel"
+        android:layout_toLeftOf="@id/stations_station_entry_delay"
+        android:layout_toRightOf="@id/stations_station_entry_line"
+        android:ellipsize="middle"
+        android:paddingLeft="@dimen/list_entry_padding_horizontal"
+        android:paddingRight="@dimen/list_entry_padding_horizontal"
+        android:singleLine="true" />
+
+    <!-- second row -->
+
+    <TextView
+        android:id="@+id/stations_station_entry_time_abs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/stations_station_entry_time_rel" />
+
+    <TextView
+        android:id="@+id/stations_station_entry_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/stations_station_entry_time_abs"
+        android:layout_toRightOf="@id/stations_station_entry_line"
+        android:paddingLeft="@dimen/list_entry_padding_horizontal" />
+
+    <TextView
+        android:id="@+id/stations_station_entry_capacity_2nd_class"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/stations_station_entry_time_abs"
+        android:layout_marginRight="8dp"
+        android:layout_toLeftOf="@id/stations_station_entry_time_abs"
+        android:singleLine="true"
+        android:text="2." />
+
+    <TextView
+        android:id="@+id/stations_station_entry_capacity_1st_class"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/stations_station_entry_time_abs"
+        android:layout_toLeftOf="@id/stations_station_entry_capacity_2nd_class"
+        android:singleLine="true"
+        android:text="1." />
+
+    <!-- third row -->
+
+    <TextView
+        android:id="@+id/stations_station_entry_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/stations_station_entry_time_abs"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:textSize="10sp" />
+
+</RelativeLayout>

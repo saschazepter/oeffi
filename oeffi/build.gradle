@@ -1,0 +1,75 @@
+apply plugin: 'com.android.application'
+apply plugin: 'androidsvgdrawable'
+
+configurations {
+    all*.exclude group: 'org.json', module: 'json'
+    all*.exclude group: 'net.sf.kxml', module: 'kxml2'
+    all*.exclude group: 'android.arch.lifecycle', module: 'runtime'
+    all*.exclude group: 'com.github.tony19', module: 'apktool-lib'
+}
+
+dependencies {
+    compile project(':enabler')
+    compile 'de.schildbach.wallet:integration-android:2.0'
+    compile 'com.android.support:support-annotations:27.1.1'
+    compile 'com.android.support:support-compat:27.1.1'
+    compile 'com.android.support:support-core-ui:27.1.1'
+    compile 'com.android.support:support-core-utils:27.1.1'
+    compile 'com.android.support:recyclerview-v7:27.1.1'
+    compile 'com.squareup.okhttp3:okhttp:3.10.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    compile 'com.google.guava:guava:25.1-android'
+    compile 'org.slf4j:slf4j-api:1.7.25'
+    compile 'com.github.tony19:logback-android:1.1.1-8'
+    compile 'com.google.code.findbugs:jsr305:3.0.0'
+    testCompile 'junit:junit:4.12'
+}
+
+android {
+    compileSdkVersion 'android-27'
+    buildToolsVersion '27.0.3'
+
+    lintOptions {
+        abortOnError false
+        disable 'MissingTranslation'
+    }
+
+    defaultConfig {
+        generatedDensities = ['hdpi', 'xhdpi']
+    }
+
+    buildTypes {
+        all {
+            minifyEnabled true
+            proguardFile 'proguard.cfg'
+        }
+        debug {
+            debuggable true
+        }
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+        test {
+            java.srcDirs = ['test']
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/*.version'
+        exclude 'okhttp3/internal/publicsuffix/publicsuffixes.gz'
+    }
+}
+
+task svgToPng(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask) {
+    from = files('graphics')
+    to = file('res')
+    targetedDensities = ['hdpi', 'xhdpi', 'xxhdpi', 'xxxhdpi']
+    outputFormat = 'PNG'
+    outputType = 'mipmap'
+}

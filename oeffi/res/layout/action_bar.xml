@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<de.schildbach.oeffi.MyActionBar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/action_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true" >
+
+    <ImageButton
+        android:id="@+id/action_bar_menu_button"
+        android:layout_width="@dimen/action_bar_button_width"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/action_bar_navigator_description"
+        android:minHeight="@dimen/action_bar_height"
+        android:scaleType="center"
+        android:src="@drawable/ic_menu_white_24dp"
+        android:visibility="gone" />
+
+    <ImageButton
+        android:id="@+id/action_bar_back_button"
+        android:layout_width="@dimen/action_bar_button_width"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/action_bar_back_description"
+        android:minHeight="@dimen/action_bar_height"
+        android:scaleType="center"
+        android:src="@drawable/ic_arrow_back_white_24dp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/action_bar_titles"
+        android:layout_width="0px"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/action_bar_height"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/action_bar_padding"
+        android:paddingRight="@dimen/action_bar_padding" >
+
+        <TextView
+            android:id="@+id/action_bar_primary_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="none"
+            android:fadingEdge="horizontal"
+            android:fadingEdgeLength="12dp"
+            android:shadowColor="@android:color/black"
+            android:shadowRadius="1"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_action_bar"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/action_bar_secondary_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="none"
+            android:fadingEdge="horizontal"
+            android:fadingEdgeLength="12dp"
+            android:shadowColor="@android:color/black"
+            android:shadowRadius="1"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_action_bar"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/action_bar_progress"
+        android:layout_width="@dimen/action_bar_button_width"
+        android:layout_height="match_parent"
+        android:minHeight="@dimen/action_bar_height"
+        android:visibility="gone" >
+
+        <ImageButton
+            android:id="@+id/action_bar_progress_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/action_bar_progress_description" />
+
+        <ImageButton
+            android:id="@+id/action_bar_progress_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:clickable="false"
+            android:scaleType="center"
+            android:src="@drawable/ic_refresh_white_24dp" />
+    </FrameLayout>
+
+    <ImageButton
+        android:id="@+id/action_bar_overflow_button"
+        android:layout_width="@dimen/action_bar_overflow_button_width"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/action_bar_overflow_description"
+        android:src="@drawable/ic_more_vert_white_24dp"
+        android:visibility="gone" />
+
+</de.schildbach.oeffi.MyActionBar>

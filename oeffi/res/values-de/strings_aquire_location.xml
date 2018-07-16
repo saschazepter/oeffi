@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="acquire_location_start">Ermittle \'%s\'-Standort…</string>
+    <string name="acquire_location_no_permission">Standortermittlung nicht erlaubt</string>
+    <string name="acquire_location_no_provider">Alle Standortdienste sind abgeschaltet</string>
+    <string name="acquire_location_timeout">Kann Standort nicht ermitteln</string>
+
+</resources>

@@ -1,0 +1,8 @@
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialLayout="@layout/station_widget_content"
+    android:minHeight="110dp"
+    android:minResizeHeight="55dp"
+    android:minWidth="294dp"
+    android:previewImage="@drawable/nearest_favorite_station_widget_preview"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="1800000" />

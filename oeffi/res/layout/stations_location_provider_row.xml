@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <TextView android:id="@+id/stations_location_provider_row_provider" />
+
+    <TextView
+        android:id="@+id/stations_location_provider_row_enabled"
+        android:paddingLeft="8dp" />
+
+</TableRow>

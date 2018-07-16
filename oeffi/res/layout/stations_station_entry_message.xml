@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/stations_station_entry_message"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/list_entry_padding_vertical_cram"
+    android:paddingTop="@dimen/list_entry_padding_vertical_cram"
+    android:textSize="@dimen/font_size_tiny" />

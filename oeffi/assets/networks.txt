@@ -1,0 +1,96 @@
+# networks.txt,1
+
+# EU
+RT|eu|DE;AT;CH;BE;LU;NL;DK;SE;NO;FI;GB;SI;HU;RO;BG;PL;SK;IT;ES;PT
+
+# DE
+DB|de-DE|DE
+BVG|de-DE|Brandenburg;Berlin
+VBB|de-DE|Brandenburg
+BAYERN|de-DE|Bayern;Würzburg;Regensburg
+AVV|de-DE|Augsburg
+MVV|de-DE|Bayern;München
+VGN|de-DE|Nürnberg;Fürth;Erlangen
+VVM|de-DE|Schwaben;Mittelschwaben;Krumbach;Günzburg;Memmingen
+NVV|de-DE|Hessen;Frankfurt am Main;Kassel
+VMV|de-DE|Mecklenburg-Vorpommern;Schwerin
+HVV|de-DE|Hamburg|disabled
+SH|de-DE|Schleswig-Holstein;Kiel;Lübeck;Hamburg
+GVH|de-DE|Niedersachsen;Hannover;Hamburg
+BSVAG|de-DE|Braunschweig;Wolfsburg
+VBN|de-DE|Niedersachsen;Bremen;Bremerhaven;Oldenburg (Oldenburg);Osnabrück;Göttingen;Rostock
+VVO|de-DE|Sachsen;Dresden
+VMS|de-DE|Mittelsachsen;Chemnitz
+NASA|de-DE|Sachsen;Leipzig;Sachsen-Anhalt;Magdeburg;Halle
+VMT|de-DE|Thüringen;Mittelthüringen;Erfurt;Jena;Gera;Weimar;Gotha
+VRR|de-DE|Nordrhein-Westfalen;Essen;Dortmund;Düsseldorf;Münster;Paderborn;Höxter;Bielefeld
+VRS|de-DE|Köln;Bonn
+MVG|de-DE|Märkischer Kreis;Lüdenscheid
+VRN|de-DE|Baden-Württemberg;Rheinland-Pfalz;Mannheim;Mainz;Trier
+VVS|de-DE|Baden-Württemberg;Stuttgart
+DING|de-DE|Baden-Württemberg;Ulm;Neu-Ulm
+KVV|de-DE|Baden-Württemberg;Karlsruhe
+VAGFR|de-DE|Elsass;Bas-Rhin;Straßburg;Freiburg im Breisgau
+NVBW|de-DE|Baden-Württemberg;Konstanz;Basel;Basel-Stadt;Reutlingen;Rottweil;Tübingen;Sigmaringen
+VVV|de-DE|Vogtland;Plauen
+VGS|de-DE|Saarland;Saarbrücken|disabled
+
+# AT
+OEBB|de-AT|AT
+WIEN|de-AT|Wien
+LINZ|de-AT|Oberösterreich;Linz
+STV|de-AT|Steiermark;Graz;Marburg;Maribor;Klagenfurt
+VOR|de-AT|Niederösterreich;Burgenland;Wien|disabled
+OOEVV|de-AT|Oberösterreich|disabled
+VVT|de-AT|Tirol|disabled
+SVV|de-AT|Salzburg|disabled
+VMOBIL|de-AT|Vorarlberg;Bregenz|disabled
+
+# CH
+SBB|de-CH|CH
+VBL|de-CH|Luzern
+ZVV|de-CH|Zürich
+
+# IT
+IT|it-IT|IT|alpha
+
+# FR
+PARIS|fr-FR|FR|alpha
+
+# BE
+SNCB|be-BE|BE|alpha
+
+# LU
+LU|lb-LU|LU;Luxemburg
+
+# NL
+NS|nl-NL|NL;Amsterdam|alpha
+
+# DK
+DSB|da-DK|DK;København
+
+# SE
+SE|sv-SE|SE;Stockholm
+
+# NO
+NRI|no-NO|NO;Oslo;Bergen
+
+# GB
+TLEM|en-UK|GB;Greater London;Derbyshire;Leicestershire;Rutland;Northamptonshire;Nottinghamshire;Lincolnshire;Berkshire;Buckinghamshire;East Sussex;Hampshire;Isle of Wight;Kent;Oxfordshire;Surrey;West Sussex;Essex;Hertfordshire;Bedfordshire;Cambridgeshire;Norfolk;Suffolk;Somerset;Gloucestershire;Wiltshire;Dorset;Devon;Cornwall;West Devon;Stowford;Eastleigh;Swindon;Gloucester;Plymouth;Torbay;Bournemouth;Poole;Birmingham
+MERSEY|en-UK|GB;Liverpool|beta
+
+# IE
+TFI|ga-IE|IE;Dublin;GB;Belfast
+
+# PL
+PL|pl-PL|PL;Warschau
+
+# AE
+DUB|ae-AE|AE;Dubai|beta
+
+# US
+RTACHICAGO|us-US|US;Illinois;Chicago|beta
+
+# AU
+SYDNEY|en-AU|AU;New South Wales;Sydney
+MET|en-AU|AU;Victoria;Melbourne|disabled

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="text">#000000</color>
+    <color name="text.dark">#ffffff</color>
+    <color name="text_less_significant">#999999</color>
+    <color name="text_ghosted">#bbbbbb</color>
+    <color name="text_highlight">#dd9055</color>
+    <color name="grey600">#757575</color>
+    <color name="arrow">#aa0000</color>
+    <color name="action_bar_background">#555555</color>
+    <color name="action_bar_background_stations">#777700</color>
+    <color name="action_bar_background_directions">#227722</color>
+    <color name="action_bar_background_directions_dark">#114411</color>
+    <color name="action_bar_appendix">#cccccc</color>
+    <color name="dialog.header.text">#000000</color>
+
+</resources>

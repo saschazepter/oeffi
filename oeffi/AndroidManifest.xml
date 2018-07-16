@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright the original author or authors.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="de.schildbach.oeffi"
+    android:versionCode="610"
+    android:versionName="10.0-aosp" >
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="27" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.network"
+        android:required="false" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
+    <application
+        android:name=".Application"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_oeffi_stations_color_48dp"
+        android:label="@string/app_name"
+        android:theme="@style/My.Theme.Light" >
+        <activity android:name=".PreferencesActivity" />
+        <activity android:name=".AboutActivity" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="de.schildbach.oeffi"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider" />
+        </provider>
+
+        <activity
+            android:name=".network.NetworkPickerActivity"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:label="@string/network_picker_activity_title" />
+        <activity
+            android:name=".stations.StationsActivity"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:label="@string/stations_icon_label"
+            android:launchMode="singleTop"
+            android:taskAffinity="de.schildbach.oeffi.stations" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <!-- thrown by google maps when starting navigation -->
+            <intent-filter android:label="@string/stations_intentfilter_title" >
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="google.navigation" />
+            </intent-filter>
+            <!-- thrown by google now gesture -->
+            <intent-filter android:label="@string/stations_intentfilter_title" >
+                <action android:name="android.intent.action.ASSIST" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".stations.StationsActivity" />
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/stations_searchable" />
+        </activity>
+        <activity
+            android:name=".stations.StationDetailsActivity"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:label="@string/station_details_activity_title"
+            android:taskAffinity="de.schildbach.oeffi.stations" >
+            <intent-filter android:label="@string/stations_station_details_intentfilter_title" >
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="oeffi.schildbach.de"
+                    android:pathPrefix="/station/"
+                    android:scheme="http" />
+            </intent-filter>
+            <intent-filter android:label="@string/stations_station_details_intentfilter_title" >
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="qr.bvg.de"
+                    android:pathPrefix="/h"
+                    android:scheme="http" />
+            </intent-filter>
+            <intent-filter android:label="@string/stations_station_details_intentfilter_title" >
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="mobil.s-bahn-berlin.de"
+                    android:path="/"
+                    android:scheme="http" />
+            </intent-filter>
+            <intent-filter android:label="@string/stations_station_details_intentfilter_title" >
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="wap.rmv.de"
+                    android:pathPrefix="/mobil/tag/request.do"
+                    android:scheme="http" />
+            </intent-filter>
+            <intent-filter android:label="@string/stations_station_details_intentfilter_title" >
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="m.vrn.de"
+                    android:scheme="http" />
+            </intent-filter>
+            <intent-filter android:label="@string/stations_station_details_intentfilter_title" >
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="www.mvg-live.de"
+                    android:pathPrefix="/qr"
+                    android:scheme="http" />
+            </intent-filter>
+            <intent-filter android:label="@string/stations_station_details_intentfilter_title" >
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="www.rheinbahn.de"
+                    android:pathPrefix="/QRBarcode/HS"
+                    android:scheme="http" />
+            </intent-filter>
+            <intent-filter android:label="@string/stations_station_details_intentfilter_title" >
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="mobil.vvs.de"
+                    android:pathPrefix="/mob/DMR"
+                    android:scheme="http" />
+            </intent-filter>
+            <intent-filter android:label="@string/stations_station_details_intentfilter_title" >
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="m.qando.at"
+                    android:pathPrefix="/qr"
+                    android:scheme="http" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".stations.DecodeForeignActivity"
+            android:launchMode="singleInstance"
+            android:taskAffinity="de.schildbach.oeffi.stations"
+            android:theme="@style/My.Theme.Translucent" >
+            <intent-filter android:label="@string/stations_station_details_intentfilter_title" >
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="www.rmv.de"
+                    android:pathPrefix="/t/d"
+                    android:scheme="http" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".stations.FavoriteStationsActivity"
+            android:label="@string/stations_favorite_stations_title"
+            android:taskAffinity="de.schildbach.oeffi.stations" />
+
+        <provider
+            android:name=".stations.NetworkContentProvider"
+            android:authorities="de.schildbach.oeffi.networks"
+            android:exported="false" />
+        <provider
+            android:name=".stations.FavoriteStationsProvider"
+            android:authorities="de.schildbach.oeffi.stations.favorites"
+            android:exported="false" />
+
+        <receiver
+            android:name=".stations.NearestFavoriteStationWidgetProvider"
+            android:label="@string/nearest_favorite_station_widget_label" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/nearest_favorite_station_widget" />
+        </receiver>
+
+        <service
+            android:name=".stations.NearestFavoriteStationWidgetService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="false" />
+        <service
+            android:name=".stations.NearestFavoriteStationWidgetListService"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <activity
+            android:name=".directions.DirectionsActivity"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:icon="@mipmap/ic_oeffi_directions_color_48dp"
+            android:label="@string/directions_icon_label"
+            android:taskAffinity="de.schildbach.oeffi.directions"
+            android:windowSoftInputMode="stateHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!-- thrown by google calendar and qype radar -->
+            <intent-filter android:label="@string/directions_intentfilter_title" >
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="geo" />
+            </intent-filter>
+            <!-- thrown by google maps when starting navigation -->
+            <intent-filter android:label="@string/directions_intentfilter_title" >
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="google.navigation" />
+            </intent-filter>
+            <!-- thrown by google now -->
+            <intent-filter android:label="@string/directions_intentfilter_title" >
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="maps.google.com"
+                    android:pathPrefix="/maps"
+                    android:scheme="http" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".directions.TripsOverviewActivity"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:taskAffinity="de.schildbach.oeffi.directions"
+            android:theme="@style/My.Theme.Dark" />
+        <activity
+            android:name=".directions.TripDetailsActivity"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:label="@string/trip_details_title"
+            android:taskAffinity="de.schildbach.oeffi.directions" />
+        <activity
+            android:name=".directions.DirectionsShortcutActivity"
+            android:launchMode="singleInstance"
+            android:taskAffinity="de.schildbach.oeffi.directions"
+            android:theme="@style/My.Theme.Translucent" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name=".directions.QueryHistoryProvider"
+            android:authorities="de.schildbach.oeffi.directions.query_history"
+            android:exported="false" />
+
+        <activity
+            android:name=".plans.PlansPickerActivity"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:icon="@mipmap/ic_oeffi_plans_color_48dp"
+            android:label="@string/plans_icon_label"
+            android:launchMode="singleTop"
+            android:taskAffinity="de.schildbach.oeffi.plans" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".plans.PlansPickerActivity" />
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/plans_searchable" />
+        </activity>
+        <activity
+            android:name=".plans.PlanActivity"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:launchMode="singleTop"
+            android:taskAffinity="de.schildbach.oeffi.plans"
+            android:theme="@style/My.Theme.Fullscreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".plans.PlanActivity" />
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/plan_searchable" />
+        </activity>
+
+        <provider
+            android:name=".plans.PlanContentProvider"
+            android:authorities="de.schildbach.oeffi.plans"
+            android:exported="false" />
+    </application>
+
+</manifest>

@@ -1,0 +1,495 @@
+/*
+ * Copyright the original author or authors.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+package de.schildbach.oeffi.stations.list;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import javax.annotation.Nullable;
+
+import com.google.common.base.Joiner;
+
+import de.schildbach.oeffi.Constants;
+import de.schildbach.oeffi.R;
+import de.schildbach.oeffi.stations.CompassNeedleView;
+import de.schildbach.oeffi.stations.FavoriteStationsProvider;
+import de.schildbach.oeffi.stations.LineView;
+import de.schildbach.oeffi.stations.QueryDeparturesRunnable;
+import de.schildbach.oeffi.stations.Station;
+import de.schildbach.oeffi.stations.StationContextMenu;
+import de.schildbach.oeffi.util.Formats;
+import de.schildbach.pte.NetworkId;
+import de.schildbach.pte.Standard;
+import de.schildbach.pte.dto.Departure;
+import de.schildbach.pte.dto.Line;
+import de.schildbach.pte.dto.LineDestination;
+import de.schildbach.pte.dto.Location;
+import de.schildbach.pte.dto.Product;
+import de.schildbach.pte.dto.QueryDeparturesResult;
+
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
+import android.view.Display;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
+import android.widget.TextView;
+
+public class StationViewHolder extends RecyclerView.ViewHolder {
+    public final View favoriteView;
+    public final TextView nameView;
+    public final TextView name2View;
+    public final LineView linesView;
+    public final TextView distanceView;
+    public final CompassNeedleView bearingView;
+    public final ImageButton contextButton;
+    public final View contextButtonSpace;
+    public final ViewGroup departuresViewGroup;
+    public final TextView departuresStatusView;
+    public final ViewGroup messagesViewGroup;
+
+    private final Context context;
+    private final Resources res;
+    private final NetworkId network;
+    private final int maxDepartures;
+    private final StationContextMenuItemListener contextMenuItemListener;
+
+    private final LayoutInflater inflater;
+    private final Display display;
+    private final int colorArrow;
+    private final int colorText, colorTextLessSignificant, colorTextGhosted;
+    private final int listEntryVerticalPadding;
+
+    private static final int CONDENSE_LINES_THRESHOLD = 6; // TODO!!!
+    private static final int MESSAGE_INDEX_COLOR = Color.parseColor("#c08080");
+
+    public StationViewHolder(final Context context, final View itemView, final NetworkId network,
+            final int maxDepartures, final StationContextMenuItemListener contextMenuItemListener) {
+        super(itemView);
+
+        favoriteView = itemView.findViewById(R.id.station_entry_favorite);
+        nameView = (TextView) itemView.findViewById(R.id.station_entry_name);
+        name2View = (TextView) itemView.findViewById(R.id.station_entry_name2);
+        linesView = (LineView) itemView.findViewById(R.id.station_entry_lines);
+        distanceView = (TextView) itemView.findViewById(R.id.station_entry_distance);
+        bearingView = (CompassNeedleView) itemView.findViewById(R.id.station_entry_bearing);
+        contextButton = (ImageButton) itemView.findViewById(R.id.station_entry_context_button);
+        contextButtonSpace = itemView.findViewById(R.id.station_entry_context_button_space);
+        departuresViewGroup = (ViewGroup) itemView.findViewById(R.id.station_entry_departures);
+        departuresStatusView = (TextView) itemView.findViewById(R.id.station_entry_status);
+        messagesViewGroup = (ViewGroup) itemView.findViewById(R.id.station_entry_messages);
+
+        this.context = context;
+        this.res = context.getResources();
+        this.network = network;
+        this.maxDepartures = maxDepartures;
+        this.contextMenuItemListener = contextMenuItemListener;
+
+        this.inflater = LayoutInflater.from(context);
+        this.display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        this.colorArrow = res.getColor(R.color.arrow);
+        this.colorText = res.getColor(R.color.text);
+        this.colorTextLessSignificant = res.getColor(R.color.text_less_significant);
+        this.colorTextGhosted = res.getColor(R.color.text_ghosted);
+        this.listEntryVerticalPadding = res.getDimensionPixelOffset(R.dimen.list_entry_padding_vertical);
+    }
+
+    public void bind(final Station station, final Set<Product> productsFilter, final boolean forceShowPlace,
+            final Integer favState, final android.location.Location deviceLocation,
+            final CompassNeedleView.Callback compassCallback) {
+        final long currentTime = System.currentTimeMillis();
+
+        final boolean queryNotOk = station.departureQueryStatus != null
+                && station.departureQueryStatus != QueryDeparturesResult.Status.OK;
+        final boolean isFavorite = favState != null && favState == FavoriteStationsProvider.TYPE_FAVORITE;
+        final boolean isIgnored = favState != null && favState == FavoriteStationsProvider.TYPE_IGNORE;
+        final boolean isGhosted = isIgnored || queryNotOk;
+
+        final int color = !isGhosted ? colorText : colorTextGhosted;
+
+        // favorite
+        favoriteView.setVisibility(isFavorite ? View.VISIBLE : View.GONE);
+
+        // name/place
+        final boolean showPlace = forceShowPlace || itemView.isActivated();
+        nameView.setText(showPlace ? station.location.place : station.location.uniqueShortName());
+        nameView.setTypeface(showPlace ? Typeface.DEFAULT : Typeface.DEFAULT_BOLD);
+        nameView.setTextColor(color);
+        name2View.setVisibility(showPlace ? View.VISIBLE : View.GONE);
+        name2View.setText(station.location.name);
+        name2View.setTextColor(color);
+
+        // lines
+        final List<LineDestination> stationLines = station.getLines();
+        if (stationLines != null) {
+            final List<Line> lines = new ArrayList<>(stationLines.size());
+            if (stationLines.size() > CONDENSE_LINES_THRESHOLD)
+                condenseLinesByProduct(stationLines);
+            for (final LineDestination line : stationLines)
+                lines.add(line.line);
+            linesView.setLines(lines);
+        } else {
+            linesView.setLines(null);
+        }
+        linesView.setGhosted(isGhosted);
+
+        // distance
+        distanceView.setText(station.hasDistanceAndBearing ? Formats.formatDistance(station.distance) : null);
+        distanceView.setVisibility(station.hasDistanceAndBearing ? View.VISIBLE : View.GONE);
+        distanceView.setTextColor(color);
+
+        // bearing
+        if (deviceLocation != null && station.hasDistanceAndBearing) {
+            if (!deviceLocation.hasAccuracy()
+                    || (deviceLocation.getAccuracy() / station.distance) < Constants.BEARING_ACCURACY_THRESHOLD)
+                bearingView.setStationBearing(station.bearing);
+            else
+                bearingView.setStationBearing(null);
+            bearingView.setCallback(compassCallback);
+            bearingView.setDisplayRotation(display.getRotation());
+            bearingView.setArrowColor(!isGhosted ? colorArrow : colorTextGhosted);
+            bearingView.setVisibility(View.VISIBLE);
+        } else {
+            bearingView.setVisibility(View.GONE);
+        }
+
+        // context button
+        contextButton.setVisibility(itemView.isActivated() ? View.VISIBLE : View.GONE);
+        contextButtonSpace.setVisibility(itemView.isActivated() ? View.VISIBLE : View.GONE);
+        contextButton.setOnClickListener(itemView.isActivated() ? new View.OnClickListener() {
+            public void onClick(final View v) {
+                final PopupMenu contextMenu = new StationContextMenu(context, v, network, station.location, favState,
+                        true, true, true, true, true);
+                contextMenu.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(final MenuItem item) {
+                        final int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION)
+                            return contextMenuItemListener.onStationContextMenuItemClick(position, network,
+                                    station.location, station.departures, item.getItemId());
+                        else
+                            return false;
+                    }
+                });
+                contextMenu.show();
+            }
+        } : null);
+
+        // departures
+        final List<Departure> stationDepartures = station.departures;
+
+        final List<String> messages = new LinkedList<>();
+        if (queryNotOk) {
+            departuresViewGroup.setVisibility(View.GONE);
+            departuresStatusView.setVisibility(View.VISIBLE);
+            departuresStatusView.setText("("
+                    + context.getString(QueryDeparturesRunnable.statusMsgResId(station.departureQueryStatus)) + ")");
+        } else if (stationDepartures != null && (!isGhosted || itemView.isActivated())) {
+            int iDepartureView = 0;
+
+            if (!stationDepartures.isEmpty()) {
+                final int maxGroups = itemView.isActivated() ? maxDepartures : 1;
+                final Map<LineDestination, List<Departure>> departureGroups = groupDeparturesByLineDestination(
+                        stationDepartures, maxGroups, productsFilter);
+                if (!departureGroups.isEmpty()) {
+                    final int maxDeparturesPerGroup = !itemView.isActivated() ? 1
+                            : 1 + (maxDepartures / departureGroups.size());
+                    final int departuresChildCount = departuresViewGroup.getChildCount();
+
+                    departuresViewGroup.setVisibility(View.VISIBLE);
+                    departuresStatusView.setVisibility(View.GONE);
+
+                    for (final Map.Entry<LineDestination, List<Departure>> departureGroup : departureGroups
+                            .entrySet()) {
+                        int iDeparture = 0;
+                        final int interval = determineInterval(departureGroup.getValue());
+                        for (final Departure departure : departureGroup.getValue()) {
+                            final ViewGroup departureView;
+                            final DepartureViewHolder departureViewHolder;
+                            if (iDepartureView < departuresChildCount) {
+                                departureView = (ViewGroup) departuresViewGroup.getChildAt(iDepartureView++);
+                                departureViewHolder = (DepartureViewHolder) departureView.getTag();
+                            } else {
+                                departureView = (ViewGroup) inflater.inflate(R.layout.stations_station_entry_departure,
+                                        departuresViewGroup, false);
+                                departureViewHolder = new DepartureViewHolder();
+                                departureViewHolder.line = (LineView) departureView
+                                        .findViewById(R.id.departure_entry_line);
+                                departureViewHolder.destination = (TextView) departureView
+                                        .findViewById(R.id.departure_entry_destination);
+                                departureViewHolder.messageIndex = departureView
+                                        .findViewById(R.id.departure_entry_message_index);
+                                departureViewHolder.time = (TextView) departureView
+                                        .findViewById(R.id.departure_entry_time);
+                                departureViewHolder.delay = (TextView) departureView
+                                        .findViewById(R.id.departure_entry_delay);
+                                departureView.setTag(departureViewHolder);
+
+                                departuresViewGroup.addView(departureView);
+                            }
+                            departureView.setPadding(0, iDeparture == 0 ? listEntryVerticalPadding : 0, 0, 0);
+
+                            // line & destination
+                            final LineView lineView = departureViewHolder.line;
+                            final TextView destinationView = departureViewHolder.destination;
+                            final LineDestination lineDestination = departureGroup.getKey();
+                            if (iDeparture == 0) {
+                                lineView.setVisibility(View.VISIBLE);
+                                lineView.setLine(lineDestination.line);
+                                lineView.setGhosted(isGhosted);
+
+                                destinationView.setVisibility(View.VISIBLE);
+                                final Location destination = lineDestination.destination;
+                                if (destination != null) {
+                                    final String destinationName = destination.uniqueShortName();
+                                    destinationView.setText(destinationName != null
+                                            ? Constants.DESTINATION_ARROW_PREFIX + destinationName : null);
+                                } else {
+                                    destinationView.setText(null);
+                                }
+                                destinationView.setTextColor(color);
+                            } else if (iDeparture == 1 && interval > 0) {
+                                lineView.setVisibility(View.INVISIBLE);
+                                lineView.setLine(lineDestination.line); // Padding only
+                                destinationView.setVisibility(View.VISIBLE);
+                                destinationView.setText(Constants.DESTINATION_ARROW_INVISIBLE_PREFIX
+                                        + res.getString(R.string.stations_list_entry_interval, interval));
+                                destinationView.setTextColor(colorTextLessSignificant);
+                            } else {
+                                lineView.setVisibility(View.INVISIBLE);
+                                lineView.setLine(lineDestination.line); // Padding only
+                                destinationView.setVisibility(View.INVISIBLE);
+                            }
+
+                            // message index
+                            final TextView messageIndexView = (TextView) departureViewHolder.messageIndex;
+                            if (departure.message != null || departure.line.message != null) {
+                                messageIndexView.setVisibility(View.VISIBLE);
+
+                                final String indexText;
+
+                                if (itemView.isActivated()) {
+                                    final String message = Joiner.on('\n').skipNulls().join(departure.message,
+                                            departure.line.message);
+                                    final int index = messages.indexOf(message);
+                                    if (index == -1) {
+                                        messages.add(message);
+                                        indexText = Integer.toString(messages.size());
+                                    } else {
+                                        indexText = Integer.toString(index + 1);
+                                    }
+                                } else {
+                                    indexText = "!";
+                                }
+
+                                messageIndexView.setText(indexText);
+                                messageIndexView.setBackgroundColor(isGhosted ? color : MESSAGE_INDEX_COLOR);
+                            } else {
+                                messageIndexView.setVisibility(View.GONE);
+                            }
+
+                            long time;
+                            final Date predictedTime = departure.predictedTime;
+                            final Date plannedTime = departure.plannedTime;
+                            final boolean isPredicted = predictedTime != null;
+                            if (predictedTime != null)
+                                time = predictedTime.getTime();
+                            else if (plannedTime != null)
+                                time = plannedTime.getTime();
+                            else
+                                throw new IllegalStateException();
+
+                            // time
+                            final TextView timeView = departureViewHolder.time;
+                            timeView.setText(Formats.formatTimeDiff(context, currentTime, time));
+                            timeView.setTypeface(Typeface.DEFAULT, isPredicted ? Typeface.ITALIC : Typeface.NORMAL);
+                            final Date updatedAt = station.updatedAt;
+                            final boolean isStale = updatedAt != null
+                                    && System.currentTimeMillis() - updatedAt.getTime() > Constants.STALE_UPDATE_MS;
+                            timeView.setTextColor(isStale ? Color.LTGRAY : color);
+
+                            // delay
+                            final TextView delayView = departureViewHolder.delay;
+                            final long delay = predictedTime != null && plannedTime != null
+                                    ? predictedTime.getTime() - plannedTime.getTime() : 0;
+                            final long delayMins = delay / DateUtils.MINUTE_IN_MILLIS;
+                            delayView.setText(delayMins != 0 ? String.format("(%+d)", delayMins) + ' ' : "");
+                            delayView.setTypeface(Typeface.DEFAULT, isPredicted ? Typeface.ITALIC : Typeface.NORMAL);
+                            delayView.setTextColor(isStale ? Color.LTGRAY : (isGhosted ? color : Color.RED));
+
+                            if (++iDeparture == maxDeparturesPerGroup)
+                                break;
+                        }
+                    }
+
+                    if (iDepartureView < departuresChildCount)
+                        departuresViewGroup.removeViews(iDepartureView, departuresChildCount - iDepartureView);
+                } else {
+                    departuresViewGroup.setVisibility(View.GONE);
+                    departuresStatusView.setVisibility(View.VISIBLE);
+                    departuresStatusView.setText(R.string.stations_list_entry_product_filtered);
+                }
+            } else {
+                departuresViewGroup.setVisibility(View.GONE);
+                departuresStatusView.setVisibility(View.VISIBLE);
+                departuresStatusView.setText(R.string.stations_list_entry_no_departures);
+            }
+        } else {
+            departuresViewGroup.setVisibility(View.GONE);
+            departuresStatusView.setVisibility(View.INVISIBLE);
+        }
+
+        // messages
+        messagesViewGroup.removeAllViews();
+
+        if (!messages.isEmpty()) {
+            messagesViewGroup.setVisibility(View.VISIBLE);
+
+            int index = 0;
+            for (final String message : messages) {
+                index++;
+
+                final TextView messageView = (TextView) inflater.inflate(R.layout.stations_station_entry_message,
+                        messagesViewGroup, false);
+                messageView.setText(index + ". " + message);
+                messageView.setTextColor(color);
+                messagesViewGroup.addView(messageView);
+            }
+        } else {
+            messagesViewGroup.setVisibility(View.GONE);
+        }
+
+        // allow context menu
+        itemView.setLongClickable(true);
+    }
+
+    private void condenseLinesByProduct(final List<LineDestination> stationLines) {
+        // count products
+        final Map<Product, Integer> productCounts = new HashMap<>();
+        for (final LineDestination lineDestination : stationLines) {
+            final Product product = lineDestination.line.product;
+            Integer count = productCounts.get(product);
+            if (count == null)
+                count = 0;
+            productCounts.put(product, count + 1);
+        }
+
+        // sort by count
+        final List<Entry<Product, Integer>> sortedEntries = new ArrayList<>(productCounts.entrySet());
+        Collections.sort(sortedEntries, new Comparator<Entry<Product, Integer>>() {
+            public int compare(final Entry<Product, Integer> entry1, final Entry<Product, Integer> entry2) {
+                return entry2.getValue().compareTo(entry1.getValue());
+            }
+        });
+
+        // condense
+        for (final Map.Entry<Product, Integer> entry : sortedEntries) {
+            // stop condensing if few enough lines in total
+            if (stationLines.size() <= CONDENSE_LINES_THRESHOLD)
+                break;
+
+            // condense lines of product to just one label
+            final Product productToRemove = entry.getKey();
+            int size = stationLines.size();
+            boolean first = true;
+            for (int i = 0; i < size;) {
+                if (stationLines.get(i).line.product == productToRemove) {
+                    stationLines.remove(i);
+                    if (first) {
+                        stationLines.add(i, new LineDestination(
+                                new Line(null, null, productToRemove, null, Standard.STYLES.get(productToRemove)),
+                                null));
+                        first = false;
+                        i++;
+                    } else {
+                        size--;
+                    }
+                } else {
+                    i++;
+                }
+            }
+        }
+    }
+
+    private Map<LineDestination, List<Departure>> groupDeparturesByLineDestination(final List<Departure> departures,
+            final int maxGroups, @Nullable final Set<Product> productsFilter) {
+        final Map<LineDestination, List<Departure>> departureGroups = new LinkedHashMap<>();
+        for (final Departure departure : departures) {
+            if (productsFilter != null && departure.line.product != null
+                    && !productsFilter.contains(departure.line.product))
+                continue;
+            final LineDestination lineDestination = new LineDestination(departure.line, departure.destination);
+            List<Departure> departureGroup = departureGroups.get(lineDestination);
+            if (departureGroup == null) {
+                if (departureGroups.size() == maxGroups)
+                    continue;
+                departureGroup = new LinkedList<>();
+                departureGroups.put(lineDestination, departureGroup);
+            }
+            departureGroup.add(departure);
+        }
+        return departureGroups;
+    }
+
+    private int determineInterval(final List<Departure> departures) {
+        if (departures.size() < 3)
+            return 0;
+        int interval = 0;
+        Date lastPlannedTime = null;
+        for (final Departure departure : departures) {
+            final Date plannedTime = departure.plannedTime;
+            if (plannedTime == null)
+                return 0;
+            if (lastPlannedTime != null) {
+                final int diff = (int) ((plannedTime.getTime() - lastPlannedTime.getTime())
+                        / DateUtils.MINUTE_IN_MILLIS);
+                if (interval == 0)
+                    interval = diff;
+                else if (Math.abs(diff - interval) > 1)
+                    return 0;
+            }
+            lastPlannedTime = plannedTime;
+        }
+        return interval;
+    }
+
+    private static class DepartureViewHolder {
+        public LineView line;
+        public TextView destination;
+        public View messageIndex;
+        public TextView time;
+        public TextView delay;
+    }
+}

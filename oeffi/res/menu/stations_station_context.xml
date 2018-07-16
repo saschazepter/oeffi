@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/station_context_add_favorite"
+        android:title="@string/station_context_add_favorite_title"/>
+    <item
+        android:id="@+id/station_context_remove_favorite"
+        android:title="@string/station_context_remove_favorite_title"/>
+    <item
+        android:id="@+id/station_context_add_ignore"
+        android:title="@string/station_context_add_ignore_title"/>
+    <item
+        android:id="@+id/station_context_remove_ignore"
+        android:title="@string/station_context_remove_ignore_title"/>
+    <item
+        android:id="@+id/station_context_details"
+        android:title="@string/station_context_details_title"/>
+    <item
+        android:id="@+id/station_context_map"
+        android:title="@string/station_context_map_title">
+        <menu />
+    </item>
+    <item
+        android:id="@+id/station_context_directions_from"
+        android:title="@string/station_context_directions_from_title"/>
+    <item
+        android:id="@+id/station_context_directions_to"
+        android:title="@string/station_context_directions_to_title"/>
+    <item
+        android:id="@+id/station_context_launcher_shortcut"
+        android:title="@string/station_context_launcher_shortcut_title"/>
+
+</menu>

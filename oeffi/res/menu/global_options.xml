@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/global_options_stations"
+        android:icon="@drawable/ic_oeffi_stations"
+        android:title="@string/stations_activity_title"
+        android:titleCondensed="@string/global_options_stations_comment"/>
+    <item
+        android:id="@+id/global_options_directions"
+        android:icon="@drawable/ic_oeffi_directions"
+        android:title="@string/directions_activity_title"
+        android:titleCondensed="@string/global_options_directions_comment"/>
+    <item
+        android:id="@+id/global_options_plans"
+        android:icon="@drawable/ic_oeffi_plans"
+        android:title="@string/plans_activity_title"
+        android:titleCondensed="@string/global_options_plans_comment"/>
+    <item
+        android:id="@+id/global_options_preferences"
+        android:icon="@drawable/ic_settings_grey600_24dp"
+        android:orderInCategory="999"
+        android:title="@string/global_options_preferences_title"/>
+    <item
+        android:id="@+id/global_options_about"
+        android:icon="@drawable/ic_info_outline_grey600_24dp"
+        android:orderInCategory="999"
+        android:title="@string/global_options_about_title"/>
+    <item
+        android:id="@+id/global_options_donate"
+        android:icon="@drawable/ic_cash_multiple_grey600_24dp"
+        android:orderInCategory="999"
+        android:title="@string/global_options_donate_title"/>
+
+</menu>

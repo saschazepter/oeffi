@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/plans_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:inAnimation="@android:anim/fade_in"
+    android:outAnimation="@android:anim/fade_out" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateOnly="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:text="@string/plan_progress_loading"
+            android:textColor="@color/text.dark"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <de.schildbach.oeffi.plans.ScrollImageView
+            android:id="@+id/plans_plan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true" />
+
+        <de.schildbach.oeffi.plans.BubbleLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:id="@+id/plans_bubble"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/popup_dir_pointer_button"
+                android:minWidth="128dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/plans_bubble_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="196dp"
+                    android:textColor="@color/text"
+                    android:textStyle="bold" />
+
+                <de.schildbach.oeffi.stations.LineView
+                    android:id="@+id/plans_bubble_lines"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </de.schildbach.oeffi.plans.BubbleLayout>
+
+        <de.schildbach.oeffi.util.ZoomControls
+            android:id="@+id/plans_zoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="8dp"
+            android:orientation="vertical"
+            android:visibility="invisible" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|left"
+            android:layout_margin="8dp"
+            android:background="@drawable/disclaimer_background_dark"
+            android:gravity="center"
+            android:shadowColor="#000"
+            android:shadowRadius="2"
+            android:text="@string/disclaimer_responsibility_2line"
+            android:textColor="@color/text.dark"
+            android:textSize="@dimen/font_size_disclaimer"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+</ViewAnimator>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="action_bar_height">44dp</dimen>
+    <dimen name="action_bar_button_width">44dp</dimen>
+    <dimen name="action_bar_padding">2dp</dimen>
+    <dimen name="dialog_padding">3dp</dimen>
+
+    <integer name="max_departures_per_station">4</integer>
+
+</resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/action_bar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foreground="@drawable/view_shadow_bottom"
+        android:foregroundGravity="top|fill_horizontal" >
+
+        <de.schildbach.oeffi.directions.TripsGallery
+            android:id="@+id/trips_bar_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="horizontal"
+            android:spacing="0px"
+            android:unselectedAlpha="1" />
+
+        <TextView
+            android:id="@+id/trips_server_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|left"
+            android:layout_margin="4dp"
+            android:gravity="left"
+            android:shadowColor="#000"
+            android:shadowRadius="2"
+            android:textSize="@dimen/font_size_disclaimer"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="4dp"
+            android:gravity="right"
+            android:shadowColor="#000"
+            android:shadowRadius="2"
+            android:text="@string/disclaimer_responsibility_2line"
+            android:textSize="@dimen/font_size_disclaimer" />
+    </FrameLayout>
+
+</LinearLayout>

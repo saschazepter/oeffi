@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="directions_location_context_current_location">Mein aktueller Standort</string>
+    <string name="directions_location_context_contact">Adresse aus Kontakt</string>
+    <string name="directions_location_context_favorite_station">Haltestellen-Favorit</string>
+    <string name="directions_location_choose_error_permission">Berechtigungs-Problem:\n%1$s</string>
+    <string name="directions_products_prompt">Verkehrsmittel auswählen</string>
+
+    <string-array name="directions_products">
+        <item>nur dieses</item>
+        <item>alle bis auf dieses</item>
+        <item>alle Verkehrsmittel</item>
+        <item>nur Nahverkehr</item>
+    </string-array>
+
+    <string name="directions_set_time_prompt">Zeit setzen auf</string>
+
+    <string-array name="directions_set_time">
+        <item>↦ abfahren jetzt</item>
+        <item>↦ abfahren in … Minuten</item>
+        <item>↦ abfahren um … Uhr</item>
+        <item>⇥ ankommen um … Uhr</item>
+    </string-array>
+
+    <string name="directions_set_time_relative_prompt">Abfahren in</string>
+    <string name="directions_set_time_relative_fixed">fester Zeitpunkt</string>
+
+    <string-array name="directions_optimize_trip">
+        <item>Schnelle Verbindung</item>
+        <item>Wenig Umsteigen</item>
+        <item>Kurzer Fußweg</item>
+    </string-array>
+    <string-array name="directions_walk_speed">
+        <item>Langsam</item>
+        <item>Normal</item>
+        <item>Schnell</item>
+    </string-array>
+    <string-array name="directions_accessibility">
+        <item>keine Einschränkung</item>
+        <item>Bedingt barrierefrei</item>
+        <item>Barrierefrei</item>
+    </string-array>
+
+</resources>

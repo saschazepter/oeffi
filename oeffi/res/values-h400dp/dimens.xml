@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <bool name="layout_navigation_drawer_footer_show">true</bool>
+
+</resources>

@@ -1,0 +1,4 @@
+[submodule "public-transport-enabler"]
+	path = public-transport-enabler
+	url = https://gitlab.com/oeffi/public-transport-enabler.git
+	branch = oeffi

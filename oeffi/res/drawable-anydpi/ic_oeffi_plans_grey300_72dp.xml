@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="72dp"
+    android:viewportHeight="1088"
+    android:viewportWidth="1088"
+    android:width="72dp" >
+
+    <group
+        android:translateX="32"
+        android:translateY="32" >
+        <path
+            android:fillColor="#e0e0e0"
+            android:pathData="M 512,512 m l -464,0 a 464,464 0 1,0 928,0 a 464,464 0 1,0 -928,0 M 512,512 m -368,0 a 368,368 0 1,1 736,0 a 368,368 0 1,1 -736,0" />
+
+        <group
+            android:scaleX="0.85"
+            android:scaleY="0.85"
+            android:translateX="88"
+            android:translateY="88" >
+            <path
+                android:fillColor="#e0e0e0"
+                android:pathData="M 149.625 420 C 143.11709 445.71106 139.24323 472.47699 138.375 500 L 885.625 500 C 884.75677 472.47699 880.88291 445.71106 874.375 420 L 149.625 420 z" />
+            <path
+                android:fillColor="#e0e0e0"
+                android:pathData="M 138.5625 524 C 139.43073 551.52288 143.30196 578.29012 149.8125 604 L 874.1875 604 C 880.69804 578.29012 884.56927 551.52288 885.4375 524 L 138.5625 524 z" />
+            <path
+                android:fillColor="#e0e0e0"
+                android:pathData="M 512 138.21875 C 498.48498 138.21875 485.14397 138.94519 472 140.34375 L 472 724.84375 L 552 724.84375 L 552 140.34375 C 538.85603 138.94519 525.51502 138.21875 512 138.21875 z" />
+            <path
+                android:fillColor="#e0e0e0"
+                android:pathData="M 495.28125 668.3125 L 327 836.59375 C 351.809 850.76368 378.39123 862.17957 406.34375 870.40625 L 551.84375 724.90625 L 495.28125 668.3125 z" />
+            <path
+                android:fillColor="#e0e0e0"
+                android:pathData="M 550.36188 210 H 690.36188 V 290 H 550.36188 V 210 Z" />
+            <path
+                android:fillColor="#ffffff"
+                android:pathData="M 467 357.79047 L 557 357.79047 Q 572 357.79047 572 372.79047 L 572 651.20951 Q 572 666.20951 557 666.20951 L 467 666.20951 Q 452 666.20951 452 651.20951 L 452 372.79047 Q 452 357.79047 467 357.79047 Z"
+                android:strokeColor="#e0e0e0"
+                android:strokeLineCap="round"
+                android:strokeLineJoin="round"
+                android:strokeWidth="15" />
+        </group>
+    </group>
+
+</vector>

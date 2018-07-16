@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="error_reporter_mail_intent_chooser_title">Fehlerbericht senden mit…</string>
+    <string name="error_reporter_questions">Bitte beantworte die folgenden Fragen. Unvollständige Berichte können leider nicht mehr beantwortet werden, aufgrund der schieren Menge an Berichten.\n\n
+• Welchen Programmteil betrifft dein Problem? (siehe erste Zeile des Fenstertitels)\n\n\n
+• Welches Verkehrsnetz hast du eingestellt? (siehe zweite Zeile des Fenstertitels)\n\n\n
+• Bitte beschreibe hier dein Problem:\n\n\n</string>
+    <string name="error_reporter_footer">ERGAENZE WEITERE ANGABEN GANZ OBEN. HIER UNTEN WIRD ES NIEMAND LESEN.</string>
+
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="font_size_tiny">12sp</dimen>
+    <dimen name="font_size_small">14sp</dimen>
+    <dimen name="font_size_normal">16sp</dimen>
+    <dimen name="font_size_large">20sp</dimen>
+    <dimen name="font_size_xlarge">24sp</dimen>
+    <dimen name="font_size_action_bar">16dp</dimen>
+    <dimen name="action_bar_height">58dp</dimen>
+    <dimen name="action_bar_button_width">58dp</dimen>
+    <dimen name="action_bar_padding">8dp</dimen>
+    <dimen name="dialog_padding">16dp</dimen>
+    <dimen name="list_entry_padding_vertical_cram">3dp</dimen>
+    <dimen name="list_entry_padding_vertical">6dp</dimen>
+    <dimen name="list_entry_padding_vertical_lax">8dp</dimen>
+    <dimen name="list_entry_padding_vertical_verylax">12dp</dimen>
+    <dimen name="list_entry_padding_horizontal_cram">4dp</dimen>
+    <dimen name="list_entry_padding_horizontal">9dp</dimen>
+    <dimen name="list_entry_padding_horizontal_lax">14dp</dimen>
+    <dimen name="list_entry_padding_horizontal_verylax">20dp</dimen>
+    <dimen name="station_widget_divider_width">4dp</dimen>
+    <dimen name="directions_form_location_min_height">60dp</dimen>
+    <dimen name="directions_form_location_divider_padding">42dp</dimen>
+    <dimen name="trips_overview_entry_width">128dp</dimen>
+
+    <item name="trips_overview_entry_public_box_fraction" type="fraction">70%</item>
+
+    <dimen name="trip_details_stop_offset">8sp</dimen>
+</resources>

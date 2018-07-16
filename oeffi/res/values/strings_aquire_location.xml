@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="acquire_location_start">Acquiring \'%s\' location…</string>
+    <string name="acquire_location_no_permission">Location acquiring not allowed</string>
+    <string name="acquire_location_no_provider">All location providers are disabled</string>
+    <string name="acquire_location_timeout">Can\'t acquire location</string>
+
+</resources>

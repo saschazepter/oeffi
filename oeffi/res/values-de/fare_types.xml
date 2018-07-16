@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="fare_types">
+        <item>Erwachsener</item>
+        <item>Kind</item>
+        <item>Jugendlicher</item>
+        <item>Student</item>
+        <item>Militär</item>
+        <item>Senior</item>
+        <item>Schwerbehindert</item>
+        <item>Fahrrad</item>
+    </string-array>
+
+</resources>

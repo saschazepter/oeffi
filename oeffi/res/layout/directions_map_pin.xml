@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/popup_dir_pointer_button"
+    android:divider="?android:attr/listDivider"
+    android:minWidth="208dp"
+    android:orientation="vertical"
+    android:showDividers="middle" >
+
+    <de.schildbach.oeffi.directions.LocationTextView
+        android:id="@+id/directions_map_pin_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="left"
+        android:paddingBottom="@dimen/list_entry_padding_vertical"
+        android:paddingLeft="@dimen/list_entry_padding_horizontal"
+        android:paddingRight="@dimen/list_entry_padding_horizontal" />
+
+    <LinearLayout
+        android:id="@+id/directions_map_pin_buttons"
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/directions_map_pin_button_from"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minHeight="42dp"
+            android:paddingLeft="@dimen/list_entry_padding_horizontal_cram"
+            android:paddingRight="@dimen/list_entry_padding_horizontal_cram"
+            android:singleLine="true"
+            android:text="@string/directions_map_pin_button_from" />
+
+        <Button
+            android:id="@+id/directions_map_pin_button_to"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minHeight="42dp"
+            android:paddingLeft="@dimen/list_entry_padding_horizontal_cram"
+            android:paddingRight="@dimen/list_entry_padding_horizontal_cram"
+            android:singleLine="true"
+            android:text="@string/directions_map_pin_button_to" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/list_entry"
+    android:descendantFocusability="blocksDescendants"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:minHeight="?android:attr/listPreferredItemHeight" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
+        android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
+        android:paddingRight="@dimen/list_entry_padding_horizontal_lax"
+        android:paddingTop="@dimen/list_entry_padding_vertical_lax" >
+
+        <FrameLayout
+            android:id="@+id/plans_picker_entry_image"
+            android:layout_width="86dp"
+            android:layout_height="86dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+            android:padding="2dp" >
+
+            <ImageView
+                android:id="@+id/plans_picker_entry_thumb"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/image_frame_default" />
+
+            <ProgressBar
+                android:id="@+id/plans_picker_entry_progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:layout_gravity="bottom"
+                android:max="1000"
+                android:padding="4dp" />
+        </FrameLayout>
+
+        <Space
+            android:id="@+id/plans_picker_entry_context_button_space"
+            android:layout_width="28dp"
+            android:layout_height="0px"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true" />
+
+        <ImageView
+            android:id="@+id/plans_picker_entry_loaded"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+            android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
+            android:layout_toLeftOf="@id/plans_picker_entry_context_button_space"
+            android:src="@drawable/ic_offline_pin_grey600_24dp" />
+
+        <TextView
+            android:id="@+id/plans_picker_entry_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@id/plans_picker_entry_loaded"
+            android:layout_toRightOf="@id/plans_picker_entry_image"
+            android:paddingTop="@dimen/list_entry_padding_vertical_lax"
+            android:textSize="@dimen/font_size_large"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/plans_picker_entry_valid_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/plans_picker_entry_name"
+            android:layout_marginLeft="6dp"
+            android:gravity="right"
+            android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
+            android:paddingTop="@dimen/list_entry_padding_vertical_lax"
+            android:textColor="#a00" />
+
+        <ImageView
+            android:id="@+id/plans_picker_entry_network_logo"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/plans_picker_entry_image"
+            android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
+            android:paddingRight="@dimen/list_entry_padding_horizontal" />
+
+        <TextView
+            android:id="@+id/plans_picker_entry_disclaimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/plans_picker_entry_name"
+            android:layout_toLeftOf="@id/plans_picker_entry_valid_from"
+            android:layout_toRightOf="@id/plans_picker_entry_network_logo"
+            android:maxLines="2"
+            android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
+            android:paddingTop="@dimen/list_entry_padding_vertical_lax"
+            android:textColor="#aaa" />
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/plans_picker_entry_context_button"
+        style="@style/My.Widget.ImageButton.Context"
+        android:layout_gravity="top|right" />
+
+</FrameLayout>

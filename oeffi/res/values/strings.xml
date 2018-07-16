@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="stations_icon_label">Offi Stations</string>
+    <string name="directions_icon_label">Offi Directions</string>
+    <string name="plans_icon_label">Offi Plans</string>
+    <string name="disclaimer_network">data provided by\n%s</string>
+    <string name="disclaimer_responsibility">errors and omissions excepted</string>
+    <string name="disclaimer_responsibility_2line">errors and omis-\nsions excepted</string>
+    <string name="navigation_drawer_message">I\'m developing Offi with love in my spare time. It\'s free to use and there are no ads. If you would like show your support, can you rate the app 5 stars and recommend it to your friends?</string>
+
+    <!-- action bar -->
+    <string name="action_bar_navigator_description">Navigator</string>
+    <string name="action_bar_back_description">Back</string>
+    <string name="action_bar_progress_description">Refresh</string>
+    <string name="action_bar_overflow_description">More</string>
+
+    <!-- activity titles -->
+    <string name="stations_activity_title">Nearby Stations</string>
+    <string name="station_details_activity_title">Station Details</string>
+    <string name="directions_activity_title">Directions</string>
+    <string name="trip_details_title">Connection Details</string>
+    <string name="plans_activity_title">Network Plans</string>
+    <string name="network_picker_activity_title">Pick Transportation Network</string>
+
+    <!-- global options -->
+    <string name="global_options_stations_comment">Departure times and delays</string>
+    <string name="global_options_directions_comment">From door to door</string>
+    <string name="global_options_plans_comment">For a rough overview</string>
+    <string name="global_options_preferences_title">Preferences</string>
+    <string name="global_options_about_title">About Offi</string>
+    <string name="global_options_donate_title">Donate</string>
+
+    <!-- global preferences -->
+    <string name="global_preferences_title">Common</string>
+    <string name="global_preferences_network_provider_title">Transport network</string>
+    <string name="global_preferences_network_provider_summary">Pick transportation network.</string>
+    <string name="global_preferences_show_changelog_title">Show changes</string>
+    <string name="global_preferences_show_changelog_summary">Show Offi\'s changelog after each upgrade to a new version.</string>
+    <string name="global_preferences_show_hints_title">Show hints</string>
+    <string name="global_preferences_show_hints_summary">Show useful hints now and then.</string>
+    <string name="global_preferences_location_settings_title">Location settings</string>
+    <string name="global_preferences_location_settings_summary">Enable location providers, e.g. GPS.</string>
+    <string name="global_preferences_battery_optimizations_title">Battery optimizations</string>
+    <string name="global_preferences_battery_optimizations_summary">If the app-widget cannot fetch departure times while your device is in standby, you should disable battery optimizations for Öffi.</string>
+
+    <!-- preferences about -->
+    <string name="about_title">About Offi</string>
+    <string name="about_copyright_title">Copyright</string>
+    <string name="about_copyright_summary">© 2010-2018, the Öffi developers</string>
+    <string name="about_license_title">License</string>
+    <string name="about_source_title">Source code</string>
+    <string name="about_changelog_title">View Changelog</string>
+    <string name="about_changelog_summary">https://oeffi.schildbach.de/changelog.html</string>
+    <string name="about_faq_title">FAQ</string>
+    <string name="about_faq_summary">https://oeffi.schildbach.de/faq.html</string>
+    <string name="about_feedback_title">Feedback</string>
+    <string name="about_market_rate_title">Rate or Review Offi</string>
+    <string name="about_report_bug_title">Report Bug</string>
+    <string name="about_report_bug_summary">Give feedback.</string>
+    <string name="about_community_googleplus_title">Google+ Community</string>
+    <string name="about_community_googleplus_summary">Discussions about the app.</string>
+    <string name="about_donate_title">Donations</string>
+    <string name="about_donate_bitcoin_title">Donate Bitcoins</string>
+    <string name="about_donate_bitcoin_summary">Bitcoin is an Internet currency.</string>
+    <string name="about_donate_flattr_title">Donate via Flattr</string>
+    <string name="about_donate_flattr_summary">Flattr is a microdonation system.</string>
+    <string name="about_donate_euro_title">Donate Euros</string>
+    <string name="about_donate_euro_summary">https://oeffi.schildbach.de/donate.html</string>
+
+    <!-- network picker -->
+    <string name="network_picker_firsttime_message">Because you are using Offi for the first time, you need to pick a region that suits you well. You
+		can change this later.</string>
+    <string name="network_picker_entry_usage">%.1f MB\ninstalled</string>
+    <string name="network_picker_entry_license">License:\n%s</string>
+    <string name="network_picker_entry_state_alpha">alpha</string>
+    <string name="network_picker_entry_state_beta">beta</string>
+    <string name="network_picker_entry_state_deprecated">deprecated</string>
+    <string name="network_picker_separator_last">Last used</string>
+    <string name="network_picker_separator_suggested">Suggested</string>
+    <string name="network_picker_separator_nearby">Nearby</string>
+    <string name="network_picker_separator_europe">Europe</string>
+    <string name="network_picker_context_remove_title">Remove Data</string>
+
+    <!-- toasts -->
+    <string name="toast_add_favorite">%s\nadded to favorites</string>
+
+    <!-- stations -->
+    <string name="stations_intentfilter_title">Nearby Stops or Stations</string>
+
+    <!-- station list -->
+    <string name="stations_list_entry_no_departures">(No departures)</string>
+    <string name="stations_list_entry_product_filtered">(None of the departures match the product filter)</string>
+    <string name="stations_list_entry_interval">(approx. %s min interval)</string>
+    <string name="stations_list_acquiring_location">Acquiring location…</string>
+    <string name="stations_list_cannot_acquire_location">Cannot acquire device location.</string>
+    <string name="stations_list_cannot_acquire_location_hint">Try enabling at least one location provider.</string>
+    <string name="stations_list_location_settings">Location settings</string>
+    <string name="stations_list_querying_nearby">Searching nearby stations…</string>
+    <string name="stations_list_matching">Matching…</string>
+    <string name="stations_list_empty_nearby">No nearby stations.</string>
+    <string name="stations_list_empty_nearby_hint">Consider selecting another transportation network.</string>
+    <string name="stations_list_empty_query">No stations matched.</string>
+    <string name="stations_list_empty_query_hint">Have you spelled it correctly? Try a more general query.</string>
+    <string name="stations_list_network_settings">Switch network</string>
+    <string name="stations_location_permission_missing">There is no permission to read the device\'s location.</string>
+    <string name="stations_location_permission_request">Grant permission</string>
+    <string name="stations_location_provider_disabled">disabled</string>
+    <string name="stations_location_provider_enabled">enabled</string>
+    <string name="stations_location_provider_acquiring">acquiring</string>
+    <string name="stations_message_missing_capability">The selected transportation network does not serve departure times.\nConsider selecting another network.</string>
+    <string name="stations_connectivity_warning">Offline mode: Your device is not connected.\nThus, departure times will not be shown.</string>
+
+    <!-- nearby stations error dialog -->
+    <string name="stations_nearby_stations_error_title">Problem loading nearby stations data</string>
+    <string name="stations_nearby_stations_error_message">Make sure your phone is connected to the Internet. Do you want to continue?</string>
+    <string name="stations_nearby_stations_error_continue">Continue</string>
+    <string name="stations_nearby_stations_error_exit">Exit</string>
+
+    <!-- station context menu -->
+    <string name="station_context_add_favorite_title">Add To Favorites</string>
+    <string name="station_context_remove_favorite_title">Remove From Favorites</string>
+    <string name="station_context_add_ignore_title">Ignore</string>
+    <string name="station_context_remove_ignore_title">Make visible again</string>
+    <string name="station_context_details_title">Show All Departures</string>
+    <string name="station_context_map_title">Show on Map</string>
+    <string name="station_context_directions_from_title">Connection From Here</string>
+    <string name="station_context_directions_to_title">Connection To Here</string>
+    <string name="station_context_launcher_shortcut_title">Create Launcher Shortcut</string>
+
+    <!-- stations options -->
+    <string name="stations_options_favorites_title">Station Favorites</string>
+
+    <!-- stations filter -->
+    <string name="stations_filter_title">Product filter</string>
+
+    <!-- search stations -->
+    <string name="stations_action_search_title">Search station</string>
+    <string name="stations_searchable_hint">Search name or number</string>
+    <string name="stations_search_list_empty">No stations found</string>
+
+    <!-- station details -->
+    <string name="stations_station_details_intentfilter_title">Departure times of this station</string>
+    <string name="stations_station_details_action_favorite_title">Favorite</string>
+    <string name="stations_station_details_progress">Loading departures…</string>
+    <string name="stations_station_details_list_empty">No departures</string>
+
+    <!-- station details options -->
+    <string name="stations_station_details_options_add_favorite_title">Add favorite</string>
+    <string name="stations_station_details_options_remove_favorite_title">Remove favorite</string>
+    <string name="stations_station_details_options_add_ignore_title">Ignore</string>
+    <string name="stations_station_details_options_remove_ignore_title">Make visible</string>
+
+    <!-- stations decode foreign -->
+    <string name="stations_decode_foreign_progress">Decoding touch&amp;travel code…</string>
+    <string name="stations_decode_foreign_failed">Decoding failed!</string>
+
+    <!-- favorite stations -->
+    <string name="stations_favorite_stations_title">Favorite stations</string>
+    <string name="stations_favorite_stations_no_content_message">You have not favourited any stations on the selected transportation network.</string>
+
+    <!-- stations widget -->
+    <string name="nearest_favorite_station_widget_label">Departure times of nearest favorite station</string>
+    <string name="nearest_favorite_station_widget_no_favorites">No station favorites defined.</string>
+    <string name="nearest_favorite_station_widget_loading">Loading departures…</string>
+    <string name="nearest_favorite_station_widget_no_departures">No departures.</string>
+    <string name="nearest_favorite_station_widget_lastupdated">updated %s</string>
+    <string name="nearest_favorite_station_widget_error_connect">Could not connect to server.\n\nTap to try again.\n\nIf the problem persists, check if background data is restricted.</string>
+    <string name="nearest_favorite_station_widget_error_blocked">The query has been blocked by \"%s\", possibly because of server overload.\n\nTap to try again.</string>
+    <string name="nearest_favorite_station_widget_error_exception">Ouch!\n\n%s\n\nTap to try again.</string>
+
+    <!-- directions -->
+    <string name="directions_intentfilter_title">Journey on Public Transport</string>
+
+    <!-- directions options -->
+    <string name="directions_options_remove_history_title">Remove all saved queries</string>
+
+    <!-- directions query -->
+    <string name="directions_location_view_coordinate">Coordinate</string>
+    <string name="directions_location_view_more_description">more</string>
+    <string name="directions_from">Start of trip</string>
+    <string name="directions_via">Via</string>
+    <string name="directions_to">End</string>
+    <string name="directions_option_bike">bicycle carriage (beta)</string>
+    <string name="directions_time_arr_dep_description">depart at/arrive by</string>
+    <string name="directions_time_dep">Dep ↦</string>
+    <string name="directions_time_arr">⇥ Arr</string>
+    <string name="directions_time_relative">in %s</string>
+    <string name="directions_go">Go ➝</string>
+    <string name="directions_message_choose_from">Please choose a start point</string>
+    <string name="directions_message_choose_to">Please choose an end point</string>
+    <string name="directions_message_unknown_from">Unknown start point</string>
+    <string name="directions_message_unknown_via">Unknown via point</string>
+    <string name="directions_message_unknown_to">Unknown end point</string>
+    <string name="directions_message_unknown_location">Unknown start or end point</string>
+    <string name="directions_message_too_close">Start and end are too close to each other</string>
+    <string name="directions_message_unresolvable_address">Could not determine stations for desired address</string>
+    <string name="directions_message_no_trips">For your query there could not be found any connection</string>
+    <string name="directions_message_invalid_date">Your query date needs to be inside the timetable period</string>
+    <string name="directions_message_ambiguous_location">Location is ambiguous</string>
+    <string name="directions_query_progress">Getting directions…</string>
+    <string name="directions_message_missing_capability">The selected transportation network cannot do directions.\nConsider selecting another network.</string>
+    <string name="directions_connectivity_warning">Offline mode: Your device is not connected.\nHowever, already saved trips can be viewed.</string>
+    <string name="directions_alert_redirect_title">Redirect</string>
+    <string name="directions_alert_redirect_message">Your query has been intercepted by \"%s\", possibly because of a paywall.\n\nDo you want to follow the redirect?</string>
+    <string name="directions_alert_redirect_button_follow">Follow</string>
+    <string name="directions_alert_redirect_button_dismiss">Dismiss</string>
+    <string name="directions_alert_blocked_title">Blocked</string>
+    <string name="directions_alert_blocked_message">Your query has been blocked by \"%s\", possibly because of server overload.\n\nDo you want to retry your query?</string>
+    <string name="directions_alert_blocked_button_retry">Retry</string>
+    <string name="directions_alert_blocked_button_dismiss">Dismiss</string>
+    <string name="directions_alert_internal_error_title">Internal Server Error</string>
+    <string name="directions_alert_internal_error_message">Your query has caused an internal server error on \"%s\".</string>
+    <string name="directions_alert_internal_error_button_retry">Retry</string>
+    <string name="directions_alert_internal_error_button_dismiss">Dismiss</string>
+    <string name="directions_alert_ssl_exception_title">SSL Problem</string>
+    <string name="directions_alert_ssl_exception_message">The security configuration of the server is faulty: %s</string>
+    <string name="directions_alert_ssl_exception_button_dismiss">Dismiss</string>
+    <string name="directions_action_return_trip_title">Return trip</string>
+    <string name="directions_action_expand_title">Expand</string>
+
+    <!-- query history -->
+    <string name="directions_query_history_empty">No saved queries yet</string>
+    <string name="directions_query_history_invalid_blob">Cannot display this trip, as it was created by a previous Offi version.</string>
+    <string name="directions_query_history_forget_confirm_message">Are you sure you want to forget your saved queries?</string>
+    <string name="directions_query_history_forget_confirm_button_forget">Forget</string>
+    <string name="directions_query_history_forget_confirm_button_dismiss">Dismiss</string>
+
+    <!-- query history context menu -->
+    <string name="directions_query_history_context_show_trip">Show saved trip</string>
+    <string name="directions_query_history_context_remove_trip">Forget saved trip</string>
+    <string name="directions_query_history_context_remove_entry">Remove connection query</string>
+    <string name="directions_query_history_context_add_favorite">Mark query as favorite</string>
+    <string name="directions_query_history_context_remove_favorite">Remove favorite</string>
+
+    <!-- directions map -->
+    <string name="directions_map_pin_button_from">Start here</string>
+    <string name="directions_map_pin_button_to">End here</string>
+
+    <!-- directions overview -->
+    <string name="directions_overview_from">Start:</string>
+    <string name="directions_overview_via">Via:</string>
+    <string name="directions_overview_to">End:</string>
+
+    <!-- directions trip details -->
+    <string name="directions_trip_details_duraton">Duration %s</string>
+    <string name="directions_trip_details_num_changes">%d ch.</string>
+    <string name="directions_trip_details_fare_entry_ticket">Single ticket</string>
+    <string name="directions_trip_details_walk">walk &lt;b>%1$d minutes&lt;/b> %2$sto&lt;br/>%3$s</string>
+    <string name="directions_trip_details_bike">bike &lt;b>%1$d minutes&lt;/b> %2$sto&lt;br/>%3$s</string>
+    <string name="directions_trip_details_car">drive &lt;b>%1$d minutes&lt;/b> %2$sto&lt;br/>%3$s</string>
+    <string name="directions_trip_details_transfer">&lt;b>%1$d minutes&lt;/b> %2$stransfer to&lt;br/>%3$s</string>
+    <string name="directions_trip_details_realtime"><![CDATA[Times printed in <i>italics</i> are real-time.]]></string>
+    <string name="directions_trip_details_public_entry_accessibility">Section is barrier free.</string>
+    <string name="directions_trip_details_public_entry_bicycle_carriage">Bikes may be carried.</string>
+
+    <plurals name="directions_trip_details_public_entry_collapsed_intermediate_stops">
+        <item quantity="one">…%d intermediate stop…</item>
+        <item quantity="other">…%d intermediate stops…</item>
+    </plurals>
+
+    <!-- directions trip details options -->
+    <string name="directions_trip_details_action_calendar_title">Add to calendar</string>
+    <string name="directions_trip_details_action_track_title">Location tracking</string>
+    <string name="directions_trip_details_action_share_title">Share…</string>
+    <string name="directions_trip_details_action_share_short_title">Share short message…</string>
+    <string name="directions_trip_details_action_share_long_title">Share detailed message…</string>
+    <string name="directions_trip_details_text_short">dep %1$s %2$s\n%3$s  %4$s\n\narr %5$s %6$s\n%7$s  %8$s</string>
+
+    <!-- directions trip details options schedule -->
+    <string name="directions_trip_details_text_long_title">Trip: %1$s ➝ %2$s</string>
+    <string name="directions_trip_details_text_long_public">%1$s\ndep %2$s %3$s %4$s %5$s\narr %6$s %7$s %8$s %9$s</string>
+    <string name="directions_trip_details_text_long_walk">walk %1$d minutes %2$sto %3$s</string>
+    <string name="directions_trip_details_text_long_bike">bike %1$d minutes %2$sto %3$s</string>
+    <string name="directions_trip_details_text_long_car">drive %1$d minutes %2$sto %3$s</string>
+    <string name="directions_trip_details_text_long_transfer">%1$d minutes %2$stransfer to %3$s</string>
+
+    <!-- directions shortcut -->
+    <string name="create_launcher_shortcut_dialog_name_hint">Shortcut Name, e.g. \'Work\'</string>
+    <string name="create_launcher_shortcut_dialog_button_ok">Create</string>
+    <string name="directions_shortcut_error_title">Problem with shortcut</string>
+    <string name="directions_shortcut_error_message_network">The transport network from the shortcut does not exist any more.</string>
+    <string name="directions_shortcut_default_name">Directions</string>
+
+    <!-- directions preferences -->
+    <string name="directions_preferences_title">Directions</string>
+    <string name="directions_preferences_optimize_trip_title">Optimize</string>
+    <string name="directions_preferences_optimize_trip_summary">What\'s most important to you? This does not affect all transport networks.</string>
+    <string name="directions_preferences_walk_speed_title">Walk speed</string>
+    <string name="directions_preferences_walk_speed_summary">How fast you can walk? This does not affect all transport networks.</string>
+    <string name="directions_preferences_accessibility_title">Accessibility</string>
+    <string name="directions_preferences_accessibility_summary">How accessible do you need the route to be? This does not affect all transport networks.</string>
+
+    <!-- plans picker -->
+    <string name="plans_picker_context_open_title">Open plan</string>
+    <string name="plans_picker_context_remove_title">Remove plan</string>
+    <string name="plans_picker_context_launcher_shortcut_title">Create Launcher Shortcut</string>
+    <string name="plans_picker_list_empty">No plans found</string>
+    <string name="plans_picker_entry_valid_from">Valid from\n%s</string>
+    <string name="plans_picker_action_search_title">Search plans</string>
+    <string name="plans_picker_searchable_hint">Search plans</string>
+    <string name="plans_picker_connectivity_warning">Offline mode: Your device is not connected.\nHowever, already downloaded plans can be viewed.</string>
+
+    <!-- plan -->
+    <string name="plan_progress_loading">Loading plan…</string>
+    <string name="toast_plan_interactive_hint">This plan is interactive!\nTry tapping on stations.</string>
+    <string name="plan_searchable_hint">Search station</string>
+
+    <!-- ambiguous address dialog -->
+    <string name="ambiguous_address_title">Did you mean:</string>
+
+    <!-- generic buttons -->
+    <string name="button_cancel">Cancel</string>
+
+    <!-- generic messages -->
+    <string name="result_status_service_down">Service not available</string>
+    <string name="result_status_invalid_station">Station not existing</string>
+    <string name="toast_network_problem">Network problem, will try again</string>
+    <string name="toast_session_expired">Session to server expired!\nGo back and query again to load more.</string>
+    <string name="toast_network_blocked">Blocked by \"%s\".\nPossible server overload?</string>
+    <string name="toast_internal_error">Internal server error on \"%s\".</string>
+    <string name="toast_invalid_data">Server returned invalid data:\n%s</string>
+    <string name="alert_network_connection_unavailable">Cannot connect to server</string>
+    <string name="alert_network_file_not_found">File not found on server</string>
+    <string name="alert_network_forbidden">Not allowed to access file on server</string>
+    <string name="alert_network_problem_title">Network problems?</string>
+    <string name="alert_network_problem_message">Could not fetch data.</string>
+    <string name="alert_network_problem_retry">Retry</string>
+    <string name="changelog_dialog_title_version">Welcome to Offi version %s!</string>
+    <string name="changelog_dialog_title">Here is what\'s new:</string>
+    <string name="changelog_dialog_button_dismiss">Dismiss</string>
+    <string name="alert_hint_neutral">Dismiss</string>
+    <string name="alert_crash_report_title">Previous crash detected</string>
+    <string name="alert_crash_report_new_version">There is a new Offi version %s available. You should update, as your problem might already have been fixed.</string>
+    <string name="alert_crash_report_message">Would you like to send a crash report, helping to fix this issue in the future?</string>
+    <string name="alert_crash_report_positive">Report</string>
+    <string name="alert_crash_report_update">Google Play</string>
+    <string name="alert_crash_report_download">Download</string>
+    <string name="alert_crash_report_negative">Dismiss</string>
+
+    <!-- products -->
+    <string name="product_i">Highspeed</string>
+    <string name="product_r">Regional</string>
+    <string name="product_s">Suburban</string>
+    <string name="product_u">Metro</string>
+    <string name="product_t">Tram</string>
+    <string name="product_b">Bus</string>
+    <string name="product_p">On-Demand</string>
+    <string name="product_f">Ferry</string>
+    <string name="product_c">Cablecar</string>
+
+    <!-- time -->
+    <string name="time_yesterday">yesterday</string>
+    <string name="time_yesterday_abbrev">y\'day</string>
+    <string name="time_today">today</string>
+    <string name="time_today_abbrev">t\'day</string>
+    <string name="time_tomorrow">tomorrow</string>
+    <string name="time_tomorrow_abbrev">tom.</string>
+    <string name="time_now">now</string>
+    <string name="time_in">%d&#x200a;min</string>
+    <string name="time_ago">%d&#x200a;min&#x2009;ago</string>
+    <string name="time_hours">%1$dh&#x2009;%2$02d&#x200a;min</string>
+
+    <!-- position -->
+    <string name="position_platform">platform %s</string>
+
+</resources>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/list_entry"
+    android:descendantFocusability="blocksDescendants"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:minHeight="?android:attr/listPreferredItemHeight" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
+        android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
+        android:paddingRight="@dimen/list_entry_padding_horizontal_lax"
+        android:paddingTop="@dimen/list_entry_padding_vertical_lax" >
+
+        <ImageView
+            android:id="@+id/network_picker_entry_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+            android:scaleType="center" />
+
+        <Space
+            android:id="@+id/network_picker_entry_context_button_space"
+            android:layout_width="28dp"
+            android:layout_height="0px"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true" />
+
+        <TextView
+            android:id="@+id/network_picker_entry_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_toLeftOf="@id/network_picker_entry_context_button_space"
+            android:textColor="#a00"
+            android:textSize="@dimen/font_size_large" />
+
+        <TextView
+            android:id="@+id/network_picker_entry_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_toLeftOf="@id/network_picker_entry_state"
+            android:layout_toRightOf="@id/network_picker_entry_icon"
+            android:textSize="@dimen/font_size_large"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/network_picker_entry_usage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/network_picker_entry_label"
+            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+            android:drawableLeft="@drawable/ic_beenhere_grey600_24dp"
+            android:drawablePadding="@dimen/list_entry_padding_horizontal"
+            android:gravity="left" />
+
+        <TextView
+            android:id="@+id/network_picker_entry_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_below="@id/network_picker_entry_label"
+            android:layout_toLeftOf="@id/network_picker_entry_usage"
+            android:layout_toRightOf="@id/network_picker_entry_icon" />
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/network_picker_entry_context_button"
+        style="@style/My.Widget.ImageButton.Context"
+        android:layout_gravity="top|right" />
+
+</FrameLayout>

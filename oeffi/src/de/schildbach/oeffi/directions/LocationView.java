@@ -1,0 +1,499 @@
+/*
+ * Copyright the original author or authors.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+package de.schildbach.oeffi.directions;
+
+import java.util.Locale;
+
+import javax.annotation.Nullable;
+
+import com.google.common.base.Strings;
+
+import de.schildbach.oeffi.Constants;
+import de.schildbach.oeffi.R;
+import de.schildbach.oeffi.util.GeocoderThread;
+import de.schildbach.oeffi.util.LocationHelper;
+import de.schildbach.oeffi.util.MultiDrawable;
+import de.schildbach.oeffi.util.PopupHelper;
+import de.schildbach.pte.dto.Location;
+import de.schildbach.pte.dto.LocationType;
+import de.schildbach.pte.dto.Point;
+
+import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Criteria;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Parcelable;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
+import android.util.AttributeSet;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AutoCompleteTextView;
+import android.widget.Filterable;
+import android.widget.FrameLayout;
+import android.widget.ListAdapter;
+import android.widget.PopupMenu;
+import android.widget.TextView.OnEditorActionListener;
+
+public class LocationView extends FrameLayout implements LocationHelper.Callback {
+    public static interface Listener {
+        void changed();
+    }
+
+    private final Resources res;
+    private final LocationHelper locationHelper;
+    private final Drawable selectableItemBackground;
+
+    private PopupMenu.OnMenuItemClickListener contextMenuItemClickListener;
+    private Listener listener;
+
+    private AutoCompleteTextView textView;
+    private View chooseView;
+    private MultiDrawable leftDrawable, rightDrawable;
+    private TextWatcher textChangedListener;
+    private int hintRes = 0;
+    private String hint;
+
+    private LocationType locationType = LocationType.ANY;
+    private String id = null;
+    private double lat, lon;
+    private String place;
+
+    public LocationView(final Context context) {
+        this(context, null, 0);
+    }
+
+    public LocationView(final Context context, final AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public LocationView(final Context context, final AttributeSet attrs, final int defStyle) {
+        super(context, attrs, defStyle);
+
+        res = context.getResources();
+        locationHelper = new LocationHelper((LocationManager) context.getSystemService(Context.LOCATION_SERVICE), this);
+
+        final TypedArray ta = context.obtainStyledAttributes(new int[] { android.R.attr.selectableItemBackground });
+        selectableItemBackground = ta.getDrawable(0);
+        ta.recycle();
+    }
+
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        final Bundle state = new Bundle();
+        state.putParcelable("super_state", super.onSaveInstanceState());
+        state.putSerializable("location_type", locationType);
+        state.putString("location_id", id);
+        state.putDouble("location_lat", lat);
+        state.putDouble("location_lon", lon);
+        state.putString("location_place", place);
+        state.putString("text", getText());
+        state.putString("hint", hint);
+        state.putInt("hint_res", hintRes);
+        return state;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(final Parcelable state) {
+        if (state instanceof Bundle) {
+            final Bundle bundle = (Bundle) state;
+            super.onRestoreInstanceState(bundle.getParcelable("super_state"));
+            locationType = ((LocationType) bundle.getSerializable("location_type"));
+            id = bundle.getString("location_id");
+            lat = bundle.getDouble("location_lat");
+            lon = bundle.getDouble("location_lon");
+            place = bundle.getString("location_place");
+            setText(bundle.getString("text"));
+            hint = bundle.getString("hint");
+            hintRes = bundle.getInt("hint_res");
+        } else {
+            super.onRestoreInstanceState(state);
+        }
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+
+        final Context context = getContext();
+
+        textView = new AutoCompleteTextView(context) {
+            final Handler handler = new Handler();
+
+            @Override
+            protected void onSizeChanged(final int w, final int h, final int oldw, final int oldh) {
+                handler.post(new Runnable() {
+                    public void run() {
+                        chooseView.requestLayout();
+                    }
+                });
+
+                super.onSizeChanged(w, h, oldw, oldh);
+            }
+        };
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimension(R.dimen.font_size_large));
+        textView.setSingleLine();
+        textView.setMaxLines(3);
+        textView.setHorizontallyScrolling(false);
+        textView.setSelectAllOnFocus(true);
+        textView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        textView.setThreshold(0);
+        textView.setCompoundDrawablePadding(res.getDimensionPixelSize(R.dimen.list_entry_padding_horizontal));
+        final int paddingCram = res.getDimensionPixelSize(R.dimen.list_entry_padding_horizontal_cram);
+        final int paddingLax = res.getDimensionPixelSize(R.dimen.list_entry_padding_horizontal_lax);
+        textView.setPadding(paddingLax, paddingCram, paddingLax, paddingCram);
+        textView.setOnItemClickListener(new OnItemClickListener() {
+            public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
+                // workaround for NPE
+                if (parent == null)
+                    return;
+
+                final Location location = (Location) parent.getItemAtPosition(position);
+
+                // workaround for NPE
+                if (location == null)
+                    return;
+
+                setLocation(location);
+
+                afterLocationViewInput();
+                fireChanged();
+            }
+        });
+
+        leftDrawable = new MultiDrawable(context);
+        leftDrawable.add(R.drawable.space_24dp);
+        leftDrawable.add(R.drawable.ic_station_grey600_24dp);
+        leftDrawable.add(R.drawable.ic_flag_grey600_24dp);
+        leftDrawable.add(R.drawable.ic_place_grey600_24dp);
+        leftDrawable.add(R.drawable.ic_location_searching_grey600_24dp);
+        leftDrawable.add(R.drawable.ic_gps_fixed_grey600_24dp);
+        rightDrawable = new MultiDrawable(context);
+        rightDrawable.add(R.drawable.ic_more_vert_grey600_24dp);
+        rightDrawable.add(R.drawable.ic_clear_grey600_24dp);
+        textView.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, null, rightDrawable, null);
+
+        textChangedListener = new TextWatcher() {
+            public void afterTextChanged(final Editable s) {
+            }
+
+            public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
+            }
+
+            public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
+                locationType = LocationType.ANY;
+                id = null;
+                hint = null;
+                updateAppearance();
+
+                locationHelper.stop();
+            }
+        };
+        textView.addTextChangedListener(textChangedListener);
+
+        chooseView = new View(context) {
+            @Override
+            protected void onMeasure(final int wMeasureSpec, final int hMeasureSpec) {
+                final int width = textView.getCompoundPaddingRight() + textView.getCompoundDrawablePadding();
+                final int minHeight = res.getDimensionPixelOffset(R.dimen.directions_form_location_min_height);
+                final int height = Math.max(textView.getMeasuredHeight(), minHeight);
+                setMeasuredDimension(width, height);
+            }
+        };
+        chooseView.setContentDescription(context.getString(R.string.directions_location_view_more_description));
+        chooseView.setBackgroundDrawable(selectableItemBackground);
+
+        addView(textView, new LocationView.LayoutParams(LocationView.LayoutParams.MATCH_PARENT,
+                LocationView.LayoutParams.WRAP_CONTENT, Gravity.CENTER_VERTICAL));
+        addView(chooseView, new LocationView.LayoutParams(LocationView.LayoutParams.WRAP_CONTENT,
+                LocationView.LayoutParams.MATCH_PARENT, Gravity.RIGHT | Gravity.CENTER_VERTICAL));
+
+        updateAppearance();
+    }
+
+    private void setText(final CharSequence text) {
+        final int threshold = textView.getThreshold();
+        textView.setThreshold(Integer.MAX_VALUE);
+        textView.removeTextChangedListener(textChangedListener);
+        textView.setText(text);
+        textView.addTextChangedListener(textChangedListener);
+        textView.setThreshold(threshold);
+    }
+
+    private String getText() {
+        final String text = textView.getText().toString().trim();
+        if (text.length() > 0)
+            return text;
+        else
+            return null;
+    }
+
+    public void setHint(final int hintRes) {
+        this.hintRes = hintRes;
+        updateAppearance();
+    }
+
+    public <T extends ListAdapter & Filterable> void setAdapter(final T autoCompleteAdapter) {
+        textView.setAdapter(autoCompleteAdapter);
+    }
+
+    public void setImeOptions(final int imeOptions) {
+        textView.setImeOptions(imeOptions | EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+    }
+
+    public void setOnEditorActionListener(final OnEditorActionListener onEditorActionListener) {
+        textView.setOnEditorActionListener(onEditorActionListener);
+    }
+
+    public void setContextMenuItemClickListener(final PopupMenu.OnMenuItemClickListener contextMenuItemClickListener) {
+        this.contextMenuItemClickListener = contextMenuItemClickListener;
+    }
+
+    public void setListener(final Listener listener) {
+        this.listener = listener;
+    }
+
+    public void acquireLocation() {
+        if (!locationHelper.isRunning()) {
+            final Criteria criteria = new Criteria();
+            criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
+            criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+            locationHelper.startLocation(criteria, false, Constants.LOCATION_TIMEOUT_MS);
+        }
+    }
+
+    public void onLocationStart(final String provider) {
+        locationType = LocationType.COORD;
+        lat = 0;
+        lon = 0;
+        hint = res.getString(R.string.acquire_location_start, provider);
+        updateAppearance();
+
+        afterLocationViewInput();
+    }
+
+    public void onLocationStop(final boolean timedOut) {
+        if (timedOut) {
+            hint = res.getString(R.string.acquire_location_timeout);
+            updateAppearance();
+        }
+    }
+
+    public void onLocationFail() {
+        hint = res.getString(R.string.acquire_location_no_provider);
+        updateAppearance();
+    }
+
+    public void onLocation(final Point here) {
+        if (locationType == LocationType.COORD)
+            setLocation(Location.coord(here));
+    }
+
+    public void reset() {
+        locationType = LocationType.ANY;
+        id = null;
+        lat = 0;
+        lon = 0;
+        place = null;
+        setText(null);
+        hint = null;
+        updateAppearance();
+        fireChanged();
+
+        locationHelper.stop();
+    }
+
+    public void setLocation(final Location location) {
+        locationType = location.type;
+        id = location.id;
+        lat = location.lat / 1E6;
+        lon = location.lon / 1E6;
+        place = location.place;
+        setText(location.uniqueShortName());
+        updateAppearance();
+
+        if (locationType == LocationType.COORD) {
+            hint = res.getString(R.string.directions_location_view_coordinate) + ": "
+                    + String.format(Locale.ENGLISH, "%1$.6f, %2$.6f", lat, lon);
+            updateAppearance();
+
+            new GeocoderThread(getContext(), lat, lon, new GeocoderThread.Callback() {
+                public void onGeocoderResult(final Address address) {
+                    if (locationType == LocationType.COORD) {
+                        setLocation(addressToLocation(address));
+                        hint = null;
+                    }
+                }
+
+                public void onGeocoderFail(final Exception exception) {
+                    if (locationType == LocationType.COORD) {
+                        setText(null);
+                        updateAppearance();
+                    }
+                }
+            });
+        }
+
+        fireChanged();
+    }
+
+    public @Nullable Location getLocation() {
+        final String name = getText();
+
+        if (locationType == LocationType.COORD && lat == 0 && lon == 0)
+            return null;
+        else if (locationType == LocationType.ANY && Strings.isNullOrEmpty(name))
+            return null;
+        else
+            return new Location(locationType, id, (int) (lat * 1E6), (int) (lon * 1E6), name != null ? place : null,
+                    name);
+    }
+
+    private final OnClickListener contextButtonClickListener = new OnClickListener() {
+        public void onClick(final View v) {
+            final PopupMenu popupMenu = new PopupMenu(getContext(), v);
+            popupMenu.inflate(R.menu.directions_location_context);
+            PopupHelper.setForceShowIcon(popupMenu);
+            popupMenu.setOnMenuItemClickListener(contextMenuItemClickListener);
+            popupMenu.show();
+        }
+    };
+
+    private final OnClickListener clearButtonClickListener = new OnClickListener() {
+        public void onClick(final View v) {
+            reset();
+            textView.requestFocus();
+        }
+    };
+
+    private void updateAppearance() {
+        if (locationType == LocationType.COORD && lat == 0 && lon == 0)
+            leftDrawable.selectDrawableByResId(R.drawable.ic_location_searching_grey600_24dp);
+        else
+            leftDrawable.selectDrawableByResId(LocationView.locationTypeIconRes(locationType));
+
+        if (getText() == null) {
+            rightDrawable.selectDrawableByResId(R.drawable.ic_more_vert_grey600_24dp);
+            chooseView.setOnClickListener(contextButtonClickListener);
+        } else {
+            rightDrawable.selectDrawableByResId(R.drawable.ic_clear_grey600_24dp);
+            chooseView.setOnClickListener(clearButtonClickListener);
+        }
+
+        if (hint != null)
+            textView.setHint(hint);
+        else if (hintRes != 0)
+            textView.setHint(hintRes);
+        else
+            textView.setHint(null);
+    }
+
+    private void afterLocationViewInput() {
+        if (textView.isFocused()) {
+            final int options = textView.getImeOptions();
+            if (options == EditorInfo.IME_ACTION_GO)
+                textView.onEditorAction(EditorInfo.IME_ACTION_DONE);
+            else
+                textView.onEditorAction(options);
+        }
+    }
+
+    public void exchangeWith(final LocationView other) {
+        final LocationType tempLocationType = other.locationType;
+        final String tempId = other.id;
+        final double tempLat = other.lat;
+        final double tempLon = other.lon;
+        final String tempPlace = other.place;
+        final String tempText = other.getText();
+        final String tempHint = other.hint;
+
+        other.locationType = this.locationType;
+        other.id = this.id;
+        other.lat = this.lat;
+        other.lon = this.lon;
+        other.place = this.place;
+        other.setText(this.getText());
+        other.hint = this.hint;
+
+        this.locationType = tempLocationType;
+        this.id = tempId;
+        this.lat = tempLat;
+        this.lon = tempLon;
+        this.place = tempPlace;
+        this.setText(tempText);
+        this.hint = tempHint;
+
+        this.updateAppearance();
+        other.updateAppearance();
+
+        this.fireChanged();
+        other.fireChanged();
+    }
+
+    public static Location addressToLocation(final Address address) {
+        final Point coord;
+        if (address.hasLatitude() && address.hasLongitude())
+            coord = new Point((int) Math.round(address.getLatitude() * 1E6),
+                    (int) Math.round(address.getLongitude() * 1E6));
+        else
+            coord = null;
+
+        final Location location;
+        final int maxAddressLineIndex = address.getMaxAddressLineIndex();
+        if (maxAddressLineIndex >= 2 && Strings.emptyToNull(address.getAddressLine(2)) != null)
+            location = new Location(LocationType.ADDRESS, null, coord, address.getAddressLine(1),
+                    address.getAddressLine(0));
+        else if (address.getThoroughfare() != null)
+            location = new Location(LocationType.ADDRESS, null, coord, address.getLocality(),
+                    address.getThoroughfare() + (address.getFeatureName() != null ? " " + address.getFeatureName() : ""));
+        else
+            location = new Location(LocationType.ADDRESS, null, coord);
+
+        return location;
+    }
+
+    private void fireChanged() {
+        if (listener != null)
+            listener.changed();
+    }
+
+    public static int locationTypeIconRes(final @Nullable LocationType locationType) {
+        if (locationType == null || locationType == LocationType.ANY)
+            return R.drawable.space_24dp;
+        else if (locationType == LocationType.STATION)
+            return R.drawable.ic_station_grey600_24dp;
+        else if (locationType == LocationType.POI)
+            return R.drawable.ic_flag_grey600_24dp;
+        else if (locationType == LocationType.ADDRESS)
+            return R.drawable.ic_place_grey600_24dp;
+        else if (locationType == LocationType.COORD)
+            return R.drawable.ic_gps_fixed_grey600_24dp;
+        else
+            throw new IllegalStateException("cannot handle: " + locationType);
+    }
+}

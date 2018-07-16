@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="?android:attr/selectableItemBackground" >
+
+    <de.schildbach.oeffi.directions.PearlView
+        android:id="@+id/directions_trip_details_public_entry_collapsed_pearl"
+        android:layout_width="24dp"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/trip_details_stop_offset" />
+
+    <Space />
+
+    <Space />
+
+    <Space />
+
+    <Space />
+
+    <TextView
+        android:id="@+id/directions_trip_details_public_entry_collapsed_message"
+        android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+        android:textColor="@color/text"
+        android:textSize="@dimen/font_size_large" />
+
+</TableRow>

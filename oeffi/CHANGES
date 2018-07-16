@@ -1,0 +1,6 @@
+v10.0
+
+* Öffi is now GPLv3 licensed!
+  The source code is available at https://gitlab.com/oeffi/oeffi
+* The app now requires Android 4.1 (Jelly Bean) or higher.
+  This will make UI development easier in future.

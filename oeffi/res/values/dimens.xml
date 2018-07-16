@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="font_size_tiny">10sp</dimen>
+    <dimen name="font_size_small">12sp</dimen>
+    <dimen name="font_size_normal">14sp</dimen>
+    <dimen name="font_size_large">17sp</dimen>
+    <dimen name="font_size_xlarge">20sp</dimen>
+    <dimen name="font_size_action_bar">14dp</dimen>
+    <dimen name="font_size_disclaimer">12dp</dimen>
+    <dimen name="action_bar_height">48dp</dimen>
+    <dimen name="action_bar_button_width">48dp</dimen>
+    <dimen name="action_bar_overflow_button_width">36dp</dimen>
+    <dimen name="action_bar_padding">4dp</dimen>
+    <dimen name="dialog_padding">6dp</dimen>
+    <dimen name="line_max_width">128dp</dimen>
+    <dimen name="line_style_border_stroke">2dp</dimen>
+    <dimen name="position_max_width">96dp</dimen>
+    <dimen name="list_entry_padding_vertical_cram">2dp</dimen>
+    <dimen name="list_entry_padding_vertical">3dp</dimen>
+    <dimen name="list_entry_padding_vertical_lax">4dp</dimen>
+    <dimen name="list_entry_padding_vertical_verylax">6dp</dimen>
+    <dimen name="list_entry_padding_horizontal_cram">2dp</dimen>
+    <dimen name="list_entry_padding_horizontal">4dp</dimen>
+    <dimen name="list_entry_padding_horizontal_lax">8dp</dimen>
+    <dimen name="list_entry_padding_horizontal_verylax">12dp</dimen>
+    <dimen name="station_widget_divider_width">0px</dimen>
+    <dimen name="directions_form_location_min_height">48dp</dimen>
+    <dimen name="directions_form_location_divider_padding">32dp</dimen>
+    <dimen name="trips_overview_stroke_width">1dp</dimen>
+    <dimen name="trips_overview_entry_width">72dp</dimen>
+
+    <item name="trips_overview_entry_public_box_fraction" type="fraction">80%</item>
+    <item name="trips_overview_entry_individual_box_fraction" type="fraction">30%</item>
+
+    <dimen name="trips_overview_entry_box_stroke_width">2dp</dimen>
+    <dimen name="trip_details_stop_offset">7sp</dimen>
+    <dimen name="pearl_line_width">8dp</dimen>
+    <dimen name="pearl_intermediate_size">4dp</dimen>
+    <dimen name="disclaimer_network_icon_size">26dp</dimen>
+    <dimen name="map_trip_stroke_width">10dp</dimen>
+    <dimen name="map_trip_stroke_width_selected">12dp</dimen>
+    <dimen name="map_trip_stroke_width_selected_glow">24dp</dimen>
+    <dimen name="layout_navigation_drawer_width">300dp</dimen>
+
+    <bool name="layout_navigation_drawer_footer_show">false</bool>
+
+    <integer name="max_departures_per_station">5</integer>
+
+</resources>

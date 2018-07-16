@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:shrinkColumns="1"
+    android:stretchColumns="1" >
+
+    <TableRow>
+
+        <TextView
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:shadowColor="#000"
+            android:shadowRadius="1"
+            android:singleLine="true"
+            android:text="@string/directions_overview_from"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_action_bar"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/directions_trip_overview_custom_title_from"
+            android:ellipsize="none"
+            android:fadingEdge="horizontal"
+            android:fadingEdgeLength="12dp"
+            android:shadowColor="#000"
+            android:shadowRadius="1"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_action_bar" />
+    </TableRow>
+
+    <TableRow android:id="@+id/directions_trip_overview_custom_title_via_row" >
+
+        <TextView
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:shadowColor="#000"
+            android:shadowRadius="1"
+            android:singleLine="true"
+            android:text="@string/directions_overview_via"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_action_bar"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/directions_trip_overview_custom_title_via"
+            android:ellipsize="none"
+            android:fadingEdge="horizontal"
+            android:fadingEdgeLength="12dp"
+            android:shadowColor="#000"
+            android:shadowRadius="1"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_action_bar" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:shadowColor="#000"
+            android:shadowRadius="1"
+            android:singleLine="true"
+            android:text="@string/directions_overview_to"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_action_bar"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/directions_trip_overview_custom_title_to"
+            android:ellipsize="none"
+            android:fadingEdge="horizontal"
+            android:fadingEdgeLength="12dp"
+            android:shadowColor="#000"
+            android:shadowRadius="1"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_action_bar" />
+    </TableRow>
+
+</TableLayout>

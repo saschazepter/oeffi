@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="stations_icon_label">Öffi Haltestellen</string>
+    <string name="directions_icon_label">Öffi Verbindungen</string>
+    <string name="plans_icon_label">Öffi Netzpläne</string>
+    <string name="disclaimer_network">Daten bereitgestellt von\n%s</string>
+    <string name="disclaimer_responsibility">alle Angaben ohne Gewähr</string>
+    <string name="disclaimer_responsibility_2line">alle Angaben\nohne Gewähr</string>
+    <string name="navigation_drawer_message">Ich entwickle Öffi mit Liebe in meiner Freizeit. Es ist kostenlos und werbefrei. Wenn du Öffi unterstützen willst, dann bewerte es doch mit 5 Sternen und empfiehl\'s deinen Freunden!</string>
+
+    <!-- action bar -->
+    <string name="action_bar_navigator_description">Navigation</string>
+    <string name="action_bar_back_description">Zurück</string>
+    <string name="action_bar_progress_description">Aktualisieren</string>
+    <string name="action_bar_overflow_description">Mehr</string>
+
+    <!-- activity titles -->
+    <string name="stations_activity_title">Nahegelegene Haltestellen</string>
+    <string name="station_details_activity_title">Haltestellen-Details</string>
+    <string name="directions_activity_title">Verbindungsabfrage</string>
+    <string name="trip_details_title">Verbindungsdetails</string>
+    <string name="plans_activity_title">Netzpläne</string>
+    <string name="network_picker_activity_title">Wähle Verkehrsnetz</string>
+
+    <!-- global options -->
+    <string name="global_options_stations_comment">Abfahrtszeiten und Verspätungen</string>
+    <string name="global_options_directions_comment">Von Tür zu Tür</string>
+    <string name="global_options_plans_comment">Für den groben Überblick</string>
+    <string name="global_options_preferences_title">Einstellungen</string>
+    <string name="global_options_about_title">Über Öffi</string>
+    <string name="global_options_donate_title">Spenden</string>
+
+    <!-- preferences -->
+    <string name="global_preferences_title">Allgemein</string>
+    <string name="global_preferences_network_provider_title">Verkehrsnetz</string>
+    <string name="global_preferences_network_provider_summary">Verkehrsnetz wählen.</string>
+    <string name="global_preferences_show_changelog_title">Änderungen zeigen</string>
+    <string name="global_preferences_show_changelog_summary">Nach Aktualisierung auf eine neue Version von Öffi Änderungen zeigen.</string>
+    <string name="global_preferences_show_hints_title">Tipps zeigen</string>
+    <string name="global_preferences_show_hints_summary">Hin und wieder einen nützlichen Tipp anzeigen.</string>
+    <string name="global_preferences_location_settings_title">Standorteinstellungen</string>
+    <string name="global_preferences_location_settings_summary">Einstellung der Standortbestimmung, z.B. GPS.</string>
+    <string name="global_preferences_battery_optimizations_title">Akku-Leistungsoptimierung</string>
+    <string name="global_preferences_battery_optimizations_summary">Wenn das App-Widget keine Abfahrtszeiten laden kann, während dein Gerät im Standby ist, dann solltest du die Akku-Leistungsoptimierung für Öffi abschalten.</string>
+
+    <!-- preferences about -->
+    <string name="about_title">Über Öffi</string>
+    <string name="about_copyright_title">Urheberrecht</string>
+    <string name="about_copyright_summary">© 2010-2018, die Öffi-Entwickler</string>
+    <string name="about_license_title">Lizenz</string>
+    <string name="about_source_title">Quellcode</string>
+    <string name="about_changelog_title">Änderungshistorie anzeigen</string>
+    <string name="about_changelog_summary">https://oeffi.schildbach.de/changelog_de.html</string>
+    <string name="about_faq_title">FAQ - häufig gestellte Fragen</string>
+    <string name="about_faq_summary">https://oeffi.schildbach.de/faq.html</string>
+    <string name="about_feedback_title">Feedback</string>
+    <string name="about_market_rate_title">Öffi bewerten oder rezensieren</string>
+    <string name="about_report_bug_title">Fehler melden</string>
+    <string name="about_report_bug_summary">Feedback geben.</string>
+    <string name="about_community_googleplus_title">Google+ Community</string>
+    <string name="about_community_googleplus_summary">Diskussionen über die App.</string>
+    <string name="about_donate_title">Spenden</string>
+    <string name="about_donate_bitcoin_title">Bitcoins spenden</string>
+    <string name="about_donate_bitcoin_summary">Bitcoin ist eine Internet-Währung.</string>
+    <string name="about_donate_flattr_title">Über Flattr spenden</string>
+    <string name="about_donate_flattr_summary">Flattr ist ein Mikro-Spenden-System.</string>
+    <string name="about_donate_euro_title">Euros spenden</string>
+    <string name="about_donate_euro_summary">https://oeffi.schildbach.de/donate_de.html</string>
+
+    <!-- network picker -->
+    <string name="network_picker_firsttime_message">Da du Öffi das erste Mal nutzt, musst Du die Region wählen die am besten passt. Du kannst das später ändern.</string>
+    <string name="network_picker_entry_usage">%.1f MB\ninstalliert</string>
+    <string name="network_picker_entry_license">Lizenz:\n%s</string>
+    <string name="network_picker_entry_state_alpha">alpha</string>
+    <string name="network_picker_entry_state_beta">beta</string>
+    <string name="network_picker_entry_state_deprecated">veraltet</string>
+    <string name="network_picker_separator_last">Zuletzt genutzt</string>
+    <string name="network_picker_separator_suggested">Empfohlen</string>
+    <string name="network_picker_separator_nearby">In der Nähe</string>
+    <string name="network_picker_separator_europe">Europa</string>
+    <string name="network_picker_context_remove_title">Daten löschen</string>
+
+    <!-- toasts -->
+    <string name="toast_add_favorite">%s\nzu Favoriten hinzugefügt</string>
+
+    <!-- stations -->
+    <string name="stations_intentfilter_title">Nahegelegene Haltestellen der öffentlichen Verkehrsmittel</string>
+
+    <!-- station list -->
+    <string name="stations_list_entry_no_departures">(Keine Abfahrten)</string>
+    <string name="stations_list_entry_product_filtered">(Keine der Abfahrten passen auf den Produktfilter)</string>
+    <string name="stations_list_entry_interval">(ca. alle %s min)</string>
+    <string name="stations_list_acquiring_location">Ermittle Standort…</string>
+    <string name="stations_list_cannot_acquire_location">Kann Standort nicht ermitteln.</string>
+    <string name="stations_list_cannot_acquire_location_hint">Bitte versuch mindestens einen Standortdienst einzuschalten.</string>
+    <string name="stations_list_location_settings">Standorteinstellungen</string>
+    <string name="stations_list_querying_nearby">Suche nach nahegelegenen Haltestellen…</string>
+    <string name="stations_list_matching">Suche nach Übereinstimmungen…</string>
+    <string name="stations_list_empty_nearby">Keine Haltestellen in der Nähe.</string>
+    <string name="stations_list_empty_nearby_hint">Wähle ggf. ein anderes Verkehrsnetz.</string>
+    <string name="stations_list_empty_query">Keine passenden Haltestellen.</string>
+    <string name="stations_list_empty_query_hint">Hast du\'s richtig geschrieben? Versuch\'s mit einem allgemeineren Suchwort.</string>
+    <string name="stations_list_network_settings">Netzwerk wechseln</string>
+    <string name="stations_location_permission_missing">Die Berechtigung zum Auslesen des Gerätestandorts ist nicht erteilt.</string>
+    <string name="stations_location_permission_request">Berechtigung erteilen</string>
+    <string name="stations_location_provider_disabled">ausgeschaltet</string>
+    <string name="stations_location_provider_enabled">eingeschaltet</string>
+    <string name="stations_location_provider_acquiring">ermittle</string>
+    <string name="stations_message_missing_capability">Abfahrtsinformationen sind in dem gewählten Verkehrsnetz nicht verfügbar.\nWähle ggf. ein anderes Netz.</string>
+    <string name="stations_connectivity_warning">Offline-Modus: Dein Gerät ist nicht verbunden.\nDaher werden keine Abfahrtszeiten angezeigt.</string>
+
+    <!-- nearby stations error dialog -->
+    <string name="stations_nearby_stations_error_title">Problem beim Laden der nahegelegenen Haltestellen</string>
+    <string name="stations_nearby_stations_error_message">Das Gerät muss mit dem Internet verbunden sein. Möchtest du fortfahren?</string>
+    <string name="stations_nearby_stations_error_continue">Weiter</string>
+    <string name="stations_nearby_stations_error_exit">Verlassen</string>
+
+    <!-- station context menu -->
+    <string name="station_context_add_favorite_title">Zu Favoriten hinzufügen</string>
+    <string name="station_context_remove_favorite_title">Aus Favoriten entfernen</string>
+    <string name="station_context_add_ignore_title">Ignorieren</string>
+    <string name="station_context_remove_ignore_title">Wieder sichtbar machen</string>
+    <string name="station_context_details_title">Alle Abfahrten zeigen</string>
+    <string name="station_context_map_title">Auf Karte zeigen</string>
+    <string name="station_context_directions_from_title">Verbindung von hier</string>
+    <string name="station_context_directions_to_title">Verbindung nach hier</string>
+    <string name="station_context_launcher_shortcut_title">Launcher-Verknüpfung erstellen</string>
+
+    <!-- stations options menu -->
+    <string name="stations_options_favorites_title">Haltestellen-Favoriten</string>
+
+    <!-- stations filter -->
+    <string name="stations_filter_title">Produkt-Filter</string>
+
+    <!-- search stations -->
+    <string name="stations_action_search_title">Haltestellen-Suche</string>
+    <string name="stations_searchable_hint">Suche Namen oder Nummer</string>
+    <string name="stations_search_list_empty">Keine Haltestellen gefunden</string>
+
+    <!-- station details -->
+    <string name="stations_station_details_intentfilter_title">Abfahrtszeiten an dieser Haltestelle</string>
+    <string name="stations_station_details_action_favorite_title">Favorit</string>
+    <string name="stations_station_details_progress">Lade Abfahrtszeiten…</string>
+    <string name="stations_station_details_list_empty">Keine Abfahrten</string>
+
+    <!-- station details options -->
+    <string name="stations_station_details_options_add_favorite_title">Favorisieren</string>
+    <string name="stations_station_details_options_remove_favorite_title">Favorit entf.</string>
+    <string name="stations_station_details_options_add_ignore_title">Ignorieren</string>
+    <string name="stations_station_details_options_remove_ignore_title">Sichtbar machen</string>
+
+    <!-- stations decode foreign -->
+    <string name="stations_decode_foreign_progress">Dekodiere touch&amp;travel-Code…</string>
+    <string name="stations_decode_foreign_failed">Dekodierung fehlgeschlagen!</string>
+
+    <!-- stations pickers -->
+    <string name="stations_favorite_stations_title">Haltestelle-Favoriten</string>
+    <string name="stations_favorite_stations_no_content_message">Du hast bislang keine Haltestelle im eingestellten Verkehrsnetz favorisiert.</string>
+
+    <!-- stations widget -->
+    <string name="nearest_favorite_station_widget_label">Abfahrtszeiten von nahegelegener favorisierter Haltestelle</string>
+    <string name="nearest_favorite_station_widget_no_favorites">Keine Haltestellen favorisiert.</string>
+    <string name="nearest_favorite_station_widget_loading">Lade Abfahrtszeiten…</string>
+    <string name="nearest_favorite_station_widget_no_departures">Keine Abfahrten.</string>
+    <string name="nearest_favorite_station_widget_lastupdated">aktualisiert %s</string>
+    <string name="nearest_favorite_station_widget_error_connect">Server-Verbindung nicht möglich.\n\nTapp um es nochmal zu probieren.\n\nWenn das Problem bestehen bleibt, überprüfe ob Hintergrunddaten eingeschränkt sind.</string>
+    <string name="nearest_favorite_station_widget_error_blocked">Die Abfrage wurde von \"%s\" blockiert - möglicherweise wegen Serverüberlastung.\n\nTapp um es nochmal zu probieren.</string>
+    <string name="nearest_favorite_station_widget_error_exception">Aua!\n\n%s\n\nTapp um es nochmal zu probieren.</string>
+
+    <!-- directions -->
+    <string name="directions_intentfilter_title">Hinfahrt mit öffentlichen Verkehrsmitteln</string>
+
+    <!-- directions options -->
+    <string name="directions_options_remove_history_title">Alle gespeicherten Anfragen vergessen</string>
+
+    <!-- directions query -->
+    <string name="directions_location_view_coordinate">Koordinate</string>
+    <string name="directions_location_view_more_description">mehr</string>
+    <string name="directions_from">Start der Verbindung</string>
+    <string name="directions_via">Zwischenhalt</string>
+    <string name="directions_to">Endpunkt</string>
+    <string name="directions_option_bike">Fahrradmitnahme (beta)</string>
+    <string name="directions_time_arr_dep_description">Abfahrt/Ankunft</string>
+    <string name="directions_time_dep">ab ↦</string>
+    <string name="directions_time_arr">⇥ an</string>
+    <string name="directions_time_relative">in %s</string>
+    <string name="directions_go">Los ➝</string>
+    <string name="directions_message_choose_from">Bitte wähle einen Startpunkt</string>
+    <string name="directions_message_choose_to">Bitte wähle einen Endpunkt</string>
+    <string name="directions_message_unknown_from">Unbekannter Startpunkt</string>
+    <string name="directions_message_unknown_via">Unbekannter Zwischenhalt</string>
+    <string name="directions_message_unknown_to">Unbekannter Endpunkt</string>
+    <string name="directions_message_unknown_location">Unbekannter Start- oder Endpunkt</string>
+    <string name="directions_message_too_close">Startpunkt und Endpunkt sind zu dicht beieinander</string>
+    <string name="directions_message_unresolvable_address">Zur Adresse konnten keine geeigneten Haltestellen ermittelt werden</string>
+    <string name="directions_message_no_trips">Zu deinem Verbindungswunsch konnte keine Verbindung gefunden werden</string>
+    <string name="directions_message_invalid_date">Das Verbindungsdatum liegt außerhalb der Fahrplanperiode</string>
+    <string name="directions_message_ambiguous_location">Ein Punkt ist nicht eindeutig</string>
+    <string name="directions_query_progress">Route wird abgerufen…</string>
+    <string name="directions_message_missing_capability">Verbindungsanfragen sind in dem gewählten Verkehrsnetz nicht möglich.\nWähle ggf. ein anderes Netz.</string>
+    <string name="directions_connectivity_warning">Offline-Modus: Dein Gerät ist nicht verbunden.\nGespeicherte Verbindungen können aber angezeigt werden.</string>
+    <string name="directions_alert_redirect_title">Weiterleitung</string>
+    <string name="directions_alert_redirect_message">Deine Abfrage wurde von \"%s\" abgefangen - möglicherweise wegen einer Bezahlschranke.\n\nMöchtest du der Weiterleitung folgen?</string>
+    <string name="directions_alert_redirect_button_follow">Folgen</string>
+    <string name="directions_alert_redirect_button_dismiss">Schließen</string>
+    <string name="directions_alert_blocked_title">Blockiert</string>
+    <string name="directions_alert_blocked_message">Deine Abfrage wurde von \"%s\" blockiert - möglicherweise wegen Serverüberlastung.\n\nMöchtest du deine Abfrage wiederholen?</string>
+    <string name="directions_alert_blocked_button_retry">Wiederholen</string>
+    <string name="directions_alert_blocked_button_dismiss">Schließen</string>
+    <string name="directions_alert_internal_error_title">Interner Serverfehler</string>
+    <string name="directions_alert_internal_error_message">Deine Abfrage hat einen internen Serverfehler auf \"%s\" verursacht.</string>
+    <string name="directions_alert_internal_error_button_retry">Wiederholen</string>
+    <string name="directions_alert_internal_error_button_dismiss">Schließen</string>
+    <string name="directions_alert_ssl_exception_title">SSL-Problem</string>
+    <string name="directions_alert_ssl_exception_message">Die Sicherheits-Konfiguration des Servers ist fehlerhaft: %s</string>
+    <string name="directions_alert_ssl_exception_button_dismiss">Schließen</string>
+    <string name="directions_action_return_trip_title">Rückfahrt</string>
+    <string name="directions_action_expand_title">Erweiterte Optionen</string>
+
+    <!-- query history -->
+    <string name="directions_query_history_empty">Noch keine gespeicherten Anfragen</string>
+    <string name="directions_query_history_invalid_blob">Kann diese Fahrt nicht anzeigen, weil sie mit einer früheren Version von Öffi erstellt wurde.</string>
+    <string name="directions_query_history_forget_confirm_message">Bist du dir sicher, daß du alle gespeicherten Anfragen löschen möchtest?</string>
+    <string name="directions_query_history_forget_confirm_button_forget">Vergessen</string>
+    <string name="directions_query_history_forget_confirm_button_dismiss">Schließen</string>
+
+    <!-- query history context menu -->
+    <string name="directions_query_history_context_show_trip">Gespeicherte Fahrt anzeigen</string>
+    <string name="directions_query_history_context_remove_trip">Gespeicherte Fahrt vergessen</string>
+    <string name="directions_query_history_context_remove_entry">Verbindungsanfrage entfernen</string>
+    <string name="directions_query_history_context_add_favorite">Anfrage als Favorit markieren</string>
+    <string name="directions_query_history_context_remove_favorite">Favorit entfernen</string>
+
+    <!-- directions map -->
+    <string name="directions_map_pin_button_from">Hier starten</string>
+    <string name="directions_map_pin_button_to">Hier enden</string>
+
+    <!-- directions overview -->
+    <string name="directions_overview_from">Start:</string>
+    <string name="directions_overview_via">Via:</string>
+    <string name="directions_overview_to">Ende:</string>
+
+    <!-- directions trip details -->
+    <string name="directions_trip_details_duraton">Dauer %s</string>
+    <string name="directions_trip_details_num_changes">%d Umst.</string>
+    <string name="directions_trip_details_fare_entry_ticket">Einzelfahrt</string>
+    <string name="directions_trip_details_walk">&lt;b>%1$d Minuten&lt;/b> %2$sFußweg nach&lt;br/>%3$s</string>
+    <string name="directions_trip_details_bike">&lt;b>%1$d Minuten&lt;/b> %2$sFahrt mit dem Fahrrad nach&lt;br/>%3$s</string>
+    <string name="directions_trip_details_car">&lt;b>%1$d Minuten&lt;/b> %2$sFahrt mit dem Auto nach&lt;br/>%3$s</string>
+    <string name="directions_trip_details_transfer">&lt;b>%1$d Minuten&lt;/b> %2$sTransfer nach&lt;br/>%3$s</string>
+    <string name="directions_trip_details_realtime"><![CDATA[<i>Kursiv</i> gedruckte Uhrzeiten sind Echtzeit.]]></string>
+    <string name="directions_trip_details_public_entry_accessibility">Der Abschnitt ist barrierefrei.</string>
+    <string name="directions_trip_details_public_entry_bicycle_carriage">Die Fahrradmitnahme ist möglich.</string>
+
+    <plurals name="directions_trip_details_public_entry_collapsed_intermediate_stops">
+        <item quantity="one">…%d Zwischenhalt…</item>
+        <item quantity="other">…%d Zwischenhalte…</item>
+    </plurals>
+
+    <!-- directions trip details options -->
+    <string name="directions_trip_details_action_calendar_title">Zum Kalender hinzufügen</string>
+    <string name="directions_trip_details_action_track_title">Ortung</string>
+    <string name="directions_trip_details_action_share_title">Weiterleiten…</string>
+    <string name="directions_trip_details_action_share_short_title">Kurznachricht weiterleiten…</string>
+    <string name="directions_trip_details_action_share_long_title">Detaillierte Nachricht weiterleiten…</string>
+    <string name="directions_trip_details_text_short">ab %1$s %2$s\n%3$s  %4$s\n\nan %5$s %6$s\n%7$s  %8$s</string>
+
+    <!-- directions trip details options schedule -->
+    <string name="directions_trip_details_text_long_title">Fahrt: %1$s ➝ %2$s</string>
+    <string name="directions_trip_details_text_long_public">%1$s\nab %2$s %3$s %4$s %5$s\nan %6$s %7$s %8$s %9$s</string>
+    <string name="directions_trip_details_text_long_walk">%1$d Minuten %2$sFußweg nach %3$s</string>
+    <string name="directions_trip_details_text_long_bike">%1$d Minuten %2$sFahrt mit dem Fahrrad nach %3$s</string>
+    <string name="directions_trip_details_text_long_car">%1$d Minuten %2$sFahrt mit dem Auto nach %3$s</string>
+    <string name="directions_trip_details_text_long_transfer">%1$d Minuten %2$sÜbergang nach %3$s</string>
+
+    <!-- directions shortcut -->
+    <string name="create_launcher_shortcut_dialog_name_hint">Name d. Verknüpfung, z.B. \'Arbeit\'</string>
+    <string name="create_launcher_shortcut_dialog_button_ok">Erstellen</string>
+    <string name="directions_shortcut_error_title">Problem mit Verknüpfung</string>
+    <string name="directions_shortcut_error_message_network">Das Verkehrsnetz aus der Verknüpfung ist nicht mehr vorhanden.</string>
+    <string name="directions_shortcut_default_name">Verbindung</string>
+
+    <!-- directions preferences -->
+    <string name="directions_preferences_title">Verbindungen</string>
+    <string name="directions_preferences_optimize_trip_title">Optimierung</string>
+    <string name="directions_preferences_optimize_trip_summary">Was ist dir am wichtigsten? Diese Einstellung wirkt sich nicht auf alle Verkehrsnetze aus.</string>
+    <string name="directions_preferences_walk_speed_title">Gehgeschwindigkeit</string>
+    <string name="directions_preferences_walk_speed_summary">Wie schnell kannst du laufen? Diese Einstellung wirkt sich nicht auf alle Verkehrsnetze aus.</string>
+    <string name="directions_preferences_accessibility_title">Barrierefreiheit</string>
+    <string name="directions_preferences_accessibility_summary">Wie barrierefrei muss die Route sein? Diese Einstellung wirkt sich nicht auf alle Verkehrsnetze aus.</string>
+
+    <!-- plans picker -->
+    <string name="plans_picker_context_open_title">Plan öffnen</string>
+    <string name="plans_picker_context_remove_title">Plan löschen</string>
+    <string name="plans_picker_context_launcher_shortcut_title">Launcher-Verknüpfung erstellen</string>
+    <string name="plans_picker_list_empty">Keine Pläne gefunden</string>
+    <string name="plans_picker_entry_valid_from">Gültig ab\n%s</string>
+    <string name="plans_picker_action_search_title">Plan-Suche</string>
+    <string name="plans_picker_searchable_hint">Suche Pläne</string>
+    <string name="plans_picker_connectivity_warning">Offline-Modus: Dein Gerät ist nicht verbunden.\nBereits heruntergeladene Pläne können aber angezeigt werden.</string>
+
+    <!-- plan -->
+    <string name="plan_progress_loading">Lade Plan…</string>
+    <string name="toast_plan_interactive_hint">Diese Karte ist interaktiv!\nDu kannst Haltestellen antippen.</string>
+    <string name="plan_searchable_hint">Suche Haltestelle</string>
+
+    <!-- ambiguous address dialog -->
+    <string name="ambiguous_address_title">Meinten Sie:</string>
+
+    <!-- generic buttons -->
+    <string name="button_cancel">Abbrechen</string>
+
+    <!-- generic messages -->
+    <string name="result_status_service_down">Dienst nicht verfügbar</string>
+    <string name="result_status_invalid_station">Haltestelle existiert nicht</string>
+    <string name="toast_network_problem">Problem mit Netzwerk, werde nochmal versuchen</string>
+    <string name="toast_session_expired">Server-Sitzung abgelaufen!\nGehe zurück und wiederhole die Anfrage, um mehr zu laden.</string>
+    <string name="toast_network_blocked">Von \"%s\" blockiert.\nMögliche Serverüberlastung?</string>
+    <string name="toast_internal_error">Interner Serverfehler auf \"%s\".</string>
+    <string name="toast_invalid_data">Auskunftssystem liefert ungültige Daten:\n%s</string>
+    <string name="alert_network_connection_unavailable">Probleme beim Verbinden zum Server</string>
+    <string name="alert_network_file_not_found">Datei auf dem Server nicht gefunden</string>
+    <string name="alert_network_forbidden">Zugriff auf Datei auf dem Server nicht erlaubt</string>
+    <string name="alert_network_problem_title">Netzwerk-Probleme?</string>
+    <string name="alert_network_problem_message">Kann Daten nicht laden.</string>
+    <string name="alert_network_problem_retry">Nochmal versuchen</string>
+    <string name="changelog_dialog_title_version">Willkommen zu Öffi Version %s!</string>
+    <string name="changelog_dialog_title">Folgendes ist neu:</string>
+    <string name="changelog_dialog_button_dismiss">Weiter</string>
+    <string name="alert_hint_neutral">Weiter</string>
+    <string name="alert_crash_report_title">Öffi ist letztens abgestürzt</string>
+    <string name="alert_crash_report_new_version">Es gibt eine neue Öffi-Version %s. Du solltest aktualisieren, denn möglicherweise wurde dein Problem schon behoben.</string>
+    <string name="alert_crash_report_message">Möchtest du einen Fehlerbericht senden, um dabei zu helfen das Problem zu lösen?</string>
+    <string name="alert_crash_report_positive">Bericht</string>
+    <string name="alert_crash_report_update">Google Play</string>
+    <string name="alert_crash_report_download">Herunterladen</string>
+    <string name="alert_crash_report_negative">Schließen</string>
+
+    <!-- products -->
+    <string name="product_i">Fernverkehr</string>
+    <string name="product_r">Regional</string>
+    <string name="product_s">S-Bahn</string>
+    <string name="product_u">U-Bahn</string>
+    <string name="product_t">Tram</string>
+    <string name="product_b">Bus</string>
+    <string name="product_p">Bedarfsverkehr</string>
+    <string name="product_f">Fähre</string>
+    <string name="product_c">Seilbahn</string>
+
+    <!-- time -->
+    <string name="time_yesterday">gestern</string>
+    <string name="time_yesterday_abbrev">gest.</string>
+    <string name="time_today">heute</string>
+    <string name="time_today_abbrev">heute</string>
+    <string name="time_tomorrow">morgen</string>
+    <string name="time_tomorrow_abbrev">morg.</string>
+    <string name="time_now">jetzt</string>
+    <string name="time_in">%d&#x200a;min</string>
+    <string name="time_ago">vor&#x2009;%d&#x200a;min</string>
+    <string name="time_hours">%1$dh&#x2009;%2$02d&#x200a;min</string>
+
+    <!-- position -->
+    <string name="position_platform">Gleis %s</string>
+
+</resources>

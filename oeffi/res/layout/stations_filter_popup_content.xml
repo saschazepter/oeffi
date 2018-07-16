@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal" >
+
+    <TableRow>
+
+        <CheckBox
+            android:background="?android:attr/selectableItemBackground"
+            android:button="@null"
+            android:checked="true"
+            android:drawableLeft="@drawable/ic_menu_product_highspeed"
+            android:drawablePadding="@dimen/list_entry_padding_horizontal_lax"
+            android:padding="@dimen/dialog_padding"
+            android:tag="I"
+            android:text="@string/product_i"
+            android:textColor="@color/text"
+            android:textSize="@dimen/font_size_large" />
+
+        <CheckBox
+            android:background="?android:attr/selectableItemBackground"
+            android:button="@null"
+            android:checked="true"
+            android:drawableLeft="@drawable/ic_menu_product_bus"
+            android:drawablePadding="@dimen/list_entry_padding_horizontal_lax"
+            android:padding="@dimen/dialog_padding"
+            android:tag="B"
+            android:text="@string/product_b"
+            android:textColor="@color/text"
+            android:textSize="@dimen/font_size_large" />
+    </TableRow>
+
+    <TableRow>
+
+        <CheckBox
+            android:background="?android:attr/selectableItemBackground"
+            android:button="@null"
+            android:checked="true"
+            android:drawableLeft="@drawable/ic_menu_product_train"
+            android:drawablePadding="@dimen/list_entry_padding_horizontal_lax"
+            android:padding="@dimen/dialog_padding"
+            android:tag="R"
+            android:text="@string/product_r"
+            android:textColor="@color/text"
+            android:textSize="@dimen/font_size_large" />
+
+        <CheckBox
+            android:background="?android:attr/selectableItemBackground"
+            android:button="@null"
+            android:checked="true"
+            android:drawableLeft="@drawable/ic_menu_product_call"
+            android:drawablePadding="@dimen/list_entry_padding_horizontal_lax"
+            android:padding="@dimen/dialog_padding"
+            android:tag="P"
+            android:text="@string/product_p"
+            android:textColor="@color/text"
+            android:textSize="@dimen/font_size_large" />
+    </TableRow>
+
+    <TableRow>
+
+        <CheckBox
+            android:background="?android:attr/selectableItemBackground"
+            android:button="@null"
+            android:checked="true"
+            android:drawableLeft="@drawable/ic_menu_product_suburban"
+            android:drawablePadding="@dimen/list_entry_padding_horizontal_lax"
+            android:padding="@dimen/dialog_padding"
+            android:tag="S"
+            android:text="@string/product_s"
+            android:textColor="@color/text"
+            android:textSize="@dimen/font_size_large" />
+
+        <CheckBox
+            android:background="?android:attr/selectableItemBackground"
+            android:button="@null"
+            android:checked="true"
+            android:drawableLeft="@drawable/ic_menu_product_ferry"
+            android:drawablePadding="@dimen/list_entry_padding_horizontal_lax"
+            android:padding="@dimen/dialog_padding"
+            android:tag="F"
+            android:text="@string/product_f"
+            android:textColor="@color/text"
+            android:textSize="@dimen/font_size_large" />
+    </TableRow>
+
+    <TableRow>
+
+        <CheckBox
+            android:background="?android:attr/selectableItemBackground"
+            android:button="@null"
+            android:checked="true"
+            android:drawableLeft="@drawable/ic_menu_product_subway"
+            android:drawablePadding="@dimen/list_entry_padding_horizontal_lax"
+            android:padding="@dimen/dialog_padding"
+            android:tag="U"
+            android:text="@string/product_u"
+            android:textColor="@color/text"
+            android:textSize="@dimen/font_size_large" />
+
+        <CheckBox
+            android:background="?android:attr/selectableItemBackground"
+            android:button="@null"
+            android:checked="true"
+            android:drawableLeft="@drawable/ic_menu_product_cablecar"
+            android:drawablePadding="@dimen/list_entry_padding_horizontal_lax"
+            android:padding="@dimen/dialog_padding"
+            android:tag="C"
+            android:text="@string/product_c"
+            android:textColor="@color/text"
+            android:textSize="@dimen/font_size_large" />
+    </TableRow>
+
+    <TableRow>
+
+        <CheckBox
+            android:background="?android:attr/selectableItemBackground"
+            android:button="@null"
+            android:checked="true"
+            android:drawableLeft="@drawable/ic_menu_product_tram"
+            android:drawablePadding="@dimen/list_entry_padding_horizontal_lax"
+            android:padding="@dimen/dialog_padding"
+            android:tag="T"
+            android:text="@string/product_t"
+            android:textColor="@color/text"
+            android:textSize="@dimen/font_size_large" />
+    </TableRow>
+
+</TableLayout>

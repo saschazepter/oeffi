@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="about" >
+
+    <PreferenceCategory android:title="@string/about_title" >
+        <Preference
+            android:key="about_version"
+            android:title="Version" />
+        <Preference
+            android:summary="@string/about_copyright_summary"
+            android:title="@string/about_copyright_title" />
+        <Preference
+            android:key="about_license"
+            android:summary="https://www.gnu.org/licenses/gpl-3.0.txt"
+            android:title="@string/about_license_title" >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://www.gnu.org/licenses/gpl-3.0.txt" />
+        </Preference>
+        <Preference
+            android:key="about_source"
+            android:summary="https://gitlab.com/oeffi/oeffi"
+            android:title="@string/about_source_title" >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://gitlab.com/oeffi/oeffi" />
+        </Preference>
+        <Preference
+            android:key="about_changelog"
+            android:summary="@string/about_changelog_summary"
+            android:title="@string/about_changelog_title" />
+        <Preference
+            android:key="about_faq"
+            android:summary="@string/about_faq_summary"
+            android:title="@string/about_faq_title" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/about_feedback_title" >
+        <Preference
+            android:key="about_market_rate"
+            android:title="@string/about_market_rate_title" />
+        <Preference
+            android:key="about_report_bug"
+            android:summary="@string/about_report_bug_summary"
+            android:title="@string/about_report_bug_title" />
+        <Preference
+            android:key="about_community_googleplus"
+            android:summary="@string/about_community_googleplus_summary"
+            android:title="@string/about_community_googleplus_title" />
+        <Preference
+            android:key="about_twitter"
+            android:summary="\@oeffi"
+            android:title="Twitter" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="about_donate"
+        android:title="@string/about_donate_title" >
+        <Preference
+            android:key="about_donate_bitcoin"
+            android:summary="@string/about_donate_bitcoin_summary"
+            android:title="@string/about_donate_bitcoin_title" />
+        <Preference
+            android:key="about_donate_flattr"
+            android:summary="@string/about_donate_flattr_summary"
+            android:title="@string/about_donate_flattr_title" />
+        <Preference
+            android:key="about_donate_euro"
+            android:summary="@string/about_donate_euro_summary"
+            android:title="@string/about_donate_euro_title" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,210 @@
+/*
+ * Copyright the original author or authors.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+package de.schildbach.oeffi.plans.list;
+
+import java.util.Date;
+
+import javax.annotation.Nullable;
+
+import de.schildbach.oeffi.R;
+import de.schildbach.oeffi.network.NetworkResources;
+
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import okhttp3.Call;
+
+public class PlanViewHolder extends RecyclerView.ViewHolder {
+    private final Context context;
+    private final java.text.DateFormat dateFormat;
+    private final ImageView thumbView;
+    private final TextView nameView;
+    private final TextView disclaimerView;
+    private final ImageView loadedView;
+    private final ProgressBar progressView;
+    private final TextView validFromView;
+    private final ImageView networkLogoView;
+    private final ImageButton contextButton;
+
+    @Nullable
+    private Call call = null;
+
+    public PlanViewHolder(final Context context, final View itemView) {
+        super(itemView);
+        this.context = context;
+        this.dateFormat = DateFormat.getDateFormat(context);
+
+        thumbView = (ImageView) itemView.findViewById(R.id.plans_picker_entry_thumb);
+        nameView = (TextView) itemView.findViewById(R.id.plans_picker_entry_name);
+        disclaimerView = (TextView) itemView.findViewById(R.id.plans_picker_entry_disclaimer);
+        loadedView = (ImageView) itemView.findViewById(R.id.plans_picker_entry_loaded);
+        progressView = (ProgressBar) itemView.findViewById(R.id.plans_picker_entry_progress);
+        validFromView = (TextView) itemView.findViewById(R.id.plans_picker_entry_valid_from);
+        networkLogoView = (ImageView) itemView.findViewById(R.id.plans_picker_entry_network_logo);
+        contextButton = (ImageButton) itemView.findViewById(R.id.plans_picker_entry_context_button);
+    }
+
+    public void bind(final PlansAdapter.Plan plan, final PlanClickListener clickListener,
+            final PlanContextMenuItemListener contextMenuItemListener) {
+        itemView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(final View v) {
+                clickListener.onPlanClick(plan);
+            }
+        });
+
+        thumbView.setImageDrawable(null);
+
+        nameView.setText(plan.name);
+
+        disclaimerView.setText(plan.disclaimer);
+
+        loadedView.setVisibility(plan.localFile.exists() ? View.VISIBLE : View.GONE);
+
+        progressView.setVisibility(View.INVISIBLE);
+
+        final Date now = new Date();
+        final Date validFrom = plan.validFrom;
+        final boolean valid = validFrom == null || validFrom.before(now);
+        validFromView.setText(
+                valid ? null : context.getString(R.string.plans_picker_entry_valid_from, dateFormat.format(validFrom)));
+
+        if (plan.networkLogo != null) {
+            final NetworkResources networkResources = NetworkResources.instance(context, plan.networkLogo);
+            networkLogoView.setVisibility(View.VISIBLE);
+            networkLogoView.setImageDrawable(networkResources.icon);
+        } else {
+            networkLogoView.setVisibility(View.GONE);
+        }
+
+        contextButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(final View v) {
+                final PopupMenu contextMenu = new PopupMenu(context, v);
+                contextMenu.inflate(R.menu.plans_picker_context);
+                contextMenu.getMenu().findItem(R.id.plans_picker_context_remove).setVisible(plan.localFile.exists());
+                contextMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(final MenuItem item) {
+                        return contextMenuItemListener.onPlanContextMenuItemClick(plan, item.getItemId());
+                    }
+                });
+                contextMenu.show();
+            }
+        });
+    }
+
+    public void bindThumb(final Drawable thumb) {
+        if (thumbView.getDrawable() == null) {
+            final Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);
+            animation.setAnimationListener(new AnimationListener() {
+                public void onAnimationStart(final Animation animation) {
+                    setIsRecyclable(false);
+                }
+
+                public void onAnimationEnd(final Animation animation) {
+                    setIsRecyclable(true);
+                }
+
+                public void onAnimationRepeat(final Animation animation) {
+                    // Ignore
+                }
+            });
+            thumbView.startAnimation(animation);
+        }
+        thumbView.setImageDrawable(thumb);
+    }
+
+    public void bindProgressPermille(final int progressPermille) {
+        progressView.setVisibility(progressPermille > 0 ? View.VISIBLE : View.INVISIBLE);
+        progressView.setProgress(progressPermille);
+        if (progressPermille == 1000) {
+            final Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_out);
+            animation.setAnimationListener(new AnimationListener() {
+                public void onAnimationStart(final Animation animation) {
+                    setIsRecyclable(false);
+                }
+
+                public void onAnimationEnd(final Animation animation) {
+                    progressView.setVisibility(View.INVISIBLE);
+                    setIsRecyclable(true);
+                }
+
+                public void onAnimationRepeat(final Animation animation) {
+                    // Ignore
+                }
+            });
+            progressView.startAnimation(animation);
+        }
+    }
+
+    public void bindLoaded(final boolean loaded) {
+        if (loaded && loadedView.getVisibility() != View.VISIBLE) {
+            loadedView.setVisibility(View.VISIBLE);
+            final Animation animation = AnimationUtils.loadAnimation(context, R.anim.pop_in);
+            animation.setAnimationListener(new AnimationListener() {
+                public void onAnimationStart(final Animation animation) {
+                    setIsRecyclable(false);
+                }
+
+                public void onAnimationEnd(final Animation animation) {
+                    setIsRecyclable(true);
+                }
+
+                public void onAnimationRepeat(final Animation animation) {
+                    // Ignore
+                }
+            });
+            loadedView.startAnimation(animation);
+        } else if (!loaded && loadedView.getVisibility() == View.VISIBLE) {
+            final Animation animation = AnimationUtils.loadAnimation(context, R.anim.pop_out);
+            animation.setAnimationListener(new AnimationListener() {
+                public void onAnimationStart(final Animation animation) {
+                    setIsRecyclable(false);
+                }
+
+                public void onAnimationEnd(final Animation animation) {
+                    loadedView.setVisibility(View.GONE);
+                    setIsRecyclable(true);
+                }
+
+                public void onAnimationRepeat(final Animation animation) {
+                    // Ignore
+                }
+            });
+            loadedView.startAnimation(animation);
+        }
+    }
+
+    public void setCall(final Call call) {
+        this.call = call;
+    }
+
+    @Nullable
+    public Call getCall() {
+        return call;
+    }
+}

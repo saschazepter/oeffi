@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/action_bar" />
+
+    <ViewAnimator
+        android:id="@+id/favorites_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foreground="@drawable/view_shadow_bottom"
+        android:foregroundGravity="top|fill_horizontal" >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/favorites_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_verylax"
+            android:layout_marginRight="@dimen/list_entry_padding_horizontal_verylax"
+            android:gravity="center"
+            android:text="@string/stations_favorite_stations_no_content_message"
+            android:textSize="@dimen/font_size_large" />
+    </ViewAnimator>
+
+</LinearLayout>
