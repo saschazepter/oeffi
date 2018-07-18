@@ -11,14 +11,14 @@
     <string name="network_vbb_comment">Brandenburg &amp; Berlin, local and regional</string>
     <string name="network_nvv_label">Hesse (Frankfurt/Rhine-Main, Kassel, …)</string>
     <string name="network_nvv_comment">local and regional</string>
-    <string name="network_bayern_label">Bavaria (Würzburg, Regensburg, …)</string>
+    <string name="network_bayern_label">Bavaria (Nuremberg, Würzburg, Regensburg, …)</string>
     <string name="network_bayern_comment">local and regional</string>
     <string name="network_mvv_label">Munich</string>
     <string name="network_mvv_comment">local and regional</string>
     <string name="network_avv_label">Augsburg</string>
     <string name="network_avv_comment">tram and bus only</string>
-    <string name="network_vgn_label">Verkehrsverbund Großraum Nürnberg</string>
-    <string name="network_vgn_comment">Nuremberg, Fürth &amp; Erlangen, local and regional</string>
+    <string name="network_vgn_label">Nuremberg, Fürth &amp; Erlangen</string>
+    <string name="network_vgn_comment">Not available, because the VGN desires to temporarily not be included in Offi. You can select the Bavaria instead, it works well for Nuremberg too.</string>
     <string name="network_vvm_label">Mittelschwaben (Krumbach, Günzburg, …)</string>
     <string name="network_vvm_comment">local and regional</string>
     <string name="network_vmv_label">Schwerin &amp; Mecklenburg-Vorpommern</string>

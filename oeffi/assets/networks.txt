@@ -7,10 +7,10 @@ RT|eu|DE;AT;CH;BE;LU;NL;DK;SE;NO;FI;GB;SI;HU;RO;BG;PL;SK;IT;ES;PT
 DB|de-DE|DE
 BVG|de-DE|Brandenburg;Berlin
 VBB|de-DE|Brandenburg
-BAYERN|de-DE|Bayern;Würzburg;Regensburg
+BAYERN|de-DE|Bayern;Nürnberg;Würzburg;Regensburg
 AVV|de-DE|Augsburg
 MVV|de-DE|Bayern;München
-VGN|de-DE|Nürnberg;Fürth;Erlangen
+VGN|de-DE|Nürnberg;Fürth;Erlangen|disabled
 VVM|de-DE|Schwaben;Mittelschwaben;Krumbach;Günzburg;Memmingen
 NVV|de-DE|Hessen;Frankfurt am Main;Kassel
 VMV|de-DE|Mecklenburg-Vorpommern;Schwerin
