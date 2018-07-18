@@ -61,7 +61,6 @@ import de.schildbach.pte.VagfrProvider;
 import de.schildbach.pte.VbbProvider;
 import de.schildbach.pte.VblProvider;
 import de.schildbach.pte.VbnProvider;
-import de.schildbach.pte.VgnProvider;
 import de.schildbach.pte.VmsProvider;
 import de.schildbach.pte.VmtProvider;
 import de.schildbach.pte.VmvProvider;
@@ -110,8 +109,6 @@ public final class NetworkProviderFactory {
             return new MvvProvider();
         else if (networkId.equals(NetworkId.AVV))
             return new AvvProvider();
-        else if (networkId.equals(NetworkId.VGN))
-            return new VgnProvider();
         else if (networkId.equals(NetworkId.VVM))
             return new VvmProvider();
         else if (networkId.equals(NetworkId.VMV))

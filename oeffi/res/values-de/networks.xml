@@ -11,14 +11,14 @@
     <string name="network_vbb_comment">Brandenburg &amp; Berlin, Lokal- und Regionalverkehr</string>
     <string name="network_nvv_label">Hessen (Frankfurt/Rhein-Main, Kassel, …)</string>
     <string name="network_nvv_comment">Lokal- und Regionalverkehr</string>
-    <string name="network_bayern_label">Bayern (Würzburg, Regensburg, …)</string>
+    <string name="network_bayern_label">Bayern (Nürnberg, Würzburg, Regensburg, …)</string>
     <string name="network_bayern_comment">Lokal- und Regionalverkehr</string>
     <string name="network_mvv_label">München</string>
     <string name="network_mvv_comment">Lokal- und Regionalverkehr</string>
     <string name="network_avv_label">Augsburg</string>
     <string name="network_avv_comment">nur Tram und Bus</string>
-    <string name="network_vgn_label">Verkehrsverbund Großraum Nürnberg</string>
-    <string name="network_vgn_comment">Nürnberg, Fürth &amp; Erlangen, Lokal- und Regionalverkehr</string>
+    <string name="network_vgn_label">Nürnberg, Fürth &amp; Erlangen</string>
+    <string name="network_vgn_comment">Nicht verfügbar, weil der VGN vorübergehend nicht in Öffi enthalten sein will. Du kannst stattdessen Bayern verwenden, das funktioniert für Nürnberg auch gut.</string>
     <string name="network_vvm_label">Mittelschwaben (Krumbach, Günzburg, …)</string>
     <string name="network_vvm_comment">Lokal- und Regionalverkehr</string>
     <string name="network_vmv_label">Schwerin &amp; Mecklenburg-Vorpommern</string>
