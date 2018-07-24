@@ -329,7 +329,8 @@
     <string name="changelog_dialog_title_version">Welcome to Offi version %s!</string>
     <string name="changelog_dialog_title">Here is what\'s new:</string>
     <string name="changelog_dialog_button_dismiss">Dismiss</string>
-    <string name="alert_hint_neutral">Dismiss</string>
+    <string name="alert_message_button_dismiss">Dismiss</string>
+    <string name="alert_message_button_update">Update app</string>
     <string name="alert_crash_report_title">Previous crash detected</string>
     <string name="alert_crash_report_new_version">There is a new Offi version %s available. You should update, as your problem might already have been fixed.</string>
     <string name="alert_crash_report_message">Would you like to send a crash report, helping to fix this issue in the future?</string>

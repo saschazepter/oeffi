@@ -632,21 +632,6 @@ public abstract class OeffiMainActivity extends OeffiActivity {
         return true;
     }
 
-    private class MessageOnClickListener implements DialogInterface.OnClickListener {
-        private final String link;
-
-        public MessageOnClickListener(final String link) {
-            this.link = link;
-        }
-
-        public void onClick(final DialogInterface dialog, final int which) {
-            if ("select-network".equals(link))
-                NetworkPickerActivity.start(OeffiMainActivity.this);
-            else
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
-        }
-    }
-
     private Dialog messageDialog(final Bundle message) {
         final DialogBuilder builder = DialogBuilder.get(this);
         final String action = message.getString("action");
@@ -660,38 +645,64 @@ public abstract class OeffiMainActivity extends OeffiActivity {
         final String body = message.getString("body");
         builder.setMessage(body);
         final String positive = message.getString("button-positive");
-        if (positive != null) {
-            final Iterator<String> parts = Splitter.on('|').trimResults().limit(2).split(positive).iterator();
-            final String text = parts.next();
-            if ("dismiss".equals(text))
-                builder.setPositiveButton(R.string.alert_hint_neutral, null);
-            else
-                builder.setPositiveButton(text, parts.hasNext() ? new MessageOnClickListener(parts.next()) : null);
-        }
+        if (positive != null)
+            builder.setPositiveButton(messageButtonText(positive), messageButtonListener(positive));
         final String neutral = message.getString("button-neutral");
-        if (neutral != null) {
-            final Iterator<String> parts = Splitter.on('|').trimResults().limit(2).split(neutral).iterator();
-            final String text = parts.next();
-            if ("dismiss".equals(text))
-                builder.setNeutralButton(R.string.alert_hint_neutral, null);
-            else
-                builder.setNeutralButton(text, parts.hasNext() ? new MessageOnClickListener(parts.next()) : null);
-        }
+        if (neutral != null)
+            builder.setNeutralButton(messageButtonText(neutral), messageButtonListener(neutral));
         final String negative = message.getString("button-negative");
-        if (negative != null) {
-            final Iterator<String> parts = Splitter.on('|').trimResults().limit(2).split(negative).iterator();
-            final String text = parts.next();
-            if ("dismiss".equals(text))
-                builder.setNegativeButton(R.string.alert_hint_neutral, null);
-            else
-                builder.setNegativeButton(text, parts.hasNext() ? new MessageOnClickListener(parts.next()) : null);
-        } else {
-            builder.setNegativeButton(R.string.alert_hint_neutral, null);
-        }
+        if (negative != null)
+            builder.setNegativeButton(messageButtonText(negative), messageButtonListener(negative));
+        else
+            builder.setNegativeButton(R.string.alert_message_button_dismiss, null);
 
         final Dialog dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);
         return dialog;
+    }
+
+    private String messageButtonText(final String buttonSpec) {
+        if ("dismiss".equals(buttonSpec))
+            return getString(R.string.alert_message_button_dismiss);
+        else if ("update".equals(buttonSpec))
+            return getString(R.string.alert_message_button_update);
+        else
+            return Splitter.on('|').trimResults().limit(2).split(buttonSpec).iterator().next();
+    }
+
+    private MessageOnClickListener messageButtonListener(final String buttonSpec) {
+        if ("dismiss".equals(buttonSpec)) {
+            return null;
+        } else if ("update".equals(buttonSpec)) {
+            final String installerPackageName = getPackageManager().getInstallerPackageName(getPackageName());
+            if ("com.android.vending".equals(installerPackageName))
+                return new MessageOnClickListener("https://play.google.com/store/apps/details?id=" + getPackageName());
+            else if ("org.fdroid.fdroid".equals(installerPackageName)
+                    || "org.fdroid.fdroid.privileged".equals(installerPackageName))
+                return new MessageOnClickListener("https://f-droid.org/de/packages/" + getPackageName() + "/");
+            else
+                // TODO localize
+                return new MessageOnClickListener("https://oeffi.schildbach.de/download.html");
+        } else {
+            final Iterator<String> iterator = Splitter.on('|').trimResults().limit(2).split(buttonSpec).iterator();
+            iterator.next();
+            return new MessageOnClickListener(iterator.next());
+        }
+    }
+
+    private class MessageOnClickListener implements DialogInterface.OnClickListener {
+        private final String link;
+
+        public MessageOnClickListener(final String link) {
+            this.link = link;
+        }
+
+        public void onClick(final DialogInterface dialog, final int which) {
+            if ("select-network".equals(link))
+                NetworkPickerActivity.start(OeffiMainActivity.this);
+            else
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
+        }
     }
 
     private long parseTimeExp(final String exp) {

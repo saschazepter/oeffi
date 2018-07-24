@@ -328,7 +328,8 @@
     <string name="changelog_dialog_title_version">Willkommen zu Öffi Version %s!</string>
     <string name="changelog_dialog_title">Folgendes ist neu:</string>
     <string name="changelog_dialog_button_dismiss">Weiter</string>
-    <string name="alert_hint_neutral">Weiter</string>
+    <string name="alert_message_button_dismiss">Weiter</string>
+    <string name="alert_message_button_update">App-Update</string>
     <string name="alert_crash_report_title">Öffi ist letztens abgestürzt</string>
     <string name="alert_crash_report_new_version">Es gibt eine neue Öffi-Version %s. Du solltest aktualisieren, denn möglicherweise wurde dein Problem schon behoben.</string>
     <string name="alert_crash_report_message">Möchtest du einen Fehlerbericht senden, um dabei zu helfen das Problem zu lösen?</string>
