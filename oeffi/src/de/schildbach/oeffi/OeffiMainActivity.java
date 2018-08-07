@@ -589,13 +589,13 @@ public abstract class OeffiMainActivity extends OeffiActivity {
                                     final String key = m.group(1);
                                     final String value = m.group(2).trim();
 
-                                    message.putString(key, value + " ");
+                                    message.putString(key, value);
                                     lastKey = key;
                                 } else if (lastKey != null) {
                                     if (line.isEmpty())
                                         line = "\n\n";
 
-                                    message.putString(lastKey, message.getString(lastKey) + line);
+                                    message.putString(lastKey, message.getString(lastKey) + " " + line);
                                 } else {
                                     throw new IllegalStateException("line needs to match 'key: value': '" + line + "'");
                                 }
