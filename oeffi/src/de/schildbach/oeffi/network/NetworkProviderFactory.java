@@ -119,7 +119,7 @@ public final class NetworkProviderFactory {
         else if (networkId.equals(NetworkId.SH))
             return new ShProvider("{\"aid\":\"r0Ot9FLFNAFxijLW\",\"type\":\"AID\"}");
         else if (networkId.equals(NetworkId.GVH))
-            return new GvhProvider(HttpUrl.parse("https://www.efa.de/app_oeffi/"));
+            return new GvhProvider();
         else if (networkId.equals(NetworkId.BSVAG))
             return new BsvagProvider();
         else if (networkId.equals(NetworkId.VBN))
