@@ -111,7 +111,7 @@ public final class NetworkProviderFactory {
         else if (networkId.equals(NetworkId.AVV))
             return new AvvProvider();
         else if (networkId.equals(NetworkId.VGN))
-            return new VgnProvider();
+            return new VgnProvider(HttpUrl.parse("https://efa.vgn.de/vgnExt_oeffi/"));
         else if (networkId.equals(NetworkId.VVM))
             return new VvmProvider();
         else if (networkId.equals(NetworkId.VMV))
