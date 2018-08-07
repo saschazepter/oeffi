@@ -132,11 +132,6 @@ public class Application extends android.app.Application {
         FavoriteStationsProvider.deleteFavoriteStations(this, IVB);
         QueryHistoryProvider.deleteQueryHistory(this, IVB);
 
-        // 2018-07-20: migrate VGN to use Bayern
-        final String VGN = "VGN";
-        migrateSelectedNetwork(VGN, NetworkId.BAYERN);
-        Downloader.deleteDownload(new File(getFilesDir(), VGN.toLowerCase(Locale.ENGLISH) + ".db"));
-
         log.info("Migrations took {}", watch);
     }
 
