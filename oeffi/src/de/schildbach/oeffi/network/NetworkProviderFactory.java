@@ -75,6 +75,7 @@ import de.schildbach.pte.VvvProvider;
 import de.schildbach.pte.WienProvider;
 import de.schildbach.pte.ZvvProvider;
 
+import android.os.Build;
 import okhttp3.HttpUrl;
 
 public final class NetworkProviderFactory {
@@ -89,6 +90,8 @@ public final class NetworkProviderFactory {
 
         final AbstractNetworkProvider networkProvider = forId(networkId);
         networkProvider.setUserAgent(USER_AGENT);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+            networkProvider.setTrustAllCertificates(true);
         providerCache.put(networkId, networkProvider);
         return networkProvider;
     }
