@@ -1,4 +1,4 @@
-v10.0.2
+v10.0.2-v10.0.3
 
 * Revert fix for GVH.
 * Avoid SSL errors on Android 4.x (KitKat or lower) devices.
