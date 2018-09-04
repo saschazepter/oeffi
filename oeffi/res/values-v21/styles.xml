@@ -3,7 +3,7 @@
 
     <style name="My.Widget.PopupMenu" parent="@android:style/Widget.Material.Light.PopupMenu" />
 
-    <style name="My.Theme.Dark" parent="android:Theme.Material.NoActionBar">
+     <!--<style name="My.Theme.Dark" parent="android:Theme.Material.NoActionBar">
         <item name="android:windowBackground">@android:color/black</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:imageButtonStyle">@style/My.Widget.ImageButton</item>
@@ -12,7 +12,7 @@
     <style name="My.Theme.Fullscreen" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:windowBackground">@android:color/black</item>
         <item name="android:textViewStyle">@style/My.Widget.TextView</item>
-    </style>
+    </style>-->
 
     <style name="My.Theme.Light" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:windowBackground">@android:color/white</item>
