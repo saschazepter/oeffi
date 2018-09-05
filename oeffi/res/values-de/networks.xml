@@ -119,6 +119,8 @@
     <string name="network_rtachicago_comment">Lokal- und Regionalverkehr</string>
     <string name="network_sydney_label">Sydney</string>
     <string name="network_sydney_comment">Lokal- und Regionalverkehr</string>
+    <string name="network_nicaragua_label">Nicaragua</string>
+    <string name="network_nicaragua_comment">nationale und städtische Buslinien</string>
     <string name="network_met_label">Melbourne</string>
     <string name="network_met_comment">Nicht mehr verfügbar, da der PTV keine EFA-API mehr anbietet.</string>
 

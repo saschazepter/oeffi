@@ -94,3 +94,6 @@ RTACHICAGO|us-US|US;Illinois;Chicago|beta
 # AU
 SYDNEY|en-AU|AU;New South Wales;Sydney
 MET|en-AU|AU;Victoria;Melbourne|disabled
+
+# NI
+NICARAGUA|es-NI|NI;Managua|beta

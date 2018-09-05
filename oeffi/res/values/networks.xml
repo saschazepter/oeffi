@@ -120,6 +120,8 @@
     <string name="network_rtachicago_comment">local and regional</string>
     <string name="network_sydney_label">Sydney</string>
     <string name="network_sydney_comment">local and regional</string>
+    <string name="network_nicaragua_label">Nicaragua</string>
+    <string name="network_nicaragua_comment">national and urban buses</string>
     <string name="network_met_label">Melbourne</string>
     <string name="network_met_comment">Not available, because the PTV does not offer an EFA API any more.</string>
 

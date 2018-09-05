@@ -40,6 +40,7 @@ import de.schildbach.pte.MvvProvider;
 import de.schildbach.pte.NasaProvider;
 import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.NetworkProvider;
+import de.schildbach.pte.NicaraguaProvider;
 import de.schildbach.pte.NriProvider;
 import de.schildbach.pte.NsProvider;
 import de.schildbach.pte.NvbwProvider;
@@ -199,6 +200,8 @@ public final class NetworkProviderFactory {
             return new RtaChicagoProvider();
         else if (networkId.equals(NetworkId.SYDNEY))
             return new SydneyProvider();
+        else if (networkId.equals(NetworkId.NICARAGUA))
+            return new NicaraguaProvider("577e5781-23ee-4ff0-a5b3-92e5b04887e5"); // oeffi@schildbach.deF
         else
             throw new IllegalArgumentException(networkId.name());
     }
