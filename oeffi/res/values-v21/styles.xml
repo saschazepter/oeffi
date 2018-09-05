@@ -2,5 +2,19 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="My.Widget.PopupMenu" parent="@android:style/Widget.Material.Light.PopupMenu" />
+    
+    <style name="My.Theme.Light" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:textViewStyle">@style/My.Widget.TextView</item>
+        <item name="android:autoCompleteTextViewStyle">@style/My.Widget.AutoCompleteTextView</item>
+        <item name="android:dropDownListViewStyle">@style/My.Widget.ListView.DropDown</item>
+        <item name="android:buttonStyle">@style/My.Widget.Button</item>
+        <item name="android:imageButtonStyle">@style/My.Widget.ImageButton</item>
+        <item name="android:checkboxStyle">@style/My.Widget.CompoundButton.CheckBox</item>
+        <item name="android:popupMenuStyle">@style/My.Widget.PopupMenu</item>
+    </style>
+
+    <style name="My.Theme.Translucent" parent="android:Theme.Material.Light.NoActionBar" />
 
 </resources>
