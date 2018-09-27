@@ -117,6 +117,8 @@
     <string name="network_dub_comment">Lokalverkehr</string>
     <string name="network_rtachicago_label">Chicago</string>
     <string name="network_rtachicago_comment">Lokal- und Regionalverkehr</string>
+    <string name="network_cmta_label">Austin, Texas</string>
+    <string name="network_cmta_comment">Lokal- und Regionalverkehr</string>
     <string name="network_sydney_label">Sydney</string>
     <string name="network_sydney_comment">Lokal- und Regionalverkehr</string>
     <string name="network_nicaragua_label">Nicaragua</string>

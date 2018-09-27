@@ -26,6 +26,7 @@ import de.schildbach.pte.BahnProvider;
 import de.schildbach.pte.BayernProvider;
 import de.schildbach.pte.BsvagProvider;
 import de.schildbach.pte.BvgProvider;
+import de.schildbach.pte.CmtaProvider;
 import de.schildbach.pte.DingProvider;
 import de.schildbach.pte.DsbProvider;
 import de.schildbach.pte.DubProvider;
@@ -198,6 +199,8 @@ public final class NetworkProviderFactory {
             return new DubProvider();
         else if (networkId.equals(NetworkId.RTACHICAGO))
             return new RtaChicagoProvider();
+        else if (networkId.equals(NetworkId.CMTA))
+            return new CmtaProvider();
         else if (networkId.equals(NetworkId.SYDNEY))
             return new SydneyProvider();
         else if (networkId.equals(NetworkId.NICARAGUA))
