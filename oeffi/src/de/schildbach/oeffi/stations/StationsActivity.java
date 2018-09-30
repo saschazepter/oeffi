@@ -108,6 +108,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
 import android.provider.Settings;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -245,18 +246,16 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                 popup.showAsDropDown(v);
             }
         });
-        actionBar.overflow(R.menu.stations_options, new PopupMenu.OnMenuItemClickListener() {
-            public boolean onMenuItemClick(final MenuItem item) {
-                if (item.getItemId() == R.id.stations_options_favorites) {
-                    FavoriteStationsActivity.start(StationsActivity.this);
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        });
 
         initNavigation();
+
+        FloatingActionButton fab = findViewById(R.id.stations_fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FavoriteStationsActivity.start(StationsActivity.this);
+            }
+        });
 
         locationProvidersView = (ViewGroup) findViewById(R.id.stations_list_location_providers);
 
@@ -1337,7 +1336,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
             final TextView enabledView = (TextView) row.findViewById(R.id.stations_location_provider_row_enabled);
             enabledView.setText(enabled
                     ? (acquiring ? R.string.stations_location_provider_acquiring
-                            : R.string.stations_location_provider_enabled)
+                    : R.string.stations_location_provider_enabled)
                     : R.string.stations_location_provider_disabled);
             enabledView.setTypeface(acquiring ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
             locationProvidersView.addView(row);
