@@ -1,3 +1,7 @@
+v10.1.2
+
+* Revert back to target Android 8.1 (Oreo).
+
 v10.1.1
 
 * Fix NVBW.
@@ -7,6 +11,7 @@ v10.1
 * New region: Austin, Texas, USA.
 * New region: Nicaragua.
 * Material Design for dialogs and settings screens.
+* Target Android 9.0 (Pie).
 
 v10.0.2-v10.0.3
 
