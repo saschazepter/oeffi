@@ -19,8 +19,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="de.schildbach.oeffi"
-    android:versionCode="617"
-    android:versionName="10.1.3-aosp" >
+    android:versionCode="618"
+    android:versionName="10.1.4-aosp" >
 
     <uses-sdk
         android:minSdkVersion="16"
