@@ -337,6 +337,9 @@ public class PlanActivity extends Activity {
             layoutParams.x = coords[0];
             layoutParams.y = coords[1];
             bubble.requestLayout();
+            bubble.setEnabled(selection.location.hasId());
+        } else {
+            bubble.setEnabled(false);
         }
     }
 
