@@ -109,7 +109,8 @@ public class PlanActivity extends Activity {
     private LineView bubbleLinesView;
     private ZoomControls zoom;
     private TiledImageDrawable drawable;
-    private Station selection;
+    @Nullable
+    private Station selection = null;
     private List<Station> stations = new LinkedList<>();
 
     private final Handler handler = new Handler();
@@ -150,6 +151,7 @@ public class PlanActivity extends Activity {
         bubble.setVisibility(View.GONE);
         bubble.setOnClickListener(new OnClickListener() {
             public void onClick(final View v) {
+                final Station selection = checkNotNull(PlanActivity.this.selection);
                 final PopupMenu contextMenu = new StationContextMenu(PlanActivity.this, v, selection.network,
                         selection.location, null, false, false, false, false, false);
                 contextMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -278,10 +280,10 @@ public class PlanActivity extends Activity {
             return false;
     }
 
-    private void selectStation(final Station station) {
-        selection = station;
+    private void selectStation(final Station selection) {
+        this.selection = selection;
 
-        plan.animatePlanIntoView(station.location.lon, station.location.lat);
+        plan.animatePlanIntoView(selection.location.lon, selection.location.lat);
 
         bubble.setVisibility(View.VISIBLE);
         bubbleName.setText(selection.location.name);
@@ -327,6 +329,7 @@ public class PlanActivity extends Activity {
     }
 
     private void updateBubble() {
+        final Station selection = this.selection;
         if (selection != null) {
             final int[] coords = new int[] { selection.location.lon, selection.location.lat };
             plan.translateToViewCoordinates(coords);
@@ -390,6 +393,7 @@ public class PlanActivity extends Activity {
                     }
 
                     public boolean isSelectedStation(final String stationId) {
+                        final Station selection = PlanActivity.this.selection;
                         return selection != null && selection.location.hasId()
                                 && stationId.equals(selection.location.id);
                     }
