@@ -108,10 +108,6 @@ public class Application extends android.app.Application {
         migrateSelectedNetwork(PACA, NetworkId.RT);
         Downloader.deleteDownload(new File(getFilesDir(), PACA.toLowerCase(Locale.ENGLISH) + ".db"));
 
-        // 2017-05-28: clean up NRI, remove IDs less than 9 digits
-        FavoriteStationsProvider.deleteFavoriteStations(this, NetworkId.NRI, "1", "100000000");
-        QueryHistoryProvider.deleteQueryHistory(this, NetworkId.NRI, "1", "100000000");
-
         // 2017-08-31: migrate BVB to use NVBW
         final String BVB = "BVB";
         migrateSelectedNetwork(BVB, NetworkId.NVBW);
@@ -131,6 +127,13 @@ public class Application extends android.app.Application {
         Downloader.deleteDownload(new File(getFilesDir(), IVB.toLowerCase(Locale.ENGLISH) + ".db"));
         FavoriteStationsProvider.deleteFavoriteStations(this, IVB);
         QueryHistoryProvider.deleteQueryHistory(this, IVB);
+
+        // 2018-11-05: migrate NRI to use RT
+        final String NRI = "NRI";
+        migrateSelectedNetwork(NRI, NetworkId.RT);
+        Downloader.deleteDownload(new File(getFilesDir(), NRI.toLowerCase(Locale.ENGLISH) + ".db"));
+        FavoriteStationsProvider.deleteFavoriteStations(this, NRI);
+        QueryHistoryProvider.deleteQueryHistory(this, NRI);
 
         log.info("Migrations took {}", watch);
     }

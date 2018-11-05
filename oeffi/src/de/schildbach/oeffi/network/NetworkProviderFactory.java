@@ -42,7 +42,6 @@ import de.schildbach.pte.NasaProvider;
 import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.NetworkProvider;
 import de.schildbach.pte.NicaraguaProvider;
-import de.schildbach.pte.NriProvider;
 import de.schildbach.pte.NsProvider;
 import de.schildbach.pte.NvbwProvider;
 import de.schildbach.pte.NvvProvider;
@@ -185,8 +184,6 @@ public final class NetworkProviderFactory {
             return new DsbProvider();
         else if (networkId.equals(NetworkId.SE))
             return new SeProvider();
-        else if (networkId.equals(NetworkId.NRI))
-            return new NriProvider();
         else if (networkId.equals(NetworkId.TLEM))
             return new TlemProvider();
         else if (networkId.equals(NetworkId.MERSEY))
