@@ -42,6 +42,7 @@ import de.schildbach.pte.dto.LocationType;
 import de.schildbach.pte.dto.Point;
 import de.schildbach.pte.dto.Product;
 import de.schildbach.pte.dto.QueryTripsResult;
+import de.schildbach.pte.dto.TripOptions;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -222,18 +223,17 @@ public class DirectionsShortcutActivity extends OeffiActivity
             final Accessibility accessibility = Accessibility
                     .valueOf(prefs.getString(Constants.PREFS_KEY_ACCESSIBILITY, Accessibility.NEUTRAL.name()));
             final Set<Product> products = networkProvider.defaultProducts();
-
-            query(networkProvider, from, to, optimize, walkSpeed, accessibility, products);
+            final TripOptions options = new TripOptions(products, optimize, walkSpeed, accessibility, null);
+            query(networkProvider, from, to, options);
         } else {
             errorDialog(R.string.directions_shortcut_error_message_network);
         }
     }
 
     private void query(final NetworkProvider networkProvider, final Location from, final Location to,
-            final Optimize optimize, final WalkSpeed walkSpeed, final Accessibility accessibility,
-            final Set<Product> products) {
+            final TripOptions options) {
         queryTripsRunnable = new QueryTripsRunnable(getResources(), progressDialog, handler, networkProvider, from,
-                null, to, new TimeSpec.Relative(0), products, optimize, walkSpeed, accessibility, null) {
+                null, to, new TimeSpec.Relative(0), options) {
             @Override
             protected void onPostExecute() {
                 progressDialog.dismiss();

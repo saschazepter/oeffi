@@ -64,7 +64,7 @@ import de.schildbach.pte.NetworkProvider;
 import de.schildbach.pte.NetworkProvider.Accessibility;
 import de.schildbach.pte.NetworkProvider.Capability;
 import de.schildbach.pte.NetworkProvider.Optimize;
-import de.schildbach.pte.NetworkProvider.Option;
+import de.schildbach.pte.NetworkProvider.TripFlag;
 import de.schildbach.pte.NetworkProvider.WalkSpeed;
 import de.schildbach.pte.dto.Location;
 import de.schildbach.pte.dto.LocationType;
@@ -72,6 +72,7 @@ import de.schildbach.pte.dto.Product;
 import de.schildbach.pte.dto.QueryTripsResult;
 import de.schildbach.pte.dto.SuggestLocationsResult;
 import de.schildbach.pte.dto.Trip;
+import de.schildbach.pte.dto.TripOptions;
 
 import android.Manifest;
 import android.animation.LayoutTransition;
@@ -831,12 +832,12 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
             if (view.isChecked())
                 products.add(Product.fromCode(((String) view.getTag()).charAt(0)));
 
-        final Set<Option> options;
+        final Set<TripFlag> flags;
         if (viewBike.isChecked()) {
-            options = new HashSet<>();
-            options.add(Option.BIKE);
+            flags = new HashSet<>();
+            flags.add(TripFlag.BIKE);
         } else {
-            options = null;
+            flags = null;
         }
 
         final ProgressDialog progressDialog = ProgressDialog.show(DirectionsActivity.this, null,
@@ -849,8 +850,10 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
         progressDialog.setCanceledOnTouchOutside(false);
 
         final NetworkProvider networkProvider = NetworkProviderFactory.provider(network);
+        final TripOptions options = new TripOptions(products, prefsGetOptimizeTrip(), prefsGetWalkSpeed(),
+                prefsGetAccessibility(), flags);
         queryTripsRunnable = new QueryTripsRunnable(getResources(), progressDialog, handler, networkProvider, from, via,
-                to, time, products, prefsGetOptimizeTrip(), prefsGetWalkSpeed(), prefsGetAccessibility(), options) {
+                to, time, options) {
             @Override
             protected void onPreExecute() {
                 viewGo.setClickable(false);

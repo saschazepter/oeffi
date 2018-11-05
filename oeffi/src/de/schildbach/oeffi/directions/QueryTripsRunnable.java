@@ -22,7 +22,6 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.Date;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -37,12 +36,10 @@ import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.R;
 import de.schildbach.pte.NetworkProvider;
 import de.schildbach.pte.NetworkProvider.Accessibility;
-import de.schildbach.pte.NetworkProvider.Optimize;
-import de.schildbach.pte.NetworkProvider.Option;
 import de.schildbach.pte.NetworkProvider.WalkSpeed;
 import de.schildbach.pte.dto.Location;
-import de.schildbach.pte.dto.Product;
 import de.schildbach.pte.dto.QueryTripsResult;
+import de.schildbach.pte.dto.TripOptions;
 import de.schildbach.pte.exception.BlockedException;
 import de.schildbach.pte.exception.InternalErrorException;
 import de.schildbach.pte.exception.NotFoundException;
@@ -67,11 +64,7 @@ public abstract class QueryTripsRunnable implements Runnable {
     private final Location via;
     private final Location to;
     private final TimeSpec time;
-    private final Set<Product> products;
-    private final Optimize optimize;
-    private final WalkSpeed walkSpeed;
-    private final Accessibility accessibility;
-    private final Set<Option> options;
+    private final TripOptions options;
 
     private AtomicBoolean cancelled = new AtomicBoolean(false);
 
@@ -79,8 +72,7 @@ public abstract class QueryTripsRunnable implements Runnable {
 
     public QueryTripsRunnable(final Resources res, final ProgressDialog dialog, final Handler handler,
             final NetworkProvider networkProvider, final Location from, final Location via, final Location to,
-            final TimeSpec time, final Set<Product> products, final Optimize optimize, final WalkSpeed walkSpeed,
-            final Accessibility accessibility, final Set<Option> options) {
+            final TimeSpec time, final TripOptions options) {
         this.res = res;
         this.dialog = dialog;
         this.handler = handler;
@@ -91,10 +83,6 @@ public abstract class QueryTripsRunnable implements Runnable {
         this.via = via;
         this.to = to;
         this.time = time;
-        this.products = products;
-        this.optimize = optimize;
-        this.walkSpeed = walkSpeed;
-        this.accessibility = accessibility;
         this.options = options;
     }
 
@@ -109,7 +97,7 @@ public abstract class QueryTripsRunnable implements Runnable {
             try {
                 final boolean depArr = time.depArr == TimeSpec.DepArr.DEPART;
                 final QueryTripsResult result = networkProvider.queryTrips(from, via, to, new Date(time.timeInMillis()),
-                        depArr, products, optimize, walkSpeed, accessibility, options);
+                        depArr, options);
 
                 if (!cancelled.get())
                     postOnResult(result);
@@ -171,9 +159,10 @@ public abstract class QueryTripsRunnable implements Runnable {
     private void postOnPreExecute() {
         handler.post(new Runnable() {
             public void run() {
-                final boolean hasOptimize = optimize != null;
-                final boolean hasWalkSpeed = walkSpeed != null && walkSpeed != WalkSpeed.NORMAL;
-                final boolean hasAccessibility = accessibility != null && accessibility != Accessibility.NEUTRAL;
+                final boolean hasOptimize = options.optimize != null;
+                final boolean hasWalkSpeed = options.walkSpeed != null && options.walkSpeed != WalkSpeed.NORMAL;
+                final boolean hasAccessibility = options.accessibility != null
+                        && options.accessibility != Accessibility.NEUTRAL;
 
                 final SpannableStringBuilder progressMessage = new SpannableStringBuilder(
                         res.getString(R.string.directions_query_progress));
@@ -186,8 +175,8 @@ public abstract class QueryTripsRunnable implements Runnable {
                                 .append(res.getString(R.string.directions_preferences_optimize_trip_title))
                                 .append(": ");
                         final int begin = progressMessage.length();
-                        progressMessage
-                                .append(res.getStringArray(R.array.directions_optimize_trip)[optimize.ordinal()]);
+                        progressMessage.append(
+                                res.getStringArray(R.array.directions_optimize_trip)[options.optimize.ordinal()]);
                         progressMessage.setSpan(new StyleSpan(Typeface.BOLD), begin, progressMessage.length(),
                                 SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
@@ -195,7 +184,8 @@ public abstract class QueryTripsRunnable implements Runnable {
                         progressMessage.append('\n')
                                 .append(res.getString(R.string.directions_preferences_walk_speed_title)).append(": ");
                         final int begin = progressMessage.length();
-                        progressMessage.append(res.getStringArray(R.array.directions_walk_speed)[walkSpeed.ordinal()]);
+                        progressMessage
+                                .append(res.getStringArray(R.array.directions_walk_speed)[options.walkSpeed.ordinal()]);
                         progressMessage.setSpan(new StyleSpan(Typeface.BOLD), begin, progressMessage.length(),
                                 SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
@@ -204,8 +194,8 @@ public abstract class QueryTripsRunnable implements Runnable {
                                 .append(res.getString(R.string.directions_preferences_accessibility_title))
                                 .append(": ");
                         final int begin = progressMessage.length();
-                        progressMessage
-                                .append(res.getStringArray(R.array.directions_accessibility)[accessibility.ordinal()]);
+                        progressMessage.append(
+                                res.getStringArray(R.array.directions_accessibility)[options.accessibility.ordinal()]);
                         progressMessage.setSpan(new StyleSpan(Typeface.BOLD), begin, progressMessage.length(),
                                 SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
@@ -307,10 +297,6 @@ public abstract class QueryTripsRunnable implements Runnable {
         builder.append("v:").append(via).append('|');
         builder.append("t:").append(to).append('|');
         builder.append(time).append('|');
-        builder.append(products).append('|');
-        builder.append(optimize).append('|');
-        builder.append(walkSpeed).append('|');
-        builder.append(accessibility).append('|');
         builder.append(options).append(']');
         return builder.toString();
     }
