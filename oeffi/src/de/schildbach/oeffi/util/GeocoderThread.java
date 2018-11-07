@@ -51,7 +51,7 @@ public class GeocoderThread extends Thread {
     private static final Logger log = LoggerFactory.getLogger(GeocoderThread.class);
 
     public GeocoderThread(final Context context, final Point coord, final Callback callback) {
-        this(context, coord.lat / 1E6, coord.lon / 1E6, callback);
+        this(context, coord.getLatAsDouble(), coord.getLonAsDouble(), callback);
     }
 
     public GeocoderThread(final Context context, final double latitude, final double longitude,

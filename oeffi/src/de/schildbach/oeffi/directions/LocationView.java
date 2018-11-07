@@ -331,8 +331,8 @@ public class LocationView extends FrameLayout implements LocationHelper.Callback
     public void setLocation(final Location location) {
         locationType = location.type;
         id = location.id;
-        lat = location.lat / 1E6;
-        lon = location.lon / 1E6;
+        lat = location.getLatAsDouble();
+        lon = location.getLonAsDouble();
         place = location.place;
         setText(location.uniqueShortName());
         updateAppearance();
@@ -370,8 +370,7 @@ public class LocationView extends FrameLayout implements LocationHelper.Callback
         else if (locationType == LocationType.ANY && Strings.isNullOrEmpty(name))
             return null;
         else
-            return new Location(locationType, id, (int) (lat * 1E6), (int) (lon * 1E6), name != null ? place : null,
-                    name);
+            return new Location(locationType, id, Point.fromDouble(lat, lon), name != null ? place : null, name);
     }
 
     private final OnClickListener contextButtonClickListener = new OnClickListener() {
@@ -458,8 +457,7 @@ public class LocationView extends FrameLayout implements LocationHelper.Callback
     public static Location addressToLocation(final Address address) {
         final Point coord;
         if (address.hasLatitude() && address.hasLongitude())
-            coord = new Point((int) Math.round(address.getLatitude() * 1E6),
-                    (int) Math.round(address.getLongitude() * 1E6));
+            coord = Point.fromDouble(address.getLatitude(), address.getLongitude());
         else
             coord = null;
 
@@ -469,8 +467,8 @@ public class LocationView extends FrameLayout implements LocationHelper.Callback
             location = new Location(LocationType.ADDRESS, null, coord, address.getAddressLine(1),
                     address.getAddressLine(0));
         else if (address.getThoroughfare() != null)
-            location = new Location(LocationType.ADDRESS, null, coord, address.getLocality(),
-                    address.getThoroughfare() + (address.getFeatureName() != null ? " " + address.getFeatureName() : ""));
+            location = new Location(LocationType.ADDRESS, null, coord, address.getLocality(), address.getThoroughfare()
+                    + (address.getFeatureName() != null ? " " + address.getFeatureName() : ""));
         else
             location = new Location(LocationType.ADDRESS, null, coord);
 

@@ -256,7 +256,7 @@ public class PlansPickerActivity extends OeffiMainActivity implements ActivityCo
 
     private void requery() {
         final String sortOrder = location != null
-                ? Double.toString(location.lat / 1E6) + "," + Double.toString(location.lon / 1E6) : null;
+                ? Double.toString(location.getLatAsDouble()) + "," + Double.toString(location.getLonAsDouble()) : null;
         final Uri.Builder uri = PlanContentProvider.CONTENT_URI.buildUpon();
         if (filter != null)
             uri.appendPath(SearchManager.SUGGEST_URI_PATH_QUERY).appendPath(filter);

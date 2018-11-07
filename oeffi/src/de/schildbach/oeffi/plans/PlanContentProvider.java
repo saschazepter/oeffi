@@ -53,6 +53,7 @@ import com.google.common.util.concurrent.MoreExecutors;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.util.Downloader;
 import de.schildbach.pte.NetworkId;
+import de.schildbach.pte.dto.Point;
 
 import android.app.SearchManager;
 import android.content.ContentProvider;
@@ -217,8 +218,7 @@ public class PlanContentProvider extends ContentProvider {
                 final String planId = fields[0];
                 final int rowId = planId.hashCode(); // FIXME colliding hashcodes
                 final String[] coords = fields[1].split(",");
-                final int lat = (int) (Double.parseDouble(coords[0]) * 1E6);
-                final int lon = (int) (Double.parseDouble(coords[1]) * 1E6);
+                final Point p = Point.fromDouble(Double.parseDouble(coords[0]), Double.parseDouble(coords[1]));
                 final Date planValidFrom = parse(fields[2], dateFormat);
                 final String planName = fields[3];
                 final String planDisclaimer = numFields > 4 ? Strings.emptyToNull(fields[4]) : null;
@@ -234,7 +234,7 @@ public class PlanContentProvider extends ContentProvider {
                     filterMatch = false;
 
                 if (filterMatch) {
-                    cursor.newRow().add(rowId).add(planId).add(planName).add(lat).add(lon)
+                    cursor.newRow().add(rowId).add(planId).add(planName).add(p.lat).add(p.lon)
                             .add(planValidFrom != null ? planValidFrom.getTime() : 0).add(planDisclaimer).add(planUrl)
                             .add(planNetworkLogo);
                 }
@@ -373,13 +373,15 @@ public class PlanContentProvider extends ContentProvider {
 
                 public int compare(final Integer index1, final Integer index2) {
                     cursor.moveToPosition(index1);
-                    android.location.Location.distanceBetween(lat, lon, cursor.getInt(latColumn) / 1E6,
-                            cursor.getInt(lonColumn) / 1E6, distanceBetweenResults);
+                    final Point p1 = new Point(cursor.getInt(latColumn), cursor.getInt(lonColumn));
+                    android.location.Location.distanceBetween(lat, lon, p1.getLatAsDouble(), p1.getLonAsDouble(),
+                            distanceBetweenResults);
                     final float dist1 = distanceBetweenResults[0];
 
                     cursor.moveToPosition(index2);
-                    android.location.Location.distanceBetween(lat, lon, cursor.getInt(latColumn) / 1E6,
-                            cursor.getInt(lonColumn) / 1E6, distanceBetweenResults);
+                    final Point p2 = new Point(cursor.getInt(latColumn), cursor.getInt(lonColumn));
+                    android.location.Location.distanceBetween(lat, lon, p2.getLatAsDouble(), p2.getLonAsDouble(),
+                            distanceBetweenResults);
                     final float dist2 = distanceBetweenResults[0];
                     return Float.compare(dist1, dist2);
                 }

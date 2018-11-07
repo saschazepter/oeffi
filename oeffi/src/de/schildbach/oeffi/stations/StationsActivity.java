@@ -579,9 +579,9 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                                     i.remove();
                                     stationsMap.remove(station.location.id);
                                 } else if (station.location.hasLocation()) {
-                                    android.location.Location.distanceBetween(deviceLocation.lat / 1E6,
-                                            deviceLocation.lon / 1E6, station.location.lat / 1E6,
-                                            station.location.lon / 1E6, distanceBetweenResults);
+                                    android.location.Location.distanceBetween(deviceLocation.getLatAsDouble(),
+                                            deviceLocation.getLonAsDouble(), station.location.getLatAsDouble(),
+                                            station.location.getLonAsDouble(), distanceBetweenResults);
                                     station.setDistanceAndBearing(distanceBetweenResults[0], distanceBetweenResults[1]);
                                 }
                             }
@@ -674,9 +674,9 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         // location box
         findViewById(R.id.stations_location_box).setVisibility(fixedLocation != null ? View.VISIBLE : View.GONE);
         if (fixedLocation != null)
-            ((TextView) findViewById(R.id.stations_location_text)).setText(fixedLocation.name != null
-                    ? fixedLocation.name
-                    : String.format(Locale.ENGLISH, "%.6f, %.6f", fixedLocation.lat / 1E6, fixedLocation.lon / 1E6));
+            ((TextView) findViewById(R.id.stations_location_text))
+                    .setText(fixedLocation.name != null ? fixedLocation.name : String.format(Locale.ENGLISH,
+                            "%.6f, %.6f", fixedLocation.getLatAsDouble(), fixedLocation.getLonAsDouble()));
 
         // search box
         findViewById(R.id.stations_search_box).setVisibility(searchQuery != null ? View.VISIBLE : View.GONE);
@@ -780,8 +780,8 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
             if (referenceLocation != null) {
                 final MyActionBar actionBar = getMyActionBar();
 
-                final double referenceLat = referenceLocation.lat / 1E6;
-                final double referenceLon = referenceLocation.lon / 1E6;
+                final double referenceLat = referenceLocation.getLatAsDouble();
+                final double referenceLon = referenceLocation.getLonAsDouble();
 
                 final StringBuilder favoriteIds = new StringBuilder();
                 for (final Map.Entry<String, Integer> entry : favorites.entrySet())
@@ -840,13 +840,13 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                                         : cursor.getString(nativeIdColumnIndex);
                                 final String place = placeColumnIndex != -1 ? cursor.getString(placeColumnIndex) : null;
                                 final String name = cursor.getString(nameColumnIndex);
-                                final int lat = cursor.getInt(latColumnIndex);
-                                final int lon = cursor.getInt(lonColumnIndex);
-                                final Station station = new Station(network, new de.schildbach.pte.dto.Location(
-                                        LocationType.STATION, id, lat, lon, place, name), lineDestinations);
+                                final Point p = new Point(cursor.getInt(latColumnIndex), cursor.getInt(lonColumnIndex));
+                                final Station station = new Station(network,
+                                        new de.schildbach.pte.dto.Location(LocationType.STATION, id, p, place, name),
+                                        lineDestinations);
                                 if (deviceLocation != null) {
-                                    android.location.Location.distanceBetween(referenceLat, referenceLon, lat / 1E6,
-                                            lon / 1E6, distanceBetweenResults);
+                                    android.location.Location.distanceBetween(referenceLat, referenceLon,
+                                            p.getLatAsDouble(), p.getLonAsDouble(), distanceBetweenResults);
                                     station.setDistanceAndBearing(distanceBetweenResults[0], distanceBetweenResults[1]);
                                 }
                                 freshStations.add(station);
@@ -887,8 +887,9 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                 if (favType == FavoriteStationsProvider.TYPE_FAVORITE) {
                     final Station station = new Station(network, location, null);
                     if (deviceLocation != null && location.hasLocation()) {
-                        android.location.Location.distanceBetween(deviceLocation.lat / 1E6, deviceLocation.lon / 1E6,
-                                location.lat / 1E6, location.lon / 1E6, distanceBetweenResults);
+                        android.location.Location.distanceBetween(deviceLocation.getLatAsDouble(),
+                                deviceLocation.getLonAsDouble(), location.getLatAsDouble(), location.getLonAsDouble(),
+                                distanceBetweenResults);
                         station.setDistanceAndBearing(distanceBetweenResults[0], distanceBetweenResults[1]);
                     }
                     freshStations.add(station);
@@ -906,15 +907,15 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                     final Location referenceLocation = getReferenceLocation();
 
                     if (referenceLocation != null) {
-                        final double referenceLat = referenceLocation.lat / 1E6;
-                        final double referenceLon = referenceLocation.lon / 1E6;
+                        final double referenceLat = referenceLocation.getLatAsDouble();
+                        final double referenceLon = referenceLocation.getLonAsDouble();
 
                         final float[] distanceBetweenResults = new float[2];
 
                         for (final Station freshStation : freshStations) {
                             if (freshStation.location.hasLocation()) {
                                 android.location.Location.distanceBetween(referenceLat, referenceLon,
-                                        freshStation.location.lat / 1E6, freshStation.location.lon / 1E6,
+                                        freshStation.location.getLatAsDouble(), freshStation.location.getLonAsDouble(),
                                         distanceBetweenResults);
                                 freshStation.setDistanceAndBearing(distanceBetweenResults[0],
                                         distanceBetweenResults[1]);
@@ -1441,8 +1442,8 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
 
                 for (final Station station : stations) {
                     if (station.location.hasLocation()) {
-                        android.location.Location.distanceBetween(hereLat, hereLon, station.location.lat / 1E6,
-                                station.location.lon / 1E6, distanceBetweenResults);
+                        android.location.Location.distanceBetween(hereLat, hereLon, station.location.getLatAsDouble(),
+                                station.location.getLonAsDouble(), distanceBetweenResults);
                         station.setDistanceAndBearing(distanceBetweenResults[0], distanceBetweenResults[1]);
                     }
                 }

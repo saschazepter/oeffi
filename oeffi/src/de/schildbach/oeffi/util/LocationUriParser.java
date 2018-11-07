@@ -173,18 +173,16 @@ public class LocationUriParser {
         if (!m.matches())
             return null;
 
-        final int lat = (int) Math.round(Double.parseDouble(m.group(2)) * 1E6);
-        final int lon = (int) Math.round(Double.parseDouble(m.group(3)) * 1E6);
+        final Point p = Point.fromDouble(Double.parseDouble(m.group(2)), Double.parseDouble(m.group(3)));
 
         if (title != null)
-            return new Location(LocationType.ADDRESS, null, lat, lon, null, title);
+            return new Location(LocationType.ADDRESS, null, p, null, title);
         else if (m.group(1) != null)
-            return new Location(LocationType.ADDRESS, null, lat, lon, null,
-                    m.group(1).length() > 0 ? m.group(1) : null);
+            return new Location(LocationType.ADDRESS, null, p, null, m.group(1).length() > 0 ? m.group(1) : null);
         else if (m.group(4) != null)
-            return new Location(LocationType.ADDRESS, null, lat, lon, null, m.group(4));
+            return new Location(LocationType.ADDRESS, null, p, null, m.group(4));
         else
-            return Location.coord(lat, lon);
+            return Location.coord(p);
     }
 
     private static String normalizeDecodeParam(final String raw) {

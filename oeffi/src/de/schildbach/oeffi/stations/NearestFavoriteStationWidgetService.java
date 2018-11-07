@@ -39,6 +39,7 @@ import de.schildbach.oeffi.util.Objects;
 import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.NetworkProvider;
 import de.schildbach.pte.dto.Departure;
+import de.schildbach.pte.dto.Point;
 import de.schildbach.pte.dto.QueryDeparturesResult;
 import de.schildbach.pte.dto.StationDepartures;
 import de.schildbach.pte.exception.BlockedException;
@@ -194,8 +195,7 @@ public class NearestFavoriteStationWidgetService extends JobIntentService {
                 final String stationId = favCursor.getString(stationIdCol);
                 String stationPlace = favCursor.getString(stationPlaceCol);
                 String stationName = favCursor.getString(stationNameCol);
-                double stationLat = favCursor.getInt(stationLatCol) / 1E6;
-                double stationLon = favCursor.getInt(stationLonCol) / 1E6;
+                Point stationPoint = new Point(favCursor.getInt(stationLatCol), favCursor.getInt(stationLonCol));
 
                 try {
                     final NetworkId networkId = NetworkId.valueOf(network);
@@ -214,17 +214,16 @@ public class NearestFavoriteStationWidgetService extends JobIntentService {
                             if (placeCol != -1)
                                 stationPlace = stationCursor.getString(placeCol);
                             stationName = stationCursor.getString(nameCol);
-                            stationLat = stationCursor.getInt(latCol) / 1E6;
-                            stationLon = stationCursor.getInt(lonCol) / 1E6;
+                            stationPoint = new Point(stationCursor.getInt(latCol), stationCursor.getInt(lonCol));
                         }
 
                         stationCursor.close();
                     }
 
-                    if (stationLat > 0 || stationLon > 0) {
+                    if (stationPoint.lat > 0 || stationPoint.lon > 0) {
                         final float[] distanceBetweenResults = new float[1];
-                        android.location.Location.distanceBetween(here.getLatitude(), here.getLongitude(), stationLat,
-                                stationLon, distanceBetweenResults);
+                        android.location.Location.distanceBetween(here.getLatitude(), here.getLongitude(),
+                                stationPoint.getLatAsDouble(), stationPoint.getLonAsDouble(), distanceBetweenResults);
                         final float distance = distanceBetweenResults[0];
                         final Favorite favorite = new Favorite(networkId, stationId, stationPlace, stationName,
                                 distance);

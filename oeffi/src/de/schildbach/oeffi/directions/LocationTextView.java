@@ -71,8 +71,8 @@ public class LocationTextView extends TextView {
                 text.append("<b>").append(location.name).append("</b>");
             if (text.length() == 0 && location.hasLocation())
                 text.append(getContext().getString(R.string.directions_location_view_coordinate)).append(":<br/>")
-                        .append(String.format(Locale.ENGLISH, "%1$.6f, %2$.6f", location.lat / 1E6,
-                                location.lon / 1E6));
+                        .append(String.format(Locale.ENGLISH, "%1$.6f, %2$.6f", location.getLatAsDouble(),
+                                location.getLonAsDouble()));
             setText(Html.fromHtml(text.toString()));
             setCompoundDrawablesWithIntrinsicBounds(
                     showLocationType ? LocationView.locationTypeIconRes(location.type) : 0, 0, 0, 0);

@@ -434,9 +434,9 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
                     final Trip.Public publicLeg = (Trip.Public) leg;
 
                     if (publicLeg.departure.hasLocation()) {
-                        android.location.Location.distanceBetween(publicLeg.departure.lat / 1E6,
-                                publicLeg.departure.lon / 1E6, location.lat / 1E6, location.lon / 1E6,
-                                distanceBetweenResults);
+                        android.location.Location.distanceBetween(publicLeg.departure.getLatAsDouble(),
+                                publicLeg.departure.getLonAsDouble(), location.getLatAsDouble(),
+                                location.getLonAsDouble(), distanceBetweenResults);
                         final float distance = distanceBetweenResults[0];
                         if (distance < minDistance) {
                             minDistance = distance;
@@ -448,9 +448,9 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
                     if (intermediateStops != null) {
                         for (final Stop stop : intermediateStops) {
                             if (stop.location.hasLocation()) {
-                                android.location.Location.distanceBetween(stop.location.lat / 1E6,
-                                        stop.location.lon / 1E6, location.lat / 1E6, location.lon / 1E6,
-                                        distanceBetweenResults);
+                                android.location.Location.distanceBetween(stop.location.getLatAsDouble(),
+                                        stop.location.getLonAsDouble(), location.getLatAsDouble(),
+                                        location.getLonAsDouble(), distanceBetweenResults);
                                 final float distance = distanceBetweenResults[0];
                                 if (distance < minDistance) {
                                     minDistance = distance;
@@ -461,9 +461,9 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
                     }
 
                     if (publicLeg.arrival.hasLocation()) {
-                        android.location.Location.distanceBetween(publicLeg.arrival.lat / 1E6,
-                                publicLeg.arrival.lon / 1E6, location.lat / 1E6, location.lon / 1E6,
-                                distanceBetweenResults);
+                        android.location.Location.distanceBetween(publicLeg.arrival.getLatAsDouble(),
+                                publicLeg.arrival.getLonAsDouble(), location.getLatAsDouble(),
+                                location.getLonAsDouble(), distanceBetweenResults);
                         final float distance = distanceBetweenResults[0];
                         if (distance < minDistance) {
                             minDistance = distance;

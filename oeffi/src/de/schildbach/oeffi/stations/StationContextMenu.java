@@ -122,8 +122,8 @@ public class StationContextMenu extends PopupMenu {
 
         new MenuInflater(context).inflate(R.menu.station_map_context, menu);
 
-        final float lat = location.lat / 1E6f;
-        final float lon = location.lon / 1E6f;
+        final double lat = location.getLatAsDouble();
+        final double lon = location.getLonAsDouble();
         final String name = location.name;
 
         final MenuItem googleMapsItem = menu.findItem(R.id.station_map_context_google_maps);
