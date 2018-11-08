@@ -63,7 +63,7 @@
         <activity android:name=".AboutActivity" />
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="de.schildbach.oeffi"
             android:exported="false"
             android:grantUriPermissions="true" >

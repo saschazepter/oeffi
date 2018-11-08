@@ -26,9 +26,9 @@ import de.schildbach.oeffi.stations.NetworkContentProvider;
 import de.schildbach.pte.NetworkId;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class NetworksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final Context context;

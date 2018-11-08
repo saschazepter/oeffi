@@ -60,8 +60,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import okhttp3.HttpUrl;
 
 public class DirectionsShortcutActivity extends OeffiActivity

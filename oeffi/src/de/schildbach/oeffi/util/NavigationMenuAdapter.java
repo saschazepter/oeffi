@@ -30,7 +30,6 @@ import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.ActionProvider;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -43,6 +42,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class NavigationMenuAdapter extends RecyclerView.Adapter<NavigationMenuAdapter.ViewHolder> {
     private final Resources res;

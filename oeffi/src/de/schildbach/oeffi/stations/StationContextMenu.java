@@ -39,9 +39,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
-import android.support.v4.content.pm.ShortcutInfoCompat;
-import android.support.v4.content.pm.ShortcutManagerCompat;
-import android.support.v4.graphics.drawable.IconCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -49,6 +46,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.PopupMenu;
+import androidx.core.content.pm.ShortcutInfoCompat;
+import androidx.core.content.pm.ShortcutManagerCompat;
+import androidx.core.graphics.drawable.IconCompat;
 
 public class StationContextMenu extends PopupMenu {
     public StationContextMenu(final Context context, final View anchor, final NetworkId network, final Location station,

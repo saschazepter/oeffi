@@ -75,8 +75,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -87,6 +85,8 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class StationDetailsActivity extends OeffiActivity implements StationsAware {
     private static final String INTENT_EXTRA_NETWORK = StationDetailsActivity.class.getName() + ".network";

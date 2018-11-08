@@ -39,11 +39,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ViewAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class FavoriteStationsActivity extends OeffiActivity
         implements StationClickListener, StationContextMenuItemListener {

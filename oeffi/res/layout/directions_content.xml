@@ -5,7 +5,7 @@
     android:baselineAligned="false"
     android:orientation="horizontal" >
 
-    <android.support.v4.widget.DrawerLayout
+    <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/navigation_drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
@@ -47,7 +47,7 @@
                 android:foreground="@drawable/view_shadow_bottom"
                 android:foregroundGravity="top|fill_horizontal" >
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@android:id/list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
@@ -86,7 +86,7 @@
         </LinearLayout>
 
         <include layout="@layout/navigation_drawer" />
-    </android.support.v4.widget.DrawerLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
 
     <FrameLayout
         android:id="@+id/directions_map_fragment"

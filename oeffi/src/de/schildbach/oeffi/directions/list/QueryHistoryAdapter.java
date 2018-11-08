@@ -31,9 +31,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Handler;
 import android.provider.BaseColumns;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class QueryHistoryAdapter extends RecyclerView.Adapter<QueryHistoryViewHolder> {
     private final Context context;

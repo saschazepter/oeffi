@@ -71,15 +71,15 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class NetworkPickerActivity extends Activity implements ActivityCompat.OnRequestPermissionsResultCallback,
         LocationHelper.Callback, NetworkClickListener, NetworkContextMenuItemListener {

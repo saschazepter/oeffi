@@ -5,7 +5,7 @@
     android:baselineAligned="false"
     android:orientation="horizontal" >
 
-    <android.support.v4.widget.DrawerLayout
+    <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/navigation_drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
@@ -113,7 +113,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1" >
 
-                        <android.support.v7.widget.RecyclerView
+                        <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/stations_list"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -396,7 +396,7 @@
         </LinearLayout>
 
         <include layout="@layout/navigation_drawer" />
-    </android.support.v4.widget.DrawerLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
 
     <FrameLayout
         android:id="@+id/stations_map_fragment"

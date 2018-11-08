@@ -26,13 +26,13 @@ import de.schildbach.pte.dto.Location;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class FavoriteStationViewHolder extends RecyclerView.ViewHolder {
     private final Context context;

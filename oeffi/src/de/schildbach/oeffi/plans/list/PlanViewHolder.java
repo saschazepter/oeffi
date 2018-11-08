@@ -26,7 +26,6 @@ import de.schildbach.oeffi.network.NetworkResources;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,6 +37,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import androidx.recyclerview.widget.RecyclerView;
 import okhttp3.Call;
 
 public class PlanViewHolder extends RecyclerView.ViewHolder {

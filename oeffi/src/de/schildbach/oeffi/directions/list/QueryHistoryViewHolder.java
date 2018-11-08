@@ -27,7 +27,6 @@ import de.schildbach.pte.dto.Location;
 import de.schildbach.pte.dto.LocationType;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -37,6 +36,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class QueryHistoryViewHolder extends RecyclerView.ViewHolder {
     private final Context context;

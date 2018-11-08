@@ -79,7 +79,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.CalendarContract;
-import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -98,6 +97,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import androidx.core.content.ContextCompat;
 
 public class TripDetailsActivity extends OeffiActivity implements LocationListener, LocationAware {
     private static final String INTENT_EXTRA_NETWORK = TripDetailsActivity.class.getName() + ".network";

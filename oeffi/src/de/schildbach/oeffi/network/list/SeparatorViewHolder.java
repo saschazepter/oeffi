@@ -17,9 +17,9 @@
 
 package de.schildbach.oeffi.network.list;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class SeparatorViewHolder extends RecyclerView.ViewHolder {
     private final TextView textView;

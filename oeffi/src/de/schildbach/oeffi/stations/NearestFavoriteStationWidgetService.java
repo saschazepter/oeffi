@@ -62,11 +62,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
-import android.support.v4.app.JobIntentService;
-import android.support.v4.content.ContextCompat;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.RemoteViews;
+import androidx.core.app.JobIntentService;
+import androidx.core.content.ContextCompat;
 
 public class NearestFavoriteStationWidgetService extends JobIntentService {
     private AppWidgetManager appWidgetManager;

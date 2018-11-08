@@ -30,10 +30,10 @@ import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.dto.Product;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class StationsAdapter extends RecyclerView.Adapter<StationViewHolder> implements CompassNeedleView.Callback {
     private final Context context;

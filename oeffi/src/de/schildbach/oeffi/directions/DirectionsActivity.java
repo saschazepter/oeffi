@@ -111,10 +111,6 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
 import android.provider.ContactsContract.CommonDataKinds;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.view.KeyEvent;
@@ -135,6 +131,10 @@ import android.widget.Filterable;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import okhttp3.HttpUrl;
 
 public class DirectionsActivity extends OeffiMainActivity implements ActivityCompat.OnRequestPermissionsResultCallback,

@@ -29,9 +29,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class FavoriteStationsAdapter extends RecyclerView.Adapter<FavoriteStationViewHolder> {
     private final Context context;

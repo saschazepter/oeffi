@@ -55,7 +55,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -67,6 +66,7 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class StationViewHolder extends RecyclerView.ViewHolder {
     public final View favoriteView;
