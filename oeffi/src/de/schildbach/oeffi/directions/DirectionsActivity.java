@@ -438,7 +438,8 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
         if (ContextCompat.checkSelfPermission(DirectionsActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             android.location.Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-            mapView.animateToLocation(location.getLatitude(), location.getLongitude());
+            if (location != null)
+                mapView.animateToLocation(location.getLatitude(), location.getLongitude());
         }
         mapView.getOverlays().add(new Overlay() {
             private Location pinLocation;
