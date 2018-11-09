@@ -594,9 +594,9 @@ public class OeffiMapView extends MapView {
         if (!points.isEmpty()) {
             final BoundingBox boundingBox = BoundingBox.fromGeoPoints(points);
             zoomToBoundingBox(boundingBox.increaseByScale(1.3f), !firstLocation);
-        }
 
-        firstLocation = false;
+            firstLocation = false;
+        }
     }
 
     private void showZoomControls() {
