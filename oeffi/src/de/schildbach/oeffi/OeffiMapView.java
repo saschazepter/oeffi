@@ -18,6 +18,7 @@
 package de.schildbach.oeffi;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -592,7 +593,11 @@ public class OeffiMapView extends MapView {
         }
 
         if (!points.isEmpty()) {
-            final BoundingBox boundingBox = BoundingBox.fromGeoPoints(points);
+            final BoundingBox boundingBox;
+            if (points.size() == 1)
+                boundingBox = BoundingBox.fromGeoPoints(Arrays.asList(points.get(0), getMapCenter()));
+            else
+                boundingBox = BoundingBox.fromGeoPoints(points);
             zoomToBoundingBox(boundingBox.increaseByScale(1.3f), !firstLocation);
 
             firstLocation = false;
