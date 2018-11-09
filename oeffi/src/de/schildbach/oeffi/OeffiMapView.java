@@ -111,6 +111,8 @@ public class OeffiMapView extends MapView {
         setMultiTouchControls(true);
         setTilesScaledToDpi(true);
         getController().setZoom(Constants.INITIAL_MAP_ZOOM_LEVEL);
+        setMinZoomLevel(Constants.MAP_MIN_ZOOM_LEVEL);
+        setMaxZoomLevel(Constants.MAP_MAX_ZOOM_LEVEL);
 
         getOverlays().add(new Overlay() {
             @Override

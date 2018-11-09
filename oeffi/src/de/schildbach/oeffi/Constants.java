@@ -47,6 +47,8 @@ public class Constants {
     public static final int MAX_NUMBER_OF_STOPS = 150;
     public static final int MAX_HISTORY_ENTRIES = 50;
     public static final float BEARING_ACCURACY_THRESHOLD = 0.5f;
+    public static final double MAP_MIN_ZOOM_LEVEL = 3.0;
+    public static final double MAP_MAX_ZOOM_LEVEL = 18.0;
     public static final double INITIAL_MAP_ZOOM_LEVEL_NETWORK = 12.0;
     public static final double INITIAL_MAP_ZOOM_LEVEL = 17.0;
     public static final int MAX_TRIES_ON_IO_PROBLEM = 2;
