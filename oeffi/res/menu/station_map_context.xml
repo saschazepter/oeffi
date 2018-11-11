@@ -11,9 +11,9 @@
         android:orderInCategory="1"
         android:title="@string/map_dialog_amazon_maps" />
     <item
-        android:id="@+id/station_map_context_open_street_maps"
+        android:id="@+id/station_map_context_openstreetmap"
         android:orderInCategory="1"
-        android:title="@string/map_dialog_open_street_maps" />
+        android:title="@string/map_dialog_openstreetmap" />
     <item
         android:id="@+id/station_map_context_google_street_view"
         android:orderInCategory="1"

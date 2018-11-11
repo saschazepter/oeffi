@@ -123,7 +123,7 @@ public class StationContextMenu extends PopupMenu {
         new MenuInflater(context).inflate(R.menu.station_map_context, menu);
         final MenuItem googleMapsItem = menu.findItem(R.id.station_map_context_google_maps);
         final MenuItem amazonMapsItem = menu.findItem(R.id.station_map_context_amazon_maps);
-        final MenuItem openStreetMapsItem = menu.findItem(R.id.station_map_context_open_street_maps);
+        final MenuItem openStreetMapItem = menu.findItem(R.id.station_map_context_openstreetmap);
         final MenuItem googleStreetViewItem = menu.findItem(R.id.station_map_context_google_street_view);
         final MenuItem googleNavigationItem = menu.findItem(R.id.station_map_context_google_navigation);
 
@@ -146,10 +146,10 @@ public class StationContextMenu extends PopupMenu {
                     "com.amazon.geo.client.renderer.MapsAppActivityDuke"));
             prepareMapMenuItem(context, amazonMapsItem, amazonMapsIntent);
 
-            final Intent openStreetMapsIntent = new Intent(Intent.ACTION_VIEW,
+            final Intent openStreetMapIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(String.format(Locale.ENGLISH, "osmand.geo:%.6f,%.6f?q=%.6f,%.6f%s", lat, lon, lat, lon,
                             name != null ? '(' + URLEncoder.encode(name.replaceAll("[()]", "")) + ')' : "")));
-            prepareMapMenuItem(context, openStreetMapsItem, openStreetMapsIntent);
+            prepareMapMenuItem(context, openStreetMapItem, openStreetMapIntent);
 
             final Intent googleStreetViewIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(String.format(Locale.ENGLISH, "google.streetview:cbll=%.6f,%.6f", lat, lon)));
@@ -166,7 +166,7 @@ public class StationContextMenu extends PopupMenu {
         } else {
             googleMapsItem.setVisible(false);
             amazonMapsItem.setVisible(false);
-            openStreetMapsItem.setVisible(false);
+            openStreetMapItem.setVisible(false);
             googleStreetViewItem.setVisible(false);
             googleNavigationItem.setVisible(false);
         }
