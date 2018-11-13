@@ -42,7 +42,6 @@ import de.schildbach.oeffi.stations.QueryDeparturesRunnable;
 import de.schildbach.oeffi.stations.Station;
 import de.schildbach.oeffi.stations.StationContextMenu;
 import de.schildbach.oeffi.util.Formats;
-import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.Standard;
 import de.schildbach.pte.dto.Departure;
 import de.schildbach.pte.dto.Line;
@@ -83,7 +82,6 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
 
     private final Context context;
     private final Resources res;
-    private final NetworkId network;
     private final int maxDepartures;
     private final StationContextMenuItemListener contextMenuItemListener;
 
@@ -96,8 +94,8 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
     private static final int CONDENSE_LINES_THRESHOLD = 6; // TODO!!!
     private static final int MESSAGE_INDEX_COLOR = Color.parseColor("#c08080");
 
-    public StationViewHolder(final Context context, final View itemView, final NetworkId network,
-            final int maxDepartures, final StationContextMenuItemListener contextMenuItemListener) {
+    public StationViewHolder(final Context context, final View itemView, final int maxDepartures,
+            final StationContextMenuItemListener contextMenuItemListener) {
         super(itemView);
 
         favoriteView = itemView.findViewById(R.id.station_entry_favorite);
@@ -114,7 +112,6 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
 
         this.context = context;
         this.res = context.getResources();
-        this.network = network;
         this.maxDepartures = maxDepartures;
         this.contextMenuItemListener = contextMenuItemListener;
 
@@ -191,13 +188,13 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
         contextButtonSpace.setVisibility(itemView.isActivated() ? View.VISIBLE : View.GONE);
         contextButton.setOnClickListener(itemView.isActivated() ? new View.OnClickListener() {
             public void onClick(final View v) {
-                final PopupMenu contextMenu = new StationContextMenu(context, v, network, station.location, favState,
-                        true, true, true, true, true);
+                final PopupMenu contextMenu = new StationContextMenu(context, v, station.network, station.location,
+                        favState, true, true, true, true, true);
                 contextMenu.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                     public boolean onMenuItemClick(final MenuItem item) {
                         final int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION)
-                            return contextMenuItemListener.onStationContextMenuItemClick(position, network,
+                            return contextMenuItemListener.onStationContextMenuItemClick(position, station.network,
                                     station.location, station.departures, item.getItemId());
                         else
                             return false;

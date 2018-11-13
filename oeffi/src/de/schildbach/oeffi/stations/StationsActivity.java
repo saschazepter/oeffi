@@ -432,7 +432,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         stationListLayoutManager = new LinearLayoutManager(this);
         stationList.setLayoutManager(stationListLayoutManager);
         stationList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
-        stationListAdapter = new StationsAdapter(this, network, maxDeparturesPerStation, products, this, this);
+        stationListAdapter = new StationsAdapter(this, maxDeparturesPerStation, products, this, this);
         stationList.setAdapter(stationListAdapter);
         stationList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

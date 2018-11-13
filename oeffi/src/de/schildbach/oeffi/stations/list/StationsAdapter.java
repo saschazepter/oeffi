@@ -26,7 +26,6 @@ import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.StationsAware;
 import de.schildbach.oeffi.stations.CompassNeedleView;
 import de.schildbach.oeffi.stations.Station;
-import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.dto.Product;
 
 import android.content.Context;
@@ -37,7 +36,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class StationsAdapter extends RecyclerView.Adapter<StationViewHolder> implements CompassNeedleView.Callback {
     private final Context context;
-    private final NetworkId network;
     private final int maxDepartures;
     private final Set<Product> productsFilter;
     private final StationContextMenuItemListener contextMenuItemListener;
@@ -50,11 +48,9 @@ public class StationsAdapter extends RecyclerView.Adapter<StationViewHolder> imp
 
     private final LayoutInflater inflater;
 
-    public StationsAdapter(final Context context, final NetworkId network, final int maxDepartures,
-            final Set<Product> productsFilter, final StationContextMenuItemListener contextMenuItemListener,
-            final StationsAware stationsAware) {
+    public StationsAdapter(final Context context, final int maxDepartures, final Set<Product> productsFilter,
+            final StationContextMenuItemListener contextMenuItemListener, final StationsAware stationsAware) {
         this.context = context;
-        this.network = network;
         this.inflater = LayoutInflater.from(context);
         this.maxDepartures = maxDepartures;
         this.productsFilter = productsFilter;
@@ -97,7 +93,7 @@ public class StationsAdapter extends RecyclerView.Adapter<StationViewHolder> imp
 
     @Override
     public StationViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-        return new StationViewHolder(context, inflater.inflate(R.layout.stations_station_entry, parent, false), network,
+        return new StationViewHolder(context, inflater.inflate(R.layout.stations_station_entry, parent, false),
                 maxDepartures, contextMenuItemListener);
     }
 
