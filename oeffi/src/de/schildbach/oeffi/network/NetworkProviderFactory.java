@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.schildbach.pte.AbstractNetworkProvider;
+import de.schildbach.pte.AvvAachenProvider;
 import de.schildbach.pte.AvvProvider;
 import de.schildbach.pte.BahnProvider;
 import de.schildbach.pte.BayernProvider;
@@ -140,6 +141,8 @@ public final class NetworkProviderFactory {
             return new VrrProvider(HttpUrl.parse("https://app.vrr.de/oeffi/"));
         else if (networkId.equals(NetworkId.VRS))
             return new VrsProvider();
+        else if (networkId.equals(NetworkId.AVV_AACHEN))
+            return new AvvAachenProvider("{\"type\":\"AID\",\"aid\":\"4vV1AcH3N511icH\"}");
         else if (networkId.equals(NetworkId.MVG))
             return new MvgProvider();
         else if (networkId.equals(NetworkId.VRN))

@@ -45,6 +45,8 @@
     <string name="network_vrr_comment">North Rhine-Westphalia, Düsseldorf &amp; Dortmund, local and regional</string>
     <string name="network_vrs_label">Cologne &amp; Bonn</string>
     <string name="network_vrs_comment">local and regional</string>
+    <string name="network_avv_aachen_label">Aachen</string>
+    <string name="network_avv_aachen_comment">local and regional</string>
     <string name="network_mvg_label">Lüdenscheid &amp; Märkischer Kreis</string>
     <string name="network_mvg_comment">local and regional</string>
     <string name="network_vrn_label">Rhineland-Palatinate, Rhine-Neckar &amp; Baden-Württemberg</string>
