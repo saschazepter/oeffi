@@ -606,6 +606,27 @@ public class OeffiMapView extends MapView {
         }
     }
 
+    public void zoomToStations(final List<Station> stations) {
+        // show at least 16 stations
+        final List<GeoPoint> points = new LinkedList<>();
+        for (final Station station : stations) {
+            points.add(new GeoPoint(station.location.getLatAsDouble(), station.location.getLonAsDouble()));
+            if (points.size() >= 16)
+                break;
+        }
+
+        // make sure a minimum area is shown
+        final GeoPoint centerPoint = points.get(0);
+        final float delta = 0.002f;
+        points.add(new GeoPoint(centerPoint.getLatitude() - delta, centerPoint.getLongitude() - delta));
+        points.add(new GeoPoint(centerPoint.getLatitude() + delta, centerPoint.getLongitude() + delta));
+        final BoundingBox boundingBox = BoundingBox.fromGeoPoints(points).increaseByScale(1.05f);
+
+        // zoom
+        zoomToBoundingBox(boundingBox, !firstLocation);
+        firstLocation = false;
+    }
+
     private void showZoomControls() {
         zoomControls.clearAnimation();
         zoomControls.startAnimation(zoomControlsAnimation);

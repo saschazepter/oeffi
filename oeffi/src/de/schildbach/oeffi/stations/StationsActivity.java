@@ -37,6 +37,7 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 
+import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -1025,6 +1026,9 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
             mapView.invalidate();
         }
 
+        if (added)
+            mapView.zoomToStations(stations);
+
         updateGUI();
     }
 
@@ -1313,8 +1317,9 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
 
         // scroll map
         if (station != null && station.location.hasLocation())
-            mapView.getController()
-                    .animateTo(new GeoPoint(station.location.getLatAsDouble(), station.location.getLonAsDouble()));
+            mapView.zoomToStations(Arrays.asList(station));
+        else if (!stations.isEmpty())
+            mapView.zoomToStations(stations);
         else if (station == null && deviceLocation != null)
             mapView.getController()
                     .animateTo(new GeoPoint(deviceLocation.getLatAsDouble(), deviceLocation.getLonAsDouble()));
