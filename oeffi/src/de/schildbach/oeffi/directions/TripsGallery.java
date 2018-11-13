@@ -167,7 +167,7 @@ public class TripsGallery extends Gallery {
 
             // padding
             final long timeDiff = LongMath.checkedSubtract(maxTime, minTime);
-            long timePadding = timeDiff / 15;
+            long timePadding = timeDiff / 12;
             if (timeDiff < DateUtils.MINUTE_IN_MILLIS * 30) // zoom limit
                 timePadding = (DateUtils.MINUTE_IN_MILLIS * 30 - timeDiff) / 2;
             if (timePadding < DateUtils.MINUTE_IN_MILLIS) // minimum padding

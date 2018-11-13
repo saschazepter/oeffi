@@ -322,8 +322,9 @@ public final class TripsGalleryAdapter extends BaseAdapter {
                 if (!trip.isTravelable()) {
                     final int warningWidth = warningIcon.getIntrinsicWidth();
                     final int warningLeft = centerX - warningWidth / 2;
-                    warningIcon.setBounds(warningLeft, height - warningIcon.getIntrinsicHeight(),
-                            warningLeft + warningWidth, height);
+                    final int warningPaddingTop = (int) (4 * density);
+                    warningIcon.setBounds(warningLeft, warningPaddingTop, warningLeft + warningWidth,
+                            warningPaddingTop + warningIcon.getIntrinsicHeight());
                     warningIcon.draw(canvas);
                 }
 
