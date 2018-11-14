@@ -32,6 +32,7 @@ import de.schildbach.pte.DingProvider;
 import de.schildbach.pte.DsbProvider;
 import de.schildbach.pte.DubProvider;
 import de.schildbach.pte.GvhProvider;
+import de.schildbach.pte.InvgProvider;
 import de.schildbach.pte.ItalyProvider;
 import de.schildbach.pte.KvvProvider;
 import de.schildbach.pte.LinzProvider;
@@ -113,6 +114,8 @@ public final class NetworkProviderFactory {
             return new BayernProvider();
         else if (networkId.equals(NetworkId.MVV))
             return new MvvProvider();
+        else if (networkId.equals(NetworkId.INVG))
+            return new InvgProvider("{\"type\":\"AID\",\"aid\":\"GITvwi3BGOmTQ2a5\"}");
         else if (networkId.equals(NetworkId.AVV))
             return new AvvProvider();
         else if (networkId.equals(NetworkId.VGN))
