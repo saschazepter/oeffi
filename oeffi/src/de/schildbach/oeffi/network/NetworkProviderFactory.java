@@ -103,7 +103,7 @@ public final class NetworkProviderFactory {
         if (networkId.equals(NetworkId.RT))
             return new RtProvider();
         else if (networkId.equals(NetworkId.DB))
-            return new BahnProvider();
+            return new BahnProvider("{\"type\":\"AID\",\"aid\":\"n91dB8Z77MLdoR0K\"}");
         else if (networkId.equals(NetworkId.BVG))
             return new BvgProvider("{\"aid\":\"1Rxs112shyHLatUX4fofnmdxK\",\"type\":\"AID\"}");
         else if (networkId.equals(NetworkId.VBB))
