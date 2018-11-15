@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import de.schildbach.oeffi.R;
+import de.schildbach.oeffi.util.CheatSheet;
 import de.schildbach.pte.dto.Line;
 import de.schildbach.pte.dto.Line.Attr;
 import de.schildbach.pte.dto.Style;
@@ -121,8 +122,18 @@ public class LineView extends TextView {
             }
 
             setText(text);
+            if (lines.size() == 1) {
+                final String name = lines.iterator().next().name;
+                if (name != null)
+                    CheatSheet.setup(this, name);
+                else
+                    CheatSheet.remove(this);
+            } else {
+                CheatSheet.remove(this);
+            }
         } else {
             setText(null);
+            CheatSheet.remove(this);
         }
     }
 
