@@ -22,6 +22,7 @@ import de.schildbach.oeffi.directions.QueryHistoryProvider;
 import de.schildbach.oeffi.stations.FavoriteStationsProvider;
 import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.dto.Location;
+import de.schildbach.pte.dto.Point;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -184,10 +185,11 @@ public class QueryHistoryAdapter extends RecyclerView.Adapter<QueryHistoryViewHo
         cursor.moveToPosition(position);
         final long rowId = cursor.getLong(rowIdColumn);
         final Location from = new Location(QueryHistoryProvider.convert(cursor.getInt(fromTypeColumn)),
-                cursor.getString(fromIdColumn), cursor.getInt(fromLatColumn), cursor.getInt(fromLonColumn),
+                cursor.getString(fromIdColumn),
+                Point.from1E6(cursor.getInt(fromLatColumn), cursor.getInt(fromLonColumn)),
                 cursor.getString(fromPlaceColumn), cursor.getString(fromNameColumn));
         final Location to = new Location(QueryHistoryProvider.convert(cursor.getInt(toTypeColumn)),
-                cursor.getString(toIdColumn), cursor.getInt(toLatColumn), cursor.getInt(toLonColumn),
+                cursor.getString(toIdColumn), Point.from1E6(cursor.getInt(toLatColumn), cursor.getInt(toLonColumn)),
                 cursor.getString(toPlaceColumn), cursor.getString(toNameColumn));
         final boolean isFavorite = cursor.getInt(favoriteColumn) == 1;
         final long savedTripDepartureTime = cursor.getLong(savedTripDepartureTimeColumn);

@@ -317,7 +317,7 @@ public class OeffiMapView extends MapView {
                             Station selectedStation = null;
 
                             for (final Station station : stations) {
-                                if (station.location.hasLocation()) {
+                                if (station.location.hasCoord()) {
                                     projection.toPixels(new GeoPoint(station.location.getLatAsDouble(),
                                             station.location.getLonAsDouble()), point);
 

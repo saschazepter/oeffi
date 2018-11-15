@@ -34,13 +34,13 @@ public class LocationUriParserTest {
         final Location toLocation = results[1];
 
         Assert.assertEquals(LocationType.ADDRESS, fromLocation.type);
-        Assert.assertEquals(9905079, fromLocation.lon);
-        Assert.assertEquals(53587885, fromLocation.lat);
+        Assert.assertEquals(9905079, fromLocation.getLonAs1E6());
+        Assert.assertEquals(53587885, fromLocation.getLatAs1E6());
         Assert.assertNull(fromLocation.name);
 
         Assert.assertEquals(LocationType.ADDRESS, toLocation.type);
-        Assert.assertEquals(9719720, toLocation.lon);
-        Assert.assertEquals(52368950, toLocation.lat);
+        Assert.assertEquals(9719720, toLocation.getLonAs1E6());
+        Assert.assertEquals(52368950, toLocation.getLatAs1E6());
         Assert.assertEquals("home", toLocation.name);
     }
 
@@ -54,13 +54,13 @@ public class LocationUriParserTest {
         final Location toLocation = results[1];
 
         Assert.assertEquals(LocationType.COORD, fromLocation.type);
-        Assert.assertEquals(13426309, fromLocation.lon);
-        Assert.assertEquals(52536088, fromLocation.lat);
+        Assert.assertEquals(13426309, fromLocation.getLonAs1E6());
+        Assert.assertEquals(52536088, fromLocation.getLatAs1E6());
         Assert.assertNull(fromLocation.name);
 
         Assert.assertEquals(LocationType.ADDRESS, toLocation.type);
-        Assert.assertEquals(13374129, toLocation.lon);
-        Assert.assertEquals(52525681, toLocation.lat);
+        Assert.assertEquals(13374129, toLocation.getLonAs1E6());
+        Assert.assertEquals(52525681, toLocation.getLatAs1E6());
         Assert.assertEquals("Work", toLocation.name);
     }
 
@@ -74,13 +74,13 @@ public class LocationUriParserTest {
         final Location toLocation = results[1];
 
         Assert.assertEquals(LocationType.COORD, fromLocation.type);
-        Assert.assertEquals(13344510, fromLocation.lon);
-        Assert.assertEquals(52547400, fromLocation.lat);
+        Assert.assertEquals(13344510, fromLocation.getLonAs1E6());
+        Assert.assertEquals(52547400, fromLocation.getLatAs1E6());
         Assert.assertNull(fromLocation.name);
 
         Assert.assertEquals(LocationType.COORD, toLocation.type);
-        Assert.assertEquals(13353884, toLocation.lon);
-        Assert.assertEquals(52505719, toLocation.lat);
+        Assert.assertEquals(13353884, toLocation.getLonAs1E6());
+        Assert.assertEquals(52505719, toLocation.getLatAs1E6());
         Assert.assertNull(toLocation.name);
     }
 
@@ -95,8 +95,8 @@ public class LocationUriParserTest {
         final Location location = results[0];
 
         Assert.assertEquals(LocationType.ADDRESS, location.type);
-        Assert.assertEquals(13413215, location.lon);
-        Assert.assertEquals(52521918, location.lat);
+        Assert.assertEquals(13413215, location.getLonAs1E6());
+        Assert.assertEquals(52521918, location.getLatAs1E6());
         Assert.assertEquals("Alexanderplatz, 10178 Berlin", location.name);
     }
 
@@ -109,8 +109,8 @@ public class LocationUriParserTest {
         final Location location = results[0];
 
         Assert.assertEquals(LocationType.ADDRESS, location.type);
-        Assert.assertEquals(13420671, location.lon);
-        Assert.assertEquals(52512845, location.lat);
+        Assert.assertEquals(13420671, location.getLonAs1E6());
+        Assert.assertEquals(52512845, location.getLatAs1E6());
         Assert.assertEquals("c-base", location.name);
     }
 
@@ -123,8 +123,8 @@ public class LocationUriParserTest {
         final Location location = results[0];
 
         Assert.assertEquals(LocationType.ADDRESS, location.type);
-        Assert.assertEquals(9634707, location.lon);
-        Assert.assertEquals(47460045, location.lat);
+        Assert.assertEquals(9634707, location.getLonAs1E6());
+        Assert.assertEquals(47460045, location.getLatAs1E6());
         Assert.assertEquals("Work", location.name);
     }
 
@@ -136,8 +136,8 @@ public class LocationUriParserTest {
         final Location location = results[0];
 
         Assert.assertEquals(LocationType.ANY, location.type);
-        Assert.assertEquals(0, location.lon);
-        Assert.assertEquals(0, location.lat);
+        Assert.assertEquals(0, location.getLonAs1E6());
+        Assert.assertEquals(0, location.getLatAs1E6());
         Assert.assertEquals("gleimstr.", location.name);
     }
 
@@ -150,8 +150,8 @@ public class LocationUriParserTest {
         final Location location = results[0];
 
         Assert.assertEquals(LocationType.ADDRESS, location.type);
-        Assert.assertEquals(13401525, location.lon);
-        Assert.assertEquals(52535836, location.lat);
+        Assert.assertEquals(13401525, location.getLonAs1E6());
+        Assert.assertEquals(52535836, location.getLatAs1E6());
         Assert.assertEquals("Zionskirchstraße 7, 10119 Berlin, Germany", location.name);
     }
 
@@ -164,8 +164,8 @@ public class LocationUriParserTest {
         final Location location = results[0];
 
         Assert.assertEquals(LocationType.ADDRESS, location.type);
-        Assert.assertEquals(13420106, location.lon);
-        Assert.assertEquals(52513064, location.lat);
+        Assert.assertEquals(13420106, location.getLonAs1E6());
+        Assert.assertEquals(52513064, location.getLatAs1E6());
         Assert.assertEquals("C-Base, Rungestraße, Berlin, Germany", location.name);
     }
 
@@ -177,8 +177,8 @@ public class LocationUriParserTest {
         final Location location = results[0];
 
         Assert.assertEquals(LocationType.ANY, location.type);
-        Assert.assertEquals(0, location.lat);
-        Assert.assertEquals(0, location.lon);
+        Assert.assertEquals(0, location.getLatAs1E6());
+        Assert.assertEquals(0, location.getLonAs1E6());
         Assert.assertEquals("Karl-Marx-Allee 84, Berlin", location.name);
     }
 
@@ -190,8 +190,8 @@ public class LocationUriParserTest {
         final Location locationNewline = resultsNewline[0];
 
         Assert.assertEquals(LocationType.ANY, locationNewline.type);
-        Assert.assertEquals(0, locationNewline.lat);
-        Assert.assertEquals(0, locationNewline.lon);
+        Assert.assertEquals(0, locationNewline.getLatAs1E6());
+        Assert.assertEquals(0, locationNewline.getLonAs1E6());
         Assert.assertEquals("Karl-Marx-Allee 84, Berlin", locationNewline.name);
 
         final Location[] resultsEncodedNewline = LocationUriParser
@@ -201,8 +201,8 @@ public class LocationUriParserTest {
         final Location locationEncodedNewline = resultsEncodedNewline[0];
 
         Assert.assertEquals(LocationType.ANY, locationEncodedNewline.type);
-        Assert.assertEquals(0, locationEncodedNewline.lat);
-        Assert.assertEquals(0, locationEncodedNewline.lon);
+        Assert.assertEquals(0, locationEncodedNewline.getLatAs1E6());
+        Assert.assertEquals(0, locationEncodedNewline.getLonAs1E6());
         Assert.assertEquals("Karl-Marx-Allee 84, Berlin", locationEncodedNewline.name);
 
         final Location[] resultsComma = LocationUriParser.parseLocations("geo:0,0?q=Karl-Marx-Allee+84,%0aBerlin");
@@ -211,8 +211,8 @@ public class LocationUriParserTest {
         final Location locationComma = resultsComma[0];
 
         Assert.assertEquals(LocationType.ANY, locationComma.type);
-        Assert.assertEquals(0, locationComma.lat);
-        Assert.assertEquals(0, locationComma.lon);
+        Assert.assertEquals(0, locationComma.getLatAs1E6());
+        Assert.assertEquals(0, locationComma.getLonAs1E6());
         Assert.assertEquals("Karl-Marx-Allee 84, Berlin", locationComma.name);
     }
 
@@ -224,8 +224,8 @@ public class LocationUriParserTest {
         final Location location = results[0];
 
         Assert.assertEquals(LocationType.ANY, location.type);
-        Assert.assertEquals(0, location.lat);
-        Assert.assertEquals(0, location.lon);
+        Assert.assertEquals(0, location.getLatAs1E6());
+        Assert.assertEquals(0, location.getLonAs1E6());
         Assert.assertEquals("Prinzenstraße 85, Berlin", location.name);
     }
 
@@ -238,8 +238,8 @@ public class LocationUriParserTest {
         final Location location = results[0];
 
         Assert.assertEquals(LocationType.ADDRESS, location.type);
-        Assert.assertEquals(52503520, location.lat);
-        Assert.assertEquals(13409188, location.lon);
+        Assert.assertEquals(52503520, location.getLatAs1E6());
+        Assert.assertEquals(13409188, location.getLonAs1E6());
         Assert.assertEquals(
                 "motion*s Tanz- und Bewegungsstudio - Stella Caric GmbH, Prinzenstraße 85, Aufgang B1 - Zugang von der Oranienstraße, 10969 Berlin, Germany",
                 location.name);
@@ -253,8 +253,8 @@ public class LocationUriParserTest {
         final Location location = results[0];
 
         Assert.assertEquals(LocationType.COORD, location.type);
-        Assert.assertEquals(52133331, location.lat);
-        Assert.assertEquals(11600000, location.lon);
+        Assert.assertEquals(52133331, location.getLatAs1E6());
+        Assert.assertEquals(11600000, location.getLonAs1E6());
         Assert.assertNull(location.name);
     }
 

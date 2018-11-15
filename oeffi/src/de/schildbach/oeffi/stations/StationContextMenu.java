@@ -64,7 +64,7 @@ public class StationContextMenu extends PopupMenu {
         menu.findItem(R.id.station_context_add_ignore).setVisible(showIgnore && !isIgnored);
         menu.findItem(R.id.station_context_remove_ignore).setVisible(showIgnore && isIgnored);
         final MenuItem mapItem = menu.findItem(R.id.station_context_map);
-        if (showMap && station.hasLocation())
+        if (showMap && station.hasCoord())
             prepareMapMenu(context, mapItem.getSubMenu(), network, station);
         else
             mapItem.setVisible(false);
@@ -96,9 +96,11 @@ public class StationContextMenu extends PopupMenu {
                         if (location.type == LocationType.STATION
                                 && (networkId != NetworkId.BVG || Integer.parseInt(location.id) >= 1000000))
                             shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_ID, location.id);
-                        if (location.hasLocation()) {
-                            shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_LAT, location.lat);
-                            shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_LON, location.lon);
+                        if (location.hasCoord()) {
+                            shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_LAT,
+                                    location.getLatAs1E6());
+                            shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_LON,
+                                    location.getLonAs1E6());
                         }
 
                         ShortcutManagerCompat.requestPinShortcut(context,
@@ -132,7 +134,7 @@ public class StationContextMenu extends PopupMenu {
                         name != null ? '(' + URLEncoder.encode(name.replaceAll("[()]", "")) + ')' : "")));
         googleMapsIntent.setComponent(
                 new ComponentName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity"));
-        googleMapsItem.setVisible(location.hasLocation() && pm.resolveActivity(googleMapsIntent, 0) != null);
+        googleMapsItem.setVisible(location.hasCoord() && pm.resolveActivity(googleMapsIntent, 0) != null);
         googleMapsItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             public boolean onMenuItemClick(final MenuItem item) {
                 context.startActivity(googleMapsIntent);
@@ -146,7 +148,7 @@ public class StationContextMenu extends PopupMenu {
                         name != null ? '(' + URLEncoder.encode(name.replaceAll("[()]", "")) + ')' : "")));
         amazonMapsIntent.setComponent(
                 new ComponentName("com.amazon.geo.client.maps", "com.amazon.geo.client.renderer.MapsAppActivityDuke"));
-        amazonMapsItem.setVisible(location.hasLocation() && pm.resolveActivity(amazonMapsIntent, 0) != null);
+        amazonMapsItem.setVisible(location.hasCoord() && pm.resolveActivity(amazonMapsIntent, 0) != null);
         amazonMapsItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             public boolean onMenuItemClick(final MenuItem item) {
                 context.startActivity(amazonMapsIntent);
@@ -158,7 +160,7 @@ public class StationContextMenu extends PopupMenu {
         final Intent openStreetMapsIntent = new Intent(Intent.ACTION_VIEW,
                 Uri.parse(String.format(Locale.ENGLISH, "osmand.geo:%.6f,%.6f?q=%.6f,%.6f%s", lat, lon, lat, lon,
                         name != null ? '(' + URLEncoder.encode(name.replaceAll("[()]", "")) + ')' : "")));
-        openStreetMapsItem.setVisible(location.hasLocation() && pm.resolveActivity(openStreetMapsIntent, 0) != null);
+        openStreetMapsItem.setVisible(location.hasCoord() && pm.resolveActivity(openStreetMapsIntent, 0) != null);
         openStreetMapsItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             public boolean onMenuItemClick(final MenuItem item) {
                 context.startActivity(openStreetMapsIntent);
@@ -171,8 +173,7 @@ public class StationContextMenu extends PopupMenu {
                 Uri.parse(String.format(Locale.ENGLISH, "google.streetview:cbll=%.6f,%.6f", lat, lon)));
         googleStreetViewIntent
                 .setComponent(new ComponentName("com.google.android.street", "com.google.android.street.Street"));
-        googleStreetViewItem
-                .setVisible(location.hasLocation() && pm.resolveActivity(googleStreetViewIntent, 0) != null);
+        googleStreetViewItem.setVisible(location.hasCoord() && pm.resolveActivity(googleStreetViewIntent, 0) != null);
         googleStreetViewItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             public boolean onMenuItemClick(final MenuItem item) {
                 context.startActivity(googleStreetViewIntent);
@@ -186,8 +187,7 @@ public class StationContextMenu extends PopupMenu {
                         name != null ? URLEncoder.encode(name) : "")));
         googleNavigationIntent.setComponent(new ComponentName("com.google.android.apps.maps",
                 "com.google.android.maps.driveabout.app.NavigationActivity"));
-        googleNavigationItem
-                .setVisible(location.hasLocation() && pm.resolveActivity(googleNavigationIntent, 0) != null);
+        googleNavigationItem.setVisible(location.hasCoord() && pm.resolveActivity(googleNavigationIntent, 0) != null);
         googleNavigationItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             public boolean onMenuItemClick(final MenuItem item) {
                 context.startActivity(googleNavigationIntent);

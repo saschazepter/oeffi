@@ -788,23 +788,23 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
         mapView.setFromViaToAware(new FromViaToAware() {
             public Point getFrom() {
                 final Location from = viewFromLocation.getLocation();
-                if (from == null || !from.hasLocation())
+                if (from == null || !from.hasCoord())
                     return null;
-                return new Point(from.lat, from.lon);
+                return from.coord;
             }
 
             public Point getVia() {
                 final Location via = viewViaLocation.getLocation();
-                if (via == null || !via.hasLocation() || viewViaLocation.getVisibility() != View.VISIBLE)
+                if (via == null || !via.hasCoord() || viewViaLocation.getVisibility() != View.VISIBLE)
                     return null;
-                return new Point(via.lat, via.lon);
+                return via.coord;
             }
 
             public Point getTo() {
                 final Location to = viewToLocation.getLocation();
-                if (to == null || !to.hasLocation())
+                if (to == null || !to.hasCoord())
                     return null;
-                return new Point(to.lat, to.lon);
+                return to.coord;
             }
         });
         mapView.zoomToAll();
@@ -933,7 +933,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
             return false;
         if (location.type == LocationType.ANY && location.name == null)
             return false;
-        if (!allowIncompleteAddress && location.type == LocationType.ADDRESS && !location.hasLocation()
+        if (!allowIncompleteAddress && location.type == LocationType.ADDRESS && !location.hasCoord()
                 && location.name == null)
             return false;
 
@@ -1301,8 +1301,9 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
                                             .contains(constraintStr.toLowerCase(Constants.DEFAULT_LOCALE))) {
                                         final Location location = new Location(
                                                 QueryHistoryProvider.convert(cursor.getInt(fromTypeC)),
-                                                cursor.getString(fromIdC), cursor.getInt(fromLatC),
-                                                cursor.getInt(fromLonC), cursor.getString(fromPlaceC), fromName);
+                                                cursor.getString(fromIdC),
+                                                Point.from1E6(cursor.getInt(fromLatC), cursor.getInt(fromLonC)),
+                                                cursor.getString(fromPlaceC), fromName);
                                         if (!results.contains(location))
                                             results.add(location);
                                     }
@@ -1311,7 +1312,8 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
                                             .contains(constraintStr.toLowerCase(Constants.DEFAULT_LOCALE))) {
                                         final Location location = new Location(
                                                 QueryHistoryProvider.convert(cursor.getInt(toTypeC)),
-                                                cursor.getString(toIdC), cursor.getInt(toLatC), cursor.getInt(toLonC),
+                                                cursor.getString(toIdC),
+                                                Point.from1E6(cursor.getInt(toLatC), cursor.getInt(toLonC)),
                                                 cursor.getString(toPlaceC), toName);
                                         if (!results.contains(location))
                                             results.add(location);

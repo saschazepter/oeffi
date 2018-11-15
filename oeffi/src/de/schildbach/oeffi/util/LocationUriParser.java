@@ -118,7 +118,7 @@ public class LocationUriParser {
         final Point coord;
         if (m.matches()) {
             final Point c = Point.fromDouble(Double.parseDouble(m.group(1)), Double.parseDouble(m.group(2)));
-            if (c.lat != 0 || c.lon != 0)
+            if (c.getLatAs1E6() != 0 || c.getLonAs1E6() != 0)
                 coord = c;
             else
                 coord = null;

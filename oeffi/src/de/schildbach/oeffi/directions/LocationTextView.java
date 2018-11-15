@@ -69,7 +69,7 @@ public class LocationTextView extends TextView {
                 text.append(location.place).append(",<br>");
             if (location.name != null)
                 text.append("<b>").append(location.name).append("</b>");
-            if (text.length() == 0 && location.hasLocation())
+            if (text.length() == 0 && location.hasCoord())
                 text.append(getContext().getString(R.string.directions_location_view_coordinate)).append(":<br/>")
                         .append(String.format(Locale.ENGLISH, "%1$.6f, %2$.6f", location.getLatAsDouble(),
                                 location.getLonAsDouble()));

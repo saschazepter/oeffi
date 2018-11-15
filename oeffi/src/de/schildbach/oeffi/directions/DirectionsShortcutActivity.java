@@ -214,7 +214,8 @@ public class DirectionsShortcutActivity extends OeffiActivity
         final String id = getLocationIdExtra(intent);
         final int lat = intent.getIntExtra(INTENT_EXTRA_LAT, 0);
         final int lon = intent.getIntExtra(INTENT_EXTRA_LON, 0);
-        final Location to = new Location(type, id, lat, lon, null, id != null ? name : name + "!");
+        final Point coord = lat != 0 || lon != 0 ? Point.from1E6(lat, lon) : null;
+        final Location to = new Location(type, id, coord, null, id != null ? name : name + "!");
 
         if (networkProvider != null) {
             final Optimize optimize = prefs.contains(Constants.PREFS_KEY_OPTIMIZE_TRIP)

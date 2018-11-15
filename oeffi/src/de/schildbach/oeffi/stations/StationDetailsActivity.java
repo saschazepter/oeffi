@@ -57,6 +57,7 @@ import de.schildbach.pte.dto.Line;
 import de.schildbach.pte.dto.LineDestination;
 import de.schildbach.pte.dto.Location;
 import de.schildbach.pte.dto.LocationType;
+import de.schildbach.pte.dto.Point;
 import de.schildbach.pte.dto.Product;
 import de.schildbach.pte.dto.QueryDeparturesResult;
 import de.schildbach.pte.dto.StationDepartures;
@@ -410,7 +411,7 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
                                                     .getColumnIndexOrThrow(NetworkContentProvider.KEY_LINES);
 
                                             location = new Location(LocationType.STATION, location.id,
-                                                    cursor.getInt(latCol), cursor.getInt(lonCol),
+                                                    Point.from1E6(cursor.getInt(latCol), cursor.getInt(lonCol)),
                                                     placeCol != -1 ? cursor.getString(placeCol) : selectedStation.place,
                                                     cursor.getString(nameCol));
 
@@ -520,8 +521,8 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
                 final int lonCol = stationCursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LON);
                 final int linesCol = stationCursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LINES);
 
-                selectedStation = new Location(LocationType.STATION, selectedStation.id, stationCursor.getInt(latCol),
-                        stationCursor.getInt(lonCol),
+                selectedStation = new Location(LocationType.STATION, selectedStation.id,
+                        Point.from1E6(stationCursor.getInt(latCol), stationCursor.getInt(lonCol)),
                         placeCol != -1 ? stationCursor.getString(placeCol) : selectedStation.place,
                         stationCursor.getString(nameCol));
 
@@ -551,7 +552,7 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
 
         selectedFavState = FavoriteStationsProvider.favState(getContentResolver(), selectedNetwork, selectedStation);
 
-        if (selectedStation.hasLocation())
+        if (selectedStation.hasCoord())
             mapView.getController()
                     .animateTo(new GeoPoint(selectedStation.getLatAsDouble(), selectedStation.getLonAsDouble()));
 

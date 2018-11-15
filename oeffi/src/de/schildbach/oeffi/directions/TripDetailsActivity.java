@@ -494,7 +494,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
                 if (leg instanceof Trip.Public) {
                     final Trip.Public publicLeg = (Trip.Public) leg;
 
-                    if (publicLeg.departure.hasLocation()) {
+                    if (publicLeg.departure.hasCoord()) {
                         android.location.Location.distanceBetween(publicLeg.departure.getLatAsDouble(),
                                 publicLeg.departure.getLonAsDouble(), location.getLatAsDouble(),
                                 location.getLonAsDouble(), distanceBetweenResults);
@@ -508,7 +508,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
                     final List<Stop> intermediateStops = publicLeg.intermediateStops;
                     if (intermediateStops != null) {
                         for (final Stop stop : intermediateStops) {
-                            if (stop.location.hasLocation()) {
+                            if (stop.location.hasCoord()) {
                                 android.location.Location.distanceBetween(stop.location.getLatAsDouble(),
                                         stop.location.getLonAsDouble(), location.getLatAsDouble(),
                                         location.getLonAsDouble(), distanceBetweenResults);
@@ -521,7 +521,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
                         }
                     }
 
-                    if (publicLeg.arrival.hasLocation()) {
+                    if (publicLeg.arrival.hasCoord()) {
                         android.location.Location.distanceBetween(publicLeg.arrival.getLatAsDouble(),
                                 publicLeg.arrival.getLonAsDouble(), location.getLatAsDouble(),
                                 location.getLonAsDouble(), distanceBetweenResults);
@@ -705,7 +705,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         final ImageButton mapView = (ImageButton) row.findViewById(R.id.directions_trip_details_individual_entry_map);
         mapView.setVisibility(View.GONE);
         mapView.setOnClickListener(null);
-        if (leg.arrival.hasLocation()) {
+        if (leg.arrival.hasCoord()) {
             mapView.setVisibility(View.VISIBLE);
             mapView.setOnClickListener(new MapClickListener(leg.arrival));
         } else if (leg.arrival.hasId()) {
@@ -970,7 +970,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         if (cursor.moveToFirst()) {
             final int latColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LAT);
             final int lonColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LON);
-            point = new Point(cursor.getInt(latColumnIndex), cursor.getInt(lonColumnIndex));
+            point = Point.from1E6(cursor.getInt(latColumnIndex), cursor.getInt(lonColumnIndex));
         } else {
             point = null;
         }
@@ -994,7 +994,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         if (cursor.moveToFirst()) {
             final int latColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LAT);
             final int lonColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LON);
-            point = new Point(cursor.getInt(latColumnIndex), cursor.getInt(lonColumnIndex));
+            point = Point.from1E6(cursor.getInt(latColumnIndex), cursor.getInt(lonColumnIndex));
         } else {
             point = null;
         }
@@ -1127,8 +1127,8 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
     }
 
     private Point pointFromLocation(final Location location) {
-        if (location.hasLocation())
-            return new Point(location.lat, location.lon);
+        if (location.hasCoord())
+            return location.coord;
 
         if (location.hasId()) {
             final Point point = pointFromStationDb(location.id);

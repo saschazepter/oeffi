@@ -195,7 +195,7 @@ public class NearestFavoriteStationWidgetService extends JobIntentService {
                 final String stationId = favCursor.getString(stationIdCol);
                 String stationPlace = favCursor.getString(stationPlaceCol);
                 String stationName = favCursor.getString(stationNameCol);
-                Point stationPoint = new Point(favCursor.getInt(stationLatCol), favCursor.getInt(stationLonCol));
+                Point stationPoint = Point.from1E6(favCursor.getInt(stationLatCol), favCursor.getInt(stationLonCol));
 
                 try {
                     final NetworkId networkId = NetworkId.valueOf(network);
@@ -214,13 +214,13 @@ public class NearestFavoriteStationWidgetService extends JobIntentService {
                             if (placeCol != -1)
                                 stationPlace = stationCursor.getString(placeCol);
                             stationName = stationCursor.getString(nameCol);
-                            stationPoint = new Point(stationCursor.getInt(latCol), stationCursor.getInt(lonCol));
+                            stationPoint = Point.from1E6(stationCursor.getInt(latCol), stationCursor.getInt(lonCol));
                         }
 
                         stationCursor.close();
                     }
 
-                    if (stationPoint.lat > 0 || stationPoint.lon > 0) {
+                    if (stationPoint.getLatAsDouble() > 0 || stationPoint.getLonAsDouble() > 0) {
                         final float[] distanceBetweenResults = new float[1];
                         android.location.Location.distanceBetween(here.getLatitude(), here.getLongitude(),
                                 stationPoint.getLatAsDouble(), stationPoint.getLonAsDouble(), distanceBetweenResults);

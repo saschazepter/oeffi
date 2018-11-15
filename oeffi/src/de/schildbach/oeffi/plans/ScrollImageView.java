@@ -351,8 +351,8 @@ public class ScrollImageView extends ImageView implements Runnable {
                 double tappedDistance = 0;
 
                 for (final Station station : stations) {
-                    coords[0] = station.location.lon;
-                    coords[1] = station.location.lat;
+                    coords[0] = station.location.getLonAs1E6();
+                    coords[1] = station.location.getLatAs1E6();
                     translateToViewCoordinates(coords);
                     final double distance = Math
                             .sqrt(Math.pow(e.getX() - coords[0], 2) + Math.pow(e.getY() - coords[1], 2));

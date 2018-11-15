@@ -499,8 +499,8 @@ public class NetworkPickerActivity extends Activity implements ActivityCompat.On
         if (area == null || area.length <= 2)
             return false;
 
-        final int lat = deviceLocation.lat;
-        final int lon = deviceLocation.lon;
+        final double lat = deviceLocation.getLatAsDouble();
+        final double lon = deviceLocation.getLonAsDouble();
 
         // raycast point in polygon test
         final int numPoints = area.length;
@@ -510,9 +510,11 @@ public class NetworkPickerActivity extends Activity implements ActivityCompat.On
             final Point vertex1 = area[i];
             final Point vertex2 = area[j];
 
-            if (vertex1.lon < lon && vertex2.lon >= lon || vertex2.lon < lon && vertex1.lon >= lon) {
-                if ((double) (vertex1.lat + (lon - vertex1.lon)) / (vertex2.lon - vertex1.lon)
-                        * (vertex2.lat - vertex1.lat) < lat)
+            if (vertex1.getLonAsDouble() < lon && vertex2.getLonAsDouble() >= lon
+                    || vertex2.getLonAsDouble() < lon && vertex1.getLonAsDouble() >= lon) {
+                if ((vertex1.getLatAsDouble() + (lon - vertex1.getLonAsDouble()))
+                        / (vertex2.getLonAsDouble() - vertex1.getLonAsDouble())
+                        * (vertex2.getLatAsDouble() - vertex1.getLatAsDouble()) < lat)
                     inArea = !inArea;
             }
 

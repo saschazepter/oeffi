@@ -612,7 +612,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                                 if (favState == null || favState != FavoriteStationsProvider.TYPE_FAVORITE) {
                                     i.remove();
                                     stationsMap.remove(station.location.id);
-                                } else if (station.location.hasLocation()) {
+                                } else if (station.location.hasCoord()) {
                                     android.location.Location.distanceBetween(deviceLocation.getLatAsDouble(),
                                             deviceLocation.getLonAsDouble(), station.location.getLatAsDouble(),
                                             station.location.getLonAsDouble(), distanceBetweenResults);
@@ -839,8 +839,8 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
 
                         final Builder uriBuilder = NetworkContentProvider.CONTENT_URI.buildUpon();
                         uriBuilder.appendPath(network.name());
-                        uriBuilder.appendQueryParameter("lat", Integer.toString(referenceLocation.lat));
-                        uriBuilder.appendQueryParameter("lon", Integer.toString(referenceLocation.lon));
+                        uriBuilder.appendQueryParameter("lat", Integer.toString(referenceLocation.getLatAs1E6()));
+                        uriBuilder.appendQueryParameter("lon", Integer.toString(referenceLocation.getLonAs1E6()));
                         uriBuilder.appendQueryParameter("ids", favoriteIds.toString());
                         final Cursor cursor = getContentResolver().query(uriBuilder.build(), null, null, null, null);
 
@@ -877,7 +877,8 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                                         : cursor.getString(nativeIdColumnIndex);
                                 final String place = placeColumnIndex != -1 ? cursor.getString(placeColumnIndex) : null;
                                 final String name = cursor.getString(nameColumnIndex);
-                                final Point p = new Point(cursor.getInt(latColumnIndex), cursor.getInt(lonColumnIndex));
+                                final Point p = Point.from1E6(cursor.getInt(latColumnIndex),
+                                        cursor.getInt(lonColumnIndex));
                                 final Station station = new Station(network,
                                         new de.schildbach.pte.dto.Location(LocationType.STATION, id, p, place, name),
                                         lineDestinations);
@@ -923,7 +924,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
 
                 if (favType == FavoriteStationsProvider.TYPE_FAVORITE) {
                     final Station station = new Station(network, location, null);
-                    if (deviceLocation != null && location.hasLocation()) {
+                    if (deviceLocation != null && location.hasCoord()) {
                         android.location.Location.distanceBetween(deviceLocation.getLatAsDouble(),
                                 deviceLocation.getLonAsDouble(), location.getLatAsDouble(), location.getLonAsDouble(),
                                 distanceBetweenResults);
@@ -950,7 +951,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                         final float[] distanceBetweenResults = new float[2];
 
                         for (final Station freshStation : freshStations) {
-                            if (freshStation.location.hasLocation()) {
+                            if (freshStation.location.hasCoord()) {
                                 android.location.Location.distanceBetween(referenceLat, referenceLon,
                                         freshStation.location.getLatAsDouble(), freshStation.location.getLonAsDouble(),
                                         distanceBetweenResults);
@@ -1316,7 +1317,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         }
 
         // scroll map
-        if (station != null && station.location.hasLocation())
+        if (station != null && station.location.hasCoord())
             mapView.zoomToStations(Arrays.asList(station));
         else if (!stations.isEmpty())
             mapView.zoomToStations(stations);
@@ -1494,7 +1495,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                 final float[] distanceBetweenResults = new float[2];
 
                 for (final Station station : stations) {
-                    if (station.location.hasLocation()) {
+                    if (station.location.hasCoord()) {
                         android.location.Location.distanceBetween(hereLat, hereLon, station.location.getLatAsDouble(),
                                 station.location.getLonAsDouble(), distanceBetweenResults);
                         station.setDistanceAndBearing(distanceBetweenResults[0], distanceBetweenResults[1]);
@@ -1616,6 +1617,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                             || mQuery.reset(name).find()) {
                         final int lat = cursor.getInt(latColumnIndex);
                         final int lon = cursor.getInt(lonColumnIndex);
+                        final Point coord = Point.from1E6(lat, lon);
                         final List<LineDestination> lineDestinations = new LinkedList<>();
                         for (final String lineStr : cursor.getString(linesColumnIndex).split(",")) {
                             if (!lineStr.isEmpty()) {
@@ -1626,7 +1628,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                                         .add(new LineDestination(new Line(null, null, product, label, style), null));
                             }
                         }
-                        final Location location = new Location(LocationType.STATION, id, lat, lon, place, name);
+                        final Location location = new Location(LocationType.STATION, id, coord, place, name);
                         stations.add(new Station(network, location, lineDestinations));
                     }
                 }

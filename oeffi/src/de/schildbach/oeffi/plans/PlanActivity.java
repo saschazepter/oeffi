@@ -58,6 +58,7 @@ import de.schildbach.pte.dto.Line;
 import de.schildbach.pte.dto.LineDestination;
 import de.schildbach.pte.dto.Location;
 import de.schildbach.pte.dto.LocationType;
+import de.schildbach.pte.dto.Point;
 import de.schildbach.pte.dto.QueryDeparturesResult;
 import de.schildbach.pte.dto.StationDepartures;
 
@@ -215,7 +216,8 @@ public class PlanActivity extends Activity {
                 final String label = stationsCursor.getString(labelColumn);
                 final int x = stationsCursor.getInt(xColumn);
                 final int y = stationsCursor.getInt(yColumn);
-                stations.add(new Station(network, new Location(LocationType.STATION, localId, y, x, null, label)));
+                final Point point = Point.from1E6(y, x);
+                stations.add(new Station(network, new Location(LocationType.STATION, localId, point, null, label)));
             }
             stationsCursor.close();
         }
@@ -283,7 +285,7 @@ public class PlanActivity extends Activity {
     private void selectStation(final Station selection) {
         this.selection = selection;
 
-        plan.animatePlanIntoView(selection.location.lon, selection.location.lat);
+        plan.animatePlanIntoView(selection.location.getLonAs1E6(), selection.location.getLatAs1E6());
 
         bubble.setVisibility(View.VISIBLE);
         bubbleName.setText(selection.location.name);
@@ -331,7 +333,7 @@ public class PlanActivity extends Activity {
     private void updateBubble() {
         final Station selection = this.selection;
         if (selection != null) {
-            final int[] coords = new int[] { selection.location.lon, selection.location.lat };
+            final int[] coords = new int[] { selection.location.getLonAs1E6(), selection.location.getLatAs1E6() };
             plan.translateToViewCoordinates(coords);
             final BubbleLayout.LayoutParams layoutParams = (BubbleLayout.LayoutParams) bubble.getLayoutParams();
             layoutParams.x = coords[0];

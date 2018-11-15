@@ -25,6 +25,7 @@ import de.schildbach.oeffi.Application;
 import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.dto.Location;
 import de.schildbach.pte.dto.LocationType;
+import de.schildbach.pte.dto.Point;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;
@@ -130,8 +131,9 @@ public class FavoriteStationsProvider extends ContentProvider {
         final int nameIndex = cursor.getColumnIndexOrThrow(FavoriteStationsProvider.KEY_STATION_NAME);
         final int latIndex = cursor.getColumnIndexOrThrow(FavoriteStationsProvider.KEY_STATION_LAT);
         final int lonIndex = cursor.getColumnIndexOrThrow(FavoriteStationsProvider.KEY_STATION_LON);
-        return new Location(LocationType.STATION, cursor.getString(idIndex), cursor.getInt(latIndex),
-                cursor.getInt(lonIndex), cursor.getString(placeIndex), cursor.getString(nameIndex));
+        return new Location(LocationType.STATION, cursor.getString(idIndex),
+                Point.from1E6(cursor.getInt(latIndex), cursor.getInt(lonIndex)), cursor.getString(placeIndex),
+                cursor.getString(nameIndex));
     }
 
     public static Integer favState(final ContentResolver contentResolver, final NetworkId network,

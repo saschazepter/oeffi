@@ -234,7 +234,7 @@ public class PlanContentProvider extends ContentProvider {
                     filterMatch = false;
 
                 if (filterMatch) {
-                    cursor.newRow().add(rowId).add(planId).add(planName).add(p.lat).add(p.lon)
+                    cursor.newRow().add(rowId).add(planId).add(planName).add(p.getLatAs1E6()).add(p.getLonAs1E6())
                             .add(planValidFrom != null ? planValidFrom.getTime() : 0).add(planDisclaimer).add(planUrl)
                             .add(planNetworkLogo);
                 }
@@ -373,13 +373,13 @@ public class PlanContentProvider extends ContentProvider {
 
                 public int compare(final Integer index1, final Integer index2) {
                     cursor.moveToPosition(index1);
-                    final Point p1 = new Point(cursor.getInt(latColumn), cursor.getInt(lonColumn));
+                    final Point p1 = Point.from1E6(cursor.getInt(latColumn), cursor.getInt(lonColumn));
                     android.location.Location.distanceBetween(lat, lon, p1.getLatAsDouble(), p1.getLonAsDouble(),
                             distanceBetweenResults);
                     final float dist1 = distanceBetweenResults[0];
 
                     cursor.moveToPosition(index2);
-                    final Point p2 = new Point(cursor.getInt(latColumn), cursor.getInt(lonColumn));
+                    final Point p2 = Point.from1E6(cursor.getInt(latColumn), cursor.getInt(lonColumn));
                     android.location.Location.distanceBetween(lat, lon, p2.getLatAsDouble(), p2.getLonAsDouble(),
                             distanceBetweenResults);
                     final float dist2 = distanceBetweenResults[0];
