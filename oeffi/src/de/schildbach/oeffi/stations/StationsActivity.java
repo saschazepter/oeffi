@@ -819,9 +819,6 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
             if (referenceLocation != null) {
                 final MyActionBar actionBar = getMyActionBar();
 
-                final double referenceLat = referenceLocation.getLatAsDouble();
-                final double referenceLon = referenceLocation.getLonAsDouble();
-
                 final StringBuilder favoriteIds = new StringBuilder();
                 for (final Map.Entry<String, Integer> entry : favorites.entrySet())
                     if (entry.getValue() == FavoriteStationsProvider.TYPE_FAVORITE)
@@ -885,8 +882,9 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                                         new de.schildbach.pte.dto.Location(LocationType.STATION, id, p, place, name),
                                         lineDestinations);
                                 if (deviceLocation != null) {
-                                    android.location.Location.distanceBetween(referenceLat, referenceLon,
-                                            p.getLatAsDouble(), p.getLonAsDouble(), distanceBetweenResults);
+                                    android.location.Location.distanceBetween(referenceLocation.getLatAsDouble(),
+                                            referenceLocation.getLonAsDouble(), p.getLatAsDouble(), p.getLonAsDouble(),
+                                            distanceBetweenResults);
                                     station.setDistanceAndBearing(distanceBetweenResults[0], distanceBetweenResults[1]);
                                 }
                                 freshStations.add(station);
