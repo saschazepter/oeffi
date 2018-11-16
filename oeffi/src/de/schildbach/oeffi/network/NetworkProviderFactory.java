@@ -163,7 +163,7 @@ public final class NetworkProviderFactory {
         else if (networkId.equals(NetworkId.VVV))
             return new VvvProvider();
         else if (networkId.equals(NetworkId.OEBB))
-            return new OebbProvider();
+            return new OebbProvider("{\"type\":\"AID\",\"aid\":\"OWDL4fE4ixNiPBBm\"}");
         else if (networkId.equals(NetworkId.WIEN))
             return new WienProvider();
         else if (networkId.equals(NetworkId.LINZ))
