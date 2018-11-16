@@ -187,7 +187,7 @@ public final class NetworkProviderFactory {
         else if (networkId.equals(NetworkId.NS))
             return new NsProvider();
         else if (networkId.equals(NetworkId.DSB))
-            return new DsbProvider();
+            return new DsbProvider("{\"type\":\"AID\",\"aid\":\"irkmpm9mdznstenr-android\"}");
         else if (networkId.equals(NetworkId.SE))
             return new SeProvider("{\"type\":\"AID\",\"aid\":\"h5o3n7f4t2m8l9x1\"}");
         else if (networkId.equals(NetworkId.TLEM))
