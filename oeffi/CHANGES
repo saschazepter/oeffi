@@ -1,3 +1,9 @@
+v10.3
+
+* New region: Aachen, Germany.
+* New region: Ingolstadt, Germany.
+* A long press on a line label will reveal full name of line, if available.
+
 v10.2-v10.2.2
 
 * Map on right half of the screen is now based on OpenStreetMap.
