@@ -607,7 +607,10 @@ public class OeffiMapView extends MapView {
     }
 
     public void zoomToStations(final List<Station> stations) {
-        // show at least 16 stations
+        if (stations.isEmpty())
+            return;
+
+        // show at most 16 stations
         final List<GeoPoint> points = new LinkedList<>();
         for (final Station station : stations) {
             points.add(new GeoPoint(station.location.getLatAsDouble(), station.location.getLonAsDouble()));
