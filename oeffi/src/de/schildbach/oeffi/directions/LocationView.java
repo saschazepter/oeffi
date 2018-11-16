@@ -81,7 +81,7 @@ public class LocationView extends FrameLayout implements LocationHelper.Callback
 
     private LocationType locationType = LocationType.ANY;
     private String id = null;
-    private double lat, lon;
+    private Point coord;
     private String place;
 
     public LocationView(final Context context) {
@@ -109,8 +109,7 @@ public class LocationView extends FrameLayout implements LocationHelper.Callback
         state.putParcelable("super_state", super.onSaveInstanceState());
         state.putSerializable("location_type", locationType);
         state.putString("location_id", id);
-        state.putDouble("location_lat", lat);
-        state.putDouble("location_lon", lon);
+        state.putSerializable("location_coord", coord);
         state.putString("location_place", place);
         state.putString("text", getText());
         state.putString("hint", hint);
@@ -125,8 +124,7 @@ public class LocationView extends FrameLayout implements LocationHelper.Callback
             super.onRestoreInstanceState(bundle.getParcelable("super_state"));
             locationType = ((LocationType) bundle.getSerializable("location_type"));
             id = bundle.getString("location_id");
-            lat = bundle.getDouble("location_lat");
-            lon = bundle.getDouble("location_lon");
+            coord = (Point) bundle.getSerializable("location_coord");
             place = bundle.getString("location_place");
             setText(bundle.getString("text"));
             hint = bundle.getString("hint");
@@ -289,8 +287,7 @@ public class LocationView extends FrameLayout implements LocationHelper.Callback
 
     public void onLocationStart(final String provider) {
         locationType = LocationType.COORD;
-        lat = 0;
-        lon = 0;
+        coord = null;
         hint = res.getString(R.string.acquire_location_start, provider);
         updateAppearance();
 
@@ -317,8 +314,7 @@ public class LocationView extends FrameLayout implements LocationHelper.Callback
     public void reset() {
         locationType = LocationType.ANY;
         id = null;
-        lat = 0;
-        lon = 0;
+        coord = null;
         place = null;
         setText(null);
         hint = null;
@@ -331,18 +327,17 @@ public class LocationView extends FrameLayout implements LocationHelper.Callback
     public void setLocation(final Location location) {
         locationType = location.type;
         id = location.id;
-        lat = location.getLatAsDouble();
-        lon = location.getLonAsDouble();
+        coord = location.coord;
         place = location.place;
         setText(location.uniqueShortName());
         updateAppearance();
 
-        if (locationType == LocationType.COORD) {
+        if (locationType == LocationType.COORD && coord != null) {
             hint = res.getString(R.string.directions_location_view_coordinate) + ": "
-                    + String.format(Locale.ENGLISH, "%1$.6f, %2$.6f", lat, lon);
+                    + String.format(Locale.ENGLISH, "%1$.6f, %2$.6f", coord.getLatAsDouble(), coord.getLonAsDouble());
             updateAppearance();
 
-            new GeocoderThread(getContext(), lat, lon, new GeocoderThread.Callback() {
+            new GeocoderThread(getContext(), coord, new GeocoderThread.Callback() {
                 public void onGeocoderResult(final Address address) {
                     if (locationType == LocationType.COORD) {
                         setLocation(addressToLocation(address));
@@ -365,12 +360,12 @@ public class LocationView extends FrameLayout implements LocationHelper.Callback
     public @Nullable Location getLocation() {
         final String name = getText();
 
-        if (locationType == LocationType.COORD && lat == 0 && lon == 0)
+        if (locationType == LocationType.COORD && coord == null)
             return null;
         else if (locationType == LocationType.ANY && Strings.isNullOrEmpty(name))
             return null;
         else
-            return new Location(locationType, id, Point.fromDouble(lat, lon), name != null ? place : null, name);
+            return new Location(locationType, id, coord, name != null ? place : null, name);
     }
 
     private final OnClickListener contextButtonClickListener = new OnClickListener() {
@@ -391,7 +386,7 @@ public class LocationView extends FrameLayout implements LocationHelper.Callback
     };
 
     private void updateAppearance() {
-        if (locationType == LocationType.COORD && lat == 0 && lon == 0)
+        if (locationType == LocationType.COORD && coord == null)
             leftDrawable.selectDrawableByResId(R.drawable.ic_location_searching_grey600_24dp);
         else
             leftDrawable.selectDrawableByResId(LocationView.locationTypeIconRes(locationType));
@@ -425,24 +420,21 @@ public class LocationView extends FrameLayout implements LocationHelper.Callback
     public void exchangeWith(final LocationView other) {
         final LocationType tempLocationType = other.locationType;
         final String tempId = other.id;
-        final double tempLat = other.lat;
-        final double tempLon = other.lon;
+        final Point tempCoord = other.coord;
         final String tempPlace = other.place;
         final String tempText = other.getText();
         final String tempHint = other.hint;
 
         other.locationType = this.locationType;
         other.id = this.id;
-        other.lat = this.lat;
-        other.lon = this.lon;
+        other.coord = this.coord;
         other.place = this.place;
         other.setText(this.getText());
         other.hint = this.hint;
 
         this.locationType = tempLocationType;
         this.id = tempId;
-        this.lat = tempLat;
-        this.lon = tempLon;
+        this.coord = tempCoord;
         this.place = tempPlace;
         this.setText(tempText);
         this.hint = tempHint;
