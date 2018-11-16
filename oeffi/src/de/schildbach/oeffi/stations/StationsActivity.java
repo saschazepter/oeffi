@@ -575,6 +575,8 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
 
         stationList.clearOnScrollListeners();
 
+        handler.removeCallbacksAndMessages(null);
+
         super.onDestroy();
     }
 
@@ -1027,8 +1029,13 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
             mapView.invalidate();
         }
 
-        if (added)
-            mapView.zoomToStations(stations);
+        if (added) {
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    mapView.zoomToStations(stations);
+                }
+            }, 500);
+        }
 
         updateGUI();
     }
@@ -1482,10 +1489,6 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
 
             final double hereLat = here.getLatitude();
             final double hereLon = here.getLongitude();
-
-            if (deviceLocation == null && fixedLocation == null)
-                mapView.animateToLocation(hereLat, hereLon);
-
             deviceLocation = Point.fromDouble(hereLat, hereLon);
 
             stationListAdapter.setDeviceLocation(here);
