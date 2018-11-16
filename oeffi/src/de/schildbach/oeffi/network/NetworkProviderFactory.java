@@ -175,7 +175,7 @@ public final class NetworkProviderFactory {
         else if (networkId.equals(NetworkId.VBL))
             return new VblProvider();
         else if (networkId.equals(NetworkId.ZVV))
-            return new ZvvProvider();
+            return new ZvvProvider("{\"type\":\"AID\",\"aid\":\"hf7mcf9bv3nv8g5f\"}");
         else if (networkId.equals(NetworkId.IT))
             return new ItalyProvider("577e5781-23ee-4ff0-a5b3-92e5b04887e5"); // oeffi@schildbach.de
         else if (networkId.equals(NetworkId.PARIS))
