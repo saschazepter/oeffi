@@ -109,7 +109,7 @@ public final class NetworkProviderFactory {
         else if (networkId.equals(NetworkId.VBB))
             return new VbbProvider();
         else if (networkId.equals(NetworkId.NVV))
-            return new NvvProvider();
+            return new NvvProvider("{\"type\":\"AID\",\"aid\":\"Kt8eNOH7qjVeSxNA\"}");
         else if (networkId.equals(NetworkId.BAYERN))
             return new BayernProvider();
         else if (networkId.equals(NetworkId.MVV))
