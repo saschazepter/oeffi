@@ -20,6 +20,7 @@ package de.schildbach.oeffi.stations;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -46,12 +47,12 @@ public class Station {
 
     public Station(final NetworkId network, final Location location) {
         this.network = network;
-        this.location = location;
+        this.location = checkNotNull(location);
     }
 
     public Station(final NetworkId network, final Location location, final List<LineDestination> lines) {
         this.network = network;
-        this.location = location;
+        this.location = checkNotNull(location);
         setLines(lines);
     }
 
@@ -75,16 +76,20 @@ public class Station {
         if (relevantProduct != null)
             return relevantProduct;
 
+        // collect all products
+        final EnumSet<Product> products = EnumSet.noneOf(Product.class);
+        if (location.products != null)
+            products.addAll(location.products);
+        final List<LineDestination> lines = this.lines;
         if (lines != null) {
-            for (final LineDestination line : checkNotNull(lines)) {
+            for (final LineDestination line : lines) {
                 final Product product = line.line.product;
-                if (product != null) {
-                    if (relevantProduct == null || product.ordinal() < checkNotNull(relevantProduct).ordinal())
-                        relevantProduct = product;
-                }
+                if (product != null)
+                    products.add(product);
             }
         }
 
+        relevantProduct = !products.isEmpty() ? products.iterator().next() : null;
         return relevantProduct;
     }
 
