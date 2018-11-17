@@ -183,7 +183,7 @@ public final class NetworkProviderFactory {
         else if (networkId.equals(NetworkId.SNCB))
             return new SncbProvider();
         else if (networkId.equals(NetworkId.LU))
-            return new LuProvider();
+            return new LuProvider("{\"type\":\"AID\",\"aid\":\"Aqf9kNqJLjxFx6vv\"}");
         else if (networkId.equals(NetworkId.NS))
             return new NsProvider();
         else if (networkId.equals(NetworkId.DSB))
