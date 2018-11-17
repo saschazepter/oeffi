@@ -96,8 +96,8 @@ public class QueryHistoryProvider extends ContentProvider {
 
                 if (cursor.getInt(cursor.getColumnIndexOrThrow(QueryHistoryProvider.KEY_FROM_LAT)) == 0
                         && cursor.getInt(cursor.getColumnIndexOrThrow(QueryHistoryProvider.KEY_FROM_LON)) == 0) {
-                    values.put(QueryHistoryProvider.KEY_FROM_LAT, from.getLatAs1E6());
-                    values.put(QueryHistoryProvider.KEY_FROM_LON, from.getLonAs1E6());
+                    values.put(QueryHistoryProvider.KEY_FROM_LAT, from.hasCoord() ? from.getLatAs1E6() : 0);
+                    values.put(QueryHistoryProvider.KEY_FROM_LON, from.hasCoord() ? from.getLonAs1E6() : 0);
                 }
 
                 if (cursor.getInt(cursor.getColumnIndexOrThrow(QueryHistoryProvider.KEY_TO_ID)) == 0)
@@ -105,8 +105,8 @@ public class QueryHistoryProvider extends ContentProvider {
 
                 if (cursor.getInt(cursor.getColumnIndexOrThrow(QueryHistoryProvider.KEY_TO_LAT)) == 0
                         && cursor.getInt(cursor.getColumnIndexOrThrow(QueryHistoryProvider.KEY_TO_LON)) == 0) {
-                    values.put(QueryHistoryProvider.KEY_TO_LAT, to.getLatAs1E6());
-                    values.put(QueryHistoryProvider.KEY_TO_LON, to.getLonAs1E6());
+                    values.put(QueryHistoryProvider.KEY_TO_LAT, to.hasCoord() ? to.getLatAs1E6() : 0);
+                    values.put(QueryHistoryProvider.KEY_TO_LON, to.hasCoord() ? to.getLonAs1E6() : 0);
                 }
 
                 if (favorite != null)
@@ -125,14 +125,14 @@ public class QueryHistoryProvider extends ContentProvider {
             final ContentValues values = new ContentValues();
             values.put(QueryHistoryProvider.KEY_FROM_TYPE, QueryHistoryProvider.convert(from.type));
             values.put(QueryHistoryProvider.KEY_FROM_ID, from.id);
-            values.put(QueryHistoryProvider.KEY_FROM_LAT, from.getLatAs1E6());
-            values.put(QueryHistoryProvider.KEY_FROM_LON, from.getLonAs1E6());
+            values.put(QueryHistoryProvider.KEY_FROM_LAT, from.hasCoord() ? from.getLatAs1E6() : 0);
+            values.put(QueryHistoryProvider.KEY_FROM_LON, from.hasCoord() ? from.getLonAs1E6() : 0);
             values.put(QueryHistoryProvider.KEY_FROM_PLACE, from.place);
             values.put(QueryHistoryProvider.KEY_FROM_NAME, from.name);
             values.put(QueryHistoryProvider.KEY_TO_TYPE, QueryHistoryProvider.convert(to.type));
             values.put(QueryHistoryProvider.KEY_TO_ID, to.id);
-            values.put(QueryHistoryProvider.KEY_TO_LAT, to.getLatAs1E6());
-            values.put(QueryHistoryProvider.KEY_TO_LON, to.getLonAs1E6());
+            values.put(QueryHistoryProvider.KEY_TO_LAT, to.hasCoord() ? to.getLatAs1E6() : 0);
+            values.put(QueryHistoryProvider.KEY_TO_LON, to.hasCoord() ? to.getLonAs1E6() : 0);
             values.put(QueryHistoryProvider.KEY_TO_PLACE, to.place);
             values.put(QueryHistoryProvider.KEY_TO_NAME, to.name);
 

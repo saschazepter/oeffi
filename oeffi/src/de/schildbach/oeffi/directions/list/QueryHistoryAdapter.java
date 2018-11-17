@@ -22,6 +22,7 @@ import de.schildbach.oeffi.directions.QueryHistoryProvider;
 import de.schildbach.oeffi.stations.FavoriteStationsProvider;
 import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.dto.Location;
+import de.schildbach.pte.dto.LocationType;
 import de.schildbach.pte.dto.Point;
 
 import android.content.ContentResolver;
@@ -184,13 +185,22 @@ public class QueryHistoryAdapter extends RecyclerView.Adapter<QueryHistoryViewHo
     public void onBindViewHolder(final QueryHistoryViewHolder holder, final int position) {
         cursor.moveToPosition(position);
         final long rowId = cursor.getLong(rowIdColumn);
-        final Location from = new Location(QueryHistoryProvider.convert(cursor.getInt(fromTypeColumn)),
-                cursor.getString(fromIdColumn),
-                Point.from1E6(cursor.getInt(fromLatColumn), cursor.getInt(fromLonColumn)),
-                cursor.getString(fromPlaceColumn), cursor.getString(fromNameColumn));
-        final Location to = new Location(QueryHistoryProvider.convert(cursor.getInt(toTypeColumn)),
-                cursor.getString(toIdColumn), Point.from1E6(cursor.getInt(toLatColumn), cursor.getInt(toLonColumn)),
-                cursor.getString(toPlaceColumn), cursor.getString(toNameColumn));
+        final LocationType fromType = QueryHistoryProvider.convert(cursor.getInt(fromTypeColumn));
+        final String fromId = cursor.getString(fromIdColumn);
+        final int fromLat = cursor.getInt(fromLatColumn);
+        final int fromLon = cursor.getInt(fromLonColumn);
+        final Point fromCoord = fromLat != 0 || fromLon != 0 ? Point.from1E6(fromLat, fromLon) : null;
+        final String fromPlace = cursor.getString(fromPlaceColumn);
+        final String fromName = cursor.getString(fromNameColumn);
+        final Location from = new Location(fromType, fromId, fromCoord, fromPlace, fromName);
+        final LocationType toType = QueryHistoryProvider.convert(cursor.getInt(toTypeColumn));
+        final String toId = cursor.getString(toIdColumn);
+        final int toLat = cursor.getInt(toLatColumn);
+        final int toLon = cursor.getInt(toLonColumn);
+        final Point toCoord = toLat != 0 || toLon != 0 ? Point.from1E6(toLat, toLon) : null;
+        final String toPlace = cursor.getString(toPlaceColumn);
+        final String toName = cursor.getString(toNameColumn);
+        final Location to = new Location(toType, toId, toCoord, toPlace, toName);
         final boolean isFavorite = cursor.getInt(favoriteColumn) == 1;
         final long savedTripDepartureTime = cursor.getLong(savedTripDepartureTimeColumn);
         final byte[] serializedSavedTrip = cursor.getBlob(savedTripColumn);

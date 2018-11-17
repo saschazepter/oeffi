@@ -1299,22 +1299,31 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
                                     final String fromName = cursor.getString(fromNameC);
                                     if (fromName.toLowerCase(Constants.DEFAULT_LOCALE)
                                             .contains(constraintStr.toLowerCase(Constants.DEFAULT_LOCALE))) {
-                                        final Location location = new Location(
-                                                QueryHistoryProvider.convert(cursor.getInt(fromTypeC)),
-                                                cursor.getString(fromIdC),
-                                                Point.from1E6(cursor.getInt(fromLatC), cursor.getInt(fromLonC)),
-                                                cursor.getString(fromPlaceC), fromName);
+                                        final LocationType fromType = QueryHistoryProvider
+                                                .convert(cursor.getInt(fromTypeC));
+                                        final String fromId = cursor.getString(fromIdC);
+                                        final int fromLat = cursor.getInt(fromLatC);
+                                        final int fromLon = cursor.getInt(fromLonC);
+                                        final Point fromCoord = fromLat != 0 || fromLon != 0
+                                                ? Point.from1E6(fromLat, fromLon) : null;
+                                        final String fromPlace = cursor.getString(fromPlaceC);
+                                        final Location location = new Location(fromType, fromId, fromCoord, fromPlace,
+                                                fromName);
                                         if (!results.contains(location))
                                             results.add(location);
                                     }
                                     final String toName = cursor.getString(toNameC);
                                     if (toName.toLowerCase(Constants.DEFAULT_LOCALE)
                                             .contains(constraintStr.toLowerCase(Constants.DEFAULT_LOCALE))) {
-                                        final Location location = new Location(
-                                                QueryHistoryProvider.convert(cursor.getInt(toTypeC)),
-                                                cursor.getString(toIdC),
-                                                Point.from1E6(cursor.getInt(toLatC), cursor.getInt(toLonC)),
-                                                cursor.getString(toPlaceC), toName);
+                                        final LocationType toType = QueryHistoryProvider
+                                                .convert(cursor.getInt(toTypeC));
+                                        final String toId = cursor.getString(toIdC);
+                                        final int toLat = cursor.getInt(toLatC);
+                                        final int toLon = cursor.getInt(toLonC);
+                                        final Point toCoord = toLat != 0 || toLon != 0 ? Point.from1E6(toLat, toLon)
+                                                : null;
+                                        final String toPlace = cursor.getString(toPlaceC);
+                                        final Location location = new Location(toType, toId, toCoord, toPlace, toName);
                                         if (!results.contains(location))
                                             results.add(location);
                                     }
