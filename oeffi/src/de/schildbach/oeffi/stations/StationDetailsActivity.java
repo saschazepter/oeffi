@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -407,13 +408,24 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
                                                     .getColumnIndexOrThrow(NetworkContentProvider.KEY_LAT);
                                             final int lonCol = cursor
                                                     .getColumnIndexOrThrow(NetworkContentProvider.KEY_LON);
+                                            final int productsCol = cursor
+                                                    .getColumnIndex(NetworkContentProvider.KEY_PRODUCTS);
                                             final int linesCol = cursor
                                                     .getColumnIndexOrThrow(NetworkContentProvider.KEY_LINES);
 
-                                            location = new Location(LocationType.STATION, location.id,
-                                                    Point.from1E6(cursor.getInt(latCol), cursor.getInt(lonCol)),
-                                                    placeCol != -1 ? cursor.getString(placeCol) : selectedStation.place,
-                                                    cursor.getString(nameCol));
+                                            final Point coord = Point.from1E6(cursor.getInt(latCol),
+                                                    cursor.getInt(lonCol));
+                                            final String place = placeCol != -1 ? cursor.getString(placeCol)
+                                                    : selectedStation.place;
+                                            final String name = cursor.getString(nameCol);
+                                            final Set<Product> products;
+                                            if (productsCol != -1 && !cursor.isNull(productsCol))
+                                                products = Product
+                                                        .fromCodes(cursor.getString(productsCol).toCharArray());
+                                            else
+                                                products = null;
+                                            location = new Location(LocationType.STATION, location.id, coord, place,
+                                                    name, products);
 
                                             final String[] additionalLinesArray = cursor.getString(linesCol).split(",");
                                             additionalLines = new ArrayList<>(additionalLinesArray.length);
@@ -519,12 +531,18 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
                 final int nameCol = stationCursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_NAME);
                 final int latCol = stationCursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LAT);
                 final int lonCol = stationCursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LON);
+                final int productsCol = stationCursor.getColumnIndex(NetworkContentProvider.KEY_PRODUCTS);
                 final int linesCol = stationCursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LINES);
 
-                selectedStation = new Location(LocationType.STATION, selectedStation.id,
-                        Point.from1E6(stationCursor.getInt(latCol), stationCursor.getInt(lonCol)),
-                        placeCol != -1 ? stationCursor.getString(placeCol) : selectedStation.place,
-                        stationCursor.getString(nameCol));
+                final Point coord = Point.from1E6(stationCursor.getInt(latCol), stationCursor.getInt(lonCol));
+                final String place = placeCol != -1 ? stationCursor.getString(placeCol) : selectedStation.place;
+                final String name = stationCursor.getString(nameCol);
+                final Set<Product> products;
+                if (productsCol != -1 && !stationCursor.isNull(productsCol))
+                    products = Product.fromCodes(stationCursor.getString(productsCol).toCharArray());
+                else
+                    products = null;
+                selectedStation = new Location(LocationType.STATION, selectedStation.id, coord, place, name, products);
 
                 final NetworkProvider networkProvider = NetworkProviderFactory.provider(selectedNetwork);
 

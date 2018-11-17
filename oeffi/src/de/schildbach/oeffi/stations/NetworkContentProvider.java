@@ -60,6 +60,7 @@ public final class NetworkContentProvider extends ContentProvider {
     public static final String KEY_NAME = "name";
     public static final String KEY_LAT = "lat";
     public static final String KEY_LON = "lon";
+    public static final String KEY_PRODUCTS = "products"; // optional!
     public static final String KEY_LINES = "lines";
 
     public static final String QUERY_PARAM_Q = "q";
@@ -133,6 +134,7 @@ public final class NetworkContentProvider extends ContentProvider {
         final Cursor testCursor = db.query(DATABASE_TABLE, null, null, null, null, null, null, "0");
         final boolean hasLocalId = testCursor.getColumnIndex(NetworkContentProvider.KEY_LOCAL_ID) != -1;
         final boolean hasPlace = testCursor.getColumnIndex(NetworkContentProvider.KEY_PLACE) != -1;
+        final boolean hasProducts = testCursor.getColumnIndex(NetworkContentProvider.KEY_PRODUCTS) != -1;
         testCursor.close();
 
         String selection = null;

@@ -850,6 +850,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                             final int nameColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_NAME);
                             final int latColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LAT);
                             final int lonColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LON);
+                            final int productsColumnIndex = cursor.getColumnIndex(NetworkContentProvider.KEY_PRODUCTS);
                             final int linesColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LINES);
 
                             final List<Station> freshStations = new ArrayList<>(cursor.getCount());
@@ -876,14 +877,18 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                                         : cursor.getString(nativeIdColumnIndex);
                                 final String place = placeColumnIndex != -1 ? cursor.getString(placeColumnIndex) : null;
                                 final String name = cursor.getString(nameColumnIndex);
-                                final Point p = Point.from1E6(cursor.getInt(latColumnIndex),
+                                final Point coord = Point.from1E6(cursor.getInt(latColumnIndex),
                                         cursor.getInt(lonColumnIndex));
-                                final Station station = new Station(network,
-                                        new de.schildbach.pte.dto.Location(LocationType.STATION, id, p, place, name),
-                                        lineDestinations);
+                                final Set<Product> products;
+                                if (productsColumnIndex != -1 && !cursor.isNull(productsColumnIndex))
+                                    products = Product.fromCodes(cursor.getString(productsColumnIndex).toCharArray());
+                                else
+                                    products = null;
+                                final Station station = new Station(network, new de.schildbach.pte.dto.Location(
+                                        LocationType.STATION, id, coord, place, name, products), lineDestinations);
                                 if (deviceLocation != null) {
                                     android.location.Location.distanceBetween(referenceLocation.getLatAsDouble(),
-                                            referenceLocation.getLonAsDouble(), p.getLatAsDouble(), p.getLonAsDouble(),
+                                            referenceLocation.getLonAsDouble(), coord.getLatAsDouble(), coord.getLonAsDouble(),
                                             distanceBetweenResults);
                                     station.setDistanceAndBearing(distanceBetweenResults[0], distanceBetweenResults[1]);
                                 }
@@ -1606,6 +1611,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                 final int nameColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_NAME);
                 final int latColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LAT);
                 final int lonColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LON);
+                final int productsColumnIndex = cursor.getColumnIndex(NetworkContentProvider.KEY_PRODUCTS);
                 final int linesColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LINES);
 
                 while (cursor.moveToNext()) {
@@ -1619,6 +1625,11 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                         final int lat = cursor.getInt(latColumnIndex);
                         final int lon = cursor.getInt(lonColumnIndex);
                         final Point coord = Point.from1E6(lat, lon);
+                        final Set<Product> products;
+                        if (productsColumnIndex != -1 && !cursor.isNull(productsColumnIndex))
+                            products = Product.fromCodes(cursor.getString(productsColumnIndex).toCharArray());
+                        else
+                            products = null;
                         final List<LineDestination> lineDestinations = new LinkedList<>();
                         for (final String lineStr : cursor.getString(linesColumnIndex).split(",")) {
                             if (!lineStr.isEmpty()) {
@@ -1629,7 +1640,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                                         .add(new LineDestination(new Line(null, null, product, label, style), null));
                             }
                         }
-                        final Location location = new Location(LocationType.STATION, id, coord, place, name);
+                        final Location location = new Location(LocationType.STATION, id, coord, place, name, products);
                         stations.add(new Station(network, location, lineDestinations));
                     }
                 }
