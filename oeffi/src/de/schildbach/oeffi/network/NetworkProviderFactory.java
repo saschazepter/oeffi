@@ -84,7 +84,7 @@ import okhttp3.HttpUrl;
 public final class NetworkProviderFactory {
     private static Map<NetworkId, NetworkProvider> providerCache = new HashMap<>();
 
-    private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36";
+    private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36";
 
     public static synchronized NetworkProvider provider(final NetworkId networkId) {
         final NetworkProvider cachedNetworkProvider = providerCache.get(networkId);
