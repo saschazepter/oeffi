@@ -613,9 +613,12 @@ public class OeffiMapView extends MapView {
         // show at most 16 stations
         final List<GeoPoint> points = new LinkedList<>();
         for (final Station station : stations) {
-            points.add(new GeoPoint(station.location.getLatAsDouble(), station.location.getLonAsDouble()));
-            if (points.size() >= 16)
-                break;
+            final Location location = station.location;
+            if (location.hasCoord()) {
+                points.add(new GeoPoint(location.getLatAsDouble(), location.getLonAsDouble()));
+                if (points.size() >= 16)
+                    break;
+            }
         }
 
         // make sure a minimum area is shown
