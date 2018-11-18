@@ -114,8 +114,6 @@
     <string name="network_tfi_comment">local and regional</string>
     <string name="network_pl_label">Poland</string>
     <string name="network_pl_comment">long-distance, regional and local (e.g. Warsaw)</string>
-    <string name="network_atc_label">Bologna</string>
-    <string name="network_atc_comment">local</string>
     <string name="network_dub_label">Dubai</string>
     <string name="network_dub_comment">local</string>
     <string name="network_rtachicago_label">Chicago</string>
