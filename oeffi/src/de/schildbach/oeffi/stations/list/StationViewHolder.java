@@ -17,17 +17,13 @@
 
 package de.schildbach.oeffi.stations.list;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.annotation.Nullable;
 
@@ -91,7 +87,7 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
     private final int colorText, colorTextLessSignificant, colorTextGhosted;
     private final int listEntryVerticalPadding;
 
-    private static final int CONDENSE_LINES_THRESHOLD = 6; // TODO!!!
+    private static final int CONDENSE_LINES_THRESHOLD = 5;
     private static final int MESSAGE_INDEX_COLOR = Color.parseColor("#c08080");
 
     public StationViewHolder(final Context context, final View itemView, final int maxDepartures,
@@ -150,18 +146,22 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
         name2View.setTextColor(color);
 
         // lines
+        final Set<Line> lines = new TreeSet<>();
+        final Set<Product> products = station.location.products;
+        if (products != null)
+            for (final Product product : products)
+                lines.add(new Line(null, null, product, null, Standard.STYLES.get(product)));
         final List<LineDestination> stationLines = station.getLines();
         if (stationLines != null) {
-            final List<Line> lines = new ArrayList<>(stationLines.size());
-            if (stationLines.size() > CONDENSE_LINES_THRESHOLD)
-                condenseLinesByProduct(stationLines);
-            for (final LineDestination line : stationLines)
-                lines.add(line.line);
-            linesView.setLines(lines);
-        } else {
-            linesView.setLines(null);
+            for (final LineDestination lineDestination : stationLines) {
+                final Line line = lineDestination.line;
+                lines.add(line);
+                lines.remove(new Line(null, null, line.product, null, Standard.STYLES.get(line.product)));
+            }
         }
         linesView.setGhosted(isGhosted);
+        linesView.setCondenseThreshold(CONDENSE_LINES_THRESHOLD);
+        linesView.setLines(!lines.isEmpty() ? lines : null);
 
         // distance
         distanceView.setText(station.hasDistanceAndBearing ? Formats.formatDistance(station.distance) : null);
@@ -390,54 +390,6 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
 
         // allow context menu
         itemView.setLongClickable(true);
-    }
-
-    private void condenseLinesByProduct(final List<LineDestination> stationLines) {
-        // count products
-        final Map<Product, Integer> productCounts = new HashMap<>();
-        for (final LineDestination lineDestination : stationLines) {
-            final Product product = lineDestination.line.product;
-            Integer count = productCounts.get(product);
-            if (count == null)
-                count = 0;
-            productCounts.put(product, count + 1);
-        }
-
-        // sort by count
-        final List<Entry<Product, Integer>> sortedEntries = new ArrayList<>(productCounts.entrySet());
-        Collections.sort(sortedEntries, new Comparator<Entry<Product, Integer>>() {
-            public int compare(final Entry<Product, Integer> entry1, final Entry<Product, Integer> entry2) {
-                return entry2.getValue().compareTo(entry1.getValue());
-            }
-        });
-
-        // condense
-        for (final Map.Entry<Product, Integer> entry : sortedEntries) {
-            // stop condensing if few enough lines in total
-            if (stationLines.size() <= CONDENSE_LINES_THRESHOLD)
-                break;
-
-            // condense lines of product to just one label
-            final Product productToRemove = entry.getKey();
-            int size = stationLines.size();
-            boolean first = true;
-            for (int i = 0; i < size;) {
-                if (stationLines.get(i).line.product == productToRemove) {
-                    stationLines.remove(i);
-                    if (first) {
-                        stationLines.add(i, new LineDestination(
-                                new Line(null, null, productToRemove, null, Standard.STYLES.get(productToRemove)),
-                                null));
-                        first = false;
-                        i++;
-                    } else {
-                        size--;
-                    }
-                } else {
-                    i++;
-                }
-            }
-        }
     }
 
     private Map<LineDestination, List<Departure>> groupDeparturesByLineDestination(final List<Departure> departures,

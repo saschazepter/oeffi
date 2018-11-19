@@ -17,13 +17,23 @@
 
 package de.schildbach.oeffi.stations;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.util.CheatSheet;
+import de.schildbach.pte.Standard;
 import de.schildbach.pte.dto.Line;
 import de.schildbach.pte.dto.Line.Attr;
+import de.schildbach.pte.dto.Product;
 import de.schildbach.pte.dto.Style;
 import de.schildbach.pte.dto.Style.Shape;
 
@@ -47,6 +57,7 @@ import android.widget.TextView;
 public class LineView extends TextView {
     private Collection<Line> lines = null;
     private boolean ghosted = false;
+    private int condenseThreshold = 0;
 
     private final float strokeWidth;
     private final int colorTextGhosted;
@@ -87,8 +98,49 @@ public class LineView extends TextView {
         update();
     }
 
+    public void setCondenseThreshold(final int condenseThreshold) {
+        this.condenseThreshold = condenseThreshold;
+        update();
+    }
+
     private void update() {
         if (lines != null && !lines.isEmpty()) {
+            if (condenseThreshold > 0 && lines.size() > condenseThreshold) {
+                // count products
+                final Map<Product, Integer> productCounts = new HashMap<>();
+                for (final Line line : lines) {
+                    final Product product = line.product;
+                    Integer count = productCounts.get(product);
+                    if (count == null)
+                        count = 0;
+                    productCounts.put(product, count + 1);
+                }
+
+                // sort by count
+                final List<Entry<Product, Integer>> sortedEntries = new ArrayList<>(productCounts.entrySet());
+                Collections.sort(sortedEntries, new Comparator<Entry<Product, Integer>>() {
+                    public int compare(final Entry<Product, Integer> entry1, final Entry<Product, Integer> entry2) {
+                        return entry2.getValue().compareTo(entry1.getValue());
+                    }
+                });
+
+                // condense
+                for (final Map.Entry<Product, Integer> entry : sortedEntries) {
+                    // condense lines of product to just one label
+                    final Product productToRemove = entry.getKey();
+                    for (final Iterator<Line> i = lines.iterator(); i.hasNext();) {
+                        final Line line = i.next();
+                        if (line.product == productToRemove)
+                            i.remove();
+                    }
+                    lines.add(new Line(null, null, productToRemove, null, Standard.STYLES.get(productToRemove)));
+
+                    // stop condensing if few enough lines in total
+                    if (lines.size() <= condenseThreshold)
+                        break;
+                }
+            }
+
             final SpannableStringBuilder text = new SpannableStringBuilder();
             for (final Line line : lines) {
                 if (text.length() > 0)
