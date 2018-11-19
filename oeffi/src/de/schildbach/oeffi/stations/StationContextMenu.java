@@ -92,9 +92,7 @@ public class StationContextMenu extends PopupMenu {
                                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_NETWORK, networkId.name());
                         shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_TYPE, location.type.name());
-                        shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_NAME, location.name);
-                        if (location.type == LocationType.STATION
-                                && (networkId != NetworkId.BVG || Integer.parseInt(location.id) >= 1000000))
+                        if (location.hasId())
                             shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_ID, location.id);
                         if (location.hasCoord()) {
                             shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_LAT,
@@ -102,6 +100,8 @@ public class StationContextMenu extends PopupMenu {
                             shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_LON,
                                     location.getLonAs1E6());
                         }
+                        shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_PLACE, location.place);
+                        shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_NAME, location.name);
 
                         ShortcutManagerCompat.requestPinShortcut(context,
                                 new ShortcutInfoCompat.Builder(context, shortcutId)

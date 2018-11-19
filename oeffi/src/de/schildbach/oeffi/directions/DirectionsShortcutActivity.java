@@ -68,10 +68,11 @@ public class DirectionsShortcutActivity extends OeffiActivity
         implements ActivityCompat.OnRequestPermissionsResultCallback, LocationHelper.Callback {
     public static final String INTENT_EXTRA_NETWORK = "network";
     public static final String INTENT_EXTRA_TYPE = "type";
-    public static final String INTENT_EXTRA_NAME = "stationname";
     public static final String INTENT_EXTRA_ID = "stationid";
     public static final String INTENT_EXTRA_LAT = "lat";
     public static final String INTENT_EXTRA_LON = "lon";
+    public static final String INTENT_EXTRA_PLACE = "place";
+    public static final String INTENT_EXTRA_NAME = "stationname";
 
     private LocationHelper locationHelper;
     private ProgressDialog progressDialog;
@@ -210,12 +211,13 @@ public class DirectionsShortcutActivity extends OeffiActivity
 
         final NetworkProvider networkProvider = getNetworkExtra(intent);
         final LocationType type = getLocationTypeExtra(intent);
-        final String name = intent.getStringExtra(INTENT_EXTRA_NAME);
         final String id = getLocationIdExtra(intent);
         final int lat = intent.getIntExtra(INTENT_EXTRA_LAT, 0);
         final int lon = intent.getIntExtra(INTENT_EXTRA_LON, 0);
         final Point coord = lat != 0 || lon != 0 ? Point.from1E6(lat, lon) : null;
-        final Location to = new Location(type, id, coord, null, id != null ? name : name + "!");
+        final String place = intent.getStringExtra(INTENT_EXTRA_PLACE);
+        final String name = intent.getStringExtra(INTENT_EXTRA_NAME);
+        final Location to = new Location(type, id, coord, place, name);
 
         if (networkProvider != null) {
             final Optimize optimize = prefs.contains(Constants.PREFS_KEY_OPTIMIZE_TRIP)
