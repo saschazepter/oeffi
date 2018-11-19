@@ -24,6 +24,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -235,8 +236,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                                 if (!removed.isEmpty()) {
                                     for (final Iterator<Station> i = stations.iterator(); i.hasNext();) {
                                         final Station station = i.next();
-                                        final List<LineDestination> lines = station.getLines();
-                                        if (!filter(lines, products)) {
+                                        if (!filter(station, products)) {
                                             i.remove();
                                             stationsMap.remove(station.location.id);
                                         }
@@ -998,7 +998,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                         changed = true;
                     }
                 }
-            } else if (filter(freshStation.getLines(), products)) {
+            } else if (filter(freshStation, products)) {
                 stations.add(freshStation);
                 stationsMap.put(freshStation.location.id, freshStation);
 
@@ -1043,16 +1043,23 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         updateGUI();
     }
 
-    private static boolean filter(final List<LineDestination> lines, final Collection<Product> products) {
-        if (lines == null)
-            return true;
+    private static boolean filter(final Station station, final Collection<Product> productFilter) {
+        final Set<Product> products = station.location.products;
+        if (products != null) {
+            final Set<Product> copy = EnumSet.copyOf(products);
+            copy.retainAll(productFilter);
+            return !copy.isEmpty();
+        }
 
-        for (final LineDestination line : lines) {
-            final Product product = line.line.product;
-            if (product != null)
-                for (final Product filterProduct : products)
-                    if (product == filterProduct)
-                        return true;
+        final List<LineDestination> lines = station.getLines();
+        if (lines != null) {
+            for (final LineDestination line : lines) {
+                final Product product = line.line.product;
+                if (product != null)
+                    for (final Product filterProduct : productFilter)
+                        if (product == filterProduct)
+                            return true;
+            }
         }
 
         return false;
