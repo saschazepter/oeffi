@@ -20,6 +20,9 @@ package de.schildbach.oeffi.stations;
 import java.net.URLEncoder;
 import java.util.Locale;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.directions.DirectionsActivity;
 import de.schildbach.oeffi.directions.DirectionsShortcutActivity;
@@ -28,7 +31,6 @@ import de.schildbach.oeffi.plans.PlanContentProvider;
 import de.schildbach.oeffi.util.DialogBuilder;
 import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.dto.Location;
-import de.schildbach.pte.dto.LocationType;
 
 import android.app.AlertDialog;
 import android.content.ComponentName;
@@ -51,6 +53,8 @@ import androidx.core.content.pm.ShortcutManagerCompat;
 import androidx.core.graphics.drawable.IconCompat;
 
 public class StationContextMenu extends PopupMenu {
+    private static final Logger log = LoggerFactory.getLogger(StationContextMenu.class);
+
     public StationContextMenu(final Context context, final View anchor, final NetworkId network, final Location station,
             final Integer favState, final boolean showFavorite, final boolean showIgnore, final boolean showMap,
             final boolean showDirections, final boolean showShortcut) {
@@ -103,6 +107,7 @@ public class StationContextMenu extends PopupMenu {
                         shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_PLACE, location.place);
                         shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_NAME, location.name);
 
+                        log.info("creating launcher shortcut {} to {}", shortcutId, location);
                         ShortcutManagerCompat.requestPinShortcut(context,
                                 new ShortcutInfoCompat.Builder(context, shortcutId)
                                         .setActivity(new ComponentName(context, DirectionsActivity.class))
