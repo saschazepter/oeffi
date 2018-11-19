@@ -1,3 +1,7 @@
+v10.3.4
+
+* Fix for launcher shortcuts that use addresses. Please re-create them if they don't work.
+
 v10.3-v10.3.3
 
 * New region: Aachen, Germany.
