@@ -125,80 +125,56 @@ public class StationContextMenu extends PopupMenu {
 
     public static void prepareMapMenu(final Context context, final Menu menu, final NetworkId network,
             final Location location) {
-        final PackageManager pm = context.getPackageManager();
-
         new MenuInflater(context).inflate(R.menu.station_map_context, menu);
-
-        final double lat = location.getLatAsDouble();
-        final double lon = location.getLonAsDouble();
-        final String name = location.name;
-
         final MenuItem googleMapsItem = menu.findItem(R.id.station_map_context_google_maps);
-        final Intent googleMapsIntent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse(String.format(Locale.ENGLISH, "geo:%.6f,%.6f?q=%.6f,%.6f%s", lat, lon, lat, lon,
-                        name != null ? '(' + URLEncoder.encode(name.replaceAll("[()]", "")) + ')' : "")));
-        googleMapsIntent.setComponent(
-                new ComponentName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity"));
-        googleMapsItem.setVisible(location.hasCoord() && pm.resolveActivity(googleMapsIntent, 0) != null);
-        googleMapsItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            public boolean onMenuItemClick(final MenuItem item) {
-                context.startActivity(googleMapsIntent);
-                return true;
-            }
-        });
-
         final MenuItem amazonMapsItem = menu.findItem(R.id.station_map_context_amazon_maps);
-        final Intent amazonMapsIntent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse(String.format(Locale.ENGLISH, "geo:%.6f,%.6f?q=%.6f,%.6f%s", lat, lon, lat, lon,
-                        name != null ? '(' + URLEncoder.encode(name.replaceAll("[()]", "")) + ')' : "")));
-        amazonMapsIntent.setComponent(
-                new ComponentName("com.amazon.geo.client.maps", "com.amazon.geo.client.renderer.MapsAppActivityDuke"));
-        amazonMapsItem.setVisible(location.hasCoord() && pm.resolveActivity(amazonMapsIntent, 0) != null);
-        amazonMapsItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            public boolean onMenuItemClick(final MenuItem item) {
-                context.startActivity(amazonMapsIntent);
-                return true;
-            }
-        });
-
         final MenuItem openStreetMapsItem = menu.findItem(R.id.station_map_context_open_street_maps);
-        final Intent openStreetMapsIntent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse(String.format(Locale.ENGLISH, "osmand.geo:%.6f,%.6f?q=%.6f,%.6f%s", lat, lon, lat, lon,
-                        name != null ? '(' + URLEncoder.encode(name.replaceAll("[()]", "")) + ')' : "")));
-        openStreetMapsItem.setVisible(location.hasCoord() && pm.resolveActivity(openStreetMapsIntent, 0) != null);
-        openStreetMapsItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            public boolean onMenuItemClick(final MenuItem item) {
-                context.startActivity(openStreetMapsIntent);
-                return true;
-            }
-        });
-
         final MenuItem googleStreetViewItem = menu.findItem(R.id.station_map_context_google_street_view);
-        final Intent googleStreetViewIntent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse(String.format(Locale.ENGLISH, "google.streetview:cbll=%.6f,%.6f", lat, lon)));
-        googleStreetViewIntent
-                .setComponent(new ComponentName("com.google.android.street", "com.google.android.street.Street"));
-        googleStreetViewItem.setVisible(location.hasCoord() && pm.resolveActivity(googleStreetViewIntent, 0) != null);
-        googleStreetViewItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            public boolean onMenuItemClick(final MenuItem item) {
-                context.startActivity(googleStreetViewIntent);
-                return true;
-            }
-        });
-
         final MenuItem googleNavigationItem = menu.findItem(R.id.station_map_context_google_navigation);
-        final Intent googleNavigationIntent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse(String.format(Locale.ENGLISH, "google.navigation:ll=%.6f,%.6f&title=%s&mode=w", lat, lon,
-                        name != null ? URLEncoder.encode(name) : "")));
-        googleNavigationIntent.setComponent(new ComponentName("com.google.android.apps.maps",
-                "com.google.android.maps.driveabout.app.NavigationActivity"));
-        googleNavigationItem.setVisible(location.hasCoord() && pm.resolveActivity(googleNavigationIntent, 0) != null);
-        googleNavigationItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            public boolean onMenuItemClick(final MenuItem item) {
-                context.startActivity(googleNavigationIntent);
-                return true;
-            }
-        });
+
+        if (location.hasCoord()) {
+            final double lat = location.getLatAsDouble();
+            final double lon = location.getLonAsDouble();
+            final String name = location.name;
+
+            final Intent googleMapsIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(String.format(Locale.ENGLISH, "geo:%.6f,%.6f?q=%.6f,%.6f%s", lat, lon, lat, lon,
+                            name != null ? '(' + URLEncoder.encode(name.replaceAll("[()]", "")) + ')' : "")));
+            googleMapsIntent.setComponent(
+                    new ComponentName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity"));
+            prepareMapMenuItem(context, googleMapsItem, googleMapsIntent);
+
+            final Intent amazonMapsIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(String.format(Locale.ENGLISH, "geo:%.6f,%.6f?q=%.6f,%.6f%s", lat, lon, lat, lon,
+                            name != null ? '(' + URLEncoder.encode(name.replaceAll("[()]", "")) + ')' : "")));
+            amazonMapsIntent.setComponent(new ComponentName("com.amazon.geo.client.maps",
+                    "com.amazon.geo.client.renderer.MapsAppActivityDuke"));
+            prepareMapMenuItem(context, amazonMapsItem, amazonMapsIntent);
+
+            final Intent openStreetMapsIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(String.format(Locale.ENGLISH, "osmand.geo:%.6f,%.6f?q=%.6f,%.6f%s", lat, lon, lat, lon,
+                            name != null ? '(' + URLEncoder.encode(name.replaceAll("[()]", "")) + ')' : "")));
+            prepareMapMenuItem(context, openStreetMapsItem, openStreetMapsIntent);
+
+            final Intent googleStreetViewIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(String.format(Locale.ENGLISH, "google.streetview:cbll=%.6f,%.6f", lat, lon)));
+            googleStreetViewIntent
+                    .setComponent(new ComponentName("com.google.android.street", "com.google.android.street.Street"));
+            prepareMapMenuItem(context, googleStreetViewItem, googleStreetViewIntent);
+
+            final Intent googleNavigationIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(String.format(Locale.ENGLISH, "google.navigation:ll=%.6f,%.6f&title=%s&mode=w", lat, lon,
+                            name != null ? URLEncoder.encode(name) : "")));
+            googleNavigationIntent.setComponent(new ComponentName("com.google.android.apps.maps",
+                    "com.google.android.maps.driveabout.app.NavigationActivity"));
+            prepareMapMenuItem(context, googleNavigationItem, googleNavigationIntent);
+        } else {
+            googleMapsItem.setVisible(false);
+            amazonMapsItem.setVisible(false);
+            openStreetMapsItem.setVisible(false);
+            googleStreetViewItem.setVisible(false);
+            googleNavigationItem.setVisible(false);
+        }
 
         final ContentResolver contentResolver = context.getContentResolver();
         final Cursor stationsCursor = contentResolver.query(PlanContentProvider.stationsUri(network, location.id), null,
@@ -222,5 +198,16 @@ public class StationContextMenu extends PopupMenu {
             }
             stationsCursor.close();
         }
+    }
+
+    private static void prepareMapMenuItem(final Context context, final MenuItem item, final Intent intent) {
+        final PackageManager pm = context.getPackageManager();
+        item.setVisible(pm.resolveActivity(intent, 0) != null);
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(final MenuItem item) {
+                context.startActivity(intent);
+                return true;
+            }
+        });
     }
 }
