@@ -594,43 +594,42 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
             final Location[] locations = LocationUriParser.parseLocations(intentUri.toString());
             fixedLocation = locations != null && locations.length >= 1 ? locations[0] : null;
 
-            if (fixedLocation != null) {
+            if (fixedLocation != null && fixedLocation.hasCoord())
                 mapView.animateToLocation(fixedLocation.getLatAsDouble(), fixedLocation.getLonAsDouble());
 
-                findViewById(R.id.stations_location_clear).setOnClickListener(new OnClickListener() {
-                    public void onClick(final View v) {
-                        fixedLocation = null;
+            findViewById(R.id.stations_location_clear).setOnClickListener(new OnClickListener() {
+                public void onClick(final View v) {
+                    fixedLocation = null;
 
-                        if (deviceLocation != null) {
-                            mapView.animateToLocation(deviceLocation.getLatAsDouble(), deviceLocation.getLonAsDouble());
+                    if (deviceLocation != null) {
+                        mapView.animateToLocation(deviceLocation.getLatAsDouble(), deviceLocation.getLonAsDouble());
 
-                            final float[] distanceBetweenResults = new float[2];
+                        final float[] distanceBetweenResults = new float[2];
 
-                            // remove non-favorites and re-calculate distances
-                            for (final Iterator<Station> i = stations.iterator(); i.hasNext();) {
-                                final Station station = i.next();
+                        // remove non-favorites and re-calculate distances
+                        for (final Iterator<Station> i = stations.iterator(); i.hasNext();) {
+                            final Station station = i.next();
 
-                                final Integer favState = favorites.get(station.location.id);
-                                if (favState == null || favState != FavoriteStationsProvider.TYPE_FAVORITE) {
-                                    i.remove();
-                                    stationsMap.remove(station.location.id);
-                                } else if (station.location.hasCoord()) {
-                                    android.location.Location.distanceBetween(deviceLocation.getLatAsDouble(),
-                                            deviceLocation.getLonAsDouble(), station.location.getLatAsDouble(),
-                                            station.location.getLonAsDouble(), distanceBetweenResults);
-                                    station.setDistanceAndBearing(distanceBetweenResults[0], distanceBetweenResults[1]);
-                                }
+                            final Integer favState = favorites.get(station.location.id);
+                            if (favState == null || favState != FavoriteStationsProvider.TYPE_FAVORITE) {
+                                i.remove();
+                                stationsMap.remove(station.location.id);
+                            } else if (station.location.hasCoord()) {
+                                android.location.Location.distanceBetween(deviceLocation.getLatAsDouble(),
+                                        deviceLocation.getLonAsDouble(), station.location.getLatAsDouble(),
+                                        station.location.getLonAsDouble(), distanceBetweenResults);
+                                station.setDistanceAndBearing(distanceBetweenResults[0], distanceBetweenResults[1]);
                             }
-                            stationListAdapter.notifyDataSetChanged();
                         }
-
-                        handler.post(initStationsRunnable);
-                        updateGUI();
+                        stationListAdapter.notifyDataSetChanged();
                     }
-                });
 
-                handler.post(initStationsRunnable);
-            }
+                    handler.post(initStationsRunnable);
+                    updateGUI();
+                }
+            });
+
+            handler.post(initStationsRunnable);
         }
 
         final String query = intent.getStringExtra(SearchManager.QUERY);
