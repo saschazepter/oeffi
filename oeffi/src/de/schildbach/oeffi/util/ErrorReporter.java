@@ -315,6 +315,7 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler {
         url.addQueryParameter("version", Integer.toString(applicationVersionCode));
         if (applicationVersionFlavor != null)
             url.addQueryParameter("flavor", applicationVersionFlavor);
+        url.addQueryParameter("sdk", Integer.toString(Build.VERSION.SDK_INT));
         url.addQueryParameter("check", null);
         final Request.Builder request = new Request.Builder().url(url.build());
         final Call call = Application.OKHTTP_CLIENT.newCall(request.build());

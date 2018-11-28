@@ -25,6 +25,7 @@ import de.schildbach.oeffi.R;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -67,6 +68,7 @@ public class ChangelogDialogBuilder extends AlertDialog.Builder {
             url.addQueryParameter("lastVersion", Integer.toString(lastVersionCode));
         if (versionFlavor != null)
             url.addEncodedQueryParameter("flavor", versionFlavor);
+        url.addQueryParameter("sdk", Integer.toString(Build.VERSION.SDK_INT));
         if (task != null)
             url.addEncodedQueryParameter("task", task);
         webView.loadUrl(url.build().toString());

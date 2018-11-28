@@ -395,6 +395,7 @@ public abstract class OeffiMainActivity extends OeffiActivity {
         remoteUrl.addPathSegment(remoteFileName.toString());
         remoteUrl.addEncodedQueryParameter("installer",
                 Strings.nullToEmpty(getPackageManager().getInstallerPackageName(getPackageName())));
+        remoteUrl.addQueryParameter("sdk", Integer.toString(Build.VERSION.SDK_INT));
         remoteUrl.addQueryParameter("task", taskName());
         final File localFile = new File(getFilesDir(), "messages.txt");
         final Downloader downloader = new Downloader(getCacheDir());
