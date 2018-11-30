@@ -17,9 +17,9 @@
 
 package de.schildbach.oeffi.directions.list;
 
-import javax.annotation.Nullable;
-
 import de.schildbach.pte.dto.Location;
+
+import androidx.annotation.Nullable;
 
 public interface QueryHistoryContextMenuItemListener {
     boolean onQueryHistoryContextMenuItemClick(int adapterPosition, Location from, Location to,

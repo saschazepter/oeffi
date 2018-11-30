@@ -27,8 +27,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,6 +45,7 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import androidx.annotation.Nullable;
 import okhttp3.HttpUrl;
 
 public final class NetworkContentProvider extends ContentProvider {

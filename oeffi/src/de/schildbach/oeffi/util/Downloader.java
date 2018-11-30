@@ -32,8 +32,6 @@ import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.Semaphore;
 
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,6 +42,7 @@ import com.google.common.util.concurrent.Striped;
 import de.schildbach.oeffi.Application;
 import de.schildbach.oeffi.util.bzip2.BZip2CompressorInputStream;
 
+import androidx.annotation.Nullable;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;

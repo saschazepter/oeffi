@@ -17,8 +17,6 @@
 
 package de.schildbach.oeffi.stations.list;
 
-import javax.annotation.Nullable;
-
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.stations.FavoriteStationsProvider;
 import de.schildbach.pte.NetworkId;
@@ -31,6 +29,7 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class FavoriteStationsAdapter extends RecyclerView.Adapter<FavoriteStationViewHolder> {

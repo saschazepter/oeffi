@@ -28,8 +28,6 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -84,6 +82,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
+import androidx.annotation.Nullable;
 import okhttp3.HttpUrl;
 
 public class PlanActivity extends Activity {

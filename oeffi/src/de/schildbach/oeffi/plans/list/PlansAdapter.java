@@ -24,8 +24,6 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import de.schildbach.oeffi.Application;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.R;
@@ -40,6 +38,7 @@ import android.os.Handler;
 import android.provider.BaseColumns;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import okhttp3.Cache;
 import okhttp3.Call;

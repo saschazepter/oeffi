@@ -19,11 +19,11 @@ package de.schildbach.oeffi.stations.list;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.dto.Departure;
 import de.schildbach.pte.dto.Location;
+
+import androidx.annotation.Nullable;
 
 public interface StationContextMenuItemListener {
     boolean onStationContextMenuItemClick(int adapterPosition, NetworkId network, Location station,

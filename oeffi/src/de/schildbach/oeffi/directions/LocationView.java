@@ -19,8 +19,6 @@ package de.schildbach.oeffi.directions;
 
 import java.util.Locale;
 
-import javax.annotation.Nullable;
-
 import com.google.common.base.Strings;
 
 import de.schildbach.oeffi.Constants;
@@ -59,6 +57,7 @@ import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.PopupMenu;
 import android.widget.TextView.OnEditorActionListener;
+import androidx.annotation.Nullable;
 
 public class LocationView extends FrameLayout implements LocationHelper.Callback {
     public static interface Listener {

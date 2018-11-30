@@ -17,8 +17,6 @@
 
 package de.schildbach.oeffi.network.list;
 
-import javax.annotation.Nullable;
-
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.network.NetworkResources;
 
@@ -30,6 +28,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class NetworkViewHolder extends RecyclerView.ViewHolder {

@@ -23,8 +23,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nullable;
-
 import com.google.common.base.Preconditions;
 
 import de.schildbach.oeffi.R;
@@ -58,6 +56,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.BaseAdapter;
+import androidx.annotation.Nullable;
 
 public final class TripsGalleryAdapter extends BaseAdapter {
     private List<Trip> trips = Collections.emptyList();

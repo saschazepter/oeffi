@@ -19,8 +19,6 @@ package de.schildbach.oeffi.plans.list;
 
 import java.util.Date;
 
-import javax.annotation.Nullable;
-
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.network.NetworkResources;
 
@@ -37,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import okhttp3.Call;
 

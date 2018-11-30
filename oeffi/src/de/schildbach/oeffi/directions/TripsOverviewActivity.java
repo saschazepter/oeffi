@@ -33,7 +33,6 @@ import java.util.NavigableSet;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
-import javax.annotation.Nullable;
 import javax.net.ssl.SSLException;
 
 import org.slf4j.Logger;
@@ -77,6 +76,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
+import androidx.annotation.Nullable;
 
 public class TripsOverviewActivity extends OeffiActivity {
     private static final String INTENT_EXTRA_NETWORK = TripsOverviewActivity.class.getName() + ".network";
