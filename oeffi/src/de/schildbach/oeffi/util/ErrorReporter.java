@@ -113,7 +113,12 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler {
             report.append("Date: " + new Date() + "\n");
             report.append("Version: " + pi.versionName + " (" + pi.versionCode + ")\n");
             report.append("Package: " + pi.packageName + "\n");
-            report.append("Installer: " + pm.getInstallerPackageName(pi.packageName) + "\n");
+            final String installerPackageName = Installer.installerPackageName(context);
+            final Installer installer = Installer.from(installerPackageName);
+            if (installer != null)
+                report.append("Installer: " + installer.displayName + " (" + installerPackageName + ")\n");
+            else
+                report.append("Installer: unknown\n");
         } catch (final NameNotFoundException x) {
             x.printStackTrace();
         }

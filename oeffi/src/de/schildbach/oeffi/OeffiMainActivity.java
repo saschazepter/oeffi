@@ -32,8 +32,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import androidx.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,6 +52,7 @@ import de.schildbach.oeffi.util.DialogBuilder;
 import de.schildbach.oeffi.util.DividerItemDecoration;
 import de.schildbach.oeffi.util.Downloader;
 import de.schildbach.oeffi.util.ErrorReporter;
+import de.schildbach.oeffi.util.Installer;
 import de.schildbach.oeffi.util.NavigationMenuAdapter;
 import de.schildbach.oeffi.util.UiThreadExecutor;
 import de.schildbach.pte.NetworkId;
@@ -80,6 +79,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.PopupMenu;
+import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -393,8 +393,9 @@ public abstract class OeffiMainActivity extends OeffiActivity {
             remoteFileName.append('-').append(flavor);
         remoteFileName.append(".txt");
         remoteUrl.addPathSegment(remoteFileName.toString());
-        remoteUrl.addEncodedQueryParameter("installer",
-                Strings.nullToEmpty(getPackageManager().getInstallerPackageName(getPackageName())));
+        final String installerPackageName = Installer.installerPackageName(this);
+        if (installerPackageName != null)
+            remoteUrl.addEncodedQueryParameter("installer", installerPackageName);
         remoteUrl.addQueryParameter("sdk", Integer.toString(Build.VERSION.SDK_INT));
         remoteUrl.addQueryParameter("task", taskName());
         final File localFile = new File(getFilesDir(), "messages.txt");
@@ -529,13 +530,11 @@ public abstract class OeffiMainActivity extends OeffiActivity {
                                 return false;
                     }
                 } else if (name.equals("installer")) {
-                    final String installer = Strings
-                            .nullToEmpty(getPackageManager().getInstallerPackageName(getPackageName()));
+                    final String installer = Strings.nullToEmpty(Installer.installerPackageName(this));
                     if (!value.equalsIgnoreCase(installer))
                         return false;
                 } else if (name.equals("not-installer")) {
-                    final String installer = Strings
-                            .nullToEmpty(getPackageManager().getInstallerPackageName(getPackageName()));
+                    final String installer = Strings.nullToEmpty(Installer.installerPackageName(this));
                     if (value.equalsIgnoreCase(installer))
                         return false;
                 } else {
