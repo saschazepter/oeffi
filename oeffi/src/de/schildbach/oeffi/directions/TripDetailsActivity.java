@@ -28,6 +28,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.base.MoreObjects;
 
 import de.schildbach.oeffi.Constants;
@@ -136,6 +139,8 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
 
     private static final int LEGSGROUP_INSERT_INDEX = 2;
 
+    private static final Logger log = LoggerFactory.getLogger(TripDetailsActivity.class);
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,6 +157,8 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         final Intent intent = getIntent();
         network = (NetworkId) intent.getSerializableExtra(INTENT_EXTRA_NETWORK);
         trip = (Trip) intent.getSerializableExtra(INTENT_EXTRA_TRIP);
+
+        log.info("Showing trip from {} to {}", trip.from, trip.to);
 
         // try to build up paths
         for (final Leg leg : trip.legs) {
