@@ -324,16 +324,6 @@ public abstract class OeffiMainActivity extends OeffiActivity {
             return true;
         }
 
-        case R.id.global_options_preferences: {
-            startActivity(new Intent(this, PreferencesActivity.class));
-            return true;
-        }
-
-        case R.id.global_options_about: {
-            startActivity(new Intent(this, AboutActivity.class));
-            return true;
-        }
-
         case R.id.global_options_donate: {
             final PopupMenu popup = new PopupMenu(this, getMyActionBar());
             popup.inflate(R.menu.donate_menu);
@@ -355,6 +345,21 @@ public abstract class OeffiMainActivity extends OeffiActivity {
                 }
             });
             popup.show();
+            return true;
+        }
+
+        case R.id.global_options_report_bug: {
+            ErrorReporter.sendBugMail(this);
+            return true;
+        }
+
+        case R.id.global_options_preferences: {
+            startActivity(new Intent(this, PreferencesActivity.class));
+            return true;
+        }
+
+        case R.id.global_options_about: {
+            startActivity(new Intent(this, AboutActivity.class));
             return true;
         }
         }

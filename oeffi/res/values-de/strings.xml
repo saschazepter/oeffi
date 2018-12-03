@@ -27,9 +27,10 @@
     <string name="global_options_stations_comment">Abfahrtszeiten und Verspätungen</string>
     <string name="global_options_directions_comment">Von Tür zu Tür</string>
     <string name="global_options_plans_comment">Für den groben Überblick</string>
+    <string name="global_options_donate_title">Spenden</string>
+    <string name="global_options_report_bug_title">Fehler melden</string>
     <string name="global_options_preferences_title">Einstellungen</string>
     <string name="global_options_about_title">Über Öffi</string>
-    <string name="global_options_donate_title">Spenden</string>
 
     <!-- preferences -->
     <string name="global_preferences_title">Allgemein</string>
@@ -56,8 +57,6 @@
     <string name="about_faq_summary">https://oeffi.schildbach.de/faq.html</string>
     <string name="about_feedback_title">Feedback</string>
     <string name="about_market_rate_title">Öffi bewerten oder rezensieren</string>
-    <string name="about_report_bug_title">Fehler melden</string>
-    <string name="about_report_bug_summary">Feedback geben.</string>
     <string name="about_community_googleplus_title">Google+ Community</string>
     <string name="about_community_googleplus_summary">Diskussionen über die App.</string>
     <string name="about_donate_title">Spenden</string>

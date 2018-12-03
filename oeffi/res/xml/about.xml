@@ -39,10 +39,6 @@
             android:key="about_market_rate"
             android:title="@string/about_market_rate_title" />
         <Preference
-            android:key="about_report_bug"
-            android:summary="@string/about_report_bug_summary"
-            android:title="@string/about_report_bug_title" />
-        <Preference
             android:key="about_community_googleplus"
             android:summary="@string/about_community_googleplus_summary"
             android:title="@string/about_community_googleplus_title" />

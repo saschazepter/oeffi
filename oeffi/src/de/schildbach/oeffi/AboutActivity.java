@@ -18,7 +18,6 @@
 package de.schildbach.oeffi;
 
 import de.schildbach.oeffi.util.ChangelogDialogBuilder;
-import de.schildbach.oeffi.util.ErrorReporter;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
 
 import android.content.Intent;
@@ -33,7 +32,6 @@ public class AboutActivity extends PreferenceActivity {
     private static final String KEY_ABOUT_TWITTER = "about_twitter";
     private static final String KEY_ABOUT_CHANGELOG = "about_changelog";
     private static final String KEY_ABOUT_FAQ = "about_faq";
-    private static final String KEY_ABOUT_REPORT_BUG = "about_report_bug";
     private static final String KEY_ABOUT_COMMUNITY_GOOGLEPLUS = "about_community_googleplus";
     private static final String KEY_ABOUT_DONATE_BITCOIN = "about_donate_bitcoin";
     private static final String KEY_ABOUT_DONATE_FLATTR = "about_donate_flattr";
@@ -66,9 +64,6 @@ public class AboutActivity extends PreferenceActivity {
                     Application.versionFlavor(application), 0, null).show();
         } else if (KEY_ABOUT_FAQ.equals(key)) {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.about_faq_summary))));
-            finish();
-        } else if (KEY_ABOUT_REPORT_BUG.equals(key)) {
-            ErrorReporter.sendBugMail(this);
             finish();
         } else if (KEY_ABOUT_COMMUNITY_GOOGLEPLUS.equals(key)) {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.COMMUNITY_GOOGLEPLUS_URL)));
