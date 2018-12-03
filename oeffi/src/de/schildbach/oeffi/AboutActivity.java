@@ -32,7 +32,6 @@ public class AboutActivity extends PreferenceActivity {
     private static final String KEY_ABOUT_TWITTER = "about_twitter";
     private static final String KEY_ABOUT_CHANGELOG = "about_changelog";
     private static final String KEY_ABOUT_FAQ = "about_faq";
-    private static final String KEY_ABOUT_COMMUNITY_GOOGLEPLUS = "about_community_googleplus";
     private static final String KEY_ABOUT_DONATE_BITCOIN = "about_donate_bitcoin";
     private static final String KEY_ABOUT_DONATE_FLATTR = "about_donate_flattr";
     private static final String KEY_ABOUT_DONATE_EURO = "about_donate_euro";
@@ -64,9 +63,6 @@ public class AboutActivity extends PreferenceActivity {
                     Application.versionFlavor(application), 0, null).show();
         } else if (KEY_ABOUT_FAQ.equals(key)) {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.about_faq_summary))));
-            finish();
-        } else if (KEY_ABOUT_COMMUNITY_GOOGLEPLUS.equals(key)) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.COMMUNITY_GOOGLEPLUS_URL)));
             finish();
         } else if (KEY_ABOUT_DONATE_BITCOIN.equals(key)) {
             BitcoinIntegration.request(this, Constants.BITCOIN_ADDRESS);
