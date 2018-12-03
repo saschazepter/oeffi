@@ -169,7 +169,7 @@
     <string name="directions_intentfilter_title">Hinfahrt mit öffentlichen Verkehrsmitteln</string>
 
     <!-- directions options -->
-    <string name="directions_options_remove_history_title">Alle gespeicherten Anfragen vergessen</string>
+    <string name="directions_options_clear_history_title">Alle gespeicherten Anfragen löschen</string>
 
     <!-- directions query -->
     <string name="directions_location_view_coordinate">Koordinate</string>
@@ -218,9 +218,9 @@
     <!-- query history -->
     <string name="directions_query_history_empty">Noch keine gespeicherten Anfragen</string>
     <string name="directions_query_history_invalid_blob">Kann diese Fahrt nicht anzeigen, weil sie mit einer früheren Version von Öffi erstellt wurde.</string>
-    <string name="directions_query_history_forget_confirm_message">Bist du dir sicher, daß du alle gespeicherten Anfragen löschen möchtest?</string>
-    <string name="directions_query_history_forget_confirm_button_forget">Vergessen</string>
-    <string name="directions_query_history_forget_confirm_button_dismiss">Schließen</string>
+    <string name="directions_query_history_clear_confirm_message">Bist du dir sicher, daß du alle gespeicherten Anfragen löschen möchtest?</string>
+    <string name="directions_query_history_clear_confirm_button_clear">Löschen</string>
+    <string name="directions_query_history_clear_confirm_button_dismiss">Schließen</string>
 
     <!-- query history context menu -->
     <string name="directions_query_history_context_show_trip">Gespeicherte Fahrt anzeigen</string>

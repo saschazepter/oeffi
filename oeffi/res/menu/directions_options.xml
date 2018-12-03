@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/directions_options_remove_history"
-        android:title="@string/directions_options_remove_history_title"/>
+        android:id="@+id/directions_options_clear_history"
+        android:title="@string/directions_options_clear_history_title"/>
 
 </menu>

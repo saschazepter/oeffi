@@ -170,7 +170,7 @@
     <string name="directions_intentfilter_title">Journey on Public Transport</string>
 
     <!-- directions options -->
-    <string name="directions_options_remove_history_title">Remove all saved queries</string>
+    <string name="directions_options_clear_history_title">Clear all saved queries</string>
 
     <!-- directions query -->
     <string name="directions_location_view_coordinate">Coordinate</string>
@@ -219,9 +219,9 @@
     <!-- query history -->
     <string name="directions_query_history_empty">No saved queries yet</string>
     <string name="directions_query_history_invalid_blob">Cannot display this trip, as it was created by a previous Offi version.</string>
-    <string name="directions_query_history_forget_confirm_message">Are you sure you want to forget your saved queries?</string>
-    <string name="directions_query_history_forget_confirm_button_forget">Forget</string>
-    <string name="directions_query_history_forget_confirm_button_dismiss">Dismiss</string>
+    <string name="directions_query_history_clear_confirm_message">Are you sure you want to remove all of your saved queries?</string>
+    <string name="directions_query_history_clear_confirm_button_clear">Clear</string>
+    <string name="directions_query_history_clear_confirm_button_dismiss">Dismiss</string>
 
     <!-- query history context menu -->
     <string name="directions_query_history_context_show_trip">Show saved trip</string>

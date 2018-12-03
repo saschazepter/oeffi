@@ -168,7 +168,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
     private BroadcastReceiver connectivityReceiver;
     private BroadcastReceiver tickReceiver;
 
-    private static final int DIALOG_FORGET_HISTORY = 1;
+    private static final int DIALOG_CLEAR_HISTORY = 1;
 
     private static final int REQUEST_CODE_LOCATION_PERMISSION_FROM = 1;
     private static final int REQUEST_CODE_LOCATION_PERMISSION_VIA = 2;
@@ -287,9 +287,9 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
                 });
         actionBar.overflow(R.menu.directions_options, new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(final MenuItem item) {
-                if (item.getItemId() == R.id.directions_options_remove_history) {
+                if (item.getItemId() == R.id.directions_options_clear_history) {
                     if (network != null)
-                        showDialog(DIALOG_FORGET_HISTORY);
+                        showDialog(DIALOG_CLEAR_HISTORY);
                     return true;
                 } else {
                     return false;
@@ -1135,16 +1135,16 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
     @Override
     protected Dialog onCreateDialog(final int id) {
         switch (id) {
-        case DIALOG_FORGET_HISTORY:
+        case DIALOG_CLEAR_HISTORY:
             final DialogBuilder builder = DialogBuilder.get(this);
-            builder.setMessage(R.string.directions_query_history_forget_confirm_message);
-            builder.setPositiveButton(R.string.directions_query_history_forget_confirm_button_forget,
+            builder.setMessage(R.string.directions_query_history_clear_confirm_message);
+            builder.setPositiveButton(R.string.directions_query_history_clear_confirm_button_clear,
                     new Dialog.OnClickListener() {
                         public void onClick(final DialogInterface dialog, final int which) {
                             queryHistoryListAdapter.removeAllEntries();
                         }
                     });
-            builder.setNegativeButton(R.string.directions_query_history_forget_confirm_button_dismiss, null);
+            builder.setNegativeButton(R.string.directions_query_history_clear_confirm_button_dismiss, null);
             return builder.create();
         }
 
