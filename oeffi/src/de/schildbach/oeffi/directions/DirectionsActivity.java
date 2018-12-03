@@ -21,6 +21,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
+import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -920,7 +921,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
             is.close();
 
             return object;
-        } catch (final InvalidClassException | ClassNotFoundException x) {
+        } catch (final InvalidClassException | ClassNotFoundException | StreamCorruptedException x) {
             x.printStackTrace();
             return null;
         } catch (final IOException x) {
