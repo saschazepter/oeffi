@@ -1,3 +1,7 @@
+v10.3.8
+
+* Fix for trips not being saved to the history in some cases.
+
 v10.3.4-v10.3.7
 
 * Fix for launcher shortcuts that use addresses. Please re-create them if they don't work.
