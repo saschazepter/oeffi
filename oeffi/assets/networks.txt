@@ -73,6 +73,9 @@ DSB|da-DK|DK;København
 # SE
 SE|sv-SE|SE;Stockholm
 
+# FI
+FINLAND|fi-FI|FI;Helsinki|beta
+
 # GB
 TLEM|en-UK|GB;Greater London;Derbyshire;Leicestershire;Rutland;Northamptonshire;Nottinghamshire;Lincolnshire;Berkshire;Buckinghamshire;East Sussex;Hampshire;Isle of Wight;Kent;Oxfordshire;Surrey;West Sussex;Essex;Hertfordshire;Bedfordshire;Cambridgeshire;Norfolk;Suffolk;Somerset;Gloucestershire;Wiltshire;Dorset;Devon;Cornwall;West Devon;Stowford;Eastleigh;Swindon;Gloucester;Plymouth;Torbay;Bournemouth;Poole;Birmingham
 MERSEY|en-UK|GB;Liverpool|beta

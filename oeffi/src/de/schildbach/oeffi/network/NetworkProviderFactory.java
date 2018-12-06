@@ -31,6 +31,7 @@ import de.schildbach.pte.CmtaProvider;
 import de.schildbach.pte.DingProvider;
 import de.schildbach.pte.DsbProvider;
 import de.schildbach.pte.DubProvider;
+import de.schildbach.pte.FinlandProvider;
 import de.schildbach.pte.GvhProvider;
 import de.schildbach.pte.InvgProvider;
 import de.schildbach.pte.ItalyProvider;
@@ -188,6 +189,8 @@ public final class NetworkProviderFactory {
             return new DsbProvider("{\"type\":\"AID\",\"aid\":\"irkmpm9mdznstenr-android\"}");
         else if (networkId.equals(NetworkId.SE))
             return new SeProvider("{\"type\":\"AID\",\"aid\":\"h5o3n7f4t2m8l9x1\"}");
+        else if (networkId.equals(NetworkId.FINLAND))
+            return new FinlandProvider(NAVITIA_AUTHORIZATION);
         else if (networkId.equals(NetworkId.TLEM))
             return new TlemProvider();
         else if (networkId.equals(NetworkId.MERSEY))
