@@ -84,6 +84,7 @@ public final class NetworkProviderFactory {
     private static Map<NetworkId, NetworkProvider> providerCache = new HashMap<>();
 
     private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36";
+    private static final String NAVITIA_AUTHORIZATION = "577e5781-23ee-4ff0-a5b3-92e5b04887e5"; // oeffi@schildbach.de
 
     public static synchronized NetworkProvider provider(final NetworkId networkId) {
         final NetworkProvider cachedNetworkProvider = providerCache.get(networkId);
@@ -174,9 +175,9 @@ public final class NetworkProviderFactory {
         else if (networkId.equals(NetworkId.ZVV))
             return new ZvvProvider("{\"type\":\"AID\",\"aid\":\"hf7mcf9bv3nv8g5f\"}");
         else if (networkId.equals(NetworkId.IT))
-            return new ItalyProvider("577e5781-23ee-4ff0-a5b3-92e5b04887e5"); // oeffi@schildbach.de
+            return new ItalyProvider(NAVITIA_AUTHORIZATION);
         else if (networkId.equals(NetworkId.PARIS))
-            return new ParisProvider("577e5781-23ee-4ff0-a5b3-92e5b04887e5"); // oeffi@schildbach.de
+            return new ParisProvider(NAVITIA_AUTHORIZATION);
         else if (networkId.equals(NetworkId.SNCB))
             return new SncbProvider();
         else if (networkId.equals(NetworkId.LU))
@@ -204,7 +205,7 @@ public final class NetworkProviderFactory {
         else if (networkId.equals(NetworkId.SYDNEY))
             return new SydneyProvider();
         else if (networkId.equals(NetworkId.NICARAGUA))
-            return new NicaraguaProvider("577e5781-23ee-4ff0-a5b3-92e5b04887e5"); // oeffi@schildbach.deF
+            return new NicaraguaProvider(NAVITIA_AUTHORIZATION);
         else
             throw new IllegalArgumentException(networkId.name());
     }
