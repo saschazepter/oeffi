@@ -59,9 +59,7 @@
     <string name="network_ding_comment">Lokal- und Regionalverkehr</string>
     <string name="network_kvv_label">Karlsruher Verkehrsverbund</string>
     <string name="network_kvv_comment">Karlsruhe, Lokal- und Regionalverkehr</string>
-    <string name="network_vagfr_label">Freiburger Verkehrs AG</string>
-    <string name="network_vagfr_comment">Freiburg &amp; Straßburg, Lokal- und Regionalverkehr</string>
-    <string name="network_nvbw_label">Baden-Württemberg, Konstanz &amp; Basel</string>
+    <string name="network_nvbw_label">Baden-Württemberg, Straßburg, Konstanz &amp; Basel</string>
     <string name="network_nvbw_comment">Lokal- und Regionalverkehr</string>
     <string name="network_vvv_label">Plauen &amp; Vogtland</string>
     <string name="network_vvv_comment">Lokal- und Regionalverkehr</string>

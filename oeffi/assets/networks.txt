@@ -32,8 +32,7 @@ VRN|de-DE|Baden-Württemberg;Rheinland-Pfalz;Mannheim;Mainz;Trier
 VVS|de-DE|Baden-Württemberg;Stuttgart
 DING|de-DE|Baden-Württemberg;Ulm;Neu-Ulm
 KVV|de-DE|Baden-Württemberg;Karlsruhe
-VAGFR|de-DE|Elsass;Bas-Rhin;Straßburg;Freiburg im Breisgau
-NVBW|de-DE|Baden-Württemberg;Konstanz;Basel;Basel-Stadt;Reutlingen;Rottweil;Tübingen;Sigmaringen
+NVBW|de-DE|Baden-Württemberg;Konstanz;Basel;Basel-Stadt;Reutlingen;Rottweil;Tübingen;Sigmaringen;Freiburg im Breisgau;Elsass;Bas-Rhin;Straßburg
 VVV|de-DE|Vogtland;Plauen
 VGS|de-DE|Saarland;Saarbrücken|disabled
 

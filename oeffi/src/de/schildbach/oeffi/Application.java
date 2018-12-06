@@ -139,6 +139,13 @@ public class Application extends android.app.Application {
         FavoriteStationsProvider.deleteFavoriteStations(this, NRI);
         QueryHistoryProvider.deleteQueryHistory(this, NRI);
 
+        // 2018-12-06: migrate VAGFR to use NVBW
+        final String VAGFR = "VAGFR";
+        migrateSelectedNetwork(VAGFR, NetworkId.NVBW);
+        Downloader.deleteDownload(new File(getFilesDir(), VAGFR.toLowerCase(Locale.ENGLISH) + ".db"));
+        FavoriteStationsProvider.migrateFavoriteStations(this, VAGFR, NetworkId.NVBW);
+        QueryHistoryProvider.migrateQueryHistory(this, VAGFR, NetworkId.NVBW);
+
         log.info("Migrations took {}", watch);
     }
 
