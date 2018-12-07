@@ -30,16 +30,16 @@ public class NetworkResources {
     public final @Nullable Drawable icon;
     public final boolean isLogo;
     public final String label;
-    public final String comment;
+    public final @Nullable String comment;
     public final @Nullable String license;
     public final boolean cooperation;
 
     private NetworkResources(final @Nullable Drawable icon, final boolean isLogo, final String label,
-            final String comment, final @Nullable String license, final boolean cooperation) {
+            final @Nullable String comment, final @Nullable String license, final boolean cooperation) {
         this.icon = icon;
         this.isLogo = isLogo;
         this.label = checkNotNull(label);
-        this.comment = checkNotNull(comment);
+        this.comment = comment;
         this.license = license;
         this.cooperation = cooperation;
     }
@@ -64,9 +64,9 @@ public class NetworkResources {
             isLogo = false;
         }
         final int labelId = res.getIdentifier(prefix + "_label", "string", packageName);
-        final String label = res.getString(labelId);
+        final String label = labelId != 0 ? res.getString(labelId) : networkId;
         final int commentId = res.getIdentifier(prefix + "_comment", "string", packageName);
-        final String comment = res.getString(commentId);
+        final String comment = commentId != 0 ? res.getString(commentId) : null;
         final int licenseId = res.getIdentifier(prefix + "_license", "string", packageName);
         final String license = licenseId != 0 ? res.getString(licenseId) : null;
         final boolean cooperation = isLogo;
