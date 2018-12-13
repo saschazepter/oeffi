@@ -236,6 +236,9 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler {
         final StringBuilder subject = new StringBuilder(context.getString(prefixResId));
         subject.append(": ");
         subject.append(versionName);
+        final String installer = Installer.installerPackageName(context);
+        if (installer != null)
+            subject.append(", installer ").append(installer);
         return subject.toString();
     }
 
