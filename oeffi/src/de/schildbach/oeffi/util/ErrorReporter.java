@@ -239,6 +239,7 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler {
         final String installer = Installer.installerPackageName(context);
         if (installer != null)
             subject.append(", installer ").append(installer);
+        subject.append(", android ").append(Build.VERSION.RELEASE);
         return subject.toString();
     }
 
