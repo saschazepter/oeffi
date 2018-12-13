@@ -2,6 +2,8 @@
 <resources>
 
     <string name="error_reporter_mail_intent_chooser_title">Fehlerbericht senden mit…</string>
+    <string name="error_reporter_crash_mail_subject">Absturzbericht</string>
+    <string name="error_reporter_bug_mail_subject">Fehlerbericht</string>
     <string name="error_reporter_questions">Bitte beantworte die folgenden Fragen. Unvollständige Berichte können leider nicht mehr beantwortet werden, aufgrund der schieren Menge an Berichten.\n\n
 • Welchen Programmteil betrifft dein Problem? (siehe erste Zeile des Fenstertitels)\n\n\n
 • Welches Verkehrsnetz hast du eingestellt? (siehe zweite Zeile des Fenstertitels)\n\n\n

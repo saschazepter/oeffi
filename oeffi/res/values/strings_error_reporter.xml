@@ -2,6 +2,8 @@
 <resources>
 
     <string name="error_reporter_mail_intent_chooser_title">Send error report using…</string>
+    <string name="error_reporter_crash_mail_subject">Crash report</string>
+    <string name="error_reporter_bug_mail_subject">Bug report</string>
     <string name="error_reporter_questions">Can you answer the following questions? Incomplete reports will not receive a reply due to the sheer number of reports received.\n\n
 • Which application component does your issue apply to? (first line of window title)\n\n\n
 • Which transport network have you got selected? (second line of window title)\n\n\n

@@ -3,8 +3,4 @@
 
     <string name="app_name">Öffi</string>
 
-    <!-- error reporter -->
-    <string name="error_reporter_crash_mail_subject">Oeffi Crash Report</string>
-    <string name="error_reporter_bug_mail_subject">Oeffi Bug Report</string>
-
 </resources>
