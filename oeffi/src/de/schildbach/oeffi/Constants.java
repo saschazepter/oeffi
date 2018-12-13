@@ -39,6 +39,8 @@ public class Constants {
     public static final String GOOGLE_PLAY_APP_URL = "https://play.google.com/store/apps/details?id=%s";
     public static final String BITCOIN_ADDRESS = "1PW21MuBgPnjfUQriwK7TnRADFotEhdysr";
 
+    public static final String REPORT_EMAIL = "oeffi.app@gmail.com";
+
     public static final long LOCATION_UPDATE_FREQ_MS = 10 * DateUtils.SECOND_IN_MILLIS;
     public static final int LOCATION_UPDATE_DISTANCE = 3;
     public static final long LOCATION_TIMEOUT_MS = 2 * DateUtils.MINUTE_IN_MILLIS;

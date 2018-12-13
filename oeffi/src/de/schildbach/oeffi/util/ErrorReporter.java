@@ -251,8 +251,7 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler {
             intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, attachments);
         }
 
-        final String email = context.getString(R.string.error_reporter_mail_recipient);
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { email });
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.REPORT_EMAIL });
         intent.putExtra(Intent.EXTRA_TEXT, report.toString());
         intent.putExtra(Intent.EXTRA_SUBJECT, subject);
 

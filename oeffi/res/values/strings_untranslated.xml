@@ -6,6 +6,5 @@
     <!-- error reporter -->
     <string name="error_reporter_crash_mail_subject">Oeffi Crash Report</string>
     <string name="error_reporter_bug_mail_subject">Oeffi Bug Report</string>
-    <string name="error_reporter_mail_recipient">oeffi.app@gmail.com</string>
 
 </resources>
