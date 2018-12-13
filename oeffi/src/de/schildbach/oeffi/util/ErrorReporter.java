@@ -240,6 +240,10 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler {
         if (installer != null)
             subject.append(", installer ").append(installer);
         subject.append(", android ").append(Build.VERSION.RELEASE);
+        subject.append(", ").append(Build.MANUFACTURER);
+        if (!Build.BRAND.equalsIgnoreCase(Build.MANUFACTURER))
+            subject.append(' ').append(Build.BRAND);
+        subject.append(' ').append(Build.MODEL);
         return subject.toString();
     }
 
