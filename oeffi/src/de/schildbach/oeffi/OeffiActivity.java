@@ -41,17 +41,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public abstract class OeffiActivity extends Activity {
+    protected Application application;
     protected SharedPreferences prefs;
 
     private static final Logger log = LoggerFactory.getLogger(OeffiActivity.class);
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        ErrorReporter.getInstance().check(this, applicationVersionCode(), applicationVersionFlavor());
-
         super.onCreate(savedInstanceState);
+        this.application = (Application) getApplication();
+        this.prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        ErrorReporter.getInstance().check(this, applicationVersionCode(), applicationVersionFlavor());
     }
 
     protected void updateFragments(final int listFrameResId, final int mapFrameResId) {
@@ -93,19 +94,19 @@ public abstract class OeffiActivity extends Activity {
     }
 
     protected final String applicationVersionName() {
-        return Application.versionName((Application) getApplication());
+        return Application.versionName(application);
     }
 
     protected final int applicationVersionCode() {
-        return Application.versionCode((Application) getApplication());
+        return Application.versionCode(application);
     }
 
     protected final String applicationVersionFlavor() {
-        return Application.versionFlavor((Application) getApplication());
+        return Application.versionFlavor(application);
     }
 
     protected final long applicationFirstInstallTime() {
-        return ((Application) getApplication()).packageInfo().firstInstallTime;
+        return application.packageInfo().firstInstallTime;
     }
 
     protected final MyActionBar getMyActionBar() {
