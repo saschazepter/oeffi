@@ -349,7 +349,7 @@ public abstract class OeffiMainActivity extends OeffiActivity {
         }
 
         case R.id.global_options_report_bug: {
-            ErrorReporter.sendBugMail(this);
+            ErrorReporter.sendBugMail(this, application.packageInfo());
             return true;
         }
 

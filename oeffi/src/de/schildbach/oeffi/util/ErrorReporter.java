@@ -212,11 +212,11 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler {
     private static void sendErrorMail(final Context context, final String errorContent) {
         final Matcher m = Pattern.compile("Version: (.+?) ").matcher(errorContent);
         final String versionName = m.find() ? m.group(1) : "";
-        final String subject = context.getString(R.string.error_reporter_crash_mail_subject) + " " + versionName;
+        final String subject = buildSubject(context, R.string.error_reporter_crash_mail_subject, versionName);
         send(context, subject, errorContent);
     }
 
-    public static void sendBugMail(final Context context) {
+    public static void sendBugMail(final Context context, final PackageInfo packageInfo) {
         final StringBuilder report = new StringBuilder(context.getString(R.string.error_reporter_questions));
         report.append("\n=== collected at reporting time ===\n\n");
         appendReport(report, context);
@@ -228,8 +228,15 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler {
         report.append("\n\n");
         report.append(context.getString(R.string.error_reporter_footer));
 
-        final String subject = context.getString(R.string.error_reporter_bug_mail_subject);
+        final String subject = buildSubject(context, R.string.error_reporter_bug_mail_subject, packageInfo.versionName);
         send(context, subject, report);
+    }
+
+    private static String buildSubject(final Context context, final int prefixResId, final String versionName) {
+        final StringBuilder subject = new StringBuilder(context.getString(prefixResId));
+        subject.append(": ");
+        subject.append(versionName);
+        return subject.toString();
     }
 
     private static void send(final Context context, final String subject, final CharSequence report) {
