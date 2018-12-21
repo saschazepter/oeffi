@@ -27,6 +27,7 @@ import com.google.common.base.Preconditions;
 
 import de.schildbach.oeffi.R;
 import de.schildbach.pte.dto.Line;
+import de.schildbach.pte.dto.Stop;
 import de.schildbach.pte.dto.Style;
 import de.schildbach.pte.dto.Style.Shape;
 import de.schildbach.pte.dto.Trip;
@@ -408,22 +409,40 @@ public final class TripsGalleryAdapter extends BaseAdapter {
                 }
 
                 // then draw arr/dep times
-                final Date publicDepartureTime = trip.getFirstPublicLegDepartureTime();
-                if (publicDepartureTime != null)
-                    drawTime(canvas, centerX, height, true, publicTimePaint, publicDepartureTime, null);
+                final Public firstPublicLeg = trip.getFirstPublicLeg();
+                final Date publicDepartureTime;
+                if (firstPublicLeg != null) {
+                    final Stop publicDepartureStop = firstPublicLeg.departureStop;
+                    final boolean publicDepartureCancelled = publicDepartureStop.departureCancelled;
+                    publicDepartureTime = publicDepartureStop.getDepartureTime();
+                    if (publicDepartureTime != null)
+                        drawTime(canvas, centerX, height, true, publicTimePaint, publicDepartureCancelled,
+                                publicDepartureTime, null);
+                } else {
+                    publicDepartureTime = null;
+                }
 
                 final Date individualDepartureTime = trip.getFirstDepartureTime();
                 if (individualDepartureTime != null)
-                    drawTime(canvas, centerX, height, true, individualTimePaint, individualDepartureTime,
+                    drawTime(canvas, centerX, height, true, individualTimePaint, false, individualDepartureTime,
                             publicDepartureTime);
 
-                final Date publicArrivalTime = trip.getLastPublicLegArrivalTime();
-                if (publicArrivalTime != null)
-                    drawTime(canvas, centerX, height, false, publicTimePaint, publicArrivalTime, null);
+                final Public lastPublicLeg = trip.getLastPublicLeg();
+                final Date publicArrivalTime;
+                if (lastPublicLeg != null) {
+                    final Stop publicArrivalStop = lastPublicLeg.arrivalStop;
+                    final boolean publicArrivalCancelled = publicArrivalStop.arrivalCancelled;
+                    publicArrivalTime = trip.getLastPublicLegArrivalTime();
+                    if (publicArrivalTime != null)
+                        drawTime(canvas, centerX, height, false, publicTimePaint, publicArrivalCancelled,
+                                publicArrivalTime, null);
+                } else {
+                    publicArrivalTime = null;
+                }
 
                 final Date individualArrivalTime = trip.getLastArrivalTime();
                 if (individualArrivalTime != null)
-                    drawTime(canvas, centerX, height, false, individualTimePaint, individualArrivalTime,
+                    drawTime(canvas, centerX, height, false, individualTimePaint, false, individualArrivalTime,
                             publicArrivalTime);
 
                 // last, iterate all public legs
@@ -519,7 +538,7 @@ public final class TripsGalleryAdapter extends BaseAdapter {
         }
 
         private void drawTime(final Canvas canvas, final int centerX, final int height, final boolean above,
-                final Paint paint, final Date time, final @Nullable Date timeKeepOut) {
+                final Paint paint, final boolean strikeThru, final Date time, final @Nullable Date timeKeepOut) {
             final FontMetrics metrics = paint.getFontMetrics();
 
             final long t = time.getTime();
@@ -538,6 +557,11 @@ public final class TripsGalleryAdapter extends BaseAdapter {
                 else
                     y = Math.max(y, yKeepOut + fontHeight);
             }
+
+            if (strikeThru)
+                paint.setFlags(paint.getFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            else
+                paint.setFlags(paint.getFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
 
             if (above)
                 canvas.drawText(str, centerX, y - metrics.descent, paint);
