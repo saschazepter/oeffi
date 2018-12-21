@@ -486,7 +486,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
                 new GeocoderThread(DirectionsActivity.this, p.getLatitude(), p.getLongitude(),
                         new GeocoderThread.Callback() {
                             public void onGeocoderResult(final Address address) {
-                                pinLocation = LocationView.addressToLocation(address);
+                                pinLocation = GeocoderThread.addressToLocation(address);
                                 locationView.setLocation(pinLocation);
                                 locationView.setShowLocationType(false);
                             }

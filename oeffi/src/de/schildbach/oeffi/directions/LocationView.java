@@ -19,7 +19,6 @@ package de.schildbach.oeffi.directions;
 
 import java.util.Locale;
 
-import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 
 import de.schildbach.oeffi.Constants;
@@ -340,7 +339,7 @@ public class LocationView extends FrameLayout implements LocationHelper.Callback
             new GeocoderThread(getContext(), coord, new GeocoderThread.Callback() {
                 public void onGeocoderResult(final Address address) {
                     if (locationType == LocationType.COORD) {
-                        setLocation(addressToLocation(address));
+                        setLocation(GeocoderThread.addressToLocation(address));
                         hint = null;
                     }
                 }
@@ -444,30 +443,6 @@ public class LocationView extends FrameLayout implements LocationHelper.Callback
 
         this.fireChanged();
         other.fireChanged();
-    }
-
-    public static Location addressToLocation(final Address address) {
-        final Point coord;
-        if (address.hasLatitude() && address.hasLongitude())
-            coord = Point.fromDouble(address.getLatitude(), address.getLongitude());
-        else
-            coord = null;
-
-        final Location location;
-        final int maxAddressLineIndex = address.getMaxAddressLineIndex();
-        if (maxAddressLineIndex >= 2 && Strings.emptyToNull(address.getAddressLine(2)) != null) {
-            location = new Location(LocationType.ADDRESS, null, coord, address.getAddressLine(1),
-                    address.getAddressLine(0));
-        } else if (address.getThoroughfare() != null) {
-            final Joiner joiner = Joiner.on(' ').skipNulls();
-            location = new Location(LocationType.ADDRESS, null, coord,
-                    joiner.join(address.getPostalCode(), address.getLocality()),
-                    joiner.join(address.getThoroughfare(), address.getFeatureName()));
-        } else {
-            location = new Location(LocationType.ADDRESS, null, coord);
-        }
-
-        return location;
     }
 
     private void fireChanged() {

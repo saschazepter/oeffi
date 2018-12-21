@@ -27,6 +27,11 @@ import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
+
+import de.schildbach.pte.dto.Location;
+import de.schildbach.pte.dto.LocationType;
 import de.schildbach.pte.dto.Point;
 
 import android.content.Context;
@@ -108,5 +113,29 @@ public class GeocoderThread extends Thread {
                 callback.onGeocoderFail(exception);
             }
         });
+    }
+
+    public static Location addressToLocation(final Address address) {
+        final Point coord;
+        if (address.hasLatitude() && address.hasLongitude())
+            coord = Point.fromDouble(address.getLatitude(), address.getLongitude());
+        else
+            coord = null;
+
+        final Location location;
+        final int maxAddressLineIndex = address.getMaxAddressLineIndex();
+        if (maxAddressLineIndex >= 2 && Strings.emptyToNull(address.getAddressLine(2)) != null) {
+            location = new Location(LocationType.ADDRESS, null, coord, address.getAddressLine(1),
+                    address.getAddressLine(0));
+        } else if (address.getThoroughfare() != null) {
+            final Joiner joiner = Joiner.on(' ').skipNulls();
+            location = new Location(LocationType.ADDRESS, null, coord,
+                    joiner.join(address.getPostalCode(), address.getLocality()),
+                    joiner.join(address.getThoroughfare(), address.getFeatureName()));
+        } else {
+            location = new Location(LocationType.ADDRESS, null, coord);
+        }
+
+        return location;
     }
 }

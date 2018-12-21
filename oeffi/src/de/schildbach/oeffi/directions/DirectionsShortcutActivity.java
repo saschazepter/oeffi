@@ -168,7 +168,7 @@ public class DirectionsShortcutActivity extends OeffiActivity
     public void onLocation(final Point here) {
         new GeocoderThread(DirectionsShortcutActivity.this, here, new GeocoderThread.Callback() {
             public void onGeocoderResult(final Address address) {
-                final Location location = LocationView.addressToLocation(address);
+                final Location location = GeocoderThread.addressToLocation(address);
                 query(location);
             }
 
