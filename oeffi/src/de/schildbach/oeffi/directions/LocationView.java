@@ -19,6 +19,7 @@ package de.schildbach.oeffi.directions;
 
 import java.util.Locale;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 
 import de.schildbach.oeffi.Constants;
@@ -454,14 +455,17 @@ public class LocationView extends FrameLayout implements LocationHelper.Callback
 
         final Location location;
         final int maxAddressLineIndex = address.getMaxAddressLineIndex();
-        if (maxAddressLineIndex >= 2 && Strings.emptyToNull(address.getAddressLine(2)) != null)
+        if (maxAddressLineIndex >= 2 && Strings.emptyToNull(address.getAddressLine(2)) != null) {
             location = new Location(LocationType.ADDRESS, null, coord, address.getAddressLine(1),
                     address.getAddressLine(0));
-        else if (address.getThoroughfare() != null)
-            location = new Location(LocationType.ADDRESS, null, coord, address.getLocality(), address.getThoroughfare()
-                    + (address.getFeatureName() != null ? " " + address.getFeatureName() : ""));
-        else
+        } else if (address.getThoroughfare() != null) {
+            final Joiner joiner = Joiner.on(' ').skipNulls();
+            location = new Location(LocationType.ADDRESS, null, coord,
+                    joiner.join(address.getPostalCode(), address.getLocality()),
+                    joiner.join(address.getThoroughfare(), address.getFeatureName()));
+        } else {
             location = new Location(LocationType.ADDRESS, null, coord);
+        }
 
         return location;
     }
