@@ -17,7 +17,6 @@
 
 package de.schildbach.oeffi.directions;
 
-import java.util.Locale;
 import java.util.Set;
 
 import javax.net.ssl.SSLException;
@@ -169,44 +168,19 @@ public class DirectionsShortcutActivity extends OeffiActivity
     public void onLocation(final Point here) {
         new GeocoderThread(DirectionsShortcutActivity.this, here, new GeocoderThread.Callback() {
             public void onGeocoderResult(final Address address) {
-                final String resolved = extractAddress(address);
-                if (resolved != null)
-                    query(here, resolved);
-                else
-                    query(here);
+                final Location location = LocationView.addressToLocation(address);
+                query(location);
             }
 
             public void onGeocoderFail(final Exception exception) {
-                query(here);
-            }
-
-            private String extractAddress(final Address address) {
-                final int maxAddressLineIndex = address.getMaxAddressLineIndex();
-                if (maxAddressLineIndex < 0)
-                    return null;
-
-                final StringBuilder builder = new StringBuilder();
-                for (int i = 0; i <= maxAddressLineIndex; i++) {
-                    builder.append(address.getAddressLine(i));
-                    builder.append(", ");
-                }
-                builder.setLength(builder.length() - 2);
-
-                return builder.toString();
+                final Location location = Location
+                        .coord(Point.fromDouble(here.getLatAsDouble(), here.getLonAsDouble()));
+                query(location);
             }
         });
     }
 
-    private void query(final Point here) {
-        final String hereName = String.format(Locale.ENGLISH, "%.6f, %.6f", here.getLatAsDouble(),
-                here.getLonAsDouble());
-
-        query(here, hereName);
-    }
-
-    private void query(final Point here, final String hereName) {
-        final Location from = new Location(LocationType.ADDRESS, null, here, null, hereName);
-
+    private void query(final Location from) {
         final Intent intent = getIntent();
 
         final NetworkProvider networkProvider = getNetworkExtra(intent);
