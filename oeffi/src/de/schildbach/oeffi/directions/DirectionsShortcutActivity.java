@@ -24,6 +24,8 @@ import javax.net.ssl.SSLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Throwables;
+
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.OeffiActivity;
 import de.schildbach.oeffi.R;
@@ -323,7 +325,8 @@ public class DirectionsShortcutActivity extends OeffiActivity
             protected void onSSLException(final SSLException x) {
                 final DialogBuilder builder = DialogBuilder.warn(DirectionsShortcutActivity.this,
                         R.string.directions_alert_ssl_exception_title);
-                builder.setMessage(getString(R.string.directions_alert_ssl_exception_message, x.toString()));
+                builder.setMessage(getString(R.string.directions_alert_ssl_exception_message,
+                        Throwables.getRootCause(x).toString()));
                 builder.setNeutralButton(R.string.directions_alert_ssl_exception_button_dismiss,
                         new DialogInterface.OnClickListener() {
                             public void onClick(final DialogInterface dialog, final int which) {
