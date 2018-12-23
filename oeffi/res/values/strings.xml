@@ -164,6 +164,7 @@
     <string name="nearest_favorite_station_widget_lastupdated">updated %s</string>
     <string name="nearest_favorite_station_widget_error_connect">Could not connect to server.\n\nTap to try again.\n\nIf the problem persists, check if background data is restricted.</string>
     <string name="nearest_favorite_station_widget_error_blocked">The query has been blocked by \"%s\", possibly because of server overload.\n\nTap to try again.</string>
+    <string name="nearest_favorite_station_widget_error_ssl">The security configuration of the server is faulty: %s</string>
     <string name="nearest_favorite_station_widget_error_exception">Ouch!\n\n%s\n\nTap to try again.</string>
 
     <!-- directions -->

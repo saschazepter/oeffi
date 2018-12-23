@@ -163,6 +163,7 @@
     <string name="nearest_favorite_station_widget_lastupdated">aktualisiert %s</string>
     <string name="nearest_favorite_station_widget_error_connect">Server-Verbindung nicht möglich.\n\nTapp um es nochmal zu probieren.\n\nWenn das Problem bestehen bleibt, überprüfe ob Hintergrunddaten eingeschränkt sind.</string>
     <string name="nearest_favorite_station_widget_error_blocked">Die Abfrage wurde von \"%s\" blockiert - möglicherweise wegen Serverüberlastung.\n\nTapp um es nochmal zu probieren.</string>
+    <string name="nearest_favorite_station_widget_error_ssl">Die Sicherheits-Konfiguration des Servers ist fehlerhaft: %s</string>
     <string name="nearest_favorite_station_widget_error_exception">Aua!\n\n%s\n\nTapp um es nochmal zu probieren.</string>
 
     <!-- directions -->

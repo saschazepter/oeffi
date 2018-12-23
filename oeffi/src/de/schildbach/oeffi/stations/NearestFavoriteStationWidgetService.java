@@ -27,9 +27,12 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import javax.net.ssl.SSLException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Throwables;
 import com.google.common.util.concurrent.SettableFuture;
 
 import de.schildbach.oeffi.Constants;
@@ -278,6 +281,12 @@ public class NearestFavoriteStationWidgetService extends JobIntentService {
                         setHeader(appWidgetId, favorite.name);
                         setMessage(
                                 getString(R.string.nearest_favorite_station_widget_error_blocked, x.getUrl().host()));
+                        appWidgetManager.updateAppWidget(appWidgetId, views);
+                        log.info("Could not query departures for station " + stationId, x);
+                    } catch (final SSLException x) {
+                        setHeader(appWidgetId, favorite.name);
+                        setMessage(getString(R.string.nearest_favorite_station_widget_error_ssl,
+                                Throwables.getRootCause(x).getClass().getSimpleName()));
                         appWidgetManager.updateAppWidget(appWidgetId, views);
                         log.info("Could not query departures for station " + stationId, x);
                     } catch (final Exception x) {
