@@ -203,7 +203,7 @@ public class PlansPickerActivity extends OeffiMainActivity implements ActivityCo
 
         final Criteria criteria = new Criteria();
         criteria.setPowerRequirement(Criteria.POWER_LOW);
-        locationHelper.startLocation(criteria, true, Constants.LOCATION_TIMEOUT_MS);
+        locationHelper.startLocation(criteria, true, Constants.LOCATION_FOREGROUND_UPDATE_TIMEOUT_MS);
     }
 
     public void stopLocation() {

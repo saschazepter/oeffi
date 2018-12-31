@@ -151,12 +151,12 @@ public class NearestFavoriteStationWidgetService extends JobIntentService {
         }, backgroundHandler.getLooper());
 
         try {
-            final Location here = future.get(Constants.LOCATION_TIMEOUT_MS, TimeUnit.MILLISECONDS);
+            final Location here = future.get(Constants.LOCATION_BACKGROUND_UPDATE_TIMEOUT_MS, TimeUnit.MILLISECONDS);
             log.info("Widgets: {}, location: {}", Arrays.toString(appWidgetIds), here);
             handleLocation(appWidgetIds, here);
         } catch (final TimeoutException x) {
             log.info("Widgets: {}, location timed out after {} ms", Arrays.toString(appWidgetIds),
-                    Constants.LOCATION_TIMEOUT_MS);
+                    Constants.LOCATION_BACKGROUND_UPDATE_TIMEOUT_MS);
             widgetsHeader(appWidgetIds, getString(R.string.acquire_location_timeout));
         } catch (final InterruptedException | ExecutionException x) {
             throw new RuntimeException(x);

@@ -43,7 +43,8 @@ public class Constants {
 
     public static final long LOCATION_UPDATE_FREQ_MS = 10 * DateUtils.SECOND_IN_MILLIS;
     public static final int LOCATION_UPDATE_DISTANCE = 3;
-    public static final long LOCATION_TIMEOUT_MS = 2 * DateUtils.MINUTE_IN_MILLIS;
+    public static final long LOCATION_FOREGROUND_UPDATE_TIMEOUT_MS = 1 * DateUtils.MINUTE_IN_MILLIS;
+    public static final long LOCATION_BACKGROUND_UPDATE_TIMEOUT_MS = 5 * DateUtils.MINUTE_IN_MILLIS;
     public static final long STALE_UPDATE_MS = 2 * DateUtils.MINUTE_IN_MILLIS;
     public static final int MAX_NUMBER_OF_STOPS = 150;
     public static final int MAX_HISTORY_ENTRIES = 50;

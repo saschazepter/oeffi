@@ -133,7 +133,7 @@ public class DirectionsShortcutActivity extends OeffiActivity
         final Criteria criteria = new Criteria();
         criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
         criteria.setAccuracy(Criteria.ACCURACY_COARSE);
-        locationHelper.startLocation(criteria, false, Constants.LOCATION_TIMEOUT_MS);
+        locationHelper.startLocation(criteria, false, Constants.LOCATION_FOREGROUND_UPDATE_TIMEOUT_MS);
     }
 
     public void stopLocation() {
