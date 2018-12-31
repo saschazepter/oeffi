@@ -135,7 +135,7 @@ public class NearestFavoriteStationWidgetService extends JobIntentService {
         log.info("Acquiring {} location", provider);
 
         final SettableFuture<Location> future = SettableFuture.create();
-        locationManager.requestSingleUpdate(criteria, new LocationListener() {
+        locationManager.requestSingleUpdate(provider, new LocationListener() {
             public void onLocationChanged(final Location location) {
                 future.set(location);
             }
