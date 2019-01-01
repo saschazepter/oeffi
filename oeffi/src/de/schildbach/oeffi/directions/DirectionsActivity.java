@@ -1145,6 +1145,9 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
                     new Dialog.OnClickListener() {
                         public void onClick(final DialogInterface dialog, final int which) {
                             queryHistoryListAdapter.removeAllEntries();
+                            viewFromLocation.reset();
+                            viewViaLocation.reset();
+                            viewToLocation.reset();
                         }
                     });
             builder.setNegativeButton(R.string.directions_query_history_clear_confirm_button_dismiss, null);
