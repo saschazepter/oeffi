@@ -25,15 +25,13 @@
     <string name="network_vvm_comment">Lokal- und Regionalverkehr</string>
     <string name="network_vmv_label">Schwerin &amp; Mecklenburg-Vorpommern</string>
     <string name="network_vmv_comment">Lokal- und Regionalverkehr</string>
-    <string name="network_hvv_label">Hamburg</string>
-    <string name="network_hvv_comment">Nicht verfügbar. Du kannst stattdessen Niedersachsen oder Schleswig-Holstein probieren.</string>
     <string name="network_sh_label">NAH.SH</string>
     <string name="network_sh_comment">Kiel, Lübeck &amp; Schleswig-Holstein, Lokal- und Regionalverkehr</string>
     <string name="network_gvh_label">Hannover &amp; Niedersachsen</string>
     <string name="network_gvh_comment">Lokal- und Regionalverkehr</string>
     <string name="network_bsvag_label">Braunschweig &amp; Wolfsburg</string>
     <string name="network_bsvag_comment">Lokal- und Regionalverkehr</string>
-    <string name="network_vbn_label">Bremen, Rostock, Osnabrück &amp; Südniedersachsen</string>
+    <string name="network_vbn_label">Hamburg, Bremen, Rostock &amp; Südniedersachsen</string>
     <string name="network_vbn_comment">Lokal- und Regionalverkehr</string>
     <string name="network_nasa_label">Leipzig, Halle &amp; Sachsen-Anhalt</string>
     <string name="network_nasa_comment">Lokal- und Regionalverkehr</string>

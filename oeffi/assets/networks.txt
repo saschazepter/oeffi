@@ -15,11 +15,10 @@ VGN|de-DE|Nürnberg;Fürth;Erlangen
 VVM|de-DE|Schwaben;Mittelschwaben;Krumbach;Günzburg;Memmingen
 NVV|de-DE|Hessen;Frankfurt am Main;Kassel
 VMV|de-DE|Mecklenburg-Vorpommern;Schwerin
-HVV|de-DE|Hamburg|disabled
 SH|de-DE|Schleswig-Holstein;Kiel;Lübeck;Hamburg
 GVH|de-DE|Niedersachsen;Hannover;Hamburg
 BSVAG|de-DE|Braunschweig;Wolfsburg
-VBN|de-DE|Niedersachsen;Bremen;Bremerhaven;Oldenburg (Oldenburg);Osnabrück;Göttingen;Rostock
+VBN|de-DE|Niedersachsen;Hamburg;Bremen;Bremerhaven;Oldenburg (Oldenburg);Osnabrück;Göttingen;Rostock
 VVO|de-DE|Sachsen;Dresden
 VMS|de-DE|Mittelsachsen;Chemnitz
 NASA|de-DE|Sachsen;Leipzig;Sachsen-Anhalt;Magdeburg;Halle
