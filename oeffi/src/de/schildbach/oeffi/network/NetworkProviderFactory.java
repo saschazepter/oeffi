@@ -23,11 +23,11 @@ import java.util.Map;
 import de.schildbach.pte.AbstractNetworkProvider;
 import de.schildbach.pte.AvvAachenProvider;
 import de.schildbach.pte.AvvProvider;
-import de.schildbach.pte.BahnProvider;
 import de.schildbach.pte.BayernProvider;
 import de.schildbach.pte.BsvagProvider;
 import de.schildbach.pte.BvgProvider;
 import de.schildbach.pte.CmtaProvider;
+import de.schildbach.pte.DbProvider;
 import de.schildbach.pte.DingProvider;
 import de.schildbach.pte.DsbProvider;
 import de.schildbach.pte.DubProvider;
@@ -104,7 +104,7 @@ public final class NetworkProviderFactory {
         if (networkId.equals(NetworkId.RT))
             return new RtProvider();
         else if (networkId.equals(NetworkId.DB))
-            return new BahnProvider("{\"type\":\"AID\",\"aid\":\"n91dB8Z77MLdoR0K\"}");
+            return new DbProvider("{\"type\":\"AID\",\"aid\":\"n91dB8Z77MLdoR0K\"}");
         else if (networkId.equals(NetworkId.BVG))
             return new BvgProvider("{\"aid\":\"1Rxs112shyHLatUX4fofnmdxK\",\"type\":\"AID\"}");
         else if (networkId.equals(NetworkId.VBB))
