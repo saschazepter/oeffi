@@ -134,7 +134,7 @@ public final class NetworkProviderFactory {
         else if (networkId.equals(NetworkId.VBN))
             return new VbnProvider("{\"aid\":\"rnOHBWhesvc7gFkd\",\"type\":\"AID\"}");
         else if (networkId.equals(NetworkId.NASA))
-            return new NasaProvider();
+            return new NasaProvider("{\"type\":\"AID\",\"aid\":\"nasa-apps\"}");
         else if (networkId.equals(NetworkId.VMT))
             return new VmtProvider("{\"aid\":\"vj5d7i3g9m5d7e3\",\"type\":\"AID\"}");
         else if (networkId.equals(NetworkId.VVO))
