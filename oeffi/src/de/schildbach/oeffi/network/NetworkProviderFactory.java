@@ -108,7 +108,7 @@ public final class NetworkProviderFactory {
         else if (networkId.equals(NetworkId.BVG))
             return new BvgProvider("{\"aid\":\"1Rxs112shyHLatUX4fofnmdxK\",\"type\":\"AID\"}");
         else if (networkId.equals(NetworkId.VBB))
-            return new VbbProvider();
+            return new VbbProvider("{\"type\":\"AID\",\"aid\":\"hafas-vbb-apps\"}");
         else if (networkId.equals(NetworkId.NVV))
             return new NvvProvider("{\"type\":\"AID\",\"aid\":\"Kt8eNOH7qjVeSxNA\"}");
         else if (networkId.equals(NetworkId.BAYERN))
