@@ -180,7 +180,7 @@ public final class NetworkProviderFactory {
         else if (networkId.equals(NetworkId.PARIS))
             return new ParisProvider(NAVITIA_AUTHORIZATION);
         else if (networkId.equals(NetworkId.SNCB))
-            return new SncbProvider();
+            return new SncbProvider("{\"type\":\"AID\",\"aid\":\"sncb-mobi\"}");
         else if (networkId.equals(NetworkId.LU))
             return new LuProvider("{\"type\":\"AID\",\"aid\":\"Aqf9kNqJLjxFx6vv\"}");
         else if (networkId.equals(NetworkId.NS))
