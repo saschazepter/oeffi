@@ -137,7 +137,8 @@ public final class NetworkProviderFactory {
         else if (networkId.equals(NetworkId.BSVAG))
             return new BsvagProvider();
         else if (networkId.equals(NetworkId.VBN))
-            return new VbnProvider("{\"aid\":\"rnOHBWhesvc7gFkd\",\"type\":\"AID\"}");
+            return new VbnProvider("{\"aid\":\"rnOHBWhesvc7gFkd\",\"type\":\"AID\"}",
+                    "SP31mBufSyCLmNxp".getBytes(Charsets.UTF_8));
         else if (networkId.equals(NetworkId.NASA))
             return new NasaProvider("{\"type\":\"AID\",\"aid\":\"nasa-apps\"}");
         else if (networkId.equals(NetworkId.VMT))
