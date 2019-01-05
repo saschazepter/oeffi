@@ -20,6 +20,8 @@ package de.schildbach.oeffi.network;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.common.base.Charsets;
+
 import de.schildbach.pte.AbstractNetworkProvider;
 import de.schildbach.pte.AvvAachenProvider;
 import de.schildbach.pte.AvvProvider;
@@ -104,11 +106,13 @@ public final class NetworkProviderFactory {
         if (networkId.equals(NetworkId.RT))
             return new RtProvider();
         else if (networkId.equals(NetworkId.DB))
-            return new DbProvider("{\"type\":\"AID\",\"aid\":\"n91dB8Z77MLdoR0K\"}");
+            return new DbProvider("{\"type\":\"AID\",\"aid\":\"n91dB8Z77MLdoR0K\"}",
+                    "bdI8UVj40K5fvxwf".getBytes(Charsets.UTF_8));
         else if (networkId.equals(NetworkId.BVG))
             return new BvgProvider("{\"aid\":\"1Rxs112shyHLatUX4fofnmdxK\",\"type\":\"AID\"}");
         else if (networkId.equals(NetworkId.VBB))
-            return new VbbProvider("{\"type\":\"AID\",\"aid\":\"hafas-vbb-apps\"}");
+            return new VbbProvider("{\"type\":\"AID\",\"aid\":\"hafas-vbb-apps\"}",
+                    "RCTJM2fFxFfxxQfI".getBytes(Charsets.UTF_8));
         else if (networkId.equals(NetworkId.NVV))
             return new NvvProvider("{\"type\":\"AID\",\"aid\":\"Kt8eNOH7qjVeSxNA\"}");
         else if (networkId.equals(NetworkId.BAYERN))
@@ -116,7 +120,8 @@ public final class NetworkProviderFactory {
         else if (networkId.equals(NetworkId.MVV))
             return new MvvProvider();
         else if (networkId.equals(NetworkId.INVG))
-            return new InvgProvider("{\"type\":\"AID\",\"aid\":\"GITvwi3BGOmTQ2a5\"}");
+            return new InvgProvider("{\"type\":\"AID\",\"aid\":\"GITvwi3BGOmTQ2a5\"}",
+                    "ERxotxpwFT7uYRsI".getBytes(Charsets.UTF_8));
         else if (networkId.equals(NetworkId.AVV))
             return new AvvProvider();
         else if (networkId.equals(NetworkId.VGN))
