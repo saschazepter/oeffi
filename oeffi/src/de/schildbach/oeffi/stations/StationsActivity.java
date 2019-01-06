@@ -1653,7 +1653,8 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                 cursor.close();
             } else {
                 try {
-                    final SuggestLocationsResult result = networkProvider.suggestLocations(query);
+                    final SuggestLocationsResult result = networkProvider.suggestLocations(query,
+                            EnumSet.of(LocationType.STATION), 0);
                     if (result.status == SuggestLocationsResult.Status.OK)
                         for (final Location l : result.getLocations())
                             if (l.type == LocationType.STATION)

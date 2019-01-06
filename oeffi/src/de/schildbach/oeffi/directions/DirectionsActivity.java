@@ -25,6 +25,7 @@ import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.EnumSet;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -1340,8 +1341,10 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
                                 // remote autocomplete
                                 if (constraint.length() >= 3) {
                                     final NetworkProvider networkProvider = NetworkProviderFactory.provider(network);
+                                    final EnumSet<LocationType> suggestedLocationTypes = EnumSet
+                                            .of(LocationType.STATION, LocationType.POI, LocationType.ADDRESS);
                                     final SuggestLocationsResult suggestLocationsResult = networkProvider
-                                            .suggestLocations(constraint);
+                                            .suggestLocations(constraint, suggestedLocationTypes, 0);
                                     if (suggestLocationsResult.status == SuggestLocationsResult.Status.OK)
                                         for (final Location location : suggestLocationsResult.getLocations())
                                             if (!results.contains(location))
