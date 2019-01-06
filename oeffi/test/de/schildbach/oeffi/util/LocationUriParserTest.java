@@ -136,8 +136,7 @@ public class LocationUriParserTest {
         final Location location = results[0];
 
         Assert.assertEquals(LocationType.ANY, location.type);
-        Assert.assertEquals(0, location.getLonAs1E6());
-        Assert.assertEquals(0, location.getLatAs1E6());
+        Assert.assertFalse(location.hasCoord());
         Assert.assertEquals("gleimstr.", location.name);
     }
 
@@ -177,8 +176,7 @@ public class LocationUriParserTest {
         final Location location = results[0];
 
         Assert.assertEquals(LocationType.ANY, location.type);
-        Assert.assertEquals(0, location.getLatAs1E6());
-        Assert.assertEquals(0, location.getLonAs1E6());
+        Assert.assertFalse(location.hasCoord());
         Assert.assertEquals("Karl-Marx-Allee 84, Berlin", location.name);
     }
 
@@ -190,8 +188,7 @@ public class LocationUriParserTest {
         final Location locationNewline = resultsNewline[0];
 
         Assert.assertEquals(LocationType.ANY, locationNewline.type);
-        Assert.assertEquals(0, locationNewline.getLatAs1E6());
-        Assert.assertEquals(0, locationNewline.getLonAs1E6());
+        Assert.assertFalse(locationNewline.hasCoord());
         Assert.assertEquals("Karl-Marx-Allee 84, Berlin", locationNewline.name);
 
         final Location[] resultsEncodedNewline = LocationUriParser
@@ -201,8 +198,7 @@ public class LocationUriParserTest {
         final Location locationEncodedNewline = resultsEncodedNewline[0];
 
         Assert.assertEquals(LocationType.ANY, locationEncodedNewline.type);
-        Assert.assertEquals(0, locationEncodedNewline.getLatAs1E6());
-        Assert.assertEquals(0, locationEncodedNewline.getLonAs1E6());
+        Assert.assertFalse(locationEncodedNewline.hasCoord());
         Assert.assertEquals("Karl-Marx-Allee 84, Berlin", locationEncodedNewline.name);
 
         final Location[] resultsComma = LocationUriParser.parseLocations("geo:0,0?q=Karl-Marx-Allee+84,%0aBerlin");
@@ -211,8 +207,7 @@ public class LocationUriParserTest {
         final Location locationComma = resultsComma[0];
 
         Assert.assertEquals(LocationType.ANY, locationComma.type);
-        Assert.assertEquals(0, locationComma.getLatAs1E6());
-        Assert.assertEquals(0, locationComma.getLonAs1E6());
+        Assert.assertFalse(locationComma.hasCoord());
         Assert.assertEquals("Karl-Marx-Allee 84, Berlin", locationComma.name);
     }
 
@@ -224,8 +219,7 @@ public class LocationUriParserTest {
         final Location location = results[0];
 
         Assert.assertEquals(LocationType.ANY, location.type);
-        Assert.assertEquals(0, location.getLatAs1E6());
-        Assert.assertEquals(0, location.getLonAs1E6());
+        Assert.assertFalse(location.hasCoord());
         Assert.assertEquals("Prinzenstraße 85, Berlin", location.name);
     }
 
