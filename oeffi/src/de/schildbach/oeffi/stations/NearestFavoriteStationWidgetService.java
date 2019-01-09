@@ -60,6 +60,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -121,14 +122,22 @@ public class NearestFavoriteStationWidgetService extends JobIntentService {
             return;
         }
 
-        // we want to use as little power as possible
-        final Criteria criteria = new Criteria();
-        criteria.setPowerRequirement(Criteria.POWER_LOW);
-        final String provider = locationManager.getBestProvider(criteria, true);
-        if (provider == null || LocationManager.PASSIVE_PROVIDER.equals(provider)) {
-            widgetsMessage(appWidgetIds, getString(R.string.acquire_location_no_provider));
-            log.info("No location provider found");
-            return;
+        log.info("Available location providers: {}", locationManager.getAllProviders());
+        final String provider;
+        final LocationProvider fused = locationManager.getProvider("fused");
+        if (fused != null) {
+            // prefer fused provider from Google Play Services
+            provider = fused.getName();
+        } else {
+            // otherwise, we want to use as little power as possible
+            final Criteria criteria = new Criteria();
+            criteria.setPowerRequirement(Criteria.POWER_LOW);
+            provider = locationManager.getBestProvider(criteria, true);
+            if (provider == null || LocationManager.PASSIVE_PROVIDER.equals(provider)) {
+                widgetsMessage(appWidgetIds, getString(R.string.acquire_location_no_provider));
+                log.info("No location provider found");
+                return;
+            }
         }
 
         widgetsHeader(appWidgetIds, getString(R.string.acquire_location_start, provider));
