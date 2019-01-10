@@ -124,10 +124,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data
-                    android:host="oeffi.schildbach.de"
-                    android:pathPrefix="/station/"
-                    android:scheme="http" />
+                <data android:host="oeffi.schildbach.de" />
+                <data android:pathPrefix="/station/" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
             </intent-filter>
             <intent-filter android:label="@string/stations_station_details_intentfilter_title" >
                 <action android:name="android.intent.action.VIEW" />
@@ -135,10 +135,10 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
 
-                <data
-                    android:host="qr.bvg.de"
-                    android:pathPrefix="/h"
-                    android:scheme="http" />
+                <data android:host="qr.bvg.de" />
+                <data android:pathPrefix="/h" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
             </intent-filter>
             <intent-filter android:label="@string/stations_station_details_intentfilter_title" >
                 <action android:name="android.intent.action.VIEW" />
@@ -146,10 +146,10 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
 
-                <data
-                    android:host="mobil.s-bahn-berlin.de"
-                    android:path="/"
-                    android:scheme="http" />
+                <data android:host="mobil.s-bahn-berlin.de" />
+                <data android:path="/" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
             </intent-filter>
             <intent-filter android:label="@string/stations_station_details_intentfilter_title" >
                 <action android:name="android.intent.action.VIEW" />
@@ -157,10 +157,10 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
 
-                <data
-                    android:host="wap.rmv.de"
-                    android:pathPrefix="/mobil/tag/request.do"
-                    android:scheme="http" />
+                <data android:host="wap.rmv.de" />
+                <data android:pathPrefix="/mobil/tag/request.do" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
             </intent-filter>
             <intent-filter android:label="@string/stations_station_details_intentfilter_title" >
                 <action android:name="android.intent.action.VIEW" />
@@ -168,9 +168,9 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
 
-                <data
-                    android:host="m.vrn.de"
-                    android:scheme="http" />
+                <data android:host="m.vrn.de" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
             </intent-filter>
             <intent-filter android:label="@string/stations_station_details_intentfilter_title" >
                 <action android:name="android.intent.action.VIEW" />
@@ -178,10 +178,10 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
 
-                <data
-                    android:host="www.mvg-live.de"
-                    android:pathPrefix="/qr"
-                    android:scheme="http" />
+                <data android:host="www.mvg-live.de" />
+                <data android:pathPrefix="/qr" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
             </intent-filter>
             <intent-filter android:label="@string/stations_station_details_intentfilter_title" >
                 <action android:name="android.intent.action.VIEW" />
@@ -189,10 +189,10 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
 
-                <data
-                    android:host="www.rheinbahn.de"
-                    android:pathPrefix="/QRBarcode/HS"
-                    android:scheme="http" />
+                <data android:host="www.rheinbahn.de" />
+                <data android:pathPrefix="/QRBarcode/HS" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
             </intent-filter>
             <intent-filter android:label="@string/stations_station_details_intentfilter_title" >
                 <action android:name="android.intent.action.VIEW" />
@@ -200,10 +200,10 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
 
-                <data
-                    android:host="mobil.vvs.de"
-                    android:pathPrefix="/mob/DMR"
-                    android:scheme="http" />
+                <data android:host="mobil.vvs.de" />
+                <data android:pathPrefix="/mob/DMR" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
             </intent-filter>
             <intent-filter android:label="@string/stations_station_details_intentfilter_title" >
                 <action android:name="android.intent.action.VIEW" />
@@ -211,10 +211,10 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
 
-                <data
-                    android:host="m.qando.at"
-                    android:pathPrefix="/qr"
-                    android:scheme="http" />
+                <data android:host="m.qando.at" />
+                <data android:pathPrefix="/qr" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
             </intent-filter>
         </activity>
         <activity
@@ -228,10 +228,10 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
 
-                <data
-                    android:host="www.rmv.de"
-                    android:pathPrefix="/t/d"
-                    android:scheme="http" />
+                <data android:host="www.rmv.de" />
+                <data android:pathPrefix="/t/d" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
             </intent-filter>
         </activity>
         <activity
@@ -304,10 +304,10 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
 
-                <data
-                    android:host="maps.google.com"
-                    android:pathPrefix="/maps"
-                    android:scheme="http" />
+                <data android:host="maps.google.com" />
+                <data android:pathPrefix="/maps" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
             </intent-filter>
         </activity>
         <activity

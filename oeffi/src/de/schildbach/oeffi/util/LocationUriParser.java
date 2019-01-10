@@ -45,7 +45,7 @@ public class LocationUriParser {
         final String host = uri.getHost();
         final String query = uri.getQuery();
 
-        if ("http".equals(scheme) && "maps.google.com".equals(host)) {
+        if (("http".equals(scheme) || "https".equals(scheme)) && "maps.google.com".equals(host)) {
             final String q = getQueryParameter(query, "q");
 
             final String saddr = getQueryParameter(query, "saddr");
