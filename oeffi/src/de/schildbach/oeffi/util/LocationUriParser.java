@@ -55,6 +55,8 @@ public class LocationUriParser {
                 fromLocation = parseAddrParam(saddr, null);
             else if (sll != null)
                 fromLocation = parseAddrParam(sll, q);
+            else if (q != null)
+                fromLocation = new Location(LocationType.ANY, null, null, q);
             else
                 fromLocation = null;
 

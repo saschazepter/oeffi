@@ -252,6 +252,17 @@ public class LocationUriParserTest {
         Assert.assertNull(location.name);
     }
 
+    @Test
+    public void googleCalendarWithAddress() throws Exception {
+        final Location[] results = LocationUriParser.parseLocations(
+                "https://maps.google.com/?q=Husemannstra%C3%9Fe,+10435+Berlin,+Germany&ftid=0x47a84e01b6fb4d0b:0x65bf58162bae72fb");
+        Assert.assertEquals(1, results.length);
+        final Location location = results[0];
+        Assert.assertEquals(LocationType.ANY, location.type);
+        Assert.assertFalse(location.hasCoord());
+        Assert.assertEquals("Husemannstraße, 10435 Berlin, Germany", location.name);
+    }
+
     @Test(expected = RuntimeException.class)
     public void exceptionBecauseOfScheme() throws Exception {
         LocationUriParser.parseLocations("foo:bar");

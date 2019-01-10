@@ -529,7 +529,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
         final Uri intentData = intent.getData();
 
         if (intentData != null) {
-            log.info("Got intent: {}", intent);
+            log.info("Got intent: {}, data={}", intent, intentData);
 
             final Location[] locations = LocationUriParser.parseLocations(intentData.toString());
 
