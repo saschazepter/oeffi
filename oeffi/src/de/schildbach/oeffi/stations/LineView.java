@@ -28,6 +28,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
+
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.util.CheatSheet;
 import de.schildbach.pte.Standard;
@@ -175,9 +178,14 @@ public class LineView extends TextView {
 
             setText(text);
             if (lines.size() == 1) {
-                final String name = lines.iterator().next().name;
-                if (name != null)
-                    CheatSheet.setup(this, name);
+                final Line line = lines.iterator().next();
+                final Context context = getContext();
+                final int productResId = getResources().getIdentifier(
+                        "product_" + Character.toLowerCase(line.productCode()), "string", context.getPackageName());
+                final String sheet = Joiner.on('\n').skipNulls().join(line.name,
+                        productResId != 0 ? context.getString(productResId) : null, line.network);
+                if (Strings.emptyToNull(sheet) != null)
+                    CheatSheet.setup(this, sheet);
                 else
                     CheatSheet.remove(this);
             } else {
