@@ -242,7 +242,6 @@
     <!-- directions trip details -->
     <string name="directions_trip_details_duraton">Dauer %s</string>
     <string name="directions_trip_details_num_changes">%d Umst.</string>
-    <string name="directions_trip_details_fare_entry_ticket">Einzelfahrt</string>
     <string name="directions_trip_details_walk">&lt;b>%1$d Minuten&lt;/b> %2$sFußweg nach&lt;br/>%3$s</string>
     <string name="directions_trip_details_bike">&lt;b>%1$d Minuten&lt;/b> %2$sFahrt mit dem Fahrrad nach&lt;br/>%3$s</string>
     <string name="directions_trip_details_car">&lt;b>%1$d Minuten&lt;/b> %2$sFahrt mit dem Auto nach&lt;br/>%3$s</string>

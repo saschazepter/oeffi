@@ -557,14 +557,14 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         if (trip.fares != null && !trip.fares.isEmpty()) {
             faresTable.setVisibility(View.VISIBLE);
 
-            ((TextView) findViewById(R.id.directions_trip_details_fare_entry_network)).setText(fares.get(0).network);
             final String[] fareTypes = res.getStringArray(R.array.fare_types);
 
-            int i = 1;
+            int i = 0;
             for (final Fare fare : fares) {
                 final View fareRow = inflater.inflate(R.layout.directions_trip_details_fares_row, null);
                 ((TextView) fareRow.findViewById(R.id.directions_trip_details_fare_entry_row_type))
                         .setText(fareTypes[fare.type.ordinal()]);
+                ((TextView) fareRow.findViewById(R.id.directions_trip_details_fare_entry_row_name)).setText(fare.name);
                 ((TextView) fareRow.findViewById(R.id.directions_trip_details_fare_entry_row_fare))
                         .setText(String.format("%s%.2f", fare.currency.getSymbol(), fare.fare));
                 final TextView unitView = (TextView) fareRow

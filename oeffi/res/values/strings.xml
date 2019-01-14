@@ -243,7 +243,6 @@
     <!-- directions trip details -->
     <string name="directions_trip_details_duraton">Duration %s</string>
     <string name="directions_trip_details_num_changes">%d ch.</string>
-    <string name="directions_trip_details_fare_entry_ticket">Single ticket</string>
     <string name="directions_trip_details_walk">walk &lt;b>%1$d minutes&lt;/b> %2$sto&lt;br/>%3$s</string>
     <string name="directions_trip_details_bike">bike &lt;b>%1$d minutes&lt;/b> %2$sto&lt;br/>%3$s</string>
     <string name="directions_trip_details_car">drive &lt;b>%1$d minutes&lt;/b> %2$sto&lt;br/>%3$s</string>

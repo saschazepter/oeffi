@@ -71,22 +71,10 @@
                             android:background="?android:attr/listDivider"
                             android:baselineAligned="true"
                             android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
-                            android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
-                            android:paddingRight="@dimen/list_entry_padding_horizontal_lax"
-                            android:paddingTop="@dimen/list_entry_padding_vertical_lax" >
-
-                            <TableRow>
-
-                                <TextView
-                                    android:id="@+id/directions_trip_details_fare_entry_network"
-                                    android:textSize="@dimen/font_size_large" />
-
-                                <TextView
-                                    android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
-                                    android:text="@string/directions_trip_details_fare_entry_ticket"
-                                    android:textSize="@dimen/font_size_large" />
-                            </TableRow>
-                        </TableLayout>
+                            android:paddingLeft="@dimen/list_entry_padding_horizontal_verylax"
+                            android:paddingRight="@dimen/list_entry_padding_horizontal_verylax"
+                            android:paddingTop="@dimen/list_entry_padding_vertical_lax"
+                            android:stretchColumns="2" />
 
                         <TextView
                             android:id="@+id/directions_trip_details_footer"
