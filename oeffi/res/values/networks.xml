@@ -92,6 +92,8 @@
     <string name="network_it_comment">long-distance, regional and local (e.g. Milan, Rome, Naples)</string>
     <string name="network_paris_label">Paris</string>
     <string name="network_paris_comment">local and regional</string>
+    <string name="network_spain_label">Spain</string>
+    <string name="network_spain_comment">local and regional (e.g. Barcelona)</string>
     <string name="network_sncb_label">Belgium</string>
     <string name="network_sncb_comment">long-distance, regional and local (e.g. Antwerp, Ghent, Charleroi, Brussels)</string>
     <string name="network_lu_label">Luxembourg</string>

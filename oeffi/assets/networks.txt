@@ -57,6 +57,9 @@ IT|it-IT|IT|alpha
 # FR
 PARIS|fr-FR|FR|alpha
 
+# ES
+SPAIN|es-ES|ES|alpha
+
 # BE
 SNCB|be-BE|BE|alpha
 
