@@ -1,3 +1,8 @@
+v10.5
+
+* New region: Spain.
+* Minor relayout of the ticket/fare list.
+
 v10.4.11
 
 * If Google Play Services is installed, the app-widget uses the 'fused' location provider.
