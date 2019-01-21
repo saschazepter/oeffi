@@ -301,7 +301,8 @@ public class NearestFavoriteStationWidgetService extends JobIntentService {
                         log.info("Could not query departures for station " + stationId, x);
                     } catch (final Exception x) {
                         setHeader(appWidgetId, favorite.name);
-                        setMessage(getString(R.string.nearest_favorite_station_widget_error_exception, x.toString()));
+                        setMessage(getString(R.string.nearest_favorite_station_widget_error_exception,
+                                Throwables.getRootCause(x).toString()));
                         appWidgetManager.updateAppWidget(appWidgetId, views);
                         log.info("Could not query departures for station " + stationId, x);
                     }
