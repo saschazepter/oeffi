@@ -335,6 +335,7 @@
     <string name="alert_crash_report_update">Google Play</string>
     <string name="alert_crash_report_download">Download</string>
     <string name="alert_crash_report_negative">Dismiss</string>
+    <string name="notification_channel_appwidget_name">App-widget activity</string>
 
     <!-- products -->
     <string name="product_i">Highspeed</string>

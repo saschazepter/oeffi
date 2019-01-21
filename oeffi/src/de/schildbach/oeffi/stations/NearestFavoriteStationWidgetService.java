@@ -62,6 +62,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -70,6 +71,7 @@ import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.RemoteViews;
 import androidx.core.app.JobIntentService;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 public class NearestFavoriteStationWidgetService extends JobIntentService {
@@ -80,6 +82,8 @@ public class NearestFavoriteStationWidgetService extends JobIntentService {
     private Handler backgroundHandler;
 
     private static final int JOB_ID = 1;
+    public static final String NOTIFICATION_CHANNEL_ID_APPWIDGET = "appwidget";
+    private static final int NOTIFICATION_ID_APPWIDGET_UPDATE = 1;
 
     private static final Logger log = LoggerFactory.getLogger(NearestFavoriteStationWidgetService.class);
 
@@ -110,6 +114,22 @@ public class NearestFavoriteStationWidgetService extends JobIntentService {
 
     @Override
     protected void onHandleWork(final Intent intent) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            final NotificationCompat.Builder notification = new NotificationCompat.Builder(this,
+                    NOTIFICATION_CHANNEL_ID_APPWIDGET);
+            notification.setSmallIcon(R.drawable.ic_stat_notify_sync_24dp);
+            notification.setWhen(System.currentTimeMillis());
+            notification.setOngoing(true);
+            startForeground(NOTIFICATION_ID_APPWIDGET_UPDATE, notification.build());
+        }
+
+        handleIntent();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            stopForeground(true);
+    }
+
+    private void handleIntent() {
         final ComponentName providerName = new ComponentName(this, NearestFavoriteStationWidgetProvider.class);
         final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(providerName);
 
