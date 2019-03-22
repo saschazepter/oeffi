@@ -48,7 +48,7 @@
     <!-- preferences about -->
     <string name="about_title">Über Öffi</string>
     <string name="about_copyright_title">Urheberrecht</string>
-    <string name="about_copyright_summary">© 2010-2018, die Öffi-Entwickler</string>
+    <string name="about_copyright_summary">© 2010-2019, die Öffi-Entwickler</string>
     <string name="about_license_title">Lizenz</string>
     <string name="about_source_title">Quellcode</string>
     <string name="about_changelog_title">Änderungshistorie anzeigen</string>

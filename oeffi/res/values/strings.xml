@@ -48,7 +48,7 @@
     <!-- preferences about -->
     <string name="about_title">About Offi</string>
     <string name="about_copyright_title">Copyright</string>
-    <string name="about_copyright_summary">© 2010-2018, the Öffi developers</string>
+    <string name="about_copyright_summary">© 2010-2019, the Öffi developers</string>
     <string name="about_license_title">License</string>
     <string name="about_source_title">Source code</string>
     <string name="about_changelog_title">View Changelog</string>
