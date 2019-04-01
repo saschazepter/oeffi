@@ -153,7 +153,8 @@ public final class NetworkProviderFactory {
         else if (networkId.equals(NetworkId.VRS))
             return new VrsProvider();
         else if (networkId.equals(NetworkId.AVV_AACHEN))
-            return new AvvAachenProvider("{\"type\":\"AID\",\"aid\":\"4vV1AcH3N511icH\"}");
+            return new AvvAachenProvider("{\"id\":\"AVV_AACHEN\",\"l\":\"vs_oeffi\",\"type\":\"AND\"}",
+                    "{\"type\":\"AID\",\"aid\":\"4vV1AcH3N511icH\"}");
         else if (networkId.equals(NetworkId.MVG))
             return new MvgProvider();
         else if (networkId.equals(NetworkId.VRN))
