@@ -7,72 +7,76 @@ berlin_bsu_ab|52.520134,13.388018|2018-12-09|Berlin S+U-Bahn-Netz (AB)|Berliner 
 berlin_bsu_abc|52.520134,13.388018|2018-12-09|Berlin S+U-Bahn-Netz (ABC)|Berliner Verkehrsbetriebe||BVG
 berlin_tram|52.521152,13.412832|2018-12-09|Berlin Tram-Netz|Berliner Verkehrsbetriebe||BVG
 berlin_bus|52.5071378,13.3318680|2018-12-09|Berlin Bus-Netz|Berliner Verkehrsbetriebe||BVG
-berlin_nacht|52.520134,13.388018|2018-12-09|Berlin Nachtverkehr|Berliner Verkehrsbetriebe||BVG
-# berlin_anbindung_ber|52.363127,13.50498|2011-10|Berlin Brandenburg Flughafen Anbindung|Robert Aehnelt, Creative Commons|http://upload.wikimedia.org/wikipedia/commons/d/d3/Anbindung_BER.png
-brandenburg_regionalverkehr|52.525578,13.369523|2016-12-11|Brandenburg Regionalverkehr|Verkehrsverbund Berlin-Brandenburg||VBB
-potsdam_tag|52.390931,13.067171|2016-12-11|Potsdam Tagesliniennetz|Verkehrsverbund Berlin-Brandenburg||VBB
-potsdam_nacht|52.390931,13.067171|2016-12-11|Potsdam Nachtliniennetz|Verkehrsverbund Berlin-Brandenburg||VBB
-cottbus_tag_abc|51.760897,14.330106|2016-12-11|Cottbus Tageslinien ABC|Verkehrsverbund Berlin-Brandenburg||VBB
-cottbus_abend|51.760897,14.330106|2016-12-11|Cottbus Abendlinien|Verkehrsverbund Berlin-Brandenburg||VBB
-frankfurt_oder_abc|52.336876,14.545712|2016-12-11|Frankfurt (Oder) ABC|Verkehrsverbund Berlin-Brandenburg||VBB
-brandenburg_havel|52.405872,12.538199|2016-03-01|Brandenburg an der Havel|Verkehrsverbund Berlin-Brandenburg||VBB
-greifswald|54.092863,13.370336|2017-03|Greifswald Liniennetz|Stadtwerke Greifswald
-dresden|51.050961,13.733239|2016-03-20|Dresden Liniennetz|Dresdner Verkehrsbetriebe AG
-dresden_nacht|51.050961,13.733239|2015-01-05|Dresden Nachtverkehr|dvb.de
-# dresden_sbahn|51.050961,13.733239|2008-01|Dresden S-Bahn|Maximilian Dörrbecker, Wikimedia Commons|http://upload.wikimedia.org/wikipedia/commons/9/99/Dresden_-_S-Bahn_-_Liniennetz.png
-leipzig_halle_schnellbahn|51.423347,12.220980|2016-12-11|Leipzig/Halle Schnellbahn|Mitteldeutscher Verkehrsverbund GmbH
-leipzig_tag|51.345476,12.379382|2016-11-27|Leipzig Linien Tag|Leipziger Verkehrsbetriebe GmbH
-leipzig_nacht|51.345476,12.379382|2016-11-27|Leipzig Linien Nacht|Leipziger Verkehrsbetriebe GmbH
-halle_tag|51.477347,11.985263|2016-12-19|Halle Linien Tag|SWH/HAVAG
-halle_nacht|51.477347,11.985263|2016-12-19|Halle Linien Nacht|SWH/HAVAG
-muenchen_schnellbahn|48.140377,11.560643|2017-12|München Schnellbahn|MVV
-muenchen_tram_metrobus|48.140377,11.560643|2017-12|München Tram/MetroBus|MVV/MVG
-muenchen_nacht|48.140377,11.560643|2017-12|München Nachtnetz|MVG
-ingolstadt_tag|48.74462,11.437987|2015-12-13|Ingolstadt Liniennetz|Ingolstädter Verkehrsgesellschaft mbH
-ingolstadt_nacht|48.74462,11.437987|2015-12-13|Ingolstadt Nachtliniennetz|Ingolstädter Verkehrsgesellschaft mbH
-augsburg|48.364936,10.893713|2016-12|Augsburg Innenraum|AVV GmbH
-augsburg_nachtbus|48.364936,10.893713|2016-12|Augsburg Nachtbus|AVV GmbH
+berlin_nacht|52.520134,13.388018|2018-12-09|Berlin Nachtverkehr (geografisch)|Berliner Verkehrsbetriebe||BVG
+# berlin_anbindung_ber|52.363127,13.50498|2011-10|Berlin Brandenburg Flughafen Anbindung|Robert Aehnelt, Creative Commons|https://upload.wikimedia.org/wikipedia/commons/d/d3/Anbindung_BER.png
+brandenburg_regionalverkehr|52.525578,13.369523|2018-12-09|Brandenburg Regionalverkehr|Verkehrsverbund Berlin-Brandenburg||VBB
+potsdam_tag|52.390931,13.067171|2018-12-09|Potsdam Tagesliniennetz|Verkehrsverbund Berlin-Brandenburg||VBB
+potsdam_nacht|52.390931,13.067171|2018-12-09|Potsdam Nachtliniennetz|Verkehrsverbund Berlin-Brandenburg||VBB
+cottbus_tag_abc|51.760897,14.330106|2018-12-09|Cottbus Tageslinien ABC|Verkehrsverbund Berlin-Brandenburg||VBB
+cottbus_abend|51.760897,14.330106|2018-12-09|Cottbus Abendlinien|Verkehrsverbund Berlin-Brandenburg||VBB
+frankfurt_oder_abc|52.336876,14.545712|2018-12-09|Frankfurt (Oder) ABC|Verkehrsverbund Berlin-Brandenburg||VBB
+brandenburg_havel|52.405872,12.538199|2018-12-09|Brandenburg an der Havel|Verkehrsverbund Berlin-Brandenburg||VBB
+greifswald|54.092863,13.370336|2018-07|Greifswald Liniennetz|Stadtwerke Greifswald
+dresden|51.050961,13.733239|2018-12-09|Dresden Liniennetz|Dresdner Verkehrsbetriebe AG
+dresden_nacht|51.050961,13.733239|2018-12-09|Dresden Nachtverkehr|dvb.de
+leipzig_halle_schnellbahn|51.423347,12.220980|2018-12-09|Leipzig/Halle Schnellbahn|Mitteldeutscher Verkehrsverbund GmbH
+leipzig_tag|51.345476,12.379382|2018-11-26|Leipzig Linien Tag|Leipziger Verkehrsbetriebe GmbH
+leipzig_nacht|51.345476,12.379382|2018-11-26|Leipzig Linien Nacht|Leipziger Verkehrsbetriebe GmbH
+halle_tag|51.477347,11.985263|2018-10-15|Halle Linien Tag|SWH/HAVAG
+halle_nacht|51.477347,11.985263|2018-10-15|Halle Linien Nacht|SWH/HAVAG
+muenchen_schnellbahn|48.140377,11.560643|2018-12|München Schnellbahn|MVV
+muenchen_tram_metrobus|48.140377,11.560643|2018-12-09|München Tram/MetroBus|MVV/MVG
+muenchen_nacht|48.140377,11.560643|2018-12-09|München Nachtnetz|MVG
+ingolstadt_tag|48.74462,11.437987|2017-09-01|Ingolstadt Liniennetz|Ingolstädter Verkehrsgesellschaft mbH
+ingolstadt_nacht|48.74462,11.437987|2017-09-01|Ingolstadt Nachtliniennetz|Ingolstädter Verkehrsgesellschaft mbH
+augsburg|48.364936,10.893713|2018-12|Augsburg Innenraum|AVV GmbH
+augsburg_nachtbus|48.364936,10.893713|2018-12|Augsburg Nachtbus|AVV GmbH
 ulm_stadt|48.398610,9.983322|2018-12|Ulm / Neu-Ulm Stadtnetz|Donau-Iller-Nahverkehrsverbund GmbH
 ulm_regional|48.398610,9.983322|2018-11-02|Ulm Regionalnetz|Donau-Iller-Nahverkehrsverbund GmbH
 nuernberg_gesamtraum|49.445719,11.082618|2018-01-01|Nürnberg Schienennetz Gesamtraum|Verkehrsverbund Großraum Nürnberg||VGN
-nuernberg_verkehrsnetz|49.445719,11.082618|2017-12-02|Nürnberg, Fürth, Stein Verkehrsnetz|Verkehrsverbund Großraum Nürnberg||VGN
+nuernberg_verkehrsnetz|49.445719,11.082618|2018-12-09|Nürnberg, Fürth, Stein Verkehrsnetz|Verkehrsverbund Großraum Nürnberg||VGN
 nuernberg_schiene|49.445719,11.082618|2017-12-02|Nürnberg, Fürth Schienennetz|Verkehrsverbund Großraum Nürnberg||VGN
 nuernberg_nightliner|49.445719,11.082618|2017-12-02|Nürnberg, Fürth Nightliner|Verkehrsverbund Großraum Nürnberg||VGN
-fuerth_verkehrsnetz|49.469832,10.990178|2017-12-02|Fürth Verkehrsnetz|Verkehrsverbund Großraum Nürnberg||VGN
-erlangen_verkehrsnetz|49.595851,11.001701|2017-12-02|Erlangen Verkehrsnetz|Verkehrsverbund Großraum Nürnberg||VGN
+fuerth_verkehrsnetz|49.469832,10.990178|2018-12-09|Fürth Verkehrsnetz|Verkehrsverbund Großraum Nürnberg||VGN
+fuerth_nightliner|49.469832,10.990178|2016-12-11|Fürth Nightliner|Verkehrsverbund Großraum Nürnberg||VGN
+erlangen_verkehrsnetz|49.595851,11.001701|2018-12-09|Erlangen Verkehrsnetz|Verkehrsverbund Großraum Nürnberg||VGN
 erlangen_nightliner|49.595851,11.001701|2017-12-02|Erlangen Nightliner|Verkehrsverbund Großraum Nürnberg||VGN
-bayreuth_tag|49.949701,11.579951|2016-10-12|Bayreuth Tag|Verkehrsverbund Großraum Nürnberg||VGN
-bayreuth_nacht|49.949701,11.579951|2016-10-12|Bayreuth Spät|Verkehrsverbund Großraum Nürnberg||VGN
+bayreuth_tag|49.949701,11.579951|2018-10-18|Bayreuth Tag|Verkehrsverbund Großraum Nürnberg||VGN
+bayreuth_nacht|49.949701,11.579951|2018-10-18|Bayreuth Spät|Verkehrsverbund Großraum Nürnberg||VGN
 bamberg|49.900716,10.899453|2018-11-19|Bamberg Liniennetz|Stadtwerke Bamberg
 coburg_liniennetz|50.262975,10.957691|2018-01-01|Coburg Liniennetz|SÜC
 regensburg|49.011489,12.09971|2017-12-10|Regensburg Liniennetzplan|Regensburger Verkehrsverbund GmbH & Co. KG
 regensburg_nacht|49.011489,12.09971|2018-04-14|Regensburg Nachtbus|Regensburger Verkehrsverbund GmbH & Co. KG
+bremen|53.08319,8.81360|2018-03|Bremen Liniennetz|BSAG
+bremen_nacht|53.08319,8.81360||Bremen Nachtnetz|BSAG
+bremen_stadt|53.08319,8.81360|2018-08|Bremen Stadtnetz (geografisch)|BSAG
 hamburg_usar|53.552946,10.006782|2018-12-09|Hamburg Schnellbahn/Regional|HVV
 hamburg_metrobus_gross|53.552946,10.006782|2018-12-09|Hamburg MetroBus Großbereich|HVV
 hamburg_region|53.552946,10.006782|2018-12-09|Hamburg Regionalverkehr|HVV
-hamburg_nachtbus|53.552946,10.006782|2018-12|Hamburg Nachtbus|OpenStreetMap und HVV
-kiel_liniennetz|54.313282,10.132341|2018-05|Kiel Liniennetz|KVG
+hamburg_nachtbus|53.552946,10.006782|2018-12|Hamburg Nachtbus (geografisch)|OpenStreetMap und HVV
+kiel_liniennetz|54.313282,10.132341|2018-12|Kiel Liniennetz|KVG
 kiel_nacht|54.313282,10.132341|2017-09|Kiel Nachtliniennetz|KVG
-luebeck_region|53.858795,10.664646|2016-12-11|Lübeck Liniennetz Region|LVG, nah.sh, Stadtverkehr Lübeck||SH
-rostock_vvw_liniennetz|54.078139,12.131724|2017-01-03|Rostock Liniennetz|Verkehrsverbund Warnow
-rostock_vvw_region|54.078139,12.131724|2017-01-03|Rostock Region|Verkehrsverbund Warnow
-rostock_region|54.078139,12.131724|2018-03-19|Rostock und Umgebung|Lucas Weiss, CC-BY-NC-SA 4.0
+luebeck_region|53.858795,10.664646|2018-12-09|Lübeck Liniennetz Region|LVG, nah.sh, Stadtverkehr Lübeck||SH
+rostock_vvw_liniennetz|54.078139,12.131724|2019-01-07|Rostock Liniennetz|Verkehrsverbund Warnow
+rostock_vvw_region|54.078139,12.131724|2019-01-07|Rostock Region|Verkehrsverbund Warnow
+rostock_region|54.078139,12.131724|2019-01-07|Rostock und Umgebung|Lucas Weiss, CC-BY-NC-SA 4.0
 wismar|53.903943,11.391928||Wismar Stadtverkehr|NAHBUS Nordwestmecklenburg GmbH
 nordwestmecklenburg|53.903943,11.391928|2016-03-14|Nordwestmecklenburg Busnetz|NAHBUS Nordwestmecklenburg GmbH
-osnabrueck|52.272832,8.061726|2016-10-17|Osnabrück Liniennetz|Stadtwerke Osnabrück
-osnabrueck_nacht|52.272832,8.061726|2016-08-04|Osnabrück NachtBus-Netz|Stadtwerke Osnabrück
-stuttgart_verbund|48.784068,9.181713|2017-12|Stuttgart Verbund-Liniennetz|Verkehrs- und Tarifverbund Stuttgart GmbH
-stuttgart_nacht|48.77861,9.179803|2018-07|Stuttgart Nachtverkehr|Verkehrs- und Tarifverbund Stuttgart GmbH
+osnabrueck|52.272832,8.061726|2018-08-09|Osnabrück Liniennetz|Stadtwerke Osnabrück
+osnabrueck_nacht|52.272832,8.061726|2018-08-09|Osnabrück NachtBus-Netz|Stadtwerke Osnabrück
+stuttgart_verbund|48.784068,9.181713|2018-12|Stuttgart Verbund-Liniennetz|Verkehrs- und Tarifverbund Stuttgart GmbH
+stuttgart_nacht|48.77861,9.179803|2018-12|Stuttgart Nachtverkehr|Verkehrs- und Tarifverbund Stuttgart GmbH
 ringzug|48.113621,8.660603|2013-08|Ringzug|Zweckverband Ringzug
-hannover_stadtbahn|52.376715,9.741168|2017-12|Hannover Stadtbahnnetz|GVH
-hannover_bus|52.376715,9.741168|2017-12|Hannover Busnetz|GVH
-hannover_regional|52.376715,9.741168|2017-12|Hannover Regional- und S-Bahn-Linien|GVH
-celle_stadt|52.620411,10.059814|2016-08|Celle Liniennetz Stadt|CeBus
-celle_region|52.620411,10.059814|2015-04|Celle Liniennetz Region|CeBus
+hannover_stadtbahn|52.376715,9.741168|2018-12|Hannover Stadtbahnnetz|GVH
+hannover_bus|52.376715,9.741168|2018-12|Hannover Busnetz|GVH
+hannover_regional|52.376715,9.741168|2018-12|Hannover Regional- und S-Bahn-Linien|GVH
+celle_stadt|52.620411,10.059814|2019-01|Celle Liniennetz Stadt|CeBus
+celle_region|52.620411,10.059814|2018-01|Celle Liniennetz Region|CeBus
 goettingen|51.536290,9.926981|2015-04-13|Göttingen Liniennetz|Göttinger Verkehrsbetriebe GmbH
 goettingen_nacht|51.536290,9.926981|2015-04-13|Göttingen Nachtliesel|Göttinger Verkehrsbetriebe GmbH
-bielefeld|52.029241,8.532835|2015-12|Bielefeld Gesamtnetz|moBiel
-bielefeld_nacht|52.029241,8.532835|2015-10|Bielefeld Nachtbus|moBiel
+bielefeld|52.029241,8.532835|2018-06|Bielefeld Gesamtnetz|moBiel
+bielefeld_nacht|52.029241,8.532835|2018-10|Bielefeld Nachtbus|moBiel
+bielefeld_netz|52.029241,8.532835|2018-06|Bielefeld Netzplan (geografisch)|moBiel
 essen_schiene|51.451355,7.014793|2015-06-14|Essen SchienenNetz|EVAG
 essen_tag|51.451355,7.014793|2015-06-14|Essen TagNetz|EVAG
 essen_nacht|51.451355,7.014793|2013-06-09|Essen NachtNetz|EVAG
@@ -93,8 +97,8 @@ bonn_schnellverkehr|50.732784,7.096447|2016-12-11|Bonn Schnellverkehr|Verkehrsve
 bonn_bus|50.732784,7.096447|2016-12-11|Bonn Busnetz|Verkehrsverbund Rhein-Sieg GmbH
 leverkusen_bus|51.036197,6.994385|2015-12-13|Leverkusen Busnetz|Verkehrsverbund Rhein-Sieg GmbH
 nrw_regio|51.429807,6.775253|2016-12|NRW Busse & Bahnen|VRS
-aachen_schnellverkehr|50.768399,6.090705|2016-12|Aachen Schnellverkehr|Aachener Verkehrsverbund GmbH
-aachen_region|50.768399,6.090705|2016-12|Aachen Region, Bus und Bahn|Aachener Verkehrsverbund GmbH
+aachen_schnellverkehr|50.768399,6.090705|2018-12|Aachen Schnellverkehr|Aachener Verkehrsverbund GmbH||AVV_AACHEN
+aachen_region|50.768399,6.090705|2018-12|Aachen Region, Bus und Bahn|Aachener Verkehrsverbund GmbH||AVV_AACHEN
 darmstadt|49.872582,8.630916|2018-12-09|Darmstadt Stadt|Darmstadt-Dieburger Nahverkehrsorganisation
 darmstadt_nacht|49.872582,8.630916|2018-12-09|Darmstadt NightLiner|Darmstadt-Dieburger Nahverkehrsorganisation
 darmstadt_region|49.872582,8.630916|2018-12-09|Darmstadt-Dieburg Region|Darmstadt-Dieburger Nahverkehrsorganisation
@@ -102,9 +106,9 @@ duesseldorf|51.230794,6.769025|2018-08-29|Düsseldorf Liniennetz|Rheinbahn
 duesseldorf_nacht|51.230794,6.769025|2018-08-29|Düsseldorf Nachtlinien|Rheinbahn
 duisburg|51.428813,6.772554|2018-03-01|Duisburg Liniennetz|DVG/VRR
 schwerin|53.634476,11.407313|2018-07|Schwerin Liniennetz|Nahverkehr Schwerin GmbH
-magdeburg_tag|52.130783,11.627347|2018-08-09|Magdeburg Liniennetz|Magdeburger Regionalverkehrsverbund
-magdeburg_nacht|52.130783,11.627347|2018-08-09|Magdeburg Nacht-Liniennetz|Magdeburger Regionalverkehrsverbund
-magdeburg_verbund|52.130783,11.627347|2018-08|Magdeburg Verbund-Liniennetz|Magdeburger Regionalverkehrsverbund
+magdeburg_tag|52.130783,11.627347|2018-12-03|Magdeburg Liniennetz|Magdeburger Regionalverkehrsverbund
+magdeburg_nacht|52.130783,11.627347|2018-12-03|Magdeburg Nacht-Liniennetz|Magdeburger Regionalverkehrsverbund
+magdeburg_verbund|52.130783,11.627347|2018-12|Magdeburg Verbund-Liniennetz|Magdeburger Regionalverkehrsverbund
 hagen|51.362675,7.461087|2018-06-10|Hagen Liniennetz|Hagener Straßenbahn AG
 braunschweig_gesamt|52.252187,10.539705|2017-12|Braunschweig Gesamtnetz|Braunschweiger Verkehrs-AG
 braunschweig_innenstadt|52.263931,10.526361|2017-12|Braunschweig Innenstadt|Braunschweiger Verkehrs-AG
@@ -139,7 +143,7 @@ innsbruck_tram|47.26332,11.400951|2012-12-15|Innsbruck Straßenbahn|Steve Stipsi
 graz|47.073371,15.416154|2018-09-08|Graz Liniennetz|Verbund Linie
 graz_nightline|47.073371,15.416154|2018-09-08|Graz Nightline|Verbund Linie
 graz_regio|47.073371,15.416154|2018-09|Graz Regio|ÖBB/STB||OEBB
-wien_city|48.209477,16.371074|2017-09-01|Wien City|Wiener Linien
+wien_city|48.209477,16.371074|2017-09-01|Wien City (geografisch)|Wiener Linien
 wien_gesamt|48.209477,16.371074|2018-10-03|Wien Gesamtnetz|Wiener Linien
 wien_nacht|48.209477,16.371074|2017-09-01|Wien Nachtnetz|Wiener Linien
 wien_grossraum|48.209477,16.371074|2017-08-01|Wien Großraum Nahverkehr|ÖBB||OEBB
@@ -166,17 +170,19 @@ brussels|50.847293,4.361933|2016-09|Brussels|STIB-MIVB
 brussels_metro|50.847293,4.361933|2016-04|Brussels Metro|STIB-MIVB
 brussels_night|50.847293,4.361933|2016-07|Brussels Night Lines|STIB-MIVB
 antwerp_tram|51.217197,4.421543|2015-09-07|Antwerp Tram|De Lijn
-antwerp_city|51.217197,4.421543||Antwerp City Center|De Lijn
+antwerp_city|51.217197,4.421543||Antwerp City Center (geographical)|De Lijn
 
 # nl
 
-amsterdam_centre|52.378861,4.900392||Amsterdam City Centre|GVB
+amsterdam_centre|52.378861,4.900392||Amsterdam City Centre (geographical)|GVB
 
 # dk
 
 copenhagen_city|55.672717,12.562532||Copenhagen City|DOT
 copenhagen_region|55.672717,12.562532||Copenhagen Greater Area|DOT
 copenhagen_night|55.672717,12.562532|2015-02|Copenhagen Night Bus|DOT
+aarhus_dag|56.149808,10.204283|2019-01-01|Aarhus Dag|Damian Leonhardt
+aarhus_nat|56.149808,10.204283|2019-01-01|Aarhus Nat|Damian Leonhardt
 
 # se
 
@@ -185,7 +191,7 @@ gothenburg_commuter|57.708792,11.973538|2016-08-21|Göteborg Express Buses and C
 gothenburg_ferry|57.708792,11.973538|2015-12-13|Göteborg Tram and Ferry|västtrafik
 gothenburg_region|57.708792,11.973538|2016-01-03|Göteborg Region|västtågen
 jonkoping_bus|57.784691,14.163508||Jonkoping Bus||http://transportmaps.free.fr/maps/Sweden/Jonkoping/map_Bus_Lines.jpg
-jonkoping_map|57.784691,14.163508||Jonkoping Map||http://transportmaps.free.fr/maps/Sweden/Jonkoping/map_Bus_Map.jpg
+jonkoping_map|57.784691,14.163508||Jonkoping Map (geographical)||http://transportmaps.free.fr/maps/Sweden/Jonkoping/map_Bus_Map.jpg
 linkoping_bus|58.416129,15.626714|2009-06-14|Linkoping Bus||http://transportmaps.free.fr/maps/Sweden/Linkoping/map_Bus.jpg
 stockholm_train|59.329875,18.057218||Stockholm Train|Storstockholms Lokaltrafik|http://transportmaps.free.fr/maps/Sweden/Stockholm/map_All_Trains.jpg
 
@@ -195,8 +201,8 @@ oslo_subway|59.910337,10.751746|2016-04-03|Oslo Subway|Truls Lange Civitas
 oslo_tram|59.910337,10.751746|2016-04-17|Oslo Tram|Truls Lange Civitas
 oslo_bus|59.910337,10.751746|2016-10-09|Oslo Bus|Truls Lange Civitas
 oslo_bus_night|59.910337,10.751746|2016-10-09|Oslo Night Bus|Truls Lange Civitas
-trondheim_bus|63.436476,10.398717||Trondheim Bus||http://transportmaps.free.fr/maps/Norway/Trondbeim/map_Bus.jpg
-bergen_sentrum|60.390547,5.332593|2012-06-25|Bergen Sentrum|skyss
+trondheim_bus|63.436476,10.398717|2019-02-04|Trondheim Bus|AtB
+bergen_sentrum|60.390547,5.332593||Bergen Sentrum|skyss
 
 # fi
 
@@ -213,11 +219,11 @@ istanbul_rail|41.011939,28.984308|2015-09|Istanbul Rail Transit|Maximilian Dörr
 london_tube|51.513507,-0.110264|2016-06|London Tube|TfL
 london_overground|51.513507,-0.110264|2016-05|London Overground|TfL
 london_rail|51.513507,-0.110264|2016-05|London Rail & Tube Services|TfL
-london_bus|51.513507,-0.110264|2016|London Bus|TfL
+london_bus|51.513507,-0.110264|2016|London Bus (geographical)|TfL
 london_night|51.513507,-0.110264|2016|London Night Bus|TfL
 london_tram|51.37937,-0.101759|2016-01|London Trams|TfL
-manchester_tram|53.479754,-2.24272||Manchester Tram network|Transport for Greater Manchester|https://images.ctfassets.net/nv7y93idf4jq/jeB6vdug4EAoc62SQGSEO/587d920eb27003af17f99e37b789493e/Metrolink-network-map-coloured-lines-and-number-identifiers-and-key-Jan-2018.png
-menchester_train|53.479754,-2.24272||Manchester Train network|Transport for Greater Manchester|https://images.ctfassets.net/nv7y93idf4jq/3gNuXkQl5Cu8wEG8oiCMUc/97f502cffc740b01c06ee173455611d7/Combined_Rail_Metrolink_network_map_v15__2CC_-1.jpg
+manchester_tram|53.479754,-2.24272|2019|Manchester Tram network|Transport for Greater Manchester|https://images.ctfassets.net/nv7y93idf4jq/ZQ9ZsaDtyEoUMiwISqm4c/97b5a9cf4c29b171aaa1b50424a2efba/Metrolink-Map-2019.jpg
+menchester_train|53.479754,-2.24272|2018-11|Manchester Train network|Transport for Greater Manchester|https://images.ctfassets.net/nv7y93idf4jq/6cNIqEFra0ke8YMqAkq6Cq/22e8549c97ff4fb852713be3699145e1/Combined_Rail_Metrolink_network_map_v17__free_bus_.jpg
 bath_bus|51.377628,-2.357004||Bath Bus Network|FWT|http://transportmaps.free.fr/maps/United_Kingdom/Bath/map_Bus_Network.jpg
 bath_bus_city_center|51.377628,-2.357004||Bath Bus City Zone 1|FWT|http://transportmaps.free.fr/maps/United_Kingdom/Bath/map_City_Center_Bus.jpg
 leeds_bus|53.795649,-1.548003||Leeds Bus Network|FWT|http://transportmaps.free.fr/maps/United_Kingdom/Leeds/map_Bus.jpg
@@ -231,7 +237,7 @@ westmidlands_rail|52.477785,-1.898184||West Midlands Rail Network|
 
 milano_metro|45.484599,9.185281|2015-05|Milano Metro|Regione Lombardia
 rome_metro|41.901276,12.499574||Rome Metro and Tram|atac
-napoli_city|40.852780,14.271692||Napoli City|Unico Campania
+napoli_city|40.852780,14.271692||Napoli City (geographical)|Unico Campania
 napoli_region|40.852780,14.271692||Napoli Region|Unico Campania
 
 # fr
@@ -245,7 +251,7 @@ gdansk_tram|54.355338,18.644478|2008|Gdansk Tram|ZKM|http://transportmaps.free.f
 krakow_tram|50.065365,19.947124|2010-03-01|Krakow Tram|KST|http://transportmaps.free.fr/maps/Poland/Krakow/map_Tram.jpg
 poznan_tram|52.40144,16.91215||Poznan Tram|MPK|http://transportmaps.free.fr/maps/Poland/Poznan/map_Trams.jpg
 poznan_night|52.40144,16.91215||Poznan Night Buses|MPK|http://transportmaps.free.fr/maps/Poland/Poznan/map_Night_Buses.jpg
-warsaw_rail|52.230515,21.010702|2011-12-01|Warsaw Rail Transport|ztm|http://www.ztm.waw.pl/mapa/duze/tramwaje.gif
+warsaw_rail|52.230515,21.010702|2011-12-01|Warsaw Rail Transport|ztm|https://www.ztm.waw.pl/mapa/duze/tramwaje.gif
 warsaw_metro_tram|52.230515,21.010702||Warsaw Metro and Tram|zajcev|http://transportmaps.free.fr/maps/Poland/Warsaw/map_Subway_and_Tramway.jpg
 
 # cz
@@ -264,29 +270,28 @@ bratislava_night|48.158729,17.106804|2013-09-02|Bratislava Night Routes|Dopravn�
 
 # gr
 
-athen_metro|37.992426,23.720444|2014-04|Athens Metro|Attiko Metro
+athen_metro|37.992426,23.720444|2014-04|Athens Metro (geographical)|Attiko Metro
 
 # us
 
 sanfrancisco_metro|37.774534,-122.419124||San Francisco Metro|SFMTA
-sanfrancisco_system|37.774534,-122.419124|2016-05|San Francisco System|SFMTA
+sanfrancisco_system|37.774534,-122.419124|2016-05|San Francisco System (geographical)|SFMTA
 sanfrancisco_marketstreet|37.774534,-122.419124||San Francisco Market Street|SFMTA
 sanfrancisco_owl|37.774534,-122.419124|2016|San Francisco Owl Service|SFMTA
-sanfrancisco_bart|37.616291,-122.386079|2014|San Francisco Bay Area Rapid Transit|BART|http://www.bart.gov/sites/all/themes/bart_desktop/img/system-map.gif
+sanfrancisco_bart|37.616291,-122.386079|2014|San Francisco Bay Area Rapid Transit|BART|https://www.bart.gov/sites/all/themes/bart_desktop/img/system-map.gif
 losangeles_system|34.05427,-118.246715|2016-06|Los Angeles System|metro.net
 losangeles_downtown|34.05427,-118.246715|2016-06|Los Angeles Downtown|metro.net
 losangeles_metro|34.05427,-118.246715|2016-05|Los Angeles Metro|metro.net|https://media.metro.net/riding_metro/maps/images/rail_map.gif
 losangeles_metro_metrolink|34.05427,-118.246715|2016-11|Los Angeles Metro & Rail|metro.net|https://media.metro.net/riding_metro/maps/images/metro_regionalrail_map.gif
-newyork_subway|40.738452,-73.991919|2010-12|New York Subway|MTA
+newyork_subway|40.738452,-73.991919|2010-12|New York Subway (geographical)|MTA
 philadelphia_regional|39.957386,-75.180488|2012-06|Philadelphia Regional Train & Rail Transit|SEPTA
 chicago_downtown|41.878674,-87.640333|2016-02|Chicago Downtown|RTA Chicago
 chicago_trains|41.878674,-87.640333|2015-03|Chicago Train Connections|RTA Chicago
 
 # ar
 
-buenosaires_metro|-34.60837,-58.372171||Buenos Aires Metro|Metrovías|http://www.metrovias.com.ar/v2/html/..%5CImages%5CMapas%5Csubte-mapa-esquematico-2010.jpg
-buenosaires_urquiza|-34.60837,-58.372171||Buenos Aires Urquiza|Metrovías|http://www.metrovias.com.ar/v2/Images/Mapas/mapa-urquiza.gif
-buenosaires_premetro|-34.60837,-58.372171||Buenos Aires Premetro|Metrovías|http://www.metrovias.com.ar/v2/Images/Mapas/mapa-premetro.gif
+buenosaires_metro|-34.60837,-58.372171||Buenos Aires Metro|Metrovías|https://www.metrovias.com.ar/Subterraneos/File/ShowContent/6759
+buenosaires_premetro|-34.60837,-58.372171|2008|Buenos Aires Premetro|Wikimedia Commons|https://upload.wikimedia.org/wikipedia/commons/6/6d/Premetro_Map3.jpg
 
 # au
 
@@ -309,15 +314,19 @@ singapore|1.299078,103.84577|2015|Singapore|Land Transport Authority
 
 # cn
 
-beijing_subway|39.924854,116.396577|2009|Beijing Subway|Wikimedia Commons|http://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Beijing-Subway-Plan.svg/2000px-Beijing-Subway-Plan.svg.png
+beijing_subway|39.924854,116.396577|2009|Beijing Subway|Wikimedia Commons|https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Beijing-Subway-Plan.svg/2000px-Beijing-Subway-Plan.svg.png
 
 # tw
 
-taipei_metro|25.06331,121.55169||Taipei Metro|Taipei Rapid Transit Corporation|http://web.metro.taipei/img/E/metrotaipeimap.jpg
+taipei_metro|25.06331,121.55169||Taipei Metro|Taipei Rapid Transit Corporation|https://web.metro.taipei/img/E/metrotaipeimap.jpg
 
 # in
 
-delhi_metro|28.635481,77.225032|2010|Delhi Metro|Wikimedia Commons|http://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Delhi_metro_rail_network.svg/2000px-Delhi_metro_rail_network.svg.png
+delhi_metro|28.635481,77.225032|2010|Delhi Metro|Wikimedia Commons|https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Delhi_metro_rail_network.svg/2000px-Delhi_metro_rail_network.svg.png
+
+# th
+
+bangkok|13.73938,100.51670|2010|Bangkok|Wikimedia Commons|https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Bangkok-transit-map.svg/2000px-Bangkok-transit-map.svg.png
 
 # jp
 
