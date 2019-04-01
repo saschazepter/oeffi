@@ -45,7 +45,7 @@
     <string name="network_vrr_comment">Nordrhein-Westfalen, Düsseldorf &amp; Dortmund, Lokal- und Regionalverkehr</string>
     <string name="network_vrs_label">Köln &amp; Bonn</string>
     <string name="network_vrs_comment">Lokal- und Regionalverkehr</string>
-    <string name="network_avv_aachen_label">Aachen</string>
+    <string name="network_avv_aachen_label">Aachener Verkehrsverbund</string>
     <string name="network_avv_aachen_comment">Lokal- und Regionalverkehr</string>
     <string name="network_mvg_label">Lüdenscheid &amp; Märkischer Kreis</string>
     <string name="network_mvg_comment">Lokal- und Regionalverkehr</string>
