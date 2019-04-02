@@ -1,3 +1,7 @@
+v10.5.2
+
+* Move directions form out of the way if query history is scrolled.
+
 v10.5.1
 
 * App-widget update now runs in a foreground service.
