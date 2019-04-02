@@ -13,6 +13,7 @@ dependencies {
     compile 'de.schildbach.wallet:integration-android:2.0'
     compile 'androidx.annotation:annotation:1.0.2'
     compile 'androidx.recyclerview:recyclerview:1.0.0'
+    compile 'androidx.coordinatorlayout:coordinatorlayout:1.0.0'
     compile 'androidx.drawerlayout:drawerlayout:1.0.0'
     compile 'androidx.core:core:1.0.1'
     compile 'com.squareup.okhttp3:okhttp:3.12.1'

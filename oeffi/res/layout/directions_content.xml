@@ -32,57 +32,65 @@
                 android:text="@string/directions_connectivity_warning"
                 android:visibility="gone" />
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <include layout="@layout/directions_form_include" />
-            </ScrollView>
-
-            <FrameLayout
-                android:id="@+id/directions_list_layout"
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
                 android:layout_height="0px"
-                android:layout_weight="1"
-                android:foreground="@drawable/view_shadow_bottom"
-                android:foregroundGravity="top|fill_horizontal" >
+                android:layout_weight="1" >
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@android:id/list"
+                <ScrollView
+                    android:id="@+id/directions_quick_return"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:background="@android:color/white"
+                    android:elevation="3dp" >
 
-                <TextView
-                    android:id="@+id/directions_query_history_empty"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="@string/directions_query_history_empty" />
+                    <include layout="@layout/directions_form_include" />
+                </ScrollView>
 
-                <LinearLayout
-                    android:id="@+id/directions_network_missing_capability"
+                <FrameLayout
+                    android:id="@+id/directions_list_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="vertical" >
+                    android:layout_height="match_parent" >
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@android:id/list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clipToPadding="false" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/directions_query_history_empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/directions_query_history_empty" />
+
+                    <LinearLayout
+                        android:id="@+id/directions_network_missing_capability"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:padding="8dp"
-                        android:text="@string/directions_message_missing_capability" />
+                        android:orientation="vertical" >
 
-                    <Button
-                        android:id="@+id/directions_network_missing_capability_button"
-                        style="@style/My.Widget.Button.Border"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/stations_list_network_settings" />
-                </LinearLayout>
-            </FrameLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="@string/directions_message_missing_capability" />
+
+                        <Button
+                            android:id="@+id/directions_network_missing_capability_button"
+                            style="@style/My.Widget.Button.Border"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/stations_list_network_settings" />
+                    </LinearLayout>
+                </FrameLayout>
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
         </LinearLayout>
 
         <include layout="@layout/navigation_drawer" />

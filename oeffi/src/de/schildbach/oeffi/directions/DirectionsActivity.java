@@ -42,6 +42,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Throwables;
+import com.google.common.primitives.Floats;
 
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.FromViaToAware;
@@ -135,8 +136,10 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import okhttp3.HttpUrl;
@@ -146,6 +149,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
     private ConnectivityManager connectivityManager;
     private LocationManager locationManager;
 
+    private View quickReturnView;
     private ToggleImageButton buttonExpand;
     private LocationView viewFromLocation;
     private LocationView viewViaLocation;
@@ -159,6 +163,8 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
     private Button viewGo;
     private RecyclerView viewQueryHistoryList;
     private QueryHistoryAdapter queryHistoryListAdapter;
+    private View viewQueryHistoryEmpty;
+    private View viewQueryMissingCapability;
     private TextView connectivityWarningView;
     private OeffiMapView mapView;
 
@@ -437,6 +443,28 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
         viewQueryHistoryList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         queryHistoryListAdapter = new QueryHistoryAdapter(this, network, this, this);
         viewQueryHistoryList.setAdapter(queryHistoryListAdapter);
+        viewQueryHistoryEmpty = findViewById(R.id.directions_query_history_empty);
+
+        viewQueryMissingCapability = findViewById(R.id.directions_network_missing_capability);
+
+        quickReturnView = findViewById(R.id.directions_quick_return);
+        final CoordinatorLayout.LayoutParams layoutParams = new CoordinatorLayout.LayoutParams(
+                quickReturnView.getLayoutParams().width, quickReturnView.getLayoutParams().height);
+        layoutParams.setBehavior(new QuickReturnBehavior());
+        quickReturnView.setLayoutParams(layoutParams);
+        quickReturnView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(final View v, final int left, final int top, final int right, final int bottom,
+                    final int oldLeft, final int oldTop, final int oldRight, final int oldBottom) {
+                final int height = bottom - top;
+                viewQueryHistoryList.setPadding(viewQueryHistoryList.getPaddingLeft(), height,
+                        viewQueryHistoryList.getPaddingRight(), viewQueryHistoryList.getPaddingBottom());
+                viewQueryHistoryEmpty.setPadding(viewQueryHistoryEmpty.getPaddingLeft(), height,
+                        viewQueryHistoryEmpty.getPaddingRight(), viewQueryHistoryEmpty.getPaddingBottom());
+                viewQueryMissingCapability.setPadding(viewQueryMissingCapability.getPaddingLeft(), height,
+                        viewQueryMissingCapability.getPaddingRight(), viewQueryMissingCapability.getPaddingBottom());
+            }
+        });
 
         mapView = (OeffiMapView) findViewById(R.id.directions_map);
         if (ContextCompat.checkSelfPermission(DirectionsActivity.this,
@@ -573,10 +601,9 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
         viewGo.setEnabled(hasDirectionsCap);
 
         viewQueryHistoryList.setVisibility(hasDirectionsCap ? View.VISIBLE : View.GONE);
-        findViewById(R.id.directions_network_missing_capability)
-                .setVisibility(hasDirectionsCap ? View.GONE : View.VISIBLE);
-        findViewById(R.id.directions_query_history_empty).setVisibility(
+        viewQueryHistoryEmpty.setVisibility(
                 hasDirectionsCap && queryHistoryListAdapter.getItemCount() == 0 ? View.VISIBLE : View.INVISIBLE);
+        viewQueryMissingCapability.setVisibility(hasDirectionsCap ? View.GONE : View.VISIBLE);
 
         // regular refresh
         tickReceiver = new BroadcastReceiver() {
@@ -907,6 +934,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
     private void handleReuseQuery(final Location from, final Location to) {
         viewFromLocation.setLocation(from);
         viewToLocation.setLocation(to);
+        quickReturnView.setTranslationY(0); // show
     }
 
     private void handleShowSavedTrip(final byte[] serializedTrip) {
@@ -1387,5 +1415,20 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
 
     private Accessibility prefsGetAccessibility() {
         return Accessibility.valueOf(prefs.getString(Constants.PREFS_KEY_ACCESSIBILITY, Accessibility.NEUTRAL.name()));
+    }
+
+    private static final class QuickReturnBehavior extends CoordinatorLayout.Behavior<View> {
+        @Override
+        public boolean onStartNestedScroll(final CoordinatorLayout coordinatorLayout, final View child,
+                final View directTargetChild, final View target, final int nestedScrollAxes, final int type) {
+            return (nestedScrollAxes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;
+        }
+
+        @Override
+        public void onNestedScroll(final CoordinatorLayout coordinatorLayout, final View child, final View target,
+                final int dxConsumed, final int dyConsumed, final int dxUnconsumed, final int dyUnconsumed,
+                final int type) {
+            child.setTranslationY(Floats.constrainToRange(child.getTranslationY() - dyConsumed, -child.getHeight(), 0));
+        }
     }
 }
