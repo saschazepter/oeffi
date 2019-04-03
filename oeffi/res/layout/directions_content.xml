@@ -37,17 +37,6 @@
                 android:layout_height="0px"
                 android:layout_weight="1" >
 
-                <ScrollView
-                    android:id="@+id/directions_quick_return"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top"
-                    android:background="@android:color/white"
-                    android:elevation="3dp" >
-
-                    <include layout="@layout/directions_form_include" />
-                </ScrollView>
-
                 <FrameLayout
                     android:id="@+id/directions_list_layout"
                     android:layout_width="match_parent"
@@ -90,6 +79,17 @@
                             android:text="@string/stations_list_network_settings" />
                     </LinearLayout>
                 </FrameLayout>
+
+                <ScrollView
+                    android:id="@+id/directions_quick_return"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:background="@android:color/white"
+                    android:elevation="3dp" >
+
+                    <include layout="@layout/directions_form_include" />
+                </ScrollView>
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
         </LinearLayout>
 
