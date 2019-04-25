@@ -1,3 +1,7 @@
+v10.5.4
+
+* Require Gradle 4.4 (or later) for building.
+
 v10.5.2-v10.5.3
 
 * Move directions form out of the way if query history is scrolled.
