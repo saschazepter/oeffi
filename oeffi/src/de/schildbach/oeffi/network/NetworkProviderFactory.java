@@ -87,7 +87,7 @@ import okhttp3.HttpUrl;
 public final class NetworkProviderFactory {
     private static Map<NetworkId, NetworkProvider> providerCache = new HashMap<>();
 
-    private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36";
+    private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36";
     private static final String NAVITIA_AUTHORIZATION = "577e5781-23ee-4ff0-a5b3-92e5b04887e5"; // oeffi@schildbach.de
 
     public static synchronized NetworkProvider provider(final NetworkId networkId) {
