@@ -8,4 +8,4 @@ if (GradleVersion.current().compareTo(minGradleVersion) < 0)
     throw new GradleScriptException("build requires Gradle ${minGradleVersion} or later", null)
 
 include 'oeffi'
-include 'enabler'
+include 'public-transport-enabler'
