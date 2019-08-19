@@ -25,6 +25,8 @@ import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
@@ -1377,6 +1379,31 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
                                         for (final Location location : suggestLocationsResult.getLocations())
                                             if (!results.contains(location))
                                                 results.add(location);
+                                }
+
+                                if (ContextCompat.checkSelfPermission(DirectionsActivity.this,
+                                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                                    final android.location.Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+                                    if (location != null){
+                                        Collections.sort(results, new Comparator<Location>() {
+                                            @Override
+                                            public int compare(Location location1, Location location2) {
+                                                float[] result1 = new float[3];
+                                                android.location.Location.distanceBetween(
+                                                        location1.getLatAsDouble(), location1.getLonAsDouble(),
+                                                        location.getLatitude(), location.getLongitude(), result1);
+                                                Float distance1 = result1[0];
+
+                                                float[] result2 = new float[3];
+                                                android.location.Location.distanceBetween(
+                                                        location2.getLatAsDouble(), location2.getLonAsDouble(),
+                                                        location.getLatitude(), location.getLongitude(), result2);
+                                                Float distance2 = result2[0];
+
+                                                return distance1.compareTo(distance2);
+                                            }
+                                        });
+                                    }
                                 }
 
                                 filterResults.values = results;
