@@ -18,7 +18,7 @@ dependencies {
     compile 'androidx.core:core:1.0.2'
     compile 'com.squareup.okhttp3:okhttp:3.12.3'
     compile 'com.squareup.okhttp3:logging-interceptor:3.12.3'
-    compile 'com.google.guava:guava:28.0-android'
+    compile 'com.google.guava:guava:28.1-android'
     compile 'org.osmdroid:osmdroid-android:6.1.0'
     compile 'org.slf4j:slf4j-api:1.7.28'
     compile 'com.github.tony19:logback-android:2.0.0'
