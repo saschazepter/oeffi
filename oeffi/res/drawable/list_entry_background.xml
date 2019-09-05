@@ -3,12 +3,12 @@
 
     <!-- activated, plain -->
     <item android:state_activated="true"><shape>
-            <solid android:color="#cfffaf" />
+            <solid android:color="#ffcfffaf" />
         </shape></item>
 
     <!-- plain -->
     <item><shape>
-            <solid android:color="#ffffff" />
+            <solid android:color="#ffffffff" />
         </shape></item>
 
 </selector>
