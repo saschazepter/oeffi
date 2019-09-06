@@ -6,10 +6,6 @@
         android:title="@string/about_donate_bitcoin_title"
         android:titleCondensed="@string/about_donate_bitcoin_summary"/>
     <item
-        android:id="@+id/donate_menu_flattr"
-        android:title="@string/about_donate_flattr_title"
-        android:titleCondensed="@string/about_donate_flattr_summary"/>
-    <item
         android:id="@+id/donate_menu_euro"
         android:title="@string/about_donate_euro_title"
         android:titleCondensed="@string/about_donate_euro_summary"/>

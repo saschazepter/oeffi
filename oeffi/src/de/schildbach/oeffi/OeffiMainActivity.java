@@ -332,9 +332,6 @@ public abstract class OeffiMainActivity extends OeffiActivity {
                     if (item.getItemId() == R.id.donate_menu_bitcoin) {
                         BitcoinIntegration.request(OeffiMainActivity.this, Constants.BITCOIN_ADDRESS);
                         return true;
-                    } else if (item.getItemId() == R.id.donate_menu_flattr) {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.FLATTR_THING_URL)));
-                        return true;
                     } else if (item.getItemId() == R.id.donate_menu_euro) {
                         startActivity(new Intent(Intent.ACTION_VIEW,
                                 Uri.parse(getString(R.string.about_donate_euro_summary))));

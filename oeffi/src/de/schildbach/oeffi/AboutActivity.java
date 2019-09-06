@@ -33,7 +33,6 @@ public class AboutActivity extends PreferenceActivity {
     private static final String KEY_ABOUT_CHANGELOG = "about_changelog";
     private static final String KEY_ABOUT_FAQ = "about_faq";
     private static final String KEY_ABOUT_DONATE_BITCOIN = "about_donate_bitcoin";
-    private static final String KEY_ABOUT_DONATE_FLATTR = "about_donate_flattr";
     private static final String KEY_ABOUT_DONATE_EURO = "about_donate_euro";
     private static final String KEY_ABOUT_MARKET_APP = "about_market_rate";
 
@@ -66,9 +65,6 @@ public class AboutActivity extends PreferenceActivity {
             finish();
         } else if (KEY_ABOUT_DONATE_BITCOIN.equals(key)) {
             BitcoinIntegration.request(this, Constants.BITCOIN_ADDRESS);
-            finish();
-        } else if (KEY_ABOUT_DONATE_FLATTR.equals(key)) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.FLATTR_THING_URL)));
             finish();
         } else if (KEY_ABOUT_DONATE_EURO.equals(key)) {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.about_donate_euro_summary))));

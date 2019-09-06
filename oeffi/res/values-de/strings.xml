@@ -60,8 +60,6 @@
     <string name="about_donate_title">Spenden</string>
     <string name="about_donate_bitcoin_title">Bitcoins spenden</string>
     <string name="about_donate_bitcoin_summary">Bitcoin ist eine Internet-Währung.</string>
-    <string name="about_donate_flattr_title">Über Flattr spenden</string>
-    <string name="about_donate_flattr_summary">Flattr ist ein Mikro-Spenden-System.</string>
     <string name="about_donate_euro_title">Euros spenden</string>
     <string name="about_donate_euro_summary">https://oeffi.schildbach.de/donate_de.html</string>
 
