@@ -29,7 +29,7 @@
     <string name="global_options_plans_comment">For a rough overview</string>
     <string name="global_options_donate_title">Donate</string>
     <string name="global_options_report_bug_title">Report bug</string>
-    <string name="global_options_preferences_title">Preferences</string>
+    <string name="global_options_preferences_title">Settings</string>
     <string name="global_options_about_title">About Offi</string>
 
     <!-- global preferences -->
