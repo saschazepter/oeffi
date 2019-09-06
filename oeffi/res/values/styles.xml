@@ -24,7 +24,11 @@
         <item name="android:textViewStyle">@style/My.Widget.TextView</item>
     </style>
 
-    <style name="My.Theme.Translucent" parent="@android:style/Theme.Holo.Light.Dialog.NoActionBar" />
+    <style name="My.Theme.Translucent" parent="@style/My.Theme.Light">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
 
     <style name="My.Widget.TextView" parent="@android:style/Widget.TextView">
         <item name="android:textColor">@color/text</item>
