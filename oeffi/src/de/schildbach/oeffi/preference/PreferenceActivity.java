@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.MenuItem;
 import de.schildbach.oeffi.R;
+import de.schildbach.oeffi.Variants;
 
 import java.util.List;
 
@@ -38,6 +39,8 @@ public class PreferenceActivity extends android.preference.PreferenceActivity {
     @Override
     public void onBuildHeaders(final List<Header> target) {
         loadHeadersFromResource(R.xml.preference_headers, target);
+        if (Variants.ENABLE_DONATE)
+            loadHeadersFromResource(R.xml.preference_headers_donate, target);
     }
 
     @Override
@@ -56,6 +59,6 @@ public class PreferenceActivity extends android.preference.PreferenceActivity {
         return CommonFragment.class.getName().equals(fragmentName)
                 || DirectionsFragment.class.getName().equals(fragmentName)
                 || AboutFragment.class.getName().equals(fragmentName)
-                || DonateFragment.class.getName().equals(fragmentName);
+                || (Variants.ENABLE_DONATE && DonateFragment.class.getName().equals(fragmentName));
     }
 }

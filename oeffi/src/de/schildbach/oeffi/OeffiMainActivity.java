@@ -277,6 +277,9 @@ public abstract class OeffiMainActivity extends OeffiActivity {
         final MenuItem plansItem = menu.findItem(R.id.global_options_plans);
         plansItem.setChecked(this instanceof PlansPickerActivity);
 
+        final MenuItem donateItem = menu.findItem(R.id.global_options_donate);
+        donateItem.setVisible(Variants.ENABLE_DONATE);
+
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -326,7 +329,8 @@ public abstract class OeffiMainActivity extends OeffiActivity {
         }
 
         case R.id.global_options_donate: {
-            PreferenceActivity.start(this, DonateFragment.class.getName());
+            if (Variants.ENABLE_DONATE)
+                PreferenceActivity.start(this, DonateFragment.class.getName());
             return true;
         }
 
