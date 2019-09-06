@@ -29,7 +29,6 @@ import android.preference.PreferenceScreen;
 
 public class AboutActivity extends PreferenceActivity {
     private static final String KEY_ABOUT_VERSION = "about_version";
-    private static final String KEY_ABOUT_TWITTER = "about_twitter";
     private static final String KEY_ABOUT_CHANGELOG = "about_changelog";
     private static final String KEY_ABOUT_FAQ = "about_faq";
     private static final String KEY_ABOUT_DONATE_BITCOIN = "about_donate_bitcoin";
@@ -53,10 +52,7 @@ public class AboutActivity extends PreferenceActivity {
     public boolean onPreferenceTreeClick(final PreferenceScreen preferenceScreen, final Preference preference) {
         final String key = preference.getKey();
 
-        if (KEY_ABOUT_TWITTER.equals(key)) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.TWITTER_URL)));
-            finish();
-        } else if (KEY_ABOUT_CHANGELOG.equals(key)) {
+        if (KEY_ABOUT_CHANGELOG.equals(key)) {
             final Application application = (Application) getApplication();
             ChangelogDialogBuilder.get(this, Application.versionCode(application), null,
                     Application.versionFlavor(application), 0, null).show();

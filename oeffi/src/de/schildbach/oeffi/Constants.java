@@ -33,7 +33,6 @@ public class Constants {
     public static final String PLAN_INDEX_FILENAME = "plans-index.txt";
     public static final String PLAN_STATIONS_FILENAME = "plans-stations.txt";
 
-    public static final String TWITTER_URL = "http://twitter.com/oeffi";
     public static final String MARKET_APP_URL = "market://details?id=%s";
     public static final String GOOGLE_PLAY_APP_URL = "https://play.google.com/store/apps/details?id=%s";
     public static final String BITCOIN_ADDRESS = "1PW21MuBgPnjfUQriwK7TnRADFotEhdysr";

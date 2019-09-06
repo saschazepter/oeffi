@@ -41,7 +41,11 @@
         <Preference
             android:key="about_twitter"
             android:summary="\@oeffi"
-            android:title="Twitter" />
+            android:title="Twitter">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://twitter.com/oeffi" />
+        </Preference>
     </PreferenceCategory>
     <PreferenceCategory
         android:key="about_donate"
