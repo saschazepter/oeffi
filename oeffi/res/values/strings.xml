@@ -56,7 +56,7 @@
     <string name="about_faq_title">FAQ</string>
     <string name="about_faq_summary">https://oeffi.schildbach.de/faq.html</string>
     <string name="about_feedback_title">Feedback</string>
-    <string name="about_market_rate_title">Rate or Review Offi</string>
+    <string name="about_market_app_title">Rate or Review Offi</string>
     <string name="about_donate_title">Donations</string>
     <string name="about_donate_bitcoin_title">Donate Bitcoins</string>
     <string name="about_donate_bitcoin_summary">Bitcoin is an Internet currency.</string>

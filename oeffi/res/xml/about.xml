@@ -36,8 +36,8 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/about_feedback_title" >
         <Preference
-            android:key="about_market_rate"
-            android:title="@string/about_market_rate_title" />
+            android:key="about_market_app"
+            android:title="@string/about_market_app_title" />
         <Preference
             android:key="about_twitter"
             android:summary="\@oeffi"
