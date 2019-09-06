@@ -49,6 +49,15 @@ android {
         }
     }
 
+    productFlavors {
+        aosp {
+            versionNameSuffix '-aosp'
+        }
+        google {
+            versionNameSuffix '-google'
+        }
+    }
+
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -58,6 +67,12 @@ android {
         }
         test {
             java.srcDirs = ['test']
+        }
+        aosp {
+            java.srcDirs = ['src-aosp']
+        }
+        google {
+            java.srcDirs = ['src-google']
         }
     }
 
