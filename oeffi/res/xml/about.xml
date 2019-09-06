@@ -18,14 +18,6 @@
                 android:data="https://www.gnu.org/licenses/gpl-3.0.txt" />
         </Preference>
         <Preference
-            android:key="about_source"
-            android:summary="https://gitlab.com/oeffi/oeffi"
-            android:title="@string/about_source_title" >
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="https://gitlab.com/oeffi/oeffi" />
-        </Preference>
-        <Preference
             android:key="about_changelog"
             android:summary="@string/about_changelog_summary"
             android:title="@string/about_changelog_title" />
@@ -34,10 +26,18 @@
             android:summary="@string/about_faq_summary"
             android:title="@string/about_faq_title" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/about_feedback_title" >
+    <PreferenceCategory android:title="@string/about_participate_title" >
         <Preference
             android:key="about_market_app"
             android:title="@string/about_market_app_title" />
+        <Preference
+            android:key="about_source"
+            android:summary="https://gitlab.com/oeffi/oeffi"
+            android:title="@string/about_source_title" >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://gitlab.com/oeffi/oeffi" />
+        </Preference>
         <Preference
             android:key="about_twitter"
             android:summary="\@oeffi"
