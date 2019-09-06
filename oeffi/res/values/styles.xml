@@ -24,6 +24,10 @@
         <item name="android:textViewStyle">@style/My.Widget.TextView</item>
     </style>
 
+    <style name="My.Theme.Preference" parent="@android:style/Theme.Holo.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/My.Widget.ActionBar</item>
+    </style>
+
     <style name="My.Theme.Translucent" parent="@style/My.Theme.Light">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -72,5 +76,16 @@
     </style>
 
     <style name="My.Widget.PopupMenu" parent="@android:style/Widget.Holo.Light.PopupMenu" />
+
+    <style name="My.Widget.ActionBar" parent="@android:style/Widget.Holo.ActionBar.Solid">
+        <item name="android:background">@color/action_bar_background</item>
+        <item name="android:titleTextStyle">@style/My.TextAppearance.Widget.ActionBar.Title</item>
+        <item name="android:displayOptions">homeAsUp|showTitle</item>
+    </style>
+
+    <style name="My.TextAppearance.Widget.ActionBar.Title" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
 </resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+            android:entries="@array/directions_optimize_trip"
+            android:entryValues="@array/directions_optimize_trip_values"
+            android:key="optimize_trip"
+            android:summary="@string/directions_preferences_optimize_trip_summary"
+            android:title="@string/directions_preferences_optimize_trip_title"/>
+    <ListPreference
+            android:defaultValue="NORMAL"
+            android:entries="@array/directions_walk_speed"
+            android:entryValues="@array/directions_walk_speed_values"
+            android:key="walk_speed"
+            android:summary="@string/directions_preferences_walk_speed_summary"
+            android:title="@string/directions_preferences_walk_speed_title"/>
+    <ListPreference
+            android:defaultValue="NEUTRAL"
+            android:entries="@array/directions_accessibility"
+            android:entryValues="@array/directions_accessibility_values"
+            android:key="accessibility"
+            android:summary="@string/directions_preferences_accessibility_summary"
+            android:title="@string/directions_preferences_accessibility_title"/>
+
+</PreferenceScreen>

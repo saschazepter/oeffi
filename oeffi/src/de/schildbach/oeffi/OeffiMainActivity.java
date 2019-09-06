@@ -32,6 +32,9 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import de.schildbach.oeffi.preference.AboutFragment;
+import de.schildbach.oeffi.preference.DonateFragment;
+import de.schildbach.oeffi.preference.PreferenceActivity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,7 +59,6 @@ import de.schildbach.oeffi.util.Installer;
 import de.schildbach.oeffi.util.NavigationMenuAdapter;
 import de.schildbach.oeffi.util.UiThreadExecutor;
 import de.schildbach.pte.NetworkId;
-import de.schildbach.wallet.integration.android.BitcoinIntegration;
 
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
@@ -78,7 +80,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.PopupMenu;
 import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -325,23 +326,7 @@ public abstract class OeffiMainActivity extends OeffiActivity {
         }
 
         case R.id.global_options_donate: {
-            final PopupMenu popup = new PopupMenu(this, getMyActionBar());
-            popup.inflate(R.menu.donate_menu);
-            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                public boolean onMenuItemClick(final MenuItem item) {
-                    if (item.getItemId() == R.id.donate_menu_bitcoin) {
-                        BitcoinIntegration.request(OeffiMainActivity.this, Constants.BITCOIN_ADDRESS);
-                        return true;
-                    } else if (item.getItemId() == R.id.donate_menu_euro) {
-                        startActivity(new Intent(Intent.ACTION_VIEW,
-                                Uri.parse(getString(R.string.about_donate_euro_summary))));
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-            });
-            popup.show();
+            PreferenceActivity.start(this, DonateFragment.class.getName());
             return true;
         }
 
@@ -351,12 +336,12 @@ public abstract class OeffiMainActivity extends OeffiActivity {
         }
 
         case R.id.global_options_preferences: {
-            startActivity(new Intent(this, PreferencesActivity.class));
+            PreferenceActivity.start(this);
             return true;
         }
 
         case R.id.global_options_about: {
-            startActivity(new Intent(this, AboutActivity.class));
+            PreferenceActivity.start(this, AboutFragment.class.getName());
             return true;
         }
         }
