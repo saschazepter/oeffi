@@ -1,3 +1,10 @@
+v11.0
+
+* The app now requires Android 4.4 (KitKat) or higher.
+  This will make UI development easier in future.
+* Use 'aosp' and 'google' flavors to separate the two build variants.
+  This is a replacement for the constantly rebased 'google' git branch.
+
 v10.5.9
 
 * Modernized Settings and About screens.
