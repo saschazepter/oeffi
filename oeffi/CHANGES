@@ -1,3 +1,9 @@
+v11.0.1
+
+* Update Android Gradle plugin to 3.1.0.
+  This means it doesn't build reproducably without external help like 'disorderfs'.
+  See https://issuetracker.google.com/issues/110237303
+
 v11.0
 
 * The app now requires Android 4.4 (KitKat) or higher.
