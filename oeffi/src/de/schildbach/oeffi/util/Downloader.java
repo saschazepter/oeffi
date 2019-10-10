@@ -50,7 +50,6 @@ import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import okhttp3.internal.http.HttpDate;
 
 public class Downloader {
     private final File cacheDir;
@@ -84,15 +83,12 @@ public class Downloader {
             final Request.Builder request = new Request.Builder();
             request.url(remoteUrl);
             if (meta != null) {
-                final String expiresHeader = meta.get("Expires");
-                if (expiresHeader != null) {
-                    final Date expires = HttpDate.parse(expiresHeader);
-                    if (expires != null && System.currentTimeMillis() < expires.getTime()) {
-                        log.info("Download '{}' skipped; using cached copy.", remoteUrl);
-                        future.set(HttpURLConnection.HTTP_NOT_MODIFIED);
-                        semaphore.release();
-                        return future;
-                    }
+                final Date expires = meta.getDate("Expires");
+                if (expires != null && System.currentTimeMillis() < expires.getTime()) {
+                    log.info("Download '{}' skipped; using cached copy.", remoteUrl);
+                    future.set(HttpURLConnection.HTTP_NOT_MODIFIED);
+                    semaphore.release();
+                    return future;
                 }
 
                 final String lastModified = meta.get("Last-Modified");
