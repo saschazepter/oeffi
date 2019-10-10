@@ -49,11 +49,14 @@ android {
         }
     }
 
+    flavorDimensions 'flavor'
     productFlavors {
         aosp {
+            dimension 'flavor'
             versionNameSuffix '-aosp'
         }
         google {
+            dimension 'flavor'
             versionNameSuffix '-google'
         }
     }
