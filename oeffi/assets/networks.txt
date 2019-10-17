@@ -95,6 +95,7 @@ PL|pl-PL|PL;Warschau
 DUB|ae-AE|AE;Dubai|beta
 
 # US
+BART|us-US|US;California;Kalifornien;San Francisco|beta
 RTACHICAGO|us-US|US;Illinois;Chicago|beta
 CMTA|us-US|US;Texas;Austin|beta
 
