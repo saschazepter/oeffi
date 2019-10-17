@@ -29,6 +29,7 @@ import de.schildbach.pte.BayernProvider;
 import de.schildbach.pte.BsvagProvider;
 import de.schildbach.pte.BvgProvider;
 import de.schildbach.pte.CmtaProvider;
+import de.schildbach.pte.CzechRepublicProvider;
 import de.schildbach.pte.DbProvider;
 import de.schildbach.pte.DingProvider;
 import de.schildbach.pte.DsbProvider;
@@ -177,6 +178,8 @@ public final class NetworkProviderFactory {
             return new LinzProvider();
         else if (networkId.equals(NetworkId.STV))
             return new StvProvider();
+        else if (networkId.equals(NetworkId.CZECH_REPUBLIC))
+            return new CzechRepublicProvider(NAVITIA_AUTHORIZATION);
         else if (networkId.equals(NetworkId.SBB))
             return new SbbProvider();
         else if (networkId.equals(NetworkId.VBL))

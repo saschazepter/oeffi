@@ -46,6 +46,9 @@ VVT|de-AT|Tirol|disabled
 SVV|de-AT|Salzburg|disabled
 VMOBIL|de-AT|Vorarlberg;Bregenz|disabled
 
+# CZ
+CZECH_REPUBLIC|cs-CZ|Tschechien;Praha;Prag|beta
+
 # CH
 SBB|de-CH|CH
 VBL|de-CH|Luzern
