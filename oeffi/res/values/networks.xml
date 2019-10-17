@@ -118,6 +118,8 @@
     <string name="network_pl_comment">long-distance, regional and local (e.g. Warsaw)</string>
     <string name="network_dub_label">Dubai</string>
     <string name="network_dub_comment">local</string>
+    <string name="network_bart_label">San Francisco</string>
+    <string name="network_bart_comment">local and regional</string>
     <string name="network_rtachicago_label">Chicago</string>
     <string name="network_rtachicago_comment">local and regional</string>
     <string name="network_cmta_label">Austin, Texas</string>

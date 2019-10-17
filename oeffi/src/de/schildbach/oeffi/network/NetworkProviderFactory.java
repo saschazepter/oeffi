@@ -25,6 +25,7 @@ import com.google.common.base.Charsets;
 import de.schildbach.pte.AbstractNetworkProvider;
 import de.schildbach.pte.AvvAachenProvider;
 import de.schildbach.pte.AvvProvider;
+import de.schildbach.pte.BartProvider;
 import de.schildbach.pte.BayernProvider;
 import de.schildbach.pte.BsvagProvider;
 import de.schildbach.pte.BvgProvider;
@@ -214,6 +215,8 @@ public final class NetworkProviderFactory {
             return new PlProvider();
         else if (networkId.equals(NetworkId.DUB))
             return new DubProvider();
+        else if (networkId.equals(NetworkId.BART))
+            return new BartProvider("{\"type\":\"AID\",\"aid\":\"kEwHkFUCIL500dym\"}");
         else if (networkId.equals(NetworkId.RTACHICAGO))
             return new RtaChicagoProvider();
         else if (networkId.equals(NetworkId.CMTA))
