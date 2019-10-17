@@ -82,6 +82,8 @@
     <string name="network_stv_comment">local and regional</string>
     <string name="network_vmobil_label">Bregenz &amp; Vorarlberg</string>
     <string name="network_vmobil_comment">Not available, because the VVV explicitly desires not to be included in Offi. You can use the ÖBB instead, it works well for Vorarlberg too.</string>
+    <string name="network_czech_republic_label">Prague</string>
+    <string name="network_czech_republic_comment">local and regional</string>
     <string name="network_sbb_comment">long-distance and regional (e.g. Geneva, Basel, Bern)</string>
     <string name="network_sbb_label">Switzerland</string>
     <string name="network_vbl_label">Lucerne</string>
