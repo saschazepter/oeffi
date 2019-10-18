@@ -1,3 +1,9 @@
+V11.1
+
+* New region: Prague.
+* New region: San Francisco.
+* Enabled Java 8 language features.
+
 v11.0.1
 
 * Update Android Gradle plugin to 3.1.0.
