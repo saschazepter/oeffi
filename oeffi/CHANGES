@@ -1,4 +1,8 @@
-V11.1
+v11.1.1
+
+* Fixed the app-widget on Android 10.
+
+v11.1
 
 * New region: Prague.
 * New region: San Francisco.
