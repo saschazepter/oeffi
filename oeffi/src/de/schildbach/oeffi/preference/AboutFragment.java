@@ -34,11 +34,13 @@ public class AboutFragment extends PreferenceFragment {
     private static final String KEY_ABOUT_MARKET_APP = "about_market_app";
     private static final String KEY_ABOUT_CHANGELOG = "about_changelog";
 
+    private Activity activity;
     private Application application;
 
     @Override
     public void onAttach(final Activity activity) {
         super.onAttach(activity);
+        this.activity = activity;
         this.application = (Application) activity.getApplication();
     }
 
@@ -54,7 +56,7 @@ public class AboutFragment extends PreferenceFragment {
         findPreference(KEY_ABOUT_CHANGELOG).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                ChangelogDialogBuilder.get(application, Application.versionCode(application), null,
+                ChangelogDialogBuilder.get(activity, Application.versionCode(application), null,
                         Application.versionFlavor(application), 0, null).show();
                 return true;
             }
