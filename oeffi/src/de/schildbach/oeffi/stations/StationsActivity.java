@@ -271,7 +271,8 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         locationPermissionRequestButton.setOnClickListener(new OnClickListener() {
             public void onClick(final View v) {
                 ActivityCompat.requestPermissions(StationsActivity.this,
-                        new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, 0);
+                        new String[] { Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_BACKGROUND_LOCATION }, 0);
             }
         });
 

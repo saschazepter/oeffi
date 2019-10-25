@@ -229,7 +229,8 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
                     locationView.acquireLocation();
                 else
                     ActivityCompat.requestPermissions(DirectionsActivity.this,
-                            new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, locationPermissionRequestCode);
+                            new String[] { Manifest.permission.ACCESS_FINE_LOCATION,
+                                    Manifest.permission.ACCESS_BACKGROUND_LOCATION }, locationPermissionRequestCode);
                 return true;
             } else if (item.getItemId() == R.id.directions_location_contact) {
                 startActivityForResult(new Intent(Intent.ACTION_PICK, CommonDataKinds.StructuredPostal.CONTENT_URI),

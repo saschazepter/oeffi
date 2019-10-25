@@ -101,7 +101,8 @@ public class DirectionsShortcutActivity extends OeffiActivity
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
             maybeStartLocation();
         else
-            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION },
+            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_BACKGROUND_LOCATION },
                     REQUEST_CODE_REQUEST_LOCATION_PERMISSION);
     }
 
