@@ -246,8 +246,8 @@ public class FavoriteStationsProvider extends ContentProvider {
                 + KEY_TYPE + " INT NOT NULL DEFAULT 1, " //
                 + KEY_STATION_NETWORK + " TEXT NOT NULL, " //
                 + KEY_STATION_ID + " TEXT NOT NULL, " //
-                + KEY_STATION_PLACE + " TEXT NULL, " //
-                + KEY_STATION_NAME + " TEXT NULL, " //
+                + KEY_STATION_PLACE + " TEXT, " //
+                + KEY_STATION_NAME + " TEXT, " //
                 + KEY_STATION_LAT + " INT NOT NULL DEFAULT 0, " //
                 + KEY_STATION_LON + " INT NOT NULL DEFAULT 0, " //
                 + "UNIQUE (" + KEY_STATION_NETWORK + "," + KEY_STATION_ID + "));";
@@ -284,7 +284,7 @@ public class FavoriteStationsProvider extends ContentProvider {
                 // removed proper migration because very few old clients left
                 db.execSQL("DELETE FROM " + DATABASE_TABLE);
             } else if (oldVersion == 3) {
-                db.execSQL("ALTER TABLE " + DATABASE_TABLE + " ADD COLUMN " + KEY_STATION_PLACE + " TEXT NULL");
+                db.execSQL("ALTER TABLE " + DATABASE_TABLE + " ADD COLUMN " + KEY_STATION_PLACE + " TEXT");
                 db.execSQL(
                         "ALTER TABLE " + DATABASE_TABLE + " ADD COLUMN " + KEY_STATION_LAT + " INT NOT NULL DEFAULT 0");
                 db.execSQL(
