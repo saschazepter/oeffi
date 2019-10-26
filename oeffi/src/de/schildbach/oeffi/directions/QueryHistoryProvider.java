@@ -468,20 +468,20 @@ public class QueryHistoryProvider extends ContentProvider {
                 + KEY_FROM_ID + " TEXT, " //
                 + KEY_FROM_LAT + " INTEGER NOT NULL, " //
                 + KEY_FROM_LON + " INTEGER NOT NULL, " //
-                + KEY_FROM_PLACE + " TEXT NULL, " //
+                + KEY_FROM_PLACE + " TEXT, " //
                 + KEY_FROM_NAME + " TEXT NOT NULL, " //
                 + KEY_TO_TYPE + " INTEGER NOT NULL, " //
                 + KEY_TO_ID + " TEXT, " //
                 + KEY_TO_LAT + " INTEGER NOT NULL, " //
                 + KEY_TO_LON + " INTEGER NOT NULL, " //
-                + KEY_TO_PLACE + " TEXT NULL, " //
+                + KEY_TO_PLACE + " TEXT, " //
                 + KEY_TO_NAME + " TEXT NOT NULL, " //
-                + KEY_FAVORITE + " INTEGER NULL DEFAULT 0, " //
+                + KEY_FAVORITE + " INTEGER DEFAULT 0, " //
                 + KEY_TIMES_QUERIED + " INTEGER NOT NULL DEFAULT 0, " //
                 + KEY_LAST_QUERIED + " INTEGER NOT NULL, " // TODO NULL
                 + KEY_LAST_DEPARTURE_TIME + " INTEGER NOT NULL DEFAULT 0, " //
                 + KEY_LAST_ARRIVAL_TIME + " INTEGER NOT NULL DEFAULT 0, " //
-                + KEY_LAST_TRIP + " BLOB NULL);";
+                + KEY_LAST_TRIP + " BLOB);";
         private static final String DATABASE_COLUMN_LIST = KEY_ROWID + "," + KEY_NETWORK + "," + KEY_FROM_TYPE + ","
                 + KEY_FROM_ID + "," + KEY_FROM_LAT + "," + KEY_FROM_LON + "," + KEY_FROM_PLACE + "," + KEY_FROM_NAME
                 + "," + KEY_TO_TYPE + "," + KEY_TO_ID + "," + KEY_TO_LAT + "," + KEY_TO_LON + "," + KEY_TO_PLACE + ","
@@ -525,15 +525,15 @@ public class QueryHistoryProvider extends ContentProvider {
                 // removed proper migration because very few old clients left
                 db.execSQL("DELETE FROM " + DATABASE_TABLE);
             } else if (oldVersion == 3) {
-                db.execSQL("ALTER TABLE " + DATABASE_TABLE + " ADD COLUMN " + KEY_FROM_PLACE + " TEXT NULL");
-                db.execSQL("ALTER TABLE " + DATABASE_TABLE + " ADD COLUMN " + KEY_TO_PLACE + " TEXT NULL");
+                db.execSQL("ALTER TABLE " + DATABASE_TABLE + " ADD COLUMN " + KEY_FROM_PLACE + " TEXT");
+                db.execSQL("ALTER TABLE " + DATABASE_TABLE + " ADD COLUMN " + KEY_TO_PLACE + " TEXT");
                 db.execSQL("ALTER TABLE " + DATABASE_TABLE + " ADD COLUMN " + KEY_LAST_DEPARTURE_TIME
                         + " INT NOT NULL DEFAULT 0");
                 db.execSQL("ALTER TABLE " + DATABASE_TABLE + " ADD COLUMN " + KEY_LAST_ARRIVAL_TIME
                         + " INT NOT NULL DEFAULT 0");
-                db.execSQL("ALTER TABLE " + DATABASE_TABLE + " ADD COLUMN " + KEY_LAST_TRIP + " BLOB NULL");
+                db.execSQL("ALTER TABLE " + DATABASE_TABLE + " ADD COLUMN " + KEY_LAST_TRIP + " BLOB");
             } else if (oldVersion == 4) {
-                db.execSQL("ALTER TABLE " + DATABASE_TABLE + " ADD COLUMN " + KEY_FAVORITE + " INTEGER NULL DEFAULT 0");
+                db.execSQL("ALTER TABLE " + DATABASE_TABLE + " ADD COLUMN " + KEY_FAVORITE + " INTEGER DEFAULT 0");
             } else if (oldVersion == 5) {
                 final String DATABASE_TABLE_OLD = DATABASE_TABLE + "_old";
                 db.execSQL("ALTER TABLE " + DATABASE_TABLE + " RENAME TO " + DATABASE_TABLE_OLD);
