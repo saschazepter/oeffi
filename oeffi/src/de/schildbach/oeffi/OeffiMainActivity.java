@@ -122,7 +122,7 @@ public abstract class OeffiMainActivity extends OeffiActivity {
         if (prefsGetNetwork() == null) {
             NetworkPickerActivity.start(this);
 
-            prefs.edit().putLong(Constants.PREFS_KEY_LAST_INFO_AT, now).commit();
+            prefs.edit().putLong(Constants.PREFS_KEY_LAST_INFO_AT, now).apply();
 
             downloadAndProcessMessages(prefsGetNetwork());
         } else if (versionCode != lastVersionCode) {
@@ -576,9 +576,9 @@ public abstract class OeffiMainActivity extends OeffiActivity {
                                 showDialog(DIALOG_MESSAGE, message);
 
                                 final long now = System.currentTimeMillis();
-                                messagesPrefs.edit().putLong(id, now).commit();
+                                messagesPrefs.edit().putLong(id, now).apply();
                                 if ("info".equals(action))
-                                    prefs.edit().putLong(Constants.PREFS_KEY_LAST_INFO_AT, now).commit();
+                                    prefs.edit().putLong(Constants.PREFS_KEY_LAST_INFO_AT, now).apply();
                             });
                         } else {
                             log.info("Got '{}: {}' when fetching message from: '{}'", response.code(),
