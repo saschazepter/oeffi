@@ -185,22 +185,18 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
         // context button
         contextButton.setVisibility(itemView.isActivated() ? View.VISIBLE : View.GONE);
         contextButtonSpace.setVisibility(itemView.isActivated() ? View.VISIBLE : View.GONE);
-        contextButton.setOnClickListener(itemView.isActivated() ? new View.OnClickListener() {
-            public void onClick(final View v) {
-                final PopupMenu contextMenu = new StationContextMenu(context, v, station.network, station.location,
-                        favState, true, true, true, true, true);
-                contextMenu.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(final MenuItem item) {
-                        final int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION)
-                            return contextMenuItemListener.onStationContextMenuItemClick(position, station.network,
-                                    station.location, station.departures, item.getItemId());
-                        else
-                            return false;
-                    }
-                });
-                contextMenu.show();
-            }
+        contextButton.setOnClickListener(itemView.isActivated() ? (View.OnClickListener) v -> {
+            final PopupMenu contextMenu = new StationContextMenu(context, v, station.network, station.location,
+                    favState, true, true, true, true, true);
+            contextMenu.setOnMenuItemClickListener(item -> {
+                final int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION)
+                    return contextMenuItemListener.onStationContextMenuItemClick(position, station.network,
+                            station.location, station.departures, item.getItemId());
+                else
+                    return false;
+            });
+            contextMenu.show();
         } : null);
 
         // departures

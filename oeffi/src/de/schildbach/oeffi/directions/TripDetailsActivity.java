@@ -198,11 +198,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         final MyActionBar actionBar = getMyActionBar();
         setPrimaryColor(R.color.action_bar_background_directions);
         actionBar.setPrimaryTitle(getTitle());
-        actionBar.setBack(new OnClickListener() {
-            public void onClick(final View v) {
-                finish();
-            }
-        });
+        actionBar.setBack(v -> finish());
 
         // action bar secondary title
         final StringBuilder secondaryTitle = new StringBuilder();
@@ -223,60 +219,50 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             trackButton = actionBar.addToggleButton(R.drawable.ic_location_white_24dp,
                     R.string.directions_trip_details_action_track_title);
-            trackButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-                public void onCheckedChanged(final ToggleImageButton buttonView, final boolean isChecked) {
-                    if (isChecked) {
-                        final String provider = requestLocationUpdates();
-                        if (provider != null) {
-                            final android.location.Location lastKnownLocation = locationManager
-                                    .getLastKnownLocation(provider);
-                            if (lastKnownLocation != null
-                                    && (lastKnownLocation.getLatitude() != 0 || lastKnownLocation.getLongitude() != 0))
-                                location = LocationHelper.locationToPoint(lastKnownLocation);
-                            else
-                                location = null;
-                            mapView.setLocationAware(TripDetailsActivity.this);
-                        }
-                    } else {
-                        locationManager.removeUpdates(TripDetailsActivity.this);
-                        location = null;
-
-                        mapView.setLocationAware(null);
+            trackButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    final String provider = requestLocationUpdates();
+                    if (provider != null) {
+                        final android.location.Location lastKnownLocation = locationManager
+                                .getLastKnownLocation(provider);
+                        if (lastKnownLocation != null
+                                && (lastKnownLocation.getLatitude() != 0 || lastKnownLocation.getLongitude() != 0))
+                            location = LocationHelper.locationToPoint(lastKnownLocation);
+                        else
+                            location = null;
+                        mapView.setLocationAware(TripDetailsActivity.this);
                     }
+                } else {
+                    locationManager.removeUpdates(TripDetailsActivity.this);
+                    location = null;
 
-                    mapView.zoomToAll();
-                    updateGUI();
+                    mapView.setLocationAware(null);
                 }
+
+                mapView.zoomToAll();
+                updateGUI();
             });
         }
         actionBar.addButton(R.drawable.ic_share_white_24dp, R.string.directions_trip_details_action_share_title)
-                .setOnClickListener(new View.OnClickListener() {
-                    public void onClick(final View v) {
-                        final PopupMenu popupMenu = new PopupMenu(TripDetailsActivity.this, v);
-                        popupMenu.inflate(R.menu.directions_trip_details_action_share);
-                        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                            public boolean onMenuItemClick(final MenuItem item) {
-                                if (item.getItemId() == R.id.directions_trip_details_action_share_short) {
-                                    shareTripShort();
-                                    return true;
-                                } else if (item.getItemId() == R.id.directions_trip_details_action_share_long) {
-                                    shareTripLong();
-                                    return true;
-                                } else {
-                                    return false;
-                                }
-                            }
-                        });
-                        popupMenu.show();
-                    }
+                .setOnClickListener(v -> {
+                    final PopupMenu popupMenu = new PopupMenu(TripDetailsActivity.this, v);
+                    popupMenu.inflate(R.menu.directions_trip_details_action_share);
+                    popupMenu.setOnMenuItemClickListener(item -> {
+                        if (item.getItemId() == R.id.directions_trip_details_action_share_short) {
+                            shareTripShort();
+                            return true;
+                        } else if (item.getItemId() == R.id.directions_trip_details_action_share_long) {
+                            shareTripLong();
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    });
+                    popupMenu.show();
                 });
         if (getPackageManager().resolveActivity(scheduleTripIntent, 0) != null) {
             actionBar.addButton(R.drawable.ic_today_white_24dp, R.string.directions_trip_details_action_calendar_title)
-                    .setOnClickListener(new View.OnClickListener() {
-                        public void onClick(final View v) {
-                            startActivity(scheduleTripIntent);
-                        }
-                    });
+                    .setOnClickListener(v -> startActivity(scheduleTripIntent));
         }
 
         legsGroup = (ViewGroup) findViewById(R.id.directions_trip_details_legs_group);
@@ -626,11 +612,9 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         expandButton
                 .setVisibility(intermediateStops != null && !intermediateStops.isEmpty() ? View.VISIBLE : View.GONE);
         expandButton.setChecked(checked != null ? checked : false);
-        expandButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            public void onCheckedChanged(final ToggleImageButton buttonView, final boolean isChecked) {
-                legExpandStates.put(leg, isChecked);
-                updateGUI();
-            }
+        expandButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            legExpandStates.put(leg, isChecked);
+            updateGUI();
         });
 
         final TableLayout stopsView = (TableLayout) row.findViewById(R.id.directions_trip_details_public_entry_stops);
@@ -664,11 +648,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
                     final View collapsedIntermediateStopsRow = collapsedIntermediateStopsRow(numIntermediateStops,
                             leg.line.style);
                     stopsView.addView(collapsedIntermediateStopsRow);
-                    collapsedIntermediateStopsRow.setOnClickListener(new OnClickListener() {
-                        public void onClick(final View v) {
-                            expandButton.setChecked(true);
-                        }
-                    });
+                    collapsedIntermediateStopsRow.setOnClickListener(v -> expandButton.setChecked(true));
                 }
             }
         }
@@ -898,14 +878,12 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         public void onClick(final View v) {
             final PopupMenu contextMenu = new StationContextMenu(TripDetailsActivity.this, v, network, location, null,
                     false, false, true, false, false);
-            contextMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                public boolean onMenuItemClick(final MenuItem item) {
-                    if (item.getItemId() == R.id.station_context_details) {
-                        StationDetailsActivity.start(TripDetailsActivity.this, network, location);
-                        return true;
-                    } else {
-                        return false;
-                    }
+            contextMenu.setOnMenuItemClickListener(item -> {
+                if (item.getItemId() == R.id.station_context_details) {
+                    StationDetailsActivity.start(TripDetailsActivity.this, network, location);
+                    return true;
+                } else {
+                    return false;
                 }
             });
             contextMenu.show();
@@ -922,28 +900,26 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         public void onClick(final View v) {
             final PopupMenu contextMenu = new StationContextMenu(TripDetailsActivity.this, v, network, stop.location,
                     null, false, false, true, true, false);
-            contextMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                public boolean onMenuItemClick(final MenuItem item) {
-                    if (item.getItemId() == R.id.station_context_details) {
-                        StationDetailsActivity.start(TripDetailsActivity.this, network, stop.location);
-                        return true;
-                    } else if (item.getItemId() == R.id.station_context_directions_from) {
-                        final Date arrivalTime = stop.getArrivalTime();
-                        final TimeSpec.Absolute time = new TimeSpec.Absolute(DepArr.DEPART,
-                                arrivalTime != null ? arrivalTime.getTime() : stop.getDepartureTime().getTime());
-                        DirectionsActivity.start(TripDetailsActivity.this, stop.location, trip.to, time,
-                                Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        return true;
-                    } else if (item.getItemId() == R.id.station_context_directions_to) {
-                        final Date arrivalTime = stop.getArrivalTime();
-                        final TimeSpec.Absolute time = new TimeSpec.Absolute(DepArr.ARRIVE,
-                                arrivalTime != null ? arrivalTime.getTime() : stop.getDepartureTime().getTime());
-                        DirectionsActivity.start(TripDetailsActivity.this, trip.from, stop.location, time,
-                                Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        return true;
-                    } else {
-                        return false;
-                    }
+            contextMenu.setOnMenuItemClickListener(item -> {
+                if (item.getItemId() == R.id.station_context_details) {
+                    StationDetailsActivity.start(TripDetailsActivity.this, network, stop.location);
+                    return true;
+                } else if (item.getItemId() == R.id.station_context_directions_from) {
+                    final Date arrivalTime = stop.getArrivalTime();
+                    final TimeSpec.Absolute time = new TimeSpec.Absolute(DepArr.DEPART,
+                            arrivalTime != null ? arrivalTime.getTime() : stop.getDepartureTime().getTime());
+                    DirectionsActivity.start(TripDetailsActivity.this, stop.location, trip.to, time,
+                            Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    return true;
+                } else if (item.getItemId() == R.id.station_context_directions_to) {
+                    final Date arrivalTime = stop.getArrivalTime();
+                    final TimeSpec.Absolute time = new TimeSpec.Absolute(DepArr.ARRIVE,
+                            arrivalTime != null ? arrivalTime.getTime() : stop.getDepartureTime().getTime());
+                    DirectionsActivity.start(TripDetailsActivity.this, trip.from, stop.location, time,
+                            Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    return true;
+                } else {
+                    return false;
                 }
             });
             contextMenu.show();

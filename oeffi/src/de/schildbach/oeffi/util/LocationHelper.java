@@ -105,11 +105,9 @@ public final class LocationHelper {
             manager.requestLocationUpdates(provider, 0, 0, listener);
 
             if (timeout > 0) {
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        log.info("LocationHelper timed out");
-                        stop(true);
-                    }
+                handler.postDelayed(() -> {
+                    log.info("LocationHelper timed out");
+                    stop(true);
                 }, timeout);
             }
         } else {

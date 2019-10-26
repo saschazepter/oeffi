@@ -271,61 +271,43 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
         final MyActionBar actionBar = getMyActionBar();
         setPrimaryColor(R.color.action_bar_background_directions);
         actionBar.setPrimaryTitle(R.string.directions_activity_title);
-        actionBar.setTitlesOnClickListener(new OnClickListener() {
-            public void onClick(final View v) {
-                NetworkPickerActivity.start(DirectionsActivity.this);
-            }
-        });
+        actionBar.setTitlesOnClickListener(v -> NetworkPickerActivity.start(DirectionsActivity.this));
         buttonExpand = actionBar.addToggleButton(R.drawable.ic_expand_white_24dp,
                 R.string.directions_action_expand_title);
-        buttonExpand.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            public void onCheckedChanged(final ToggleImageButton buttonView, final boolean isChecked) {
-                if (isChecked)
-                    expandForm();
-                else
-                    collapseForm();
+        buttonExpand.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked)
+                expandForm();
+            else
+                collapseForm();
 
-                updateMap();
-            }
+            updateMap();
         });
         actionBar.addButton(R.drawable.ic_shuffle_white_24dp, R.string.directions_action_return_trip_title)
-                .setOnClickListener(new OnClickListener() {
-                    public void onClick(final View v) {
-                        viewToLocation.exchangeWith(viewFromLocation);
-                    }
-                });
-        actionBar.overflow(R.menu.directions_options, new PopupMenu.OnMenuItemClickListener() {
-            public boolean onMenuItemClick(final MenuItem item) {
-                if (item.getItemId() == R.id.directions_options_clear_history) {
-                    if (network != null)
-                        showDialog(DIALOG_CLEAR_HISTORY);
-                    return true;
-                } else {
-                    return false;
-                }
+                .setOnClickListener(v -> viewToLocation.exchangeWith(viewFromLocation));
+        actionBar.overflow(R.menu.directions_options, item -> {
+            if (item.getItemId() == R.id.directions_options_clear_history) {
+                if (network != null)
+                    showDialog(DIALOG_CLEAR_HISTORY);
+                return true;
+            } else {
+                return false;
             }
         });
 
         initNavigation();
 
         ((Button) findViewById(R.id.directions_network_missing_capability_button))
-                .setOnClickListener(new OnClickListener() {
-                    public void onClick(final View v) {
-                        NetworkPickerActivity.start(DirectionsActivity.this);
-                    }
-                });
+                .setOnClickListener((OnClickListener) v -> NetworkPickerActivity.start(DirectionsActivity.this));
         connectivityWarningView = (TextView) findViewById(R.id.directions_connectivity_warning_box);
 
         initLayoutTransitions();
 
         final AutoCompleteLocationAdapter autoCompleteAdapter = new AutoCompleteLocationAdapter();
 
-        final LocationView.Listener locationChangeListener = new LocationView.Listener() {
-            public void changed() {
-                updateMap();
-                queryHistoryListAdapter.clearSelectedEntry();
-                requestFocusFirst();
-            }
+        final LocationView.Listener locationChangeListener = () -> {
+            updateMap();
+            queryHistoryListAdapter.clearSelectedEntry();
+            requestFocusFirst();
         };
 
         viewFromLocation = (LocationView) findViewById(R.id.directions_from);
@@ -343,17 +325,15 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
         viewToLocation = (LocationView) findViewById(R.id.directions_to);
         viewToLocation.setAdapter(autoCompleteAdapter);
         viewToLocation.setListener(locationChangeListener);
-        viewToLocation.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            public boolean onEditorAction(final TextView v, final int actionId, final KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_GO) {
-                    viewGo.performClick();
-                    return true;
-                } else if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    requestFocusFirst();
-                    return true;
-                } else {
-                    return false;
-                }
+        viewToLocation.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_GO) {
+                viewGo.performClick();
+                return true;
+            } else if (actionId == EditorInfo.IME_ACTION_DONE) {
+                requestFocusFirst();
+                return true;
+            } else {
+                return false;
             }
         });
         viewToLocation.setContextMenuItemClickListener(new LocationContextMenuItemClickListener(viewToLocation,
@@ -371,27 +351,23 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
         viewProductToggles.add((ToggleImageButton) findViewById(R.id.directions_products_c));
         initProductToggles();
 
-        final OnLongClickListener productLongClickListener = new OnLongClickListener() {
-            public boolean onLongClick(final View v) {
-                final DialogBuilder builder = DialogBuilder.get(DirectionsActivity.this);
-                builder.setTitle(R.string.directions_products_prompt);
-                builder.setItems(R.array.directions_products, new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, final int which) {
-                        for (final ToggleImageButton view : viewProductToggles) {
-                            if (which == 0)
-                                view.setChecked(view.equals(v));
-                            if (which == 1)
-                                view.setChecked(!view.equals(v));
-                            if (which == 2)
-                                view.setChecked(true);
-                            if (which == 3)
-                                view.setChecked("SUTBP".contains((String) view.getTag()));
-                        }
-                    }
-                });
-                builder.show();
-                return true;
-            }
+        final OnLongClickListener productLongClickListener = v -> {
+            final DialogBuilder builder = DialogBuilder.get(DirectionsActivity.this);
+            builder.setTitle(R.string.directions_products_prompt);
+            builder.setItems(R.array.directions_products, (dialog, which) -> {
+                for (final ToggleImageButton view : viewProductToggles) {
+                    if (which == 0)
+                        view.setChecked(view.equals(v));
+                    if (which == 1)
+                        view.setChecked(!view.equals(v));
+                    if (which == 2)
+                        view.setChecked(true);
+                    if (which == 3)
+                        view.setChecked("SUTBP".contains((String) view.getTag()));
+                }
+            });
+            builder.show();
+            return true;
         };
         for (final View view : viewProductToggles)
             view.setOnLongClickListener(productLongClickListener);
@@ -399,44 +375,36 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
         viewBike = (CheckBox) findViewById(R.id.directions_option_bike);
 
         viewTimeDepArr = (Button) findViewById(R.id.directions_time_dep_arr);
-        viewTimeDepArr.setOnClickListener(new OnClickListener() {
-            public void onClick(final View v) {
-                final DialogBuilder builder = DialogBuilder.get(DirectionsActivity.this);
-                builder.setTitle(R.string.directions_set_time_prompt);
-                builder.setItems(R.array.directions_set_time, new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, final int which) {
-                        final String[] parts = getResources().getStringArray(R.array.directions_set_time_values)[which]
-                                .split("_");
-                        final DepArr depArr = DepArr.valueOf(parts[0]);
-                        if (parts[1].equals("AT")) {
-                            time = new TimeSpec.Absolute(depArr, time.timeInMillis());
-                        } else if (parts[1].equals("IN")) {
-                            if (parts.length > 2) {
-                                time = new TimeSpec.Relative(depArr,
-                                        Long.parseLong(parts[2]) * DateUtils.MINUTE_IN_MILLIS);
-                            } else {
-                                time = new TimeSpec.Relative(depArr, 0);
-                                handleDiffClick();
-                            }
-                        } else {
-                            throw new IllegalStateException(parts[1]);
-                        }
-                        updateGUI();
+        viewTimeDepArr.setOnClickListener(v -> {
+            final DialogBuilder builder = DialogBuilder.get(DirectionsActivity.this);
+            builder.setTitle(R.string.directions_set_time_prompt);
+            builder.setItems(R.array.directions_set_time, (dialog, which) -> {
+                final String[] parts = getResources().getStringArray(R.array.directions_set_time_values)[which]
+                        .split("_");
+                final DepArr depArr = DepArr.valueOf(parts[0]);
+                if (parts[1].equals("AT")) {
+                    time = new TimeSpec.Absolute(depArr, time.timeInMillis());
+                } else if (parts[1].equals("IN")) {
+                    if (parts.length > 2) {
+                        time = new TimeSpec.Relative(depArr,
+                                Long.parseLong(parts[2]) * DateUtils.MINUTE_IN_MILLIS);
+                    } else {
+                        time = new TimeSpec.Relative(depArr, 0);
+                        handleDiffClick();
                     }
-                });
-                builder.show();
-            }
+                } else {
+                    throw new IllegalStateException(parts[1]);
+                }
+                updateGUI();
+            });
+            builder.show();
         });
 
         viewTime1 = (Button) findViewById(R.id.directions_time_1);
         viewTime2 = (Button) findViewById(R.id.directions_time_2);
 
         viewGo = (Button) findViewById(R.id.directions_go);
-        viewGo.setOnClickListener(new OnClickListener() {
-            public void onClick(final View v) {
-                handleGo();
-            }
-        });
+        viewGo.setOnClickListener(v -> handleGo());
 
         viewQueryHistoryList = (RecyclerView) findViewById(android.R.id.list);
         viewQueryHistoryList.setLayoutManager(new LinearLayoutManager(this));
@@ -452,18 +420,14 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
                 quickReturnView.getLayoutParams().width, quickReturnView.getLayoutParams().height);
         layoutParams.setBehavior(new QuickReturnBehavior());
         quickReturnView.setLayoutParams(layoutParams);
-        quickReturnView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(final View v, final int left, final int top, final int right, final int bottom,
-                    final int oldLeft, final int oldTop, final int oldRight, final int oldBottom) {
-                final int height = bottom - top;
-                viewQueryHistoryList.setPadding(viewQueryHistoryList.getPaddingLeft(), height,
-                        viewQueryHistoryList.getPaddingRight(), viewQueryHistoryList.getPaddingBottom());
-                viewQueryHistoryEmpty.setPadding(viewQueryHistoryEmpty.getPaddingLeft(), height,
-                        viewQueryHistoryEmpty.getPaddingRight(), viewQueryHistoryEmpty.getPaddingBottom());
-                viewQueryMissingCapability.setPadding(viewQueryMissingCapability.getPaddingLeft(), height,
-                        viewQueryMissingCapability.getPaddingRight(), viewQueryMissingCapability.getPaddingBottom());
-            }
+        quickReturnView.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+            final int height = bottom - top;
+            viewQueryHistoryList.setPadding(viewQueryHistoryList.getPaddingLeft(), height,
+                    viewQueryHistoryList.getPaddingRight(), viewQueryHistoryList.getPaddingBottom());
+            viewQueryHistoryEmpty.setPadding(viewQueryHistoryEmpty.getPaddingLeft(), height,
+                    viewQueryHistoryEmpty.getPaddingRight(), viewQueryHistoryEmpty.getPaddingBottom());
+            viewQueryMissingCapability.setPadding(viewQueryMissingCapability.getPaddingLeft(), height,
+                    viewQueryMissingCapability.getPaddingRight(), viewQueryMissingCapability.getPaddingBottom());
         });
 
         mapView = (OeffiMapView) findViewById(R.id.directions_map);
@@ -492,17 +456,13 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
                 final LocationTextView locationView = (LocationTextView) view
                         .findViewById(R.id.directions_map_pin_location);
                 final View buttonGroup = view.findViewById(R.id.directions_map_pin_buttons);
-                buttonGroup.findViewById(R.id.directions_map_pin_button_from).setOnClickListener(new OnClickListener() {
-                    public void onClick(final View v) {
-                        viewFromLocation.setLocation(pinLocation);
-                        mapView.removeAllViews();
-                    }
+                buttonGroup.findViewById(R.id.directions_map_pin_button_from).setOnClickListener(v -> {
+                    viewFromLocation.setLocation(pinLocation);
+                    mapView.removeAllViews();
                 });
-                buttonGroup.findViewById(R.id.directions_map_pin_button_to).setOnClickListener(new OnClickListener() {
-                    public void onClick(final View v) {
-                        viewToLocation.setLocation(pinLocation);
-                        mapView.removeAllViews();
-                    }
+                buttonGroup.findViewById(R.id.directions_map_pin_button_to).setOnClickListener(v -> {
+                    viewToLocation.setLocation(pinLocation);
+                    mapView.removeAllViews();
                 });
                 locationView.setLocation(pinLocation);
                 locationView.setShowLocationType(false);
@@ -743,49 +703,37 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
         }
     }
 
-    private final OnClickListener dateClickListener = new OnClickListener() {
-        public void onClick(final View v) {
-            final Calendar calendar = new GregorianCalendar();
-            calendar.setTimeInMillis(((TimeSpec.Absolute) time).timeMs);
-            final int year = calendar.get(Calendar.YEAR);
-            final int month = calendar.get(Calendar.MONTH);
-            final int day = calendar.get(Calendar.DAY_OF_MONTH);
+    private final OnClickListener dateClickListener = v -> {
+        final Calendar calendar = new GregorianCalendar();
+        calendar.setTimeInMillis(((TimeSpec.Absolute) time).timeMs);
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-            new DatePickerDialog(DirectionsActivity.this, Constants.ALERT_DIALOG_THEME, new OnDateSetListener() {
-                public void onDateSet(final DatePicker view, final int year, final int month, final int day) {
-                    calendar.set(Calendar.YEAR, year);
-                    calendar.set(Calendar.MONTH, month);
-                    calendar.set(Calendar.DAY_OF_MONTH, day);
-                    time = new TimeSpec.Absolute(time.depArr, calendar.getTimeInMillis());
-                    updateGUI();
-                }
-            }, year, month, day).show();
-        }
+        new DatePickerDialog(DirectionsActivity.this, Constants.ALERT_DIALOG_THEME, (view, year1, month1, day1) -> {
+            calendar.set(Calendar.YEAR, year1);
+            calendar.set(Calendar.MONTH, month1);
+            calendar.set(Calendar.DAY_OF_MONTH, day1);
+            time = new TimeSpec.Absolute(time.depArr, calendar.getTimeInMillis());
+            updateGUI();
+        }, year, month, day).show();
     };
 
-    private final OnClickListener timeClickListener = new OnClickListener() {
-        public void onClick(final View v) {
-            final Calendar calendar = new GregorianCalendar();
-            calendar.setTimeInMillis(((TimeSpec.Absolute) time).timeMs);
-            final int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            final int minute = calendar.get(Calendar.MINUTE);
+    private final OnClickListener timeClickListener = v -> {
+        final Calendar calendar = new GregorianCalendar();
+        calendar.setTimeInMillis(((TimeSpec.Absolute) time).timeMs);
+        final int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        final int minute = calendar.get(Calendar.MINUTE);
 
-            new TimePickerDialog(DirectionsActivity.this, Constants.ALERT_DIALOG_THEME, new OnTimeSetListener() {
-                public void onTimeSet(final TimePicker view, final int hour, final int minute) {
-                    calendar.set(Calendar.HOUR_OF_DAY, hour);
-                    calendar.set(Calendar.MINUTE, minute);
-                    time = new TimeSpec.Absolute(time.depArr, calendar.getTimeInMillis());
-                    updateGUI();
-                }
-            }, hour, minute, DateFormat.is24HourFormat(DirectionsActivity.this)).show();
-        }
+        new TimePickerDialog(DirectionsActivity.this, Constants.ALERT_DIALOG_THEME, (view, hour1, minute1) -> {
+            calendar.set(Calendar.HOUR_OF_DAY, hour1);
+            calendar.set(Calendar.MINUTE, minute1);
+            time = new TimeSpec.Absolute(time.depArr, calendar.getTimeInMillis());
+            updateGUI();
+        }, hour, minute, DateFormat.is24HourFormat(DirectionsActivity.this)).show();
     };
 
-    private final OnClickListener diffClickListener = new OnClickListener() {
-        public void onClick(final View v) {
-            handleDiffClick();
-        }
-    };
+    private final OnClickListener diffClickListener = v -> handleDiffClick();
 
     private void handleDiffClick() {
         final int[] relativeTimeValues = getResources().getIntArray(R.array.directions_set_time_relative);
@@ -800,16 +748,14 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
         }
         final DialogBuilder builder = DialogBuilder.get(this);
         builder.setTitle(R.string.directions_set_time_relative_prompt);
-        builder.setItems(relativeTimeStrings, new DialogInterface.OnClickListener() {
-            public void onClick(final DialogInterface dialog, final int which) {
-                if (which < relativeTimeValues.length) {
-                    final int mins = relativeTimeValues[which];
-                    time = new TimeSpec.Relative(mins * DateUtils.MINUTE_IN_MILLIS);
-                } else {
-                    time = new TimeSpec.Absolute(DepArr.DEPART, time.timeInMillis());
-                }
-                updateGUI();
+        builder.setItems(relativeTimeStrings, (dialog, which) -> {
+            if (which < relativeTimeValues.length) {
+                final int mins = relativeTimeValues[which];
+                time = new TimeSpec.Relative(mins * DateUtils.MINUTE_IN_MILLIS);
+            } else {
+                time = new TimeSpec.Absolute(DepArr.DEPART, time.timeInMillis());
             }
+            updateGUI();
         });
         builder.show();
     }
@@ -1008,11 +954,9 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
         }
 
         final ProgressDialog progressDialog = ProgressDialog.show(DirectionsActivity.this, null,
-                getString(R.string.directions_query_progress), true, true, new DialogInterface.OnCancelListener() {
-                    public void onCancel(final DialogInterface dialog) {
-                        if (queryTripsRunnable != null)
-                            queryTripsRunnable.cancel();
-                    }
+                getString(R.string.directions_query_progress), true, true, dialog -> {
+                    if (queryTripsRunnable != null)
+                        queryTripsRunnable.cancel();
                 });
         progressDialog.setCanceledOnTouchOutside(false);
 
@@ -1069,14 +1013,12 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
                         final DialogBuilder builder = DialogBuilder.get(DirectionsActivity.this);
                         builder.setTitle(getString(R.string.ambiguous_address_title));
                         builder.setAdapter(new AmbiguousLocationAdapter(DirectionsActivity.this, autocompletes),
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(final DialogInterface dialog, final int which) {
-                                        final LocationView locationView = result.ambiguousFrom != null
-                                                ? viewFromLocation
-                                                : (result.ambiguousVia != null ? viewViaLocation : viewToLocation);
-                                        locationView.setLocation(autocompletes.get(which));
-                                        viewGo.performClick();
-                                    }
+                                (dialog, which) -> {
+                                    final LocationView locationView = result.ambiguousFrom != null
+                                            ? viewFromLocation
+                                            : (result.ambiguousVia != null ? viewViaLocation : viewToLocation);
+                                    locationView.setLocation(autocompletes.get(which));
+                                    viewGo.performClick();
                                 });
                         builder.create().show();
                     } else {
@@ -1091,11 +1033,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
                         R.string.directions_alert_redirect_title);
                 builder.setMessage(getString(R.string.directions_alert_redirect_message, url.host()));
                 builder.setPositiveButton(R.string.directions_alert_redirect_button_follow,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(final DialogInterface dialog, final int which) {
-                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url.toString())));
-                            }
-                        });
+                        (dialog, which) -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url.toString()))));
                 builder.setNegativeButton(R.string.directions_alert_redirect_button_dismiss, null);
                 builder.show();
             }
@@ -1106,11 +1044,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
                         R.string.directions_alert_blocked_title);
                 builder.setMessage(getString(R.string.directions_alert_blocked_message, url.host()));
                 builder.setPositiveButton(R.string.directions_alert_blocked_button_retry,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(final DialogInterface dialog, final int which) {
-                                viewGo.performClick();
-                            }
-                        });
+                        (dialog, which) -> viewGo.performClick());
                 builder.setNegativeButton(R.string.directions_alert_blocked_button_dismiss, null);
                 builder.show();
             }
@@ -1121,11 +1055,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
                         R.string.directions_alert_internal_error_title);
                 builder.setMessage(getString(R.string.directions_alert_internal_error_message, url.host()));
                 builder.setPositiveButton(R.string.directions_alert_internal_error_button_retry,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(final DialogInterface dialog, final int which) {
-                                viewGo.performClick();
-                            }
-                        });
+                        (dialog, which) -> viewGo.performClick());
                 builder.setNegativeButton(R.string.directions_alert_internal_error_button_dismiss, null);
                 builder.show();
             }
@@ -1144,17 +1074,11 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
                 final DialogBuilder builder = DialogBuilder.warn(DirectionsActivity.this,
                         R.string.alert_network_problem_title);
                 builder.setMessage(R.string.alert_network_problem_message);
-                builder.setPositiveButton(R.string.alert_network_problem_retry, new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, final int which) {
-                        dialog.dismiss();
-                        viewGo.performClick();
-                    }
+                builder.setPositiveButton(R.string.alert_network_problem_retry, (dialog, which) -> {
+                    dialog.dismiss();
+                    viewGo.performClick();
                 });
-                builder.setOnCancelListener(new OnCancelListener() {
-                    public void onCancel(final DialogInterface dialog) {
-                        dialog.dismiss();
-                    }
-                });
+                builder.setOnCancelListener(dialog -> dialog.dismiss());
                 builder.show();
             }
         };
@@ -1171,13 +1095,11 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
             final DialogBuilder builder = DialogBuilder.get(this);
             builder.setMessage(R.string.directions_query_history_clear_confirm_message);
             builder.setPositiveButton(R.string.directions_query_history_clear_confirm_button_clear,
-                    new Dialog.OnClickListener() {
-                        public void onClick(final DialogInterface dialog, final int which) {
-                            queryHistoryListAdapter.removeAllEntries();
-                            viewFromLocation.reset();
-                            viewViaLocation.reset();
-                            viewToLocation.reset();
-                        }
+                    (dialog, which) -> {
+                        queryHistoryListAdapter.removeAllEntries();
+                        viewFromLocation.reset();
+                        viewViaLocation.reset();
+                        viewToLocation.reset();
                     });
             builder.setNegativeButton(R.string.directions_query_history_clear_confirm_button_dismiss, null);
             return builder.create();

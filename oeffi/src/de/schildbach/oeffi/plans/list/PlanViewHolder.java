@@ -71,11 +71,7 @@ public class PlanViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(final PlansAdapter.Plan plan, final PlanClickListener clickListener,
             final PlanContextMenuItemListener contextMenuItemListener) {
-        itemView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(final View v) {
-                clickListener.onPlanClick(plan);
-            }
-        });
+        itemView.setOnClickListener(v -> clickListener.onPlanClick(plan));
 
         thumbView.setImageDrawable(null);
 
@@ -101,18 +97,13 @@ public class PlanViewHolder extends RecyclerView.ViewHolder {
             networkLogoView.setVisibility(View.GONE);
         }
 
-        contextButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(final View v) {
-                final PopupMenu contextMenu = new PopupMenu(context, v);
-                contextMenu.inflate(R.menu.plans_picker_context);
-                contextMenu.getMenu().findItem(R.id.plans_picker_context_remove).setVisible(plan.localFile.exists());
-                contextMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(final MenuItem item) {
-                        return contextMenuItemListener.onPlanContextMenuItemClick(plan, item.getItemId());
-                    }
-                });
-                contextMenu.show();
-            }
+        contextButton.setOnClickListener(v -> {
+            final PopupMenu contextMenu = new PopupMenu(context, v);
+            contextMenu.inflate(R.menu.plans_picker_context);
+            contextMenu.getMenu().findItem(R.id.plans_picker_context_remove).setVisible(plan.localFile.exists());
+            contextMenu.setOnMenuItemClickListener(item -> contextMenuItemListener.onPlanContextMenuItemClick(plan,
+                    item.getItemId()));
+            contextMenu.show();
         });
     }
 

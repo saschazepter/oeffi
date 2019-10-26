@@ -144,11 +144,7 @@ public class NetworkPickerActivity extends Activity implements ActivityCompat.On
             ((FrameLayout) findViewById(R.id.network_picker_firsttime_message_shadow)).setForeground(null);
         } else {
             findViewById(R.id.network_picker_firsttime_message).setVisibility(View.GONE);
-            actionBar.setBack(new View.OnClickListener() {
-                public void onClick(final View v) {
-                    finish();
-                }
-            });
+            actionBar.setBack(v -> finish());
             final NetworkId networkId = prefsGetNetworkId();
             if (networkId != null) {
                 backgroundHandler.post(new GetAreaRunnable(NetworkProviderFactory.provider(networkId), handler) {

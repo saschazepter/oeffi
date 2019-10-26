@@ -195,70 +195,54 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         actionBar = getMyActionBar();
         setPrimaryColor(R.color.action_bar_background_stations);
         actionBar.setPrimaryTitle(R.string.stations_activity_title);
-        actionBar.setTitlesOnClickListener(new OnClickListener() {
-            public void onClick(final View v) {
-                NetworkPickerActivity.start(StationsActivity.this);
-            }
-        });
-        actionBar.addProgressButton().setOnClickListener(new OnClickListener() {
-            public void onClick(final View v) {
-                for (final Station station : stations)
-                    station.requestedAt = null;
-                handler.post(initStationsRunnable);
-            }
+        actionBar.setTitlesOnClickListener(v -> NetworkPickerActivity.start(StationsActivity.this));
+        actionBar.addProgressButton().setOnClickListener(v -> {
+            for (final Station station : stations)
+                station.requestedAt = null;
+            handler.post(initStationsRunnable);
         });
         actionBar.addButton(R.drawable.ic_search_white_24dp, R.string.stations_action_search_title)
-                .setOnClickListener(new OnClickListener() {
-                    public void onClick(final View v) {
-                        onSearchRequested();
-                    }
-                });
+                .setOnClickListener(v -> onSearchRequested());
         filterActionButton = actionBar.addButton(R.drawable.ic_filter_list_24dp, R.string.stations_filter_title);
-        filterActionButton.setOnClickListener(new OnClickListener() {
-            public void onClick(final View v) {
-                final StationsFilterPopup popup = new StationsFilterPopup(StationsActivity.this, products,
-                        new StationsFilterPopup.Listener() {
-                            public void filterChanged(final Set<Product> filter) {
-                                final Set<Product> added = new HashSet<>(filter);
-                                added.removeAll(products);
+        filterActionButton.setOnClickListener(v -> {
+            final StationsFilterPopup popup = new StationsFilterPopup(StationsActivity.this, products,
+                    filter -> {
+                        final Set<Product> added = new HashSet<>(filter);
+                        added.removeAll(products);
 
-                                final Set<Product> removed = new HashSet<>(products);
-                                removed.removeAll(filter);
+                        final Set<Product> removed = new HashSet<>(products);
+                        removed.removeAll(filter);
 
-                                products.clear();
-                                products.addAll(filter);
+                        products.clear();
+                        products.addAll(filter);
 
-                                if (!added.isEmpty()) {
-                                    handler.post(initStationsRunnable);
+                        if (!added.isEmpty()) {
+                            handler.post(initStationsRunnable);
+                        }
+
+                        if (!removed.isEmpty()) {
+                            for (final Iterator<Station> i = stations.iterator(); i.hasNext(); ) {
+                                final Station station = i.next();
+                                if (!filter(station, products)) {
+                                    i.remove();
+                                    stationsMap.remove(station.location.id);
                                 }
-
-                                if (!removed.isEmpty()) {
-                                    for (final Iterator<Station> i = stations.iterator(); i.hasNext();) {
-                                        final Station station = i.next();
-                                        if (!filter(station, products)) {
-                                            i.remove();
-                                            stationsMap.remove(station.location.id);
-                                        }
-                                    }
-
-                                    stationListAdapter.notifyDataSetChanged();
-                                    mapView.invalidate();
-                                }
-
-                                updateGUI();
                             }
-                        });
-                popup.showAsDropDown(v);
-            }
+
+                            stationListAdapter.notifyDataSetChanged();
+                            mapView.invalidate();
+                        }
+
+                        updateGUI();
+                    });
+            popup.showAsDropDown(v);
         });
-        actionBar.overflow(R.menu.stations_options, new PopupMenu.OnMenuItemClickListener() {
-            public boolean onMenuItemClick(final MenuItem item) {
-                if (item.getItemId() == R.id.stations_options_favorites) {
-                    FavoriteStationsActivity.start(StationsActivity.this);
-                    return true;
-                } else {
-                    return false;
-                }
+        actionBar.overflow(R.menu.stations_options, item -> {
+            if (item.getItemId() == R.id.stations_options_favorites) {
+                FavoriteStationsActivity.start(StationsActivity.this);
+                return true;
+            } else {
+                return false;
             }
         });
 
@@ -268,25 +252,13 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
 
         final Button locationPermissionRequestButton = (Button) findViewById(
                 R.id.stations_location_permission_request_button);
-        locationPermissionRequestButton.setOnClickListener(new OnClickListener() {
-            public void onClick(final View v) {
-                ActivityCompat.requestPermissions(StationsActivity.this,
-                        new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, 0);
-            }
-        });
+        locationPermissionRequestButton.setOnClickListener(v -> ActivityCompat.requestPermissions(StationsActivity.this,
+                new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, 0));
 
         final Button locationSettingsButton = (Button) findViewById(R.id.stations_list_location_settings);
-        locationSettingsButton.setOnClickListener(new OnClickListener() {
-            public void onClick(final View v) {
-                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-            }
-        });
+        locationSettingsButton.setOnClickListener(v -> startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)));
 
-        final OnClickListener selectNetworkListener = new OnClickListener() {
-            public void onClick(final View v) {
-                NetworkPickerActivity.start(StationsActivity.this);
-            }
-        };
+        final OnClickListener selectNetworkListener = v -> NetworkPickerActivity.start(StationsActivity.this);
         final Button networkSettingsButton = (Button) findViewById(R.id.stations_list_empty_network_settings);
         networkSettingsButton.setOnClickListener(selectNetworkListener);
         final Button missingCapabilityButton = (Button) findViewById(R.id.stations_network_missing_capability_button);
@@ -596,36 +568,34 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
             if (fixedLocation != null && fixedLocation.hasCoord())
                 mapView.animateToLocation(fixedLocation.getLatAsDouble(), fixedLocation.getLonAsDouble());
 
-            findViewById(R.id.stations_location_clear).setOnClickListener(new OnClickListener() {
-                public void onClick(final View v) {
-                    fixedLocation = null;
+            findViewById(R.id.stations_location_clear).setOnClickListener(v -> {
+                fixedLocation = null;
 
-                    if (deviceLocation != null) {
-                        mapView.animateToLocation(deviceLocation.getLatAsDouble(), deviceLocation.getLonAsDouble());
+                if (deviceLocation != null) {
+                    mapView.animateToLocation(deviceLocation.getLatAsDouble(), deviceLocation.getLonAsDouble());
 
-                        final float[] distanceBetweenResults = new float[2];
+                    final float[] distanceBetweenResults = new float[2];
 
-                        // remove non-favorites and re-calculate distances
-                        for (final Iterator<Station> i = stations.iterator(); i.hasNext();) {
-                            final Station station = i.next();
+                    // remove non-favorites and re-calculate distances
+                    for (final Iterator<Station> i = stations.iterator(); i.hasNext();) {
+                        final Station station = i.next();
 
-                            final Integer favState = favorites.get(station.location.id);
-                            if (favState == null || favState != FavoriteStationsProvider.TYPE_FAVORITE) {
-                                i.remove();
-                                stationsMap.remove(station.location.id);
-                            } else if (station.location.hasCoord()) {
-                                android.location.Location.distanceBetween(deviceLocation.getLatAsDouble(),
-                                        deviceLocation.getLonAsDouble(), station.location.getLatAsDouble(),
-                                        station.location.getLonAsDouble(), distanceBetweenResults);
-                                station.setDistanceAndBearing(distanceBetweenResults[0], distanceBetweenResults[1]);
-                            }
+                        final Integer favState = favorites.get(station.location.id);
+                        if (favState == null || favState != FavoriteStationsProvider.TYPE_FAVORITE) {
+                            i.remove();
+                            stationsMap.remove(station.location.id);
+                        } else if (station.location.hasCoord()) {
+                            android.location.Location.distanceBetween(deviceLocation.getLatAsDouble(),
+                                    deviceLocation.getLonAsDouble(), station.location.getLatAsDouble(),
+                                    station.location.getLonAsDouble(), distanceBetweenResults);
+                            station.setDistanceAndBearing(distanceBetweenResults[0], distanceBetweenResults[1]);
                         }
-                        stationListAdapter.notifyDataSetChanged();
                     }
-
-                    handler.post(initStationsRunnable);
-                    updateGUI();
+                    stationListAdapter.notifyDataSetChanged();
                 }
+
+                handler.post(initStationsRunnable);
+                updateGUI();
             });
 
             handler.post(initStationsRunnable);
@@ -651,11 +621,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
     private void setListFilter(final String filter) {
         searchQuery = filter;
 
-        findViewById(R.id.stations_search_clear).setOnClickListener(new OnClickListener() {
-            public void onClick(final View v) {
-                clearListFilter();
-            }
-        });
+        findViewById(R.id.stations_search_clear).setOnClickListener(v -> clearListFilter());
 
         stations.clear();
         stationsMap.clear();
@@ -776,17 +742,11 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
             final DialogBuilder builder = DialogBuilder.warn(this, R.string.stations_nearby_stations_error_title);
             builder.setMessage(getString(R.string.stations_nearby_stations_error_message));
             builder.setPositiveButton(getString(R.string.stations_nearby_stations_error_continue),
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.dismiss();
-                        }
-                    });
+                    (dialog, _id) -> dialog.dismiss());
             builder.setNegativeButton(getString(R.string.stations_nearby_stations_error_exit),
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.dismiss();
-                            finish();
-                        }
+                    (dialog, _id) -> {
+                        dialog.dismiss();
+                        finish();
                     });
             return builder.create();
         }
@@ -824,92 +784,82 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                 if (favoriteIds.length() != 0)
                     favoriteIds.setLength(favoriteIds.length() - 1);
 
-                backgroundHandler.post(new Runnable() {
-                    public void run() {
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                actionBar.startProgress();
-                                loading = true;
-                                updateGUI();
-                            }
-                        });
+                backgroundHandler.post(() -> {
+                    runOnUiThread(() -> {
+                        actionBar.startProgress();
+                        loading = true;
+                        updateGUI();
+                    });
 
-                        final Builder uriBuilder = NetworkContentProvider.CONTENT_URI.buildUpon();
-                        uriBuilder.appendPath(network.name());
-                        uriBuilder.appendQueryParameter("lat", Integer.toString(referenceLocation.getLatAs1E6()));
-                        uriBuilder.appendQueryParameter("lon", Integer.toString(referenceLocation.getLonAs1E6()));
-                        uriBuilder.appendQueryParameter("ids", favoriteIds.toString());
-                        final Cursor cursor = getContentResolver().query(uriBuilder.build(), null, null, null, null);
+                    final Builder uriBuilder = NetworkContentProvider.CONTENT_URI.buildUpon();
+                    uriBuilder.appendPath(network.name());
+                    uriBuilder.appendQueryParameter("lat", Integer.toString(referenceLocation.getLatAs1E6()));
+                    uriBuilder.appendQueryParameter("lon", Integer.toString(referenceLocation.getLonAs1E6()));
+                    uriBuilder.appendQueryParameter("ids", favoriteIds.toString());
+                    final Cursor cursor = getContentResolver().query(uriBuilder.build(), null, null, null, null);
 
-                        if (cursor != null) {
-                            final int nativeIdColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_ID);
-                            final int localIdColumnIndex = cursor.getColumnIndex(NetworkContentProvider.KEY_LOCAL_ID);
-                            final int placeColumnIndex = cursor.getColumnIndex(NetworkContentProvider.KEY_PLACE);
-                            final int nameColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_NAME);
-                            final int latColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LAT);
-                            final int lonColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LON);
-                            final int productsColumnIndex = cursor.getColumnIndex(NetworkContentProvider.KEY_PRODUCTS);
-                            final int linesColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LINES);
+                    if (cursor != null) {
+                        final int nativeIdColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_ID);
+                        final int localIdColumnIndex = cursor.getColumnIndex(NetworkContentProvider.KEY_LOCAL_ID);
+                        final int placeColumnIndex = cursor.getColumnIndex(NetworkContentProvider.KEY_PLACE);
+                        final int nameColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_NAME);
+                        final int latColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LAT);
+                        final int lonColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LON);
+                        final int productsColumnIndex = cursor.getColumnIndex(NetworkContentProvider.KEY_PRODUCTS);
+                        final int linesColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LINES);
 
-                            final List<Station> freshStations = new ArrayList<>(cursor.getCount());
+                        final List<Station> freshStations = new ArrayList<>(cursor.getCount());
 
-                            final float[] distanceBetweenResults = new float[2];
+                        final float[] distanceBetweenResults = new float[2];
 
-                            final NetworkProvider networkProvider = NetworkProviderFactory.provider(network);
+                        final NetworkProvider networkProvider = NetworkProviderFactory.provider(network);
 
-                            while (cursor.moveToNext()) {
-                                final List<LineDestination> lineDestinations = new LinkedList<>();
-                                for (final String lineStr : cursor.getString(linesColumnIndex).split(",")) {
-                                    if (!lineStr.isEmpty()) {
-                                        final Product product = Product.fromCode(lineStr.charAt(0));
-                                        final String label = Strings.emptyToNull(lineStr.substring(1));
-                                        // FIXME don't access networkProvider
-                                        // from thread
-                                        final Style style = networkProvider.lineStyle(null, product, label);
-                                        lineDestinations.add(
-                                                new LineDestination(new Line(null, null, product, label, style), null));
-                                    }
+                        while (cursor.moveToNext()) {
+                            final List<LineDestination> lineDestinations = new LinkedList<>();
+                            for (final String lineStr : cursor.getString(linesColumnIndex).split(",")) {
+                                if (!lineStr.isEmpty()) {
+                                    final Product product = Product.fromCode(lineStr.charAt(0));
+                                    final String label = Strings.emptyToNull(lineStr.substring(1));
+                                    // FIXME don't access networkProvider
+                                    // from thread
+                                    final Style style = networkProvider.lineStyle(null, product, label);
+                                    lineDestinations.add(
+                                            new LineDestination(new Line(null, null, product, label, style), null));
                                 }
-
-                                final String id = localIdColumnIndex != -1 ? cursor.getString(localIdColumnIndex)
-                                        : cursor.getString(nativeIdColumnIndex);
-                                final String place = placeColumnIndex != -1 ? cursor.getString(placeColumnIndex) : null;
-                                final String name = cursor.getString(nameColumnIndex);
-                                final Point coord = Point.from1E6(cursor.getInt(latColumnIndex),
-                                        cursor.getInt(lonColumnIndex));
-                                final Set<Product> products;
-                                if (productsColumnIndex != -1 && !cursor.isNull(productsColumnIndex))
-                                    products = Product.fromCodes(cursor.getString(productsColumnIndex).toCharArray());
-                                else
-                                    products = null;
-                                final Station station = new Station(network, new de.schildbach.pte.dto.Location(
-                                        LocationType.STATION, id, coord, place, name, products), lineDestinations);
-                                if (deviceLocation != null) {
-                                    android.location.Location.distanceBetween(referenceLocation.getLatAsDouble(),
-                                            referenceLocation.getLonAsDouble(), coord.getLatAsDouble(), coord.getLonAsDouble(),
-                                            distanceBetweenResults);
-                                    station.setDistanceAndBearing(distanceBetweenResults[0], distanceBetweenResults[1]);
-                                }
-                                freshStations.add(station);
                             }
 
-                            cursor.close();
-
-                            runOnUiThread(new Runnable() {
-                                public void run() {
-                                    mergeIntoStations(freshStations, true);
-                                }
-                            });
+                            final String id = localIdColumnIndex != -1 ? cursor.getString(localIdColumnIndex)
+                                    : cursor.getString(nativeIdColumnIndex);
+                            final String place = placeColumnIndex != -1 ? cursor.getString(placeColumnIndex) : null;
+                            final String name = cursor.getString(nameColumnIndex);
+                            final Point coord = Point.from1E6(cursor.getInt(latColumnIndex),
+                                    cursor.getInt(lonColumnIndex));
+                            final Set<Product> products;
+                            if (productsColumnIndex != -1 && !cursor.isNull(productsColumnIndex))
+                                products = Product.fromCodes(cursor.getString(productsColumnIndex).toCharArray());
+                            else
+                                products = null;
+                            final Station station = new Station(network, new Location(
+                                    LocationType.STATION, id, coord, place, name, products), lineDestinations);
+                            if (deviceLocation != null) {
+                                android.location.Location.distanceBetween(referenceLocation.getLatAsDouble(),
+                                        referenceLocation.getLonAsDouble(), coord.getLatAsDouble(), coord.getLonAsDouble(),
+                                        distanceBetweenResults);
+                                station.setDistanceAndBearing(distanceBetweenResults[0], distanceBetweenResults[1]);
+                            }
+                            freshStations.add(station);
                         }
 
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                actionBar.stopProgress();
-                                loading = false;
-                                updateGUI();
-                            }
-                        });
+                        cursor.close();
+
+                        runOnUiThread(() -> mergeIntoStations(freshStations, true));
                     }
+
+                    runOnUiThread(() -> {
+                        actionBar.stopProgress();
+                        loading = false;
+                        updateGUI();
+                    });
                 });
             }
 
@@ -1031,11 +981,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         }
 
         if (added) {
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    mapView.zoomToStations(stations);
-                }
-            }, 500);
+            handler.postDelayed(() -> mapView.zoomToStations(stations), 500);
         }
 
         updateGUI();
@@ -1064,33 +1010,31 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
     }
 
     private static void sortStations(final List<Station> stations) {
-        Collections.sort(stations, new Comparator<Station>() {
-            public int compare(final Station station1, final Station station2) {
-                ComparisonChain chain = ComparisonChain.start();
+        Collections.sort(stations, (station1, station2) -> {
+            ComparisonChain chain = ComparisonChain.start();
 
-                // order by distance
-                chain = chain.compareTrueFirst(station1.hasDistanceAndBearing, station2.hasDistanceAndBearing)
-                        .compare(station1.distance, station2.distance);
+            // order by distance
+            chain = chain.compareTrueFirst(station1.hasDistanceAndBearing, station2.hasDistanceAndBearing)
+                    .compare(station1.distance, station2.distance);
 
-                // order by lines
-                final List<LineDestination> lines1 = station1.getLines();
-                final List<LineDestination> lines2 = station2.getLines();
-                final List<LineDestination> lineDestinations1 = lines1 != null ? lines1
-                        : Collections.<LineDestination> emptyList();
-                final List<LineDestination> lineDestinations2 = lines2 != null ? lines2
-                        : Collections.<LineDestination> emptyList();
-                final int length1 = lineDestinations1.size();
-                final int length2 = lineDestinations2.size();
-                final int length = Math.max(length1, length2);
+            // order by lines
+            final List<LineDestination> lines1 = station1.getLines();
+            final List<LineDestination> lines2 = station2.getLines();
+            final List<LineDestination> lineDestinations1 = lines1 != null ? lines1
+                    : Collections.<LineDestination> emptyList();
+            final List<LineDestination> lineDestinations2 = lines2 != null ? lines2
+                    : Collections.<LineDestination> emptyList();
+            final int length1 = lineDestinations1.size();
+            final int length2 = lineDestinations2.size();
+            final int length = Math.max(length1, length2);
 
-                for (int i = 0; i < length; i++) {
-                    final Line line1 = i < length1 ? lineDestinations1.get(i).line : null;
-                    final Line line2 = i < length2 ? lineDestinations2.get(i).line : null;
-                    chain = chain.compare(line1, line2, Ordering.natural().nullsLast());
-                }
-
-                return chain.result();
+            for (int i = 0; i < length; i++) {
+                final Line line1 = i < length1 ? lineDestinations1.get(i).line : null;
+                final Line line2 = i < length2 ? lineDestinations2.get(i).line : null;
+                chain = chain.compare(line1, line2, Ordering.natural().nullsLast());
             }
+
+            return chain.result();
         });
     }
 
@@ -1182,58 +1126,40 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                                 protected void onRedirect(final HttpUrl url) {
                                     log.info("Redirect while querying departures on {}", requestedStationId);
 
-                                    handler.post(new Runnable() {
-                                        public void run() {
-                                            new Toast(StationsActivity.this).toast(R.string.toast_network_problem);
-                                        }
-                                    });
+                                    handler.post(() -> new Toast(StationsActivity.this).toast(R.string.toast_network_problem));
                                 };
 
                                 @Override
                                 protected void onBlocked(final HttpUrl url) {
                                     log.info("Blocked querying departures on {}", requestedStationId);
 
-                                    handler.post(new Runnable() {
-                                        public void run() {
-                                            new Toast(StationsActivity.this).toast(R.string.toast_network_blocked,
-                                                    url.host());
-                                        }
-                                    });
+                                    handler.post(() -> new Toast(StationsActivity.this).toast(R.string.toast_network_blocked,
+                                            url.host()));
                                 }
 
                                 @Override
                                 protected void onInternalError(final HttpUrl url) {
                                     log.info("Internal error querying departures on {}", requestedStationId);
 
-                                    handler.post(new Runnable() {
-                                        public void run() {
-                                            new Toast(StationsActivity.this).toast(R.string.toast_internal_error,
-                                                    url.host());
-                                        }
-                                    });
+                                    handler.post(() -> new Toast(StationsActivity.this).toast(R.string.toast_internal_error,
+                                            url.host()));
                                 }
 
                                 @Override
                                 protected void onParserException(final String message) {
                                     log.info("Cannot parse departures on {}: {}", requestedStationId, message);
 
-                                    handler.post(new Runnable() {
-                                        public void run() {
-                                            final String limitedMessage = message != null
-                                                    ? message.substring(0, Math.min(100, message.length())) : null;
-                                            new Toast(StationsActivity.this).toast(R.string.toast_invalid_data,
-                                                    limitedMessage);
-                                        }
+                                    handler.post(() -> {
+                                        final String limitedMessage = message != null
+                                                ? message.substring(0, Math.min(100, message.length())) : null;
+                                        new Toast(StationsActivity.this).toast(R.string.toast_invalid_data,
+                                                limitedMessage);
                                     });
                                 }
 
                                 @Override
                                 protected void onInputOutputError(final IOException x) {
-                                    handler.post(new Runnable() {
-                                        public void run() {
-                                            new Toast(StationsActivity.this).toast(R.string.toast_network_problem);
-                                        }
-                                    });
+                                    handler.post(() -> new Toast(StationsActivity.this).toast(R.string.toast_network_problem));
                                 }
                             });
                 }
@@ -1570,19 +1496,17 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
 
             lastTime = System.currentTimeMillis();
 
-            runOnUiThread(new Runnable() {
-                public void run() {
-                    deviceBearing = azimuth;
-                    stationListAdapter.setDeviceBearing(azimuth, faceDown);
+            runOnUiThread(() -> {
+                deviceBearing = azimuth;
+                stationListAdapter.setDeviceBearing(azimuth, faceDown);
 
-                    // refresh compass needles
-                    final int childCount = stationList.getChildCount();
-                    for (int i = 0; i < childCount; i++) {
-                        final View childAt = stationList.getChildAt(i);
-                        final View bearingView = childAt.findViewById(R.id.station_entry_bearing);
-                        if (bearingView != null)
-                            bearingView.invalidate();
-                    }
+                // refresh compass needles
+                final int childCount = stationList.getChildCount();
+                for (int i = 0; i < childCount; i++) {
+                    final View childAt = stationList.getChildAt(i);
+                    final View bearingView = childAt.findViewById(R.id.station_entry_bearing);
+                    if (bearingView != null)
+                        bearingView.invalidate();
                 }
             });
         }

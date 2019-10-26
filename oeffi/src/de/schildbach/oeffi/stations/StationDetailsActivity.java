@@ -152,34 +152,24 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
         setContentView(R.layout.stations_station_details_content);
         actionBar = getMyActionBar();
         setPrimaryColor(R.color.action_bar_background_stations);
-        actionBar.setBack(new OnClickListener() {
-            public void onClick(final View v) {
-                finish();
-            }
-        });
+        actionBar.setBack(v -> finish());
         actionBar.swapTitles();
-        actionBar.addProgressButton().setOnClickListener(new OnClickListener() {
-            public void onClick(final View v) {
-                load();
-            }
-        });
+        actionBar.addProgressButton().setOnClickListener(v -> load());
         favoriteButton = actionBar.addToggleButton(R.drawable.ic_star_24dp,
                 R.string.stations_station_details_action_favorite_title);
-        favoriteButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            public void onCheckedChanged(final ToggleImageButton buttonView, final boolean isChecked) {
-                if (isChecked) {
-                    final Uri rowUri = FavoriteUtils.persist(getContentResolver(),
-                            FavoriteStationsProvider.TYPE_FAVORITE, selectedNetwork, selectedStation);
-                    if (rowUri != null) {
-                        selectedFavState = FavoriteStationsProvider.TYPE_FAVORITE;
-                        FavoriteUtils.notifyFavoritesChanged(StationDetailsActivity.this);
-                    }
-                } else {
-                    final int numRows = FavoriteUtils.delete(getContentResolver(), selectedNetwork, selectedStation.id);
-                    if (numRows > 0) {
-                        selectedFavState = null;
-                        FavoriteUtils.notifyFavoritesChanged(StationDetailsActivity.this);
-                    }
+        favoriteButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                final Uri rowUri = FavoriteUtils.persist(getContentResolver(),
+                        FavoriteStationsProvider.TYPE_FAVORITE, selectedNetwork, selectedStation);
+                if (rowUri != null) {
+                    selectedFavState = FavoriteStationsProvider.TYPE_FAVORITE;
+                    FavoriteUtils.notifyFavoritesChanged(StationDetailsActivity.this);
+                }
+            } else {
+                final int numRows = FavoriteUtils.delete(getContentResolver(), selectedNetwork, selectedStation.id);
+                if (numRows > 0) {
+                    selectedFavState = null;
+                    FavoriteUtils.notifyFavoritesChanged(StationDetailsActivity.this);
                 }
             }
         });
@@ -800,11 +790,7 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
             final Location destination = departure.destination;
             if (destination != null) {
                 destinationView.setText(Constants.DESTINATION_ARROW_PREFIX + destination.uniqueShortName());
-                itemView.setOnClickListener(destination.id != null ? new OnClickListener() {
-                    public void onClick(final View v) {
-                        start(context, network, destination);
-                    }
-                } : null);
+                itemView.setOnClickListener(destination.id != null ? (OnClickListener) v -> start(context, network, destination) : null);
             } else {
                 destinationView.setText(null);
                 itemView.setOnClickListener(null);

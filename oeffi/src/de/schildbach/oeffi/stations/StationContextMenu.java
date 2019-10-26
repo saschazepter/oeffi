@@ -85,39 +85,37 @@ public class StationContextMenu extends PopupMenu {
         builder.setTitle(R.string.station_context_launcher_shortcut_title);
         builder.setView(view);
         builder.setPositiveButton(R.string.create_launcher_shortcut_dialog_button_ok,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, final int which) {
-                        final EditText nameView = (EditText) view
-                                .findViewById(R.id.create_launcher_shortcut_dialog_name);
-                        final String shortcutName = nameView.getText().toString();
-                        final String shortcutId = "directions-to-" + networkId.name() + "-" + location.id;
-                        final Intent shortcutIntent = new Intent(Intent.ACTION_MAIN, null, context,
-                                DirectionsShortcutActivity.class)
-                                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_NETWORK, networkId.name());
-                        shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_TYPE, location.type.name());
-                        if (location.hasId())
-                            shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_ID, location.id);
-                        if (location.hasCoord()) {
-                            shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_LAT,
-                                    location.getLatAs1E6());
-                            shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_LON,
-                                    location.getLonAs1E6());
-                        }
-                        shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_PLACE, location.place);
-                        shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_NAME, location.name);
-
-                        log.info("creating launcher shortcut {} to {}", shortcutId, location);
-                        ShortcutManagerCompat.requestPinShortcut(context,
-                                new ShortcutInfoCompat.Builder(context, shortcutId)
-                                        .setActivity(new ComponentName(context, DirectionsActivity.class))
-                                        .setShortLabel(shortcutName.length() > 0 ? shortcutName
-                                                : context.getString(R.string.directions_shortcut_default_name))
-                                        .setIcon(IconCompat.createWithResource(context,
-                                                R.mipmap.ic_oeffi_directions_color_48dp))
-                                        .setIntent(shortcutIntent).build(),
-                                null);
+                (DialogInterface.OnClickListener) (dialog, which) -> {
+                    final EditText nameView = (EditText) view
+                            .findViewById(R.id.create_launcher_shortcut_dialog_name);
+                    final String shortcutName = nameView.getText().toString();
+                    final String shortcutId = "directions-to-" + networkId.name() + "-" + location.id;
+                    final Intent shortcutIntent = new Intent(Intent.ACTION_MAIN, null, context,
+                            DirectionsShortcutActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_NETWORK, networkId.name());
+                    shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_TYPE, location.type.name());
+                    if (location.hasId())
+                        shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_ID, location.id);
+                    if (location.hasCoord()) {
+                        shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_LAT,
+                                location.getLatAs1E6());
+                        shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_LON,
+                                location.getLonAs1E6());
                     }
+                    shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_PLACE, location.place);
+                    shortcutIntent.putExtra(DirectionsShortcutActivity.INTENT_EXTRA_NAME, location.name);
+
+                    log.info("creating launcher shortcut {} to {}", shortcutId, location);
+                    ShortcutManagerCompat.requestPinShortcut(context,
+                            new ShortcutInfoCompat.Builder(context, shortcutId)
+                                    .setActivity(new ComponentName(context, DirectionsActivity.class))
+                                    .setShortLabel(shortcutName.length() > 0 ? shortcutName
+                                            : context.getString(R.string.directions_shortcut_default_name))
+                                    .setIcon(IconCompat.createWithResource(context,
+                                            R.mipmap.ic_oeffi_directions_color_48dp))
+                                    .setIntent(shortcutIntent).build(),
+                            null);
                 });
         builder.setNegativeButton(R.string.button_cancel, null);
         return builder.create();
@@ -189,11 +187,9 @@ public class StationContextMenu extends PopupMenu {
                 final String planName = plansCursor
                         .getString(plansCursor.getColumnIndexOrThrow(PlanContentProvider.KEY_PLAN_NAME));
                 plansCursor.close();
-                menu.add(planName).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(final MenuItem item) {
-                        PlanActivity.start(context, planId, location.id);
-                        return true;
-                    }
+                menu.add(planName).setOnMenuItemClickListener(item -> {
+                    PlanActivity.start(context, planId, location.id);
+                    return true;
                 });
             }
             stationsCursor.close();
@@ -203,11 +199,9 @@ public class StationContextMenu extends PopupMenu {
     private static void prepareMapMenuItem(final Context context, final MenuItem item, final Intent intent) {
         final PackageManager pm = context.getPackageManager();
         item.setVisible(pm.resolveActivity(intent, 0) != null);
-        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            public boolean onMenuItemClick(final MenuItem item) {
-                context.startActivity(intent);
-                return true;
-            }
+        item.setOnMenuItemClickListener(item1 -> {
+            context.startActivity(intent);
+            return true;
         });
     }
 }

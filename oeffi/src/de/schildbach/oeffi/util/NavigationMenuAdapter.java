@@ -114,11 +114,7 @@ public class NavigationMenuAdapter extends RecyclerView.Adapter<NavigationMenuAd
             itemView.setActivated(item.isChecked());
             itemView.setFocusable(item.isEnabled());
             if (item.isEnabled()) {
-                itemView.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(final View v) {
-                        menuClickListener.onMenuItemClick(item);
-                    }
-                });
+                itemView.setOnClickListener(v -> menuClickListener.onMenuItemClick(item));
             }
 
             final boolean primaryItem = item.getTitleCondensed() != null;

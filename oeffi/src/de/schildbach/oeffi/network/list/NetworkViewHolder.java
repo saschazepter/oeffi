@@ -68,11 +68,7 @@ public class NetworkViewHolder extends RecyclerView.ViewHolder {
             @Nullable final NetworkContextMenuItemListener contextMenuItemListener) {
         itemView.setFocusable(isEnabled);
         if (clickListener != null) {
-            itemView.setOnClickListener(new View.OnClickListener() {
-                public void onClick(final View v) {
-                    clickListener.onNetworkClick(entry);
-                }
-            });
+            itemView.setOnClickListener(v -> clickListener.onNetworkClick(entry));
         } else {
             itemView.setOnClickListener(null);
         }
@@ -114,17 +110,11 @@ public class NetworkViewHolder extends RecyclerView.ViewHolder {
         if (contextMenuItemListener != null) {
             contextButton.setVisibility(View.VISIBLE);
             contextButtonSpace.setVisibility(View.VISIBLE);
-            contextButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(final View v) {
-                    final PopupMenu contextMenu = new PopupMenu(context, v);
-                    contextMenu.inflate(R.menu.network_picker_context);
-                    contextMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        public boolean onMenuItemClick(final MenuItem item) {
-                            return contextMenuItemListener.onNetworkContextMenuItemClick(entry, item.getItemId());
-                        }
-                    });
-                    contextMenu.show();
-                }
+            contextButton.setOnClickListener(v -> {
+                final PopupMenu contextMenu = new PopupMenu(context, v);
+                contextMenu.inflate(R.menu.network_picker_context);
+                contextMenu.setOnMenuItemClickListener(item -> contextMenuItemListener.onNetworkContextMenuItemClick(entry, item.getItemId()));
+                contextMenu.show();
             });
         } else {
             contextButton.setVisibility(View.GONE);

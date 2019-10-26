@@ -122,43 +122,27 @@ public abstract class QueryDeparturesRunnable implements Runnable {
     }
 
     private void postOnPreExecute() {
-        handler.post(new Runnable() {
-            public void run() {
-                onPreExecute();
-            }
-        });
+        handler.post(() -> onPreExecute());
     }
 
     protected void onPreExecute() {
     }
 
     private void postOnPostExecute() {
-        handler.post(new Runnable() {
-            public void run() {
-                onPostExecute();
-            }
-        });
+        handler.post(() -> onPostExecute());
     }
 
     protected void onPostExecute() {
     }
 
     private void postOnResult(final QueryDeparturesResult result) {
-        handler.post(new Runnable() {
-            public void run() {
-                onResult(result);
-            }
-        });
+        handler.post(() -> onResult(result));
     }
 
     protected abstract void onResult(QueryDeparturesResult result);
 
     private void postOnRedirect(final HttpUrl url) {
-        handler.post(new Runnable() {
-            public void run() {
-                onRedirect(url);
-            }
-        });
+        handler.post(() -> onRedirect(url));
     }
 
     protected void onRedirect(final HttpUrl url) {
@@ -166,11 +150,7 @@ public abstract class QueryDeparturesRunnable implements Runnable {
     }
 
     private void postOnBlocked(final HttpUrl url) {
-        handler.post(new Runnable() {
-            public void run() {
-                onBlocked(url);
-            }
-        });
+        handler.post(() -> onBlocked(url));
     }
 
     protected void onBlocked(final HttpUrl url) {
@@ -178,11 +158,7 @@ public abstract class QueryDeparturesRunnable implements Runnable {
     }
 
     private void postOnInternalError(final HttpUrl url) {
-        handler.post(new Runnable() {
-            public void run() {
-                onInternalError(url);
-            }
-        });
+        handler.post(() -> onInternalError(url));
     }
 
     protected void onInternalError(final HttpUrl url) {
@@ -190,11 +166,7 @@ public abstract class QueryDeparturesRunnable implements Runnable {
     }
 
     private void postOnParserException(final String message) {
-        handler.post(new Runnable() {
-            public void run() {
-                onParserException(message);
-            }
-        });
+        handler.post(() -> onParserException(message));
     }
 
     protected void onParserException(final String message) {
@@ -202,11 +174,7 @@ public abstract class QueryDeparturesRunnable implements Runnable {
     }
 
     private void postOnInputOutputError(final IOException x) {
-        handler.post(new Runnable() {
-            public void run() {
-                onInputOutputError(x);
-            }
-        });
+        handler.post(() -> onInputOutputError(x));
     }
 
     protected void onInputOutputError(final IOException x) {

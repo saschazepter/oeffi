@@ -154,24 +154,18 @@ public class PlansAdapter extends RecyclerView.Adapter<PlanViewHolder> {
                         else
                             thumb = res.getDrawable(R.drawable.ic_oeffi_plans_grey300_72dp).mutate();
                         if (!call.isCanceled()) {
-                            handler.post(new Runnable() {
-                                public void run() {
-                                    holder.setCall(null);
-                                    final int position = holder.getAdapterPosition();
-                                    if (position != RecyclerView.NO_POSITION)
-                                        notifyItemChanged(position, thumb);
-                                }
+                            handler.post(() -> {
+                                holder.setCall(null);
+                                final int position1 = holder.getAdapterPosition();
+                                if (position1 != RecyclerView.NO_POSITION)
+                                    notifyItemChanged(position1, thumb);
                             });
                         }
                     }
                 }
 
                 public void onFailure(final Call call, final IOException e) {
-                    handler.post(new Runnable() {
-                        public void run() {
-                            holder.setCall(null);
-                        }
-                    });
+                    handler.post(() -> holder.setCall(null));
                 }
             });
         }

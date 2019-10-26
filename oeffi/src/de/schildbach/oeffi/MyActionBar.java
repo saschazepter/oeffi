@@ -190,13 +190,11 @@ public class MyActionBar extends LinearLayout {
     public void startProgress() {
         if (progressCount++ == 0) {
             handler.removeCallbacksAndMessages(null);
-            handler.post(new Runnable() {
-                public void run() {
-                    progressView.setVisibility(View.VISIBLE);
-                    if (progressAnimation == null) {
-                        progressAnimation = AnimationUtils.loadAnimation(context, R.anim.rotate);
-                        progressImage.startAnimation(progressAnimation);
-                    }
+            handler.post(() -> {
+                progressView.setVisibility(View.VISIBLE);
+                if (progressAnimation == null) {
+                    progressAnimation = AnimationUtils.loadAnimation(context, R.anim.rotate);
+                    progressImage.startAnimation(progressAnimation);
                 }
             });
         }
@@ -204,15 +202,13 @@ public class MyActionBar extends LinearLayout {
 
     public void stopProgress() {
         if (--progressCount <= 0) {
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    if (progressAnimation != null) {
-                        progressImage.clearAnimation();
-                        progressAnimation = null;
-                    }
-                    if (!progressAlwaysVisible)
-                        progressView.setVisibility(View.GONE);
+            handler.postDelayed(() -> {
+                if (progressAnimation != null) {
+                    progressImage.clearAnimation();
+                    progressAnimation = null;
                 }
+                if (!progressAlwaysVisible)
+                    progressView.setVisibility(View.GONE);
             }, 200);
         }
     }
@@ -224,13 +220,11 @@ public class MyActionBar extends LinearLayout {
     public void overflow(final int menuResId, final PopupMenu.OnMenuItemClickListener menuItemClickListener) {
         final View overflowButton = findViewById(R.id.action_bar_overflow_button);
         overflowButton.setVisibility(View.VISIBLE);
-        overflowButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(final View v) {
-                final PopupMenu overflowMenu = new PopupMenu(context, v);
-                overflowMenu.inflate(menuResId);
-                overflowMenu.setOnMenuItemClickListener(menuItemClickListener);
-                overflowMenu.show();
-            }
+        overflowButton.setOnClickListener(v -> {
+            final PopupMenu overflowMenu = new PopupMenu(context, v);
+            overflowMenu.inflate(menuResId);
+            overflowMenu.setOnMenuItemClickListener(menuItemClickListener);
+            overflowMenu.show();
         });
     }
 }

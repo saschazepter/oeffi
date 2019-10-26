@@ -157,54 +157,52 @@ public abstract class QueryTripsRunnable implements Runnable {
     }
 
     private void postOnPreExecute() {
-        handler.post(new Runnable() {
-            public void run() {
-                final boolean hasOptimize = options.optimize != null;
-                final boolean hasWalkSpeed = options.walkSpeed != null && options.walkSpeed != WalkSpeed.NORMAL;
-                final boolean hasAccessibility = options.accessibility != null
-                        && options.accessibility != Accessibility.NEUTRAL;
+        handler.post(() -> {
+            final boolean hasOptimize = options.optimize != null;
+            final boolean hasWalkSpeed = options.walkSpeed != null && options.walkSpeed != WalkSpeed.NORMAL;
+            final boolean hasAccessibility = options.accessibility != null
+                    && options.accessibility != Accessibility.NEUTRAL;
 
-                final SpannableStringBuilder progressMessage = new SpannableStringBuilder(
-                        res.getString(R.string.directions_query_progress));
-                progressMessage.setSpan(new StyleSpan(Typeface.BOLD), 0, progressMessage.length(),
-                        SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
-                if (hasOptimize || hasWalkSpeed || hasAccessibility) {
-                    progressMessage.append('\n');
-                    if (hasOptimize) {
-                        progressMessage.append('\n')
-                                .append(res.getString(R.string.directions_preferences_optimize_trip_title))
-                                .append(": ");
-                        final int begin = progressMessage.length();
-                        progressMessage.append(
-                                res.getStringArray(R.array.directions_optimize_trip)[options.optimize.ordinal()]);
-                        progressMessage.setSpan(new StyleSpan(Typeface.BOLD), begin, progressMessage.length(),
-                                SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    }
-                    if (hasWalkSpeed) {
-                        progressMessage.append('\n')
-                                .append(res.getString(R.string.directions_preferences_walk_speed_title)).append(": ");
-                        final int begin = progressMessage.length();
-                        progressMessage
-                                .append(res.getStringArray(R.array.directions_walk_speed)[options.walkSpeed.ordinal()]);
-                        progressMessage.setSpan(new StyleSpan(Typeface.BOLD), begin, progressMessage.length(),
-                                SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    }
-                    if (hasAccessibility) {
-                        progressMessage.append('\n')
-                                .append(res.getString(R.string.directions_preferences_accessibility_title))
-                                .append(": ");
-                        final int begin = progressMessage.length();
-                        progressMessage.append(
-                                res.getStringArray(R.array.directions_accessibility)[options.accessibility.ordinal()]);
-                        progressMessage.setSpan(new StyleSpan(Typeface.BOLD), begin, progressMessage.length(),
-                                SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    }
+            final SpannableStringBuilder progressMessage = new SpannableStringBuilder(
+                    res.getString(R.string.directions_query_progress));
+            progressMessage.setSpan(new StyleSpan(Typeface.BOLD), 0, progressMessage.length(),
+                    SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
+            if (hasOptimize || hasWalkSpeed || hasAccessibility) {
+                progressMessage.append('\n');
+                if (hasOptimize) {
+                    progressMessage.append('\n')
+                            .append(res.getString(R.string.directions_preferences_optimize_trip_title))
+                            .append(": ");
+                    final int begin = progressMessage.length();
+                    progressMessage.append(
+                            res.getStringArray(R.array.directions_optimize_trip)[options.optimize.ordinal()]);
+                    progressMessage.setSpan(new StyleSpan(Typeface.BOLD), begin, progressMessage.length(),
+                            SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
-
-                dialog.setMessage(progressMessage);
-
-                onPreExecute();
+                if (hasWalkSpeed) {
+                    progressMessage.append('\n')
+                            .append(res.getString(R.string.directions_preferences_walk_speed_title)).append(": ");
+                    final int begin = progressMessage.length();
+                    progressMessage
+                            .append(res.getStringArray(R.array.directions_walk_speed)[options.walkSpeed.ordinal()]);
+                    progressMessage.setSpan(new StyleSpan(Typeface.BOLD), begin, progressMessage.length(),
+                            SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+                if (hasAccessibility) {
+                    progressMessage.append('\n')
+                            .append(res.getString(R.string.directions_preferences_accessibility_title))
+                            .append(": ");
+                    final int begin = progressMessage.length();
+                    progressMessage.append(
+                            res.getStringArray(R.array.directions_accessibility)[options.accessibility.ordinal()]);
+                    progressMessage.setSpan(new StyleSpan(Typeface.BOLD), begin, progressMessage.length(),
+                            SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
             }
+
+            dialog.setMessage(progressMessage);
+
+            onPreExecute();
         });
     }
 
@@ -212,65 +210,41 @@ public abstract class QueryTripsRunnable implements Runnable {
     }
 
     private void postOnPostExecute() {
-        handler.post(new Runnable() {
-            public void run() {
-                onPostExecute();
-            }
-        });
+        handler.post(() -> onPostExecute());
     }
 
     protected void onPostExecute() {
     }
 
     private void postOnResult(final QueryTripsResult result) {
-        handler.post(new Runnable() {
-            public void run() {
-                onResult(result);
-            }
-        });
+        handler.post(() -> onResult(result));
     }
 
     protected abstract void onResult(QueryTripsResult result);
 
     private void postOnRedirect(final HttpUrl url) {
-        handler.post(new Runnable() {
-            public void run() {
-                onRedirect(url);
-            }
-        });
+        handler.post(() -> onRedirect(url));
     }
 
     protected void onRedirect(final HttpUrl url) {
     }
 
     private void postOnBlocked(final HttpUrl url) {
-        handler.post(new Runnable() {
-            public void run() {
-                onBlocked(url);
-            }
-        });
+        handler.post(() -> onBlocked(url));
     }
 
     protected void onBlocked(final HttpUrl url) {
     }
 
     private void postOnInternalError(final HttpUrl url) {
-        handler.post(new Runnable() {
-            public void run() {
-                onInternalError(url);
-            }
-        });
+        handler.post(() -> onInternalError(url));
     }
 
     protected void onInternalError(final HttpUrl url) {
     }
 
     private void postOnSSLException(final SSLException x) {
-        handler.post(new Runnable() {
-            public void run() {
-                onSSLException(x);
-            }
-        });
+        handler.post(() -> onSSLException(x));
     }
 
     protected void onSSLException(final SSLException x) {
@@ -279,11 +253,7 @@ public abstract class QueryTripsRunnable implements Runnable {
     public void cancel() {
         cancelled.set(true);
 
-        handler.post(new Runnable() {
-            public void run() {
-                onCancelled();
-            }
-        });
+        handler.post(() -> onCancelled());
     }
 
     protected void onCancelled() {

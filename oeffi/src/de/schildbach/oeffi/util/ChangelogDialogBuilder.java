@@ -77,10 +77,6 @@ public class ChangelogDialogBuilder extends AlertDialog.Builder {
                 : "") + context.getString(R.string.changelog_dialog_title));
         setView(view);
         setPositiveButton(context.getString(R.string.changelog_dialog_button_dismiss),
-                new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, final int id) {
-                        dialog.dismiss();
-                    }
-                });
+                (dialog, id) -> dialog.dismiss());
     }
 }

@@ -65,12 +65,10 @@ public class QueryHistoryViewHolder extends RecyclerView.ViewHolder {
             final QueryHistoryContextMenuItemListener contextMenuItemListener) {
         final boolean selected = rowId == selectedRowId;
         itemView.setActivated(selected);
-        itemView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(final View v) {
-                final int position = getAdapterPosition();
-                if (position != RecyclerView.NO_POSITION)
-                    clickListener.onEntryClick(position, from, to);
-            }
+        itemView.setOnClickListener(v -> {
+            final int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION)
+                clickListener.onEntryClick(position, from, to);
         });
 
         fromView.setLocation(from);
@@ -84,78 +82,72 @@ public class QueryHistoryViewHolder extends RecyclerView.ViewHolder {
             final long now = System.currentTimeMillis();
             tripView.setText(Formats.formatDate(context, now, savedTripDepartureTime) + "\n"
                     + Formats.formatTime(context, savedTripDepartureTime));
-            tripView.setOnClickListener(new OnClickListener() {
-                public void onClick(View v) {
-                    final int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION)
-                        clickListener.onSavedTripClick(position, serializedSavedTrip);
-                }
+            tripView.setOnClickListener(v -> {
+                final int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION)
+                    clickListener.onSavedTripClick(position, serializedSavedTrip);
             });
         } else {
             tripView.setVisibility(View.GONE);
         }
 
         contextButton.setVisibility(selected ? View.VISIBLE : View.GONE);
-        contextButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(final View v) {
-                final PopupMenu contextMenu = new PopupMenu(context, v);
-                final MenuInflater inflater = contextMenu.getMenuInflater();
-                final Menu menu = contextMenu.getMenu();
-                inflater.inflate(R.menu.directions_query_history_context, menu);
-                menu.findItem(R.id.directions_query_history_context_show_trip).setVisible(hasSavedTrip);
-                menu.findItem(R.id.directions_query_history_context_remove_trip).setVisible(hasSavedTrip);
-                menu.findItem(R.id.directions_query_history_context_add_favorite).setVisible(!isFavorite);
-                menu.findItem(R.id.directions_query_history_context_remove_favorite).setVisible(isFavorite);
-                final SubMenu fromMenu;
-                if (from.isIdentified()) {
-                    fromMenu = menu.addSubMenu(from.uniqueShortName());
-                    inflater.inflate(R.menu.directions_query_history_location_context, fromMenu);
-                    fromMenu.findItem(R.id.directions_query_history_location_context_details)
-                            .setVisible(from.type == LocationType.STATION);
-                    fromMenu.findItem(R.id.directions_query_history_location_context_add_favorite)
-                            .setVisible(from.type == LocationType.STATION && (fromFavState == null
-                                    || fromFavState != FavoriteStationsProvider.TYPE_FAVORITE));
-                    final SubMenu mapMenu = fromMenu.findItem(R.id.directions_query_history_location_context_map)
-                            .getSubMenu();
-                    StationContextMenu.prepareMapMenu(context, mapMenu, network, from);
-                } else {
-                    fromMenu = null;
-                }
-                final SubMenu toMenu;
-                if (to.isIdentified()) {
-                    toMenu = menu.addSubMenu(to.uniqueShortName());
-                    inflater.inflate(R.menu.directions_query_history_location_context, toMenu);
-                    toMenu.findItem(R.id.directions_query_history_location_context_details)
-                            .setVisible(to.type == LocationType.STATION);
-                    toMenu.findItem(R.id.directions_query_history_location_context_add_favorite)
-                            .setVisible(to.type == LocationType.STATION
-                                    && (toFavState == null || toFavState != FavoriteStationsProvider.TYPE_FAVORITE));
-                    final SubMenu mapMenu = toMenu.findItem(R.id.directions_query_history_location_context_map)
-                            .getSubMenu();
-                    StationContextMenu.prepareMapMenu(context, mapMenu, network, to);
-                } else {
-                    toMenu = null;
-                }
-                contextMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(final MenuItem item) {
-                        final int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            if (fromMenu != null && item == fromMenu.findItem(item.getItemId()))
-                                return contextMenuItemListener.onQueryHistoryContextMenuItemClick(position, from, to,
-                                        serializedSavedTrip, item.getItemId(), from);
-                            else if (toMenu != null && item == toMenu.findItem(item.getItemId()))
-                                return contextMenuItemListener.onQueryHistoryContextMenuItemClick(position, from, to,
-                                        serializedSavedTrip, item.getItemId(), to);
-                            else
-                                return contextMenuItemListener.onQueryHistoryContextMenuItemClick(position, from, to,
-                                        serializedSavedTrip, item.getItemId(), null);
-                        } else {
-                            return false;
-                        }
-                    }
-                });
-                contextMenu.show();
+        contextButton.setOnClickListener(v -> {
+            final PopupMenu contextMenu = new PopupMenu(context, v);
+            final MenuInflater inflater = contextMenu.getMenuInflater();
+            final Menu menu = contextMenu.getMenu();
+            inflater.inflate(R.menu.directions_query_history_context, menu);
+            menu.findItem(R.id.directions_query_history_context_show_trip).setVisible(hasSavedTrip);
+            menu.findItem(R.id.directions_query_history_context_remove_trip).setVisible(hasSavedTrip);
+            menu.findItem(R.id.directions_query_history_context_add_favorite).setVisible(!isFavorite);
+            menu.findItem(R.id.directions_query_history_context_remove_favorite).setVisible(isFavorite);
+            final SubMenu fromMenu;
+            if (from.isIdentified()) {
+                fromMenu = menu.addSubMenu(from.uniqueShortName());
+                inflater.inflate(R.menu.directions_query_history_location_context, fromMenu);
+                fromMenu.findItem(R.id.directions_query_history_location_context_details)
+                        .setVisible(from.type == LocationType.STATION);
+                fromMenu.findItem(R.id.directions_query_history_location_context_add_favorite)
+                        .setVisible(from.type == LocationType.STATION && (fromFavState == null
+                                || fromFavState != FavoriteStationsProvider.TYPE_FAVORITE));
+                final SubMenu mapMenu = fromMenu.findItem(R.id.directions_query_history_location_context_map)
+                        .getSubMenu();
+                StationContextMenu.prepareMapMenu(context, mapMenu, network, from);
+            } else {
+                fromMenu = null;
             }
+            final SubMenu toMenu;
+            if (to.isIdentified()) {
+                toMenu = menu.addSubMenu(to.uniqueShortName());
+                inflater.inflate(R.menu.directions_query_history_location_context, toMenu);
+                toMenu.findItem(R.id.directions_query_history_location_context_details)
+                        .setVisible(to.type == LocationType.STATION);
+                toMenu.findItem(R.id.directions_query_history_location_context_add_favorite)
+                        .setVisible(to.type == LocationType.STATION
+                                && (toFavState == null || toFavState != FavoriteStationsProvider.TYPE_FAVORITE));
+                final SubMenu mapMenu = toMenu.findItem(R.id.directions_query_history_location_context_map)
+                        .getSubMenu();
+                StationContextMenu.prepareMapMenu(context, mapMenu, network, to);
+            } else {
+                toMenu = null;
+            }
+            contextMenu.setOnMenuItemClickListener(item -> {
+                final int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    if (fromMenu != null && item == fromMenu.findItem(item.getItemId()))
+                        return contextMenuItemListener.onQueryHistoryContextMenuItemClick(position, from, to,
+                                serializedSavedTrip, item.getItemId(), from);
+                    else if (toMenu != null && item == toMenu.findItem(item.getItemId()))
+                        return contextMenuItemListener.onQueryHistoryContextMenuItemClick(position, from, to,
+                                serializedSavedTrip, item.getItemId(), to);
+                    else
+                        return contextMenuItemListener.onQueryHistoryContextMenuItemClick(position, from, to,
+                                serializedSavedTrip, item.getItemId(), null);
+                } else {
+                    return false;
+                }
+            });
+            contextMenu.show();
         });
     }
 }

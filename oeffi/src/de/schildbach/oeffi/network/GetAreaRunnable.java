@@ -86,11 +86,7 @@ public abstract class GetAreaRunnable implements Runnable {
     }
 
     private void postOnResult(final Point[] area) {
-        handler.post(new Runnable() {
-            public void run() {
-                onResult(area);
-            }
-        });
+        handler.post(() -> onResult(area));
     }
 
     protected abstract void onResult(final Point[] area);

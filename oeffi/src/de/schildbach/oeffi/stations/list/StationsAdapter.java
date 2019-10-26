@@ -104,12 +104,9 @@ public class StationsAdapter extends RecyclerView.Adapter<StationViewHolder> imp
 
         // select stations
         holder.itemView.setActivated(stationsAware.isSelectedStation(station.location.id));
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                final boolean isSelected = stationsAware.isSelectedStation(station.location.id);
-                stationsAware.selectStation(isSelected ? null : station);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            final boolean isSelected = stationsAware.isSelectedStation(station.location.id);
+            stationsAware.selectStation(isSelected ? null : station);
         });
 
         // populate view

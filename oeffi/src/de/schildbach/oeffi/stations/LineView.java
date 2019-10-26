@@ -121,11 +121,7 @@ public class LineView extends TextView {
 
                 // sort by count
                 final List<Entry<Product, Integer>> sortedEntries = new ArrayList<>(productCounts.entrySet());
-                Collections.sort(sortedEntries, new Comparator<Entry<Product, Integer>>() {
-                    public int compare(final Entry<Product, Integer> entry1, final Entry<Product, Integer> entry2) {
-                        return entry2.getValue().compareTo(entry1.getValue());
-                    }
-                });
+                Collections.sort(sortedEntries, (entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
 
                 // condense
                 for (final Map.Entry<Product, Integer> entry : sortedEntries) {
