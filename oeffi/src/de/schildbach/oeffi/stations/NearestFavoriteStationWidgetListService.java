@@ -19,6 +19,7 @@ package de.schildbach.oeffi.stations;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.R;
@@ -127,7 +128,7 @@ public class NearestFavoriteStationWidgetListService extends RemoteViewsService 
                     ? predictedTime.getTime() - plannedTime.getTime() : 0;
             final long delayMins = delay / DateUtils.MINUTE_IN_MILLIS;
             views.setViewVisibility(R.id.station_widget_entry_delay, delayMins != 0 ? View.VISIBLE : View.GONE);
-            final SpannableString delayStr = new SpannableString(String.format("(%+d)", delayMins));
+            final SpannableString delayStr = new SpannableString(String.format(Locale.US, "(%+d)", delayMins));
             delayStr.setSpan(new StyleSpan(isPredicted ? Typeface.BOLD_ITALIC : Typeface.BOLD), 0, delayStr.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             views.setTextViewText(R.id.station_widget_entry_delay, delayStr);
