@@ -236,8 +236,8 @@ public class OeffiMapView extends MapView {
 
                                     final LineView lineView = (LineView) inflater.inflate(R.layout.map_trip_line, null);
                                     lineView.setLine(publicLeg.line);
-                                    lineView.measure(MeasureSpec.makeMeasureSpec(MeasureSpec.UNSPECIFIED, 0),
-                                            MeasureSpec.makeMeasureSpec(MeasureSpec.UNSPECIFIED, 0));
+                                    lineView.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
+                                            MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
                                     final int width = lineView.getMeasuredWidth();
                                     final int height = lineView.getMeasuredHeight();
                                     lineView.layout(point.x - width / 2, point.y - height / 2, point.x + width / 2,
@@ -361,8 +361,8 @@ public class OeffiMapView extends MapView {
                                 bubble.setTypeface(Typeface.DEFAULT_BOLD);
                                 bubble.setTextSize(TypedValue.COMPLEX_UNIT_PX, stationFontSize);
                                 bubble.setIncludeFontPadding(false);
-                                bubble.measure(MeasureSpec.makeMeasureSpec(MeasureSpec.UNSPECIFIED, 0),
-                                        MeasureSpec.makeMeasureSpec(MeasureSpec.UNSPECIFIED, 0));
+                                bubble.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
+                                        MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
                                 final int width = bubble.getMeasuredWidth();
                                 final int height = bubble.getMeasuredHeight();
                                 bubble.layout(point.x - width / 2, point.y - height / 2, point.x + width / 2,
