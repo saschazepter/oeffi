@@ -1234,7 +1234,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         final StringBuilder p = new StringBuilder();
         for (final Product product : products)
             p.append(product.code);
-        prefs.edit().putString(Constants.PREFS_KEY_PRODUCT_FILTER, p.toString()).commit();
+        prefs.edit().putString(Constants.PREFS_KEY_PRODUCT_FILTER, p.toString()).apply();
     }
 
     public final List<Station> getStations() {
