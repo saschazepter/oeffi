@@ -356,11 +356,7 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler {
             }
 
             private void callback(final String newVersion) {
-                callbackHandler.post(new Runnable() {
-                    public void run() {
-                        dialog(context, newVersion);
-                    }
-                });
+                callbackHandler.post(() -> dialog(context, newVersion));
             }
         });
     }
@@ -369,39 +365,25 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler {
         final DialogBuilder builder = DialogBuilder.warn(context, R.string.alert_crash_report_title);
         builder.setMessage(newVersion != null ? context.getString(R.string.alert_crash_report_new_version, newVersion)
                 : context.getString(R.string.alert_crash_report_message));
-        builder.setNegativeButton(R.string.alert_crash_report_negative, new OnClickListener() {
-            public void onClick(final DialogInterface dialog, final int which) {
-                stackTraceFile.delete();
-            }
-        });
+        builder.setNegativeButton(R.string.alert_crash_report_negative, (dialog, which) -> stackTraceFile.delete());
         if (newVersion != null) {
-            builder.setNeutralButton(R.string.alert_crash_report_update, new OnClickListener() {
-                public void onClick(final DialogInterface dialog, final int which) {
-                    stackTraceFile.delete();
-                    context.startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("market://details?id=" + context.getPackageName())));
-                }
+            builder.setNeutralButton(R.string.alert_crash_report_update, (dialog, which) -> {
+                stackTraceFile.delete();
+                context.startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=" + context.getPackageName())));
             });
-            builder.setPositiveButton(R.string.alert_crash_report_download, new OnClickListener() {
-                public void onClick(final DialogInterface dialog, final int which) {
-                    stackTraceFile.delete();
-                    context.startActivity(
-                            new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.OEFFI_BASE_URL + "download.html")));
-                }
+            builder.setPositiveButton(R.string.alert_crash_report_download, (dialog, which) -> {
+                stackTraceFile.delete();
+                context.startActivity(
+                        new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.OEFFI_BASE_URL + "download.html")));
             });
         } else {
-            builder.setPositiveButton(R.string.alert_crash_report_positive, new OnClickListener() {
-                public void onClick(final DialogInterface dialog, final int which) {
-                    sendError(context);
-                    stackTraceFile.delete();
-                }
+            builder.setPositiveButton(R.string.alert_crash_report_positive, (dialog, which) -> {
+                sendError(context);
+                stackTraceFile.delete();
             });
         }
-        builder.setOnCancelListener(new OnCancelListener() {
-            public void onCancel(final DialogInterface dialog) {
-                stackTraceFile.delete();
-            }
-        });
+        builder.setOnCancelListener(dialog -> stackTraceFile.delete());
 
         try {
             builder.show();

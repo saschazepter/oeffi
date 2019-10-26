@@ -143,15 +143,13 @@ public class DirectionsShortcutActivity extends OeffiActivity
 
     public void onLocationStart(final String provider) {
         progressDialog = ProgressDialog.show(DirectionsShortcutActivity.this, null,
-                getString(R.string.acquire_location_start, provider), true, true, new OnCancelListener() {
-                    public void onCancel(final DialogInterface dialog) {
-                        locationHelper.stop();
+                getString(R.string.acquire_location_start, provider), true, true, dialog -> {
+                    locationHelper.stop();
 
-                        if (queryTripsRunnable != null)
-                            queryTripsRunnable.cancel();
+                    if (queryTripsRunnable != null)
+                        queryTripsRunnable.cancel();
 
-                        finish();
-                    }
+                    finish();
                 });
         progressDialog.setCanceledOnTouchOutside(false);
     }
@@ -264,23 +262,13 @@ public class DirectionsShortcutActivity extends OeffiActivity
                         R.string.directions_alert_redirect_title);
                 builder.setMessage(getString(R.string.directions_alert_redirect_message, url.host()));
                 builder.setPositiveButton(R.string.directions_alert_redirect_button_follow,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(final DialogInterface dialog, final int which) {
-                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url.toString())));
-                                finish();
-                            }
+                        (dialog, which) -> {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url.toString())));
+                            finish();
                         });
                 builder.setNegativeButton(R.string.directions_alert_redirect_button_dismiss,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(final DialogInterface dialog, final int which) {
-                                finish();
-                            }
-                        });
-                builder.setOnCancelListener(new OnCancelListener() {
-                    public void onCancel(final DialogInterface dialog) {
-                        finish();
-                    }
-                });
+                        (dialog, which) -> finish());
+                builder.setOnCancelListener(dialog -> finish());
                 builder.show();
             }
 
@@ -290,16 +278,8 @@ public class DirectionsShortcutActivity extends OeffiActivity
                         R.string.directions_alert_blocked_title);
                 builder.setMessage(getString(R.string.directions_alert_blocked_message, url.host()));
                 builder.setNeutralButton(R.string.directions_alert_blocked_button_dismiss,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(final DialogInterface dialog, final int which) {
-                                finish();
-                            }
-                        });
-                builder.setOnCancelListener(new OnCancelListener() {
-                    public void onCancel(final DialogInterface dialog) {
-                        finish();
-                    }
-                });
+                        (dialog, which) -> finish());
+                builder.setOnCancelListener(dialog -> finish());
                 builder.show();
             }
 
@@ -309,16 +289,8 @@ public class DirectionsShortcutActivity extends OeffiActivity
                         R.string.directions_alert_internal_error_title);
                 builder.setMessage(getString(R.string.directions_alert_internal_error_message, url.host()));
                 builder.setNeutralButton(R.string.directions_alert_internal_error_button_dismiss,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(final DialogInterface dialog, final int which) {
-                                finish();
-                            }
-                        });
-                builder.setOnCancelListener(new OnCancelListener() {
-                    public void onCancel(final DialogInterface dialog) {
-                        finish();
-                    }
-                });
+                        (dialog, which) -> finish());
+                builder.setOnCancelListener(dialog -> finish());
                 builder.show();
             }
 
@@ -329,16 +301,8 @@ public class DirectionsShortcutActivity extends OeffiActivity
                 builder.setMessage(getString(R.string.directions_alert_ssl_exception_message,
                         Throwables.getRootCause(x).toString()));
                 builder.setNeutralButton(R.string.directions_alert_ssl_exception_button_dismiss,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(final DialogInterface dialog, final int which) {
-                                finish();
-                            }
-                        });
-                builder.setOnCancelListener(new OnCancelListener() {
-                    public void onCancel(final DialogInterface dialog) {
-                        finish();
-                    }
-                });
+                        (dialog, which) -> finish());
+                builder.setOnCancelListener(dialog -> finish());
                 builder.show();
             }
         };
@@ -351,16 +315,8 @@ public class DirectionsShortcutActivity extends OeffiActivity
     private void errorDialog(final int resId) {
         final DialogBuilder builder = DialogBuilder.warn(this, R.string.directions_shortcut_error_title);
         builder.setMessage(resId);
-        builder.setPositiveButton("Ok", new OnClickListener() {
-            public void onClick(final DialogInterface dialog, final int which) {
-                finish();
-            }
-        });
-        builder.setOnCancelListener(new OnCancelListener() {
-            public void onCancel(final DialogInterface dialog) {
-                finish();
-            }
-        });
+        builder.setPositiveButton("Ok", (dialog, which) -> finish());
+        builder.setOnCancelListener(dialog -> finish());
         builder.show();
     }
 

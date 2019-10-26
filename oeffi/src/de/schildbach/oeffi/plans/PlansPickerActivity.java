@@ -113,11 +113,7 @@ public class PlansPickerActivity extends OeffiMainActivity implements ActivityCo
         setPrimaryColor(R.color.action_bar_background);
         actionBar.setPrimaryTitle(R.string.plans_activity_title);
         actionBar.addButton(R.drawable.ic_search_white_24dp, R.string.plans_picker_action_search_title)
-                .setOnClickListener(new OnClickListener() {
-                    public void onClick(final View v) {
-                        onSearchRequested();
-                    }
-                });
+                .setOnClickListener(v -> onSearchRequested());
 
         initNavigation();
 
@@ -132,11 +128,7 @@ public class PlansPickerActivity extends OeffiMainActivity implements ActivityCo
         connectivityWarningView = (TextView) findViewById(R.id.plans_picker_connectivity_warning_box);
         filterBox = findViewById(R.id.plans_picker_filter_box);
 
-        findViewById(R.id.plans_picker_filter_clear).setOnClickListener(new OnClickListener() {
-            public void onClick(final View v) {
-                clearListFilter();
-            }
-        });
+        findViewById(R.id.plans_picker_filter_clear).setOnClickListener(v -> clearListFilter());
 
         connectivityReceiver = new ConnectivityBroadcastReceiver(connectivityManager) {
             @Override
@@ -308,21 +300,15 @@ public class PlansPickerActivity extends OeffiMainActivity implements ActivityCo
             final HttpUrl remoteUrl = plan.url != null ? plan.url
                     : Constants.PLANS_BASE_URL.newBuilder().addEncodedPathSegment(planFilename).build();
             final ListenableFuture<Integer> download = downloader.download(remoteUrl, planFile, false,
-                    new Downloader.ProgressCallback() {
-                        public void progress(final long contentRead, final long contentLength) {
-                            runOnUiThread(new Runnable() {
-                                public void run() {
-                                    final RecyclerView.ViewHolder holder = listView.findViewHolderForItemId(plan.rowId);
-                                    if (holder != null) {
-                                        final int position = holder.getAdapterPosition();
-                                        if (position != RecyclerView.NO_POSITION)
-                                            listAdapter.setProgressPermille(position,
-                                                    (int) (contentRead * 1000 / contentLength));
-                                    }
-                                }
-                            });
+                    (contentRead, contentLength) -> runOnUiThread(() -> {
+                        final RecyclerView.ViewHolder holder = listView.findViewHolderForItemId(plan.rowId);
+                        if (holder != null) {
+                            final int position = holder.getAdapterPosition();
+                            if (position != RecyclerView.NO_POSITION)
+                                listAdapter.setProgressPermille(position,
+                                        (int) (contentRead * 1000 / contentLength));
                         }
-                    });
+                    }));
             actionBar.startProgress();
             Futures.addCallback(download, new FutureCallback<Integer>() {
                 public void onSuccess(final @Nullable Integer status) {

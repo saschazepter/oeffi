@@ -187,12 +187,10 @@ public abstract class OeffiMainActivity extends OeffiActivity {
         final MyActionBar actionBar = getMyActionBar();
 
         final NavigationMenuAdapter menuAdapter = new NavigationMenuAdapter(this,
-                new MenuItem.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(final MenuItem item) {
-                        onOptionsItemSelected(item);
-                        navigationDrawerLayout.closeDrawers();
-                        return false;
-                    }
+                item -> {
+                    onOptionsItemSelected(item);
+                    navigationDrawerLayout.closeDrawers();
+                    return false;
                 });
         final Menu menu = menuAdapter.getMenu();
         onCreateOptionsMenu(menu);
@@ -206,11 +204,7 @@ public abstract class OeffiMainActivity extends OeffiActivity {
         navigationDrawerLayout.setDrawerShadow(R.drawable.view_shadow_right, Gravity.LEFT);
         navigationDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             public void onDrawerOpened(final View drawerView) {
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        heartbeat.start();
-                    }
-                }, 2000);
+                handler.postDelayed(() -> heartbeat.start(), 2000);
             }
 
             public void onDrawerClosed(final View drawerView) {
@@ -223,18 +217,12 @@ public abstract class OeffiMainActivity extends OeffiActivity {
             }
         });
 
-        navigationDrawerFooterView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(final View v) {
-                handler.removeCallbacksAndMessages(null);
-                heartbeat.start();
-            }
+        navigationDrawerFooterView.setOnClickListener(v -> {
+            handler.removeCallbacksAndMessages(null);
+            heartbeat.start();
         });
 
-        actionBar.setDrawer(new OnClickListener() {
-            public void onClick(final View v) {
-                toggleNavigation();
-            }
-        });
+        actionBar.setDrawer(v -> toggleNavigation());
 
         updateNavigation();
     }
@@ -581,18 +569,16 @@ public abstract class OeffiMainActivity extends OeffiActivity {
                                 }
                             }
 
-                            runOnUiThread(new Runnable() {
-                                public void run() {
-                                    if (isFinishing())
-                                        return;
+                            runOnUiThread(() -> {
+                                if (isFinishing())
+                                    return;
 
-                                    showDialog(DIALOG_MESSAGE, message);
+                                showDialog(DIALOG_MESSAGE, message);
 
-                                    final long now = System.currentTimeMillis();
-                                    messagesPrefs.edit().putLong(id, now).commit();
-                                    if ("info".equals(action))
-                                        prefs.edit().putLong(Constants.PREFS_KEY_LAST_INFO_AT, now).commit();
-                                }
+                                final long now = System.currentTimeMillis();
+                                messagesPrefs.edit().putLong(id, now).commit();
+                                if ("info".equals(action))
+                                    prefs.edit().putLong(Constants.PREFS_KEY_LAST_INFO_AT, now).commit();
                             });
                         } else {
                             log.info("Got '{}: {}' when fetching message from: '{}'", response.code(),

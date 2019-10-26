@@ -33,12 +33,9 @@ public class DonateFragment extends PreferenceFragment {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.preference_donate);
-        findPreference(KEY_ABOUT_DONATE_BITCOIN).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                BitcoinIntegration.request(getActivity(), Constants.BITCOIN_ADDRESS);
-                return true;
-            }
+        findPreference(KEY_ABOUT_DONATE_BITCOIN).setOnPreferenceClickListener(preference -> {
+            BitcoinIntegration.request(getActivity(), Constants.BITCOIN_ADDRESS);
+            return true;
         });
     }
 }

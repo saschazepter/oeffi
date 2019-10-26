@@ -144,11 +144,7 @@ public class LocationView extends FrameLayout implements LocationHelper.Callback
 
             @Override
             protected void onSizeChanged(final int w, final int h, final int oldw, final int oldh) {
-                handler.post(new Runnable() {
-                    public void run() {
-                        chooseView.requestLayout();
-                    }
-                });
+                handler.post(() -> chooseView.requestLayout());
 
                 super.onSizeChanged(w, h, oldw, oldh);
             }
@@ -164,23 +160,21 @@ public class LocationView extends FrameLayout implements LocationHelper.Callback
         final int paddingCram = res.getDimensionPixelSize(R.dimen.list_entry_padding_horizontal_cram);
         final int paddingLax = res.getDimensionPixelSize(R.dimen.list_entry_padding_horizontal_lax);
         textView.setPadding(paddingLax, paddingCram, paddingLax, paddingCram);
-        textView.setOnItemClickListener(new OnItemClickListener() {
-            public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
-                // workaround for NPE
-                if (parent == null)
-                    return;
+        textView.setOnItemClickListener((parent, view, position, id) -> {
+            // workaround for NPE
+            if (parent == null)
+                return;
 
-                final Location location = (Location) parent.getItemAtPosition(position);
+            final Location location = (Location) parent.getItemAtPosition(position);
 
-                // workaround for NPE
-                if (location == null)
-                    return;
+            // workaround for NPE
+            if (location == null)
+                return;
 
-                setLocation(location);
+            setLocation(location);
 
-                afterLocationViewInput();
-                fireChanged();
-            }
+            afterLocationViewInput();
+            fireChanged();
         });
 
         leftDrawable = new MultiDrawable(context);

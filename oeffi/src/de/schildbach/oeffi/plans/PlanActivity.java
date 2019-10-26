@@ -137,35 +137,29 @@ public class PlanActivity extends Activity {
         viewAnimator = (ViewAnimator) findViewById(R.id.plans_layout);
 
         plan = (ScrollImageView) findViewById(R.id.plans_plan);
-        plan.setOnMoveListener(new OnMoveListener() {
-            public void onMove() {
-                updateBubble();
-                updateScale();
+        plan.setOnMoveListener(() -> {
+            updateBubble();
+            updateScale();
 
-                zoom.clearAnimation();
-                zoom.startAnimation(zoomControlsAnimation);
-            }
+            zoom.clearAnimation();
+            zoom.startAnimation(zoomControlsAnimation);
         });
 
         bubble = findViewById(R.id.plans_bubble);
         bubble.setVisibility(View.GONE);
-        bubble.setOnClickListener(new OnClickListener() {
-            public void onClick(final View v) {
-                final Station selection = checkNotNull(PlanActivity.this.selection);
-                final PopupMenu contextMenu = new StationContextMenu(PlanActivity.this, v, selection.network,
-                        selection.location, null, false, false, false, false, false);
-                contextMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(final MenuItem item) {
-                        if (item.getItemId() == R.id.station_context_details) {
-                            StationDetailsActivity.start(PlanActivity.this, selection.network, selection.location);
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    }
-                });
-                contextMenu.show();
-            }
+        bubble.setOnClickListener(v -> {
+            final Station selection = checkNotNull(PlanActivity.this.selection);
+            final PopupMenu contextMenu = new StationContextMenu(PlanActivity.this, v, selection.network,
+                    selection.location, null, false, false, false, false, false);
+            contextMenu.setOnMenuItemClickListener(item -> {
+                if (item.getItemId() == R.id.station_context_details) {
+                    StationDetailsActivity.start(PlanActivity.this, selection.network, selection.location);
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+            contextMenu.show();
         });
 
         bubbleName = (TextView) findViewById(R.id.plans_bubble_name);
@@ -173,17 +167,13 @@ public class PlanActivity extends Activity {
         bubbleLinesView = (LineView) findViewById(R.id.plans_bubble_lines);
 
         zoom = (ZoomControls) findViewById(R.id.plans_zoom);
-        zoom.setOnZoomInClickListener(new OnClickListener() {
-            public void onClick(final View v) {
-                plan.animateScaleStepIn();
-                updateScale();
-            }
+        zoom.setOnZoomInClickListener(v -> {
+            plan.animateScaleStepIn();
+            updateScale();
         });
-        zoom.setOnZoomOutClickListener(new OnClickListener() {
-            public void onClick(final View v) {
-                plan.animateScaleStepOut();
-                updateScale();
-            }
+        zoom.setOnZoomOutClickListener(v -> {
+            plan.animateScaleStepOut();
+            updateScale();
         });
 
         final String planId = checkNotNull(getIntent().getExtras().getString(INTENT_EXTRA_PLAN_ID),
@@ -408,11 +398,7 @@ public class PlanActivity extends Activity {
                     for (final Station station : stations) {
                         if (selectedId.equals(station.location.id)) {
                             // delay until after layout finished
-                            handler.postDelayed(new Runnable() {
-                                public void run() {
-                                    selectStation(station);
-                                }
-                            }, 500);
+                            handler.postDelayed(() -> selectStation(station), 500);
 
                             break;
                         }

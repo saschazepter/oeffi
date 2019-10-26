@@ -495,17 +495,13 @@ public class OeffiMapView extends MapView {
 
     public void setZoomControls(final ZoomControls zoomControls) {
         this.zoomControls = zoomControls;
-        zoomControls.setOnZoomInClickListener(new OnClickListener() {
-            public void onClick(final View v) {
-                showZoomControls();
-                getController().zoomIn();
-            }
+        zoomControls.setOnZoomInClickListener(v -> {
+            showZoomControls();
+            getController().zoomIn();
         });
-        zoomControls.setOnZoomOutClickListener(new OnClickListener() {
-            public void onClick(final View v) {
-                showZoomControls();
-                getController().zoomOut();
-            }
+        zoomControls.setOnZoomOutClickListener(v -> {
+            showZoomControls();
+            getController().zoomOut();
         });
     }
 

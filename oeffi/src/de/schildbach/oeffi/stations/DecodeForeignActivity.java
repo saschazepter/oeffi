@@ -61,11 +61,7 @@ public class DecodeForeignActivity extends Activity {
                 final Matcher m = Pattern.compile("/t/d(\\d+)").matcher(path);
                 if (m.matches()) {
                     final ProgressDialog progressDialog = ProgressDialog.show(DecodeForeignActivity.this, null,
-                            getString(R.string.stations_decode_foreign_progress), true, true, new OnCancelListener() {
-                                public void onCancel(final DialogInterface dialog) {
-                                    finish();
-                                }
-                            });
+                            getString(R.string.stations_decode_foreign_progress), true, true, dialog -> finish());
                     progressDialog.setCanceledOnTouchOutside(false);
 
                     final Request.Builder request = new Request.Builder();
@@ -79,18 +75,16 @@ public class DecodeForeignActivity extends Activity {
                                     if (mRefresh.find()) {
                                         final Uri refreshUri = Uri.parse(mRefresh.group(1));
 
-                                        runOnUiThread(new Runnable() {
-                                            public void run() {
-                                                progressDialog.dismiss();
-                                                if ("mobil.rmv.de".equals(refreshUri.getHost())
-                                                        && "/mobile".equals(refreshUri.getPath())) {
-                                                    final String id = refreshUri.getQueryParameter("id");
-                                                    StationDetailsActivity.start(DecodeForeignActivity.this,
-                                                            NetworkId.NVV, new Location(LocationType.STATION, id));
-                                                    finish();
-                                                } else {
-                                                    errorDialog(R.string.stations_decode_foreign_failed);
-                                                }
+                                        runOnUiThread(() -> {
+                                            progressDialog.dismiss();
+                                            if ("mobil.rmv.de".equals(refreshUri.getHost())
+                                                    && "/mobile".equals(refreshUri.getPath())) {
+                                                final String id = refreshUri.getQueryParameter("id");
+                                                StationDetailsActivity.start(DecodeForeignActivity.this,
+                                                        NetworkId.NVV, new Location(LocationType.STATION, id));
+                                                finish();
+                                            } else {
+                                                errorDialog(R.string.stations_decode_foreign_failed);
                                             }
                                         });
                                     } else {
@@ -107,11 +101,9 @@ public class DecodeForeignActivity extends Activity {
                         }
 
                         private void onFail() {
-                            runOnUiThread(new Runnable() {
-                                public void run() {
-                                    progressDialog.dismiss();
-                                    errorDialog(R.string.stations_decode_foreign_failed);
-                                }
+                            runOnUiThread(() -> {
+                                progressDialog.dismiss();
+                                errorDialog(R.string.stations_decode_foreign_failed);
                             });
                         }
                     });
@@ -127,16 +119,8 @@ public class DecodeForeignActivity extends Activity {
     private void errorDialog(final int resId) {
         final DialogBuilder builder = DialogBuilder.warn(this, 0);
         builder.setMessage(resId);
-        builder.setPositiveButton("Ok", new OnClickListener() {
-            public void onClick(final DialogInterface dialog, final int which) {
-                finish();
-            }
-        });
-        builder.setOnCancelListener(new OnCancelListener() {
-            public void onCancel(final DialogInterface dialog) {
-                finish();
-            }
-        });
+        builder.setPositiveButton("Ok", (dialog, which) -> finish());
+        builder.setOnCancelListener(dialog -> finish());
         builder.show();
     }
 }

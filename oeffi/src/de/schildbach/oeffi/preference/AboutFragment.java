@@ -53,13 +53,10 @@ public class AboutFragment extends PreferenceFragment {
         final Uri marketUri = Uri.parse(String.format(Constants.MARKET_APP_URL, application.getPackageName()));
         findPreference(KEY_ABOUT_MARKET_APP).setSummary(marketUri.toString());
         findPreference(KEY_ABOUT_MARKET_APP).setIntent(new Intent(Intent.ACTION_VIEW, marketUri));
-        findPreference(KEY_ABOUT_CHANGELOG).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                ChangelogDialogBuilder.get(activity, Application.versionCode(application), null,
-                        Application.versionFlavor(application), 0, null).show();
-                return true;
-            }
+        findPreference(KEY_ABOUT_CHANGELOG).setOnPreferenceClickListener(preference -> {
+            ChangelogDialogBuilder.get(activity, Application.versionCode(application), null,
+                    Application.versionFlavor(application), 0, null).show();
+            return true;
         });
     }
 }

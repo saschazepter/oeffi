@@ -101,17 +101,15 @@ public class TripsOverviewActivity extends OeffiActivity {
 
     private @Nullable QueryTripsContext context;
     private TripsGallery barView;
-    private final NavigableSet<Trip> trips = new TreeSet<>(new Comparator<Trip>() {
-        public int compare(final Trip trip1, final Trip trip2) {
-            if (trip1.equals(trip2))
-                return 0;
-            else
-                return ComparisonChain.start() //
-                        .compare(trip1.getFirstDepartureTime(), trip2.getFirstDepartureTime()) //
-                        .compare(trip1.getLastArrivalTime(), trip2.getLastArrivalTime()) //
-                        .compare(trip1.numChanges, trip2.numChanges, Ordering.natural().nullsLast()) //
-                        .result();
-        }
+    private final NavigableSet<Trip> trips = new TreeSet<>((trip1, trip2) -> {
+        if (trip1.equals(trip2))
+            return 0;
+        else
+            return ComparisonChain.start() //
+                    .compare(trip1.getFirstDepartureTime(), trip2.getFirstDepartureTime()) //
+                    .compare(trip1.getLastArrivalTime(), trip2.getLastArrivalTime()) //
+                    .compare(trip1.numChanges, trip2.numChanges, Ordering.natural().nullsLast()) //
+                    .result();
     });
     private boolean queryMoreTripsRunning = false;
 
@@ -142,45 +140,31 @@ public class TripsOverviewActivity extends OeffiActivity {
         setContentView(R.layout.directions_trip_overview_content);
         final MyActionBar actionBar = getMyActionBar();
         setPrimaryColor(R.color.action_bar_background_directions_dark);
-        actionBar.setBack(new OnClickListener() {
-            public void onClick(final View v) {
-                finish();
-            }
-        });
+        actionBar.setBack(v -> finish());
         actionBar.setCustomTitles(R.layout.directions_trip_overview_custom_title);
-        actionBar.addProgressButton().setOnClickListener(new OnClickListener() {
-            public void onClick(final View v) {
-                handler.post(checkMoreRunnable);
-            }
-        });
+        actionBar.addProgressButton().setOnClickListener(v -> handler.post(checkMoreRunnable));
 
         barView = (TripsGallery) findViewById(R.id.trips_bar_view);
-        barView.setOnItemClickListener(new OnItemClickListener() {
-            public void onItemClick(final AdapterView<?> parent, final View v, final int position, final long id) {
-                final Trip trip = (Trip) barView.getAdapter().getItem(position);
+        barView.setOnItemClickListener((parent, v, position, id) -> {
+            final Trip trip = (Trip) barView.getAdapter().getItem(position);
 
-                if (trip != null && trip.legs != null) {
-                    TripDetailsActivity.start(TripsOverviewActivity.this, network, trip);
+            if (trip != null && trip.legs != null) {
+                TripDetailsActivity.start(TripsOverviewActivity.this, network, trip);
 
-                    final Date firstPublicLegDepartureTime = trip.getFirstPublicLegDepartureTime();
-                    final Date lastPublicLegArrivalTime = trip.getLastPublicLegArrivalTime();
+                final Date firstPublicLegDepartureTime = trip.getFirstPublicLegDepartureTime();
+                final Date lastPublicLegArrivalTime = trip.getLastPublicLegArrivalTime();
 
-                    // save last trip to history
-                    if (firstPublicLegDepartureTime != null && lastPublicLegArrivalTime != null && historyUri != null) {
-                        final ContentValues values = new ContentValues();
-                        values.put(QueryHistoryProvider.KEY_LAST_DEPARTURE_TIME, firstPublicLegDepartureTime.getTime());
-                        values.put(QueryHistoryProvider.KEY_LAST_ARRIVAL_TIME, lastPublicLegArrivalTime.getTime());
-                        values.put(QueryHistoryProvider.KEY_LAST_TRIP, serialize(trip));
-                        getContentResolver().update(historyUri, values, null, null);
-                    }
+                // save last trip to history
+                if (firstPublicLegDepartureTime != null && lastPublicLegArrivalTime != null && historyUri != null) {
+                    final ContentValues values = new ContentValues();
+                    values.put(QueryHistoryProvider.KEY_LAST_DEPARTURE_TIME, firstPublicLegDepartureTime.getTime());
+                    values.put(QueryHistoryProvider.KEY_LAST_ARRIVAL_TIME, lastPublicLegArrivalTime.getTime());
+                    values.put(QueryHistoryProvider.KEY_LAST_TRIP, serialize(trip));
+                    getContentResolver().update(historyUri, values, null, null);
                 }
             }
         });
-        barView.setOnScrollListener(new OnScrollListener() {
-            public void onScroll() {
-                handler.post(checkMoreRunnable);
-            }
-        });
+        barView.setOnScrollListener(() -> handler.post(checkMoreRunnable));
 
         processResult(result, dep);
     }
@@ -259,21 +243,15 @@ public class TripsOverviewActivity extends OeffiActivity {
         }
 
         public void run() {
-            runOnUiThread(new Runnable() {
-                public void run() {
-                    actionBar.startProgress();
-                }
-            });
+            runOnUiThread(() -> actionBar.startProgress());
 
             try {
                 doRequest();
             } finally {
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        queryMoreTripsRunning = false;
+                runOnUiThread(() -> {
+                    queryMoreTripsRunning = false;
 
-                        actionBar.stopProgress();
-                    }
+                    actionBar.stopProgress();
                 });
             }
         }
@@ -288,34 +266,24 @@ public class TripsOverviewActivity extends OeffiActivity {
                     final NetworkProvider networkProvider = NetworkProviderFactory.provider(network);
                     final QueryTripsResult result = networkProvider.queryMoreTrips(context, later);
 
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            log.debug("Got {} ({})", result.toShortString(), later ? "later" : "earlier");
-                            if (result.status == QueryTripsResult.Status.OK) {
-                                processResult(result, later);
+                    runOnUiThread(() -> {
+                        log.debug("Got {} ({})", result.toShortString(), later ? "later" : "earlier");
+                        if (result.status == QueryTripsResult.Status.OK) {
+                            processResult(result, later);
 
-                                // fetch more
-                                handler.postDelayed(checkMoreRunnable, 50);
-                            } else if (result.status == QueryTripsResult.Status.NO_TRIPS) {
-                                // ignore
-                            } else {
-                                new Toast(TripsOverviewActivity.this).toast(R.string.toast_network_problem);
-                            }
+                            // fetch more
+                            handler.postDelayed(checkMoreRunnable, 50);
+                        } else if (result.status == QueryTripsResult.Status.NO_TRIPS) {
+                            // ignore
+                        } else {
+                            new Toast(TripsOverviewActivity.this).toast(R.string.toast_network_problem);
                         }
                     });
                 } catch (final SessionExpiredException | NotFoundException x) {
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            new Toast(TripsOverviewActivity.this).longToast(R.string.toast_session_expired);
-                        }
-                    });
+                    runOnUiThread(() -> new Toast(TripsOverviewActivity.this).longToast(R.string.toast_session_expired));
                 } catch (final InvalidDataException x) {
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            new Toast(TripsOverviewActivity.this).longToast(R.string.toast_invalid_data,
-                                    x.getMessage());
-                        }
-                    });
+                    runOnUiThread(() -> new Toast(TripsOverviewActivity.this).longToast(R.string.toast_invalid_data,
+                            x.getMessage()));
                 } catch (final IOException x) {
                     final String message = "IO problem while processing " + context + " on " + network + " (try "
                             + tries + ")";
@@ -323,18 +291,10 @@ public class TripsOverviewActivity extends OeffiActivity {
                     if (tries >= Constants.MAX_TRIES_ON_IO_PROBLEM) {
                         if (x instanceof SocketTimeoutException || x instanceof UnknownHostException
                                 || x instanceof SocketException || x instanceof SSLException) {
-                            runOnUiThread(new Runnable() {
-                                public void run() {
-                                    new Toast(TripsOverviewActivity.this).toast(R.string.toast_network_problem);
-                                }
-                            });
+                            runOnUiThread(() -> new Toast(TripsOverviewActivity.this).toast(R.string.toast_network_problem));
                         } else if (x instanceof InternalErrorException) {
-                            runOnUiThread(new Runnable() {
-                                public void run() {
-                                    new Toast(TripsOverviewActivity.this).toast(R.string.toast_internal_error,
-                                            ((InternalErrorException) x).getUrl().host());
-                                }
-                            });
+                            runOnUiThread(() -> new Toast(TripsOverviewActivity.this).toast(R.string.toast_internal_error,
+                                    ((InternalErrorException) x).getUrl().host()));
                         } else {
                             throw new RuntimeException(message, x);
                         }

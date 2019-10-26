@@ -98,21 +98,13 @@ public class GeocoderThread extends Thread {
     private void onResult(final Address address) {
         log.info("Geocoder took {} ms, returned {}", System.currentTimeMillis() - startTime, address);
 
-        callbackHandler.post(new Runnable() {
-            public void run() {
-                callback.onGeocoderResult(address);
-            }
-        });
+        callbackHandler.post(() -> callback.onGeocoderResult(address));
     }
 
     private void onFail(final Exception exception) {
         log.info("Geocoder failed: {}", exception.getMessage());
 
-        callbackHandler.post(new Runnable() {
-            public void run() {
-                callback.onGeocoderFail(exception);
-            }
-        });
+        callbackHandler.post(() -> callback.onGeocoderFail(exception));
     }
 
     public static Location addressToLocation(final Address address) {
