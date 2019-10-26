@@ -191,9 +191,8 @@ public class PlanContentProvider extends ContentProvider {
 
     private Cursor readIndexIntoCursor(final InputStream is, @Nullable final String idFilter,
             @Nullable final String query) throws IOException, NumberFormatException {
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 
-        try {
+        try (final BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
             final MatrixCursor cursor = new MatrixCursor(
                     new String[] { BaseColumns._ID, KEY_PLAN_ID, KEY_PLAN_NAME, KEY_PLAN_LAT, KEY_PLAN_LON,
                             KEY_PLAN_VALID_FROM, KEY_PLAN_DISCLAIMER, KEY_PLAN_REMOTE_URL, KEY_PLAN_NETWORK_LOGO });
@@ -240,8 +239,6 @@ public class PlanContentProvider extends ContentProvider {
             }
 
             return cursor;
-        } finally {
-            reader.close();
         }
     }
 
@@ -263,9 +260,7 @@ public class PlanContentProvider extends ContentProvider {
     private Cursor readStationsIntoCursor(final InputStream is, @Nullable final String planIdFilter,
             @Nullable final String networkFilter, @Nullable final String localIdFilter)
             throws IOException, NumberFormatException {
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-
-        try {
+        try (final BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
             final MatrixCursor cursor = new MatrixCursor(new String[] { BaseColumns._ID, KEY_STATION_NETWORK,
                     KEY_STATION_ID, KEY_STATION_LABEL, KEY_STATION_PLAN_ID, KEY_STATION_X, KEY_STATION_Y });
 
@@ -327,8 +322,6 @@ public class PlanContentProvider extends ContentProvider {
             }
 
             return cursor;
-        } finally {
-            reader.close();
         }
     }
 

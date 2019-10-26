@@ -103,8 +103,8 @@ public class Downloader {
                 private final File tempFile = new File(cacheDir,
                         targetFile.getName() + ".part." + String.format("%04x", random.nextInt(0x10000)));
 
-                public void onResponse(final Call call, final Response response) throws IOException {
-                    try {
+                public void onResponse(final Call call, final Response r) throws IOException {
+                    try (final Response response = r) {
                         final int status = response.code();
                         if (status == HttpURLConnection.HTTP_OK) {
                             final ResponseBody body = response.body();
@@ -136,7 +136,6 @@ public class Downloader {
                         future.set(status);
                         semaphore.release();
                     } finally {
-                        response.close();
                         tempFile.delete();
                     }
                 }
@@ -160,9 +159,7 @@ public class Downloader {
         final String etag = headers.get("ETag");
         final File metaFile = metaFile(file);
         if (expires != null || etag != null) {
-            PrintWriter writer = null;
-            try {
-                writer = new PrintWriter(metaFile);
+            try (final PrintWriter writer = new PrintWriter(metaFile)) {
                 if (expires != null)
                     writer.println("Expires: " + expires);
                 if (lastModified != null)
@@ -171,9 +168,6 @@ public class Downloader {
                     writer.println("ETag: " + etag);
             } catch (final IOException x) {
                 log.warn("Problem saving expiration time " + metaFile, x);
-            } finally {
-                if (writer != null)
-                    writer.close();
             }
         } else {
             metaFile.delete();
@@ -186,9 +180,7 @@ public class Downloader {
         final File metaFile = metaFile(file);
         if (metaFile.exists()) {
             String line = null;
-            BufferedReader reader = null;
-            try {
-                reader = new BufferedReader(new FileReader(metaFile), 128);
+            try (final BufferedReader reader = new BufferedReader(new FileReader(metaFile), 128)) {
                 while (true) {
                     line = reader.readLine();
                     if (line == null)
@@ -204,13 +196,6 @@ public class Downloader {
                 throw new RuntimeException("Problem loading meta data " + metaFile, x);
             } catch (final Exception x) {
                 throw new RuntimeException("Problem parsing meta data: '" + line + "'", x);
-            } finally {
-                try {
-                    if (reader != null)
-                        reader.close();
-                } catch (final IOException x) {
-                    // Ignore
-                }
             }
         }
         return builder.build();

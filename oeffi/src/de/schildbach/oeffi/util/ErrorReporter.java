@@ -335,8 +335,8 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler {
         final Call call = Application.OKHTTP_CLIENT.newCall(request.build());
         final Handler callbackHandler = new Handler(Looper.myLooper());
         call.enqueue(new Callback() {
-            public void onResponse(final Call call, final Response response) throws IOException {
-                try {
+            public void onResponse(final Call call, final Response r) throws IOException {
+                try (final Response response = r) {
                     final CharSequence page = response.body().string();
                     final Matcher m = PATTERN_VERSION.matcher(page);
                     if (m.find()) {
@@ -348,8 +348,6 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler {
                         else
                             callback(null);
                     }
-                } finally {
-                    response.close();
                 }
             }
 

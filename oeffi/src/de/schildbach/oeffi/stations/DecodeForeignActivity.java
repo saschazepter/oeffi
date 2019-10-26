@@ -72,8 +72,8 @@ public class DecodeForeignActivity extends Activity {
                     request.url(HttpUrl.parse(uri.toString()));
                     final Call call = Application.OKHTTP_CLIENT.newCall(request.build());
                     call.enqueue(new Callback() {
-                        public void onResponse(final Call call, final Response response) throws IOException {
-                            try {
+                        public void onResponse(final Call call, final Response r) throws IOException {
+                            try (final Response response = r) {
                                 if (response.isSuccessful()) {
                                     final Matcher mRefresh = PATTERN_META_REFRESH.matcher(response.body().string());
                                     if (mRefresh.find()) {
@@ -99,8 +99,6 @@ public class DecodeForeignActivity extends Activity {
                                 } else {
                                     onFail();
                                 }
-                            } finally {
-                                response.close();
                             }
                         }
 
