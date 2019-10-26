@@ -37,9 +37,7 @@ public class Objects {
     public static Object deserialize(final byte[] bytes) {
         try {
             return new ObjectInputStream(new ByteArrayInputStream(bytes)).readObject();
-        } catch (final ClassNotFoundException x) {
-            throw new RuntimeException(x);
-        } catch (final IOException x) {
+        } catch (final ClassNotFoundException | IOException x) {
             throw new RuntimeException(x);
         }
     }
