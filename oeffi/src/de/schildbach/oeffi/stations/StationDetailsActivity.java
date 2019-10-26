@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -780,7 +781,7 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
             final long delay = predictedTime != null && plannedTime != null
                     ? predictedTime.getTime() - plannedTime.getTime() : 0;
             final long delayMins = delay / DateUtils.MINUTE_IN_MILLIS;
-            delayView.setText(delayMins != 0 ? String.format("(%+d)", delayMins) + ' ' : "");
+            delayView.setText(delayMins != 0 ? String.format(Locale.US, "(%+d)", delayMins) + ' ' : "");
             delayView.setTypeface(Typeface.DEFAULT, isPredicted ? Typeface.ITALIC : Typeface.NORMAL);
 
             // line

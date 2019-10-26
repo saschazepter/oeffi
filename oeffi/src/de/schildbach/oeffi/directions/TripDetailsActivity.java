@@ -552,7 +552,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
                         .setText(fareTypes[fare.type.ordinal()]);
                 ((TextView) fareRow.findViewById(R.id.directions_trip_details_fare_entry_row_name)).setText(fare.name);
                 ((TextView) fareRow.findViewById(R.id.directions_trip_details_fare_entry_row_fare))
-                        .setText(String.format("%s%.2f", fare.currency.getSymbol(), fare.fare));
+                        .setText(String.format(Locale.US, "%s%.2f", fare.currency.getSymbol(), fare.fare));
                 final TextView unitView = (TextView) fareRow
                         .findViewById(R.id.directions_trip_details_fare_entry_row_unit);
                 if (fare.units != null && fare.unitName != null)
