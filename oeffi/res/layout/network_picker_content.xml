@@ -6,64 +6,54 @@
     android:baselineAligned="false"
     android:orientation="horizontal" >
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/network_picker_list_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <include layout="@layout/action_bar" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:foreground="@drawable/view_shadow_bottom"
+            android:foregroundGravity="top|fill_horizontal"
             android:orientation="vertical" >
 
-            <include layout="@layout/action_bar" />
+            <TextView
+                android:id="@+id/network_picker_firsttime_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/action_bar_appendix"
+                android:padding="@dimen/list_entry_padding_horizontal_lax"
+                android:text="@string/network_picker_firsttime_message"
+                android:textColor="@color/text"
+                android:textSize="@dimen/font_size_large"
+                android:textStyle="normal" />
 
             <FrameLayout
+                android:id="@+id/network_picker_firsttime_message_shadow"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0px"
+                android:layout_weight="1"
                 android:foreground="@drawable/view_shadow_bottom"
                 android:foregroundGravity="top|fill_horizontal" >
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical" >
+                    android:foreground="@drawable/view_shadow_top"
+                    android:foregroundGravity="bottom|fill_horizontal" >
 
-                    <TextView
-                        android:id="@+id/network_picker_firsttime_message"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@android:id/list"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/action_bar_appendix"
-                        android:padding="@dimen/list_entry_padding_horizontal_lax"
-                        android:text="@string/network_picker_firsttime_message"
-                        android:textColor="@color/text"
-                        android:textSize="@dimen/font_size_large"
-                        android:textStyle="normal" />
-
-                    <FrameLayout
-                        android:id="@+id/network_picker_firsttime_message_shadow"
-                        android:layout_width="match_parent"
-                        android:layout_height="0px"
-                        android:layout_weight="1"
-                        android:foreground="@drawable/view_shadow_bottom"
-                        android:foregroundGravity="top|fill_horizontal" >
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:foreground="@drawable/view_shadow_top"
-                            android:foregroundGravity="bottom|fill_horizontal" >
-
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@android:id/list"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent" />
-                        </FrameLayout>
-                    </FrameLayout>
-                </LinearLayout>
+                        android:layout_height="match_parent" />
+                </FrameLayout>
             </FrameLayout>
         </LinearLayout>
-    </FrameLayout>
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/network_picker_map_frame"
