@@ -146,8 +146,8 @@ public class PlansAdapter extends RecyclerView.Adapter<PlanViewHolder> {
             final Call call = cachingOkHttpClient.newCall(request);
             holder.setCall(call);
             call.enqueue(new Callback() {
-                public void onResponse(final Call call, final Response response) throws IOException {
-                    try {
+                public void onResponse(final Call call, final Response r) throws IOException {
+                    try (final Response response = r) {
                         final Drawable thumb;
                         if (response.isSuccessful())
                             thumb = new BitmapDrawable(res, response.body().byteStream());
@@ -163,8 +163,6 @@ public class PlansAdapter extends RecyclerView.Adapter<PlanViewHolder> {
                                 }
                             });
                         }
-                    } finally {
-                        response.close();
                     }
                 }
 

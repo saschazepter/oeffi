@@ -377,12 +377,9 @@ public class NetworkPickerActivity extends Activity implements ActivityCompat.On
         final Map<String, NetworkListEntry> entriesMap = new LinkedHashMap<>();
         final List<NetworkListEntry> entries = new LinkedList<>();
 
-        BufferedReader reader = null;
         String line = null;
-
-        try {
-            reader = new BufferedReader(new InputStreamReader(getAssets().open(INDEX_FILENAME)));
-
+        try (final BufferedReader reader =
+                     new BufferedReader(new InputStreamReader(getAssets().open(INDEX_FILENAME)))) {
             while (true) {
                 line = reader.readLine();
                 if (line == null)
@@ -402,12 +399,6 @@ public class NetworkPickerActivity extends Activity implements ActivityCompat.On
             }
         } catch (final Exception x) {
             throw new RuntimeException("problem parsing: '" + line + "'", x);
-        } finally {
-            try {
-                if (reader != null)
-                    reader.close();
-            } catch (final IOException x2) {
-            }
         }
 
         // last used networks

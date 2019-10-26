@@ -403,16 +403,12 @@ public abstract class OeffiMainActivity extends OeffiActivity {
     }
 
     private void processMessages(final String network) {
-        BufferedReader reader = null;
+
         String line = null;
-
         final File indexFile = new File(getFilesDir(), "messages.txt");
-
-        try {
-            reader = new BufferedReader(new InputStreamReader(
-                    indexFile.exists() ? new FileInputStream(indexFile) : getAssets().open("messages.txt"),
-                    Charsets.UTF_8));
-
+        try (final BufferedReader reader = new BufferedReader(new InputStreamReader(
+                indexFile.exists() ? new FileInputStream(indexFile) : getAssets().open("messages.txt"),
+                Charsets.UTF_8))) {
             while (true) {
                 line = reader.readLine();
                 if (line == null)
@@ -430,13 +426,6 @@ public abstract class OeffiMainActivity extends OeffiActivity {
             }
         } catch (final IOException x) {
             // ignore
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (final IOException x2) {
-                }
-            }
         }
     }
 
@@ -556,8 +545,8 @@ public abstract class OeffiMainActivity extends OeffiActivity {
             request.url(url.build());
             final Call call = Application.OKHTTP_CLIENT.newCall(request.build());
             call.enqueue(new Callback() {
-                public void onResponse(final Call call, final Response response) throws IOException {
-                    try {
+                public void onResponse(final Call call, final Response r) throws IOException {
+                    try (final Response response = r) {
                         if (response.isSuccessful()) {
                             final Bundle message = new Bundle();
                             message.putString("action", action);
@@ -609,8 +598,6 @@ public abstract class OeffiMainActivity extends OeffiActivity {
                             log.info("Got '{}: {}' when fetching message from: '{}'", response.code(),
                                     response.message(), url);
                         }
-                    } finally {
-                        response.close();
                     }
                 }
 
