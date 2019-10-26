@@ -766,10 +766,10 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
             stopNameView.setTypeface(null, Typeface.BOLD);
         } else if (pearlType == PearlView.Type.PASSING) {
             stopNameView.setTextColor(colorTextGhosted);
-            stopNameView.setTypeface(null, 0);
+            stopNameView.setTypeface(null, Typeface.NORMAL);
         } else {
             stopNameView.setTextColor(colorText);
-            stopNameView.setTypeface(null, 0);
+            stopNameView.setTypeface(null, Typeface.NORMAL);
         }
         if (stop.location.hasId())
             stopNameView.setOnClickListener(new StopClickListener(stop));
