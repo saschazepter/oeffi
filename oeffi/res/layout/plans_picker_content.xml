@@ -11,85 +11,80 @@
 
         <include layout="@layout/action_bar" />
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
             android:foreground="@drawable/view_shadow_bottom"
-            android:foregroundGravity="top|fill_horizontal" >
+            android:foregroundGravity="top|fill_horizontal"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/plans_picker_connectivity_warning_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/action_bar_appendix"
+                android:drawableLeft="@drawable/ic_portable_wifi_off_grey600_24dp"
+                android:gravity="center"
+                android:paddingBottom="@dimen/list_entry_padding_vertical"
+                android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
+                android:paddingRight="@dimen/list_entry_padding_horizontal_verylax"
+                android:paddingTop="@dimen/list_entry_padding_vertical"
+                android:text="@string/plans_picker_connectivity_warning"
+                android:visibility="gone" />
 
             <LinearLayout
+                android:id="@+id/plans_picker_filter_box"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:animateLayoutChanges="true"
-                android:orientation="vertical" >
+                android:layout_height="wrap_content"
+                android:background="@color/action_bar_appendix"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone" >
 
                 <TextView
-                    android:id="@+id/plans_picker_connectivity_warning_box"
-                    android:layout_width="match_parent"
+                    android:id="@+id/plans_picker_filter_text"
+                    android:layout_width="0px"
                     android:layout_height="wrap_content"
-                    android:background="@color/action_bar_appendix"
-                    android:drawableLeft="@drawable/ic_portable_wifi_off_grey600_24dp"
-                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_search_grey600_24dp"
+                    android:drawablePadding="@dimen/list_entry_padding_horizontal"
+                    android:gravity="left|center_vertical"
                     android:paddingBottom="@dimen/list_entry_padding_vertical"
                     android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
-                    android:paddingRight="@dimen/list_entry_padding_horizontal_verylax"
                     android:paddingTop="@dimen/list_entry_padding_vertical"
-                    android:text="@string/plans_picker_connectivity_warning"
-                    android:visibility="gone" />
+                    android:singleLine="true"
+                    android:textSize="@dimen/font_size_large"
+                    android:textStyle="bold" />
 
-                <LinearLayout
-                    android:id="@+id/plans_picker_filter_box"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/action_bar_appendix"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:visibility="gone" >
-
-                    <TextView
-                        android:id="@+id/plans_picker_filter_text"
-                        android:layout_width="0px"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableLeft="@drawable/ic_search_grey600_24dp"
-                        android:drawablePadding="@dimen/list_entry_padding_horizontal"
-                        android:gravity="left|center_vertical"
-                        android:paddingBottom="@dimen/list_entry_padding_vertical"
-                        android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
-                        android:paddingTop="@dimen/list_entry_padding_vertical"
-                        android:singleLine="true"
-                        android:textSize="@dimen/font_size_large"
-                        android:textStyle="bold" />
-
-                    <ImageButton
-                        android:id="@+id/plans_picker_filter_clear"
-                        android:layout_width="36dp"
-                        android:layout_height="match_parent"
-                        android:gravity="right|center_vertical"
-                        android:src="@drawable/ic_clear_black_24dp" />
-                </LinearLayout>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
+                <ImageButton
+                    android:id="@+id/plans_picker_filter_clear"
+                    android:layout_width="36dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" >
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@android:id/list"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-
-                    <TextView
-                        android:id="@android:id/empty"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/plans_picker_list_empty"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                </FrameLayout>
+                    android:gravity="right|center_vertical"
+                    android:src="@drawable/ic_clear_black_24dp" />
             </LinearLayout>
-        </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@android:id/list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@android:id/empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/plans_picker_list_empty"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <include layout="@layout/navigation_drawer" />
