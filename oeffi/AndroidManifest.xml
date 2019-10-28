@@ -18,8 +18,8 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.schildbach.oeffi"
-    android:versionCode="664"
-    android:versionName="11.1.2">
+    android:versionCode="665"
+    android:versionName="11.1.3">
 
     <uses-sdk
         android:minSdkVersion="19"
