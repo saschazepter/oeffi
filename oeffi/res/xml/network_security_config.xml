@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
 
-    <base-config cleartextTrafficPermitted="true" >
+    <!-- Most public transport authorities have their servers configured securely these days. -->
+    <base-config cleartextTrafficPermitted="false">
         <trust-anchors>
             <certificates src="system" />
         </trust-anchors>
     </base-config>
+
+    <!-- This is the hall of shame: public transport authorities which still do not support HTTPS. -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">www.belgianrail.be</domain><!-- SNCB/NMBS -->
+        <domain includeSubdomains="false">android.vrsinfo.de</domain><!-- VRS -->
+        <domain includeSubdomains="false">wojhati.rta.ae</domain><!-- RTA Dubai -->
+        <domain includeSubdomains="false">appefa10.verbundlinie.at</domain><!-- STV -->
+        <domain includeSubdomains="false">railteam.hafas.eu</domain><!-- Railteam -->
+        <domain includeSubdomains="false">mobil.vbl.ch</domain><!-- VBL -->
+        <domain includeSubdomains="false">efa.vvo-online.de</domain><!-- VVO -->
+        <domain includeSubdomains="false">mobil.rozklad-pkp.pl</domain><!-- PKP -->
+        <domain includeSubdomains="false">efa.mobilitaetsverbund.de</domain><!-- VVM -->
+        <domain includeSubdomains="false">fahrplan.sbb.ch</domain><!-- SBB -->
+    </domain-config>
 
 </network-security-config>
