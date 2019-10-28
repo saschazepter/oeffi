@@ -172,7 +172,11 @@ public final class NetworkProviderFactory {
         else if (networkId.equals(NetworkId.VVV))
             return new VvvProvider();
         else if (networkId.equals(NetworkId.OEBB))
-            return new OebbProvider("{\"type\":\"AID\",\"aid\":\"OWDL4fE4ixNiPBBm\"}");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                return new OebbProvider("{\"type\":\"AID\",\"aid\":\"OWDL4fE4ixNiPBBm\"}");
+            else
+                return new OebbProvider(HttpUrl.parse("http://fahrplan.oebb.at/bin/"), "{\"type\":\"AID\"," +
+                        "\"aid\":\"OWDL4fE4ixNiPBBm\"}");
         else if (networkId.equals(NetworkId.WIEN))
             return new WienProvider();
         else if (networkId.equals(NetworkId.LINZ))
