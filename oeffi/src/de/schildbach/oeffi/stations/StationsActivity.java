@@ -1127,7 +1127,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                                     log.info("Redirect while querying departures on {}", requestedStationId);
 
                                     handler.post(() -> new Toast(StationsActivity.this).toast(R.string.toast_network_problem));
-                                };
+                                }
 
                                 @Override
                                 protected void onBlocked(final HttpUrl url) {
