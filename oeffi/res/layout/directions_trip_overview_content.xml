@@ -8,9 +8,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:foreground="@drawable/view_shadow_bottom"
-        android:foregroundGravity="top|fill_horizontal" >
+        android:layout_height="match_parent">
 
         <de.schildbach.oeffi.directions.TripsGallery
             android:id="@+id/trips_bar_view"

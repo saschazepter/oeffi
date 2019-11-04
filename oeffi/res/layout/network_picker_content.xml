@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/stations_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false"
-    android:orientation="horizontal" >
+    android:elevation="@dimen/elevation_content"
+    android:orientation="horizontal"
+    tools:targetApi="21">
 
     <LinearLayout
         android:id="@+id/network_picker_list_frame"
@@ -17,8 +21,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:foreground="@drawable/view_shadow_bottom"
-            android:foregroundGravity="top|fill_horizontal"
             android:orientation="vertical" >
 
             <TextView
@@ -36,21 +38,12 @@
                 android:id="@+id/network_picker_firsttime_message_shadow"
                 android:layout_width="match_parent"
                 android:layout_height="0px"
-                android:layout_weight="1"
-                android:foreground="@drawable/view_shadow_bottom"
-                android:foregroundGravity="top|fill_horizontal" >
+                android:layout_weight="1">
 
-                <FrameLayout
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@android:id/list"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:foreground="@drawable/view_shadow_top"
-                    android:foregroundGravity="bottom|fill_horizontal" >
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@android:id/list"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </FrameLayout>
+                    android:layout_height="match_parent" />
             </FrameLayout>
         </LinearLayout>
     </LinearLayout>
@@ -59,8 +52,7 @@
         android:id="@+id/network_picker_map_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:foreground="@drawable/view_shadow_right"
-        android:foregroundGravity="left|fill_vertical" >
+        android:elevation="@dimen/elevation_map">
 
         <de.schildbach.oeffi.OeffiMapView
             android:id="@+id/network_picker_map"

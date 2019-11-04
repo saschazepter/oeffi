@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false"
-    android:orientation="horizontal" >
+    android:orientation="horizontal">
 
     <LinearLayout
         android:id="@+id/stations_station_details_list_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:elevation="@dimen/elevation_content"
+        android:orientation="vertical"
+        tools:targetApi="21">
 
         <include layout="@layout/action_bar" />
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:foreground="@drawable/view_shadow_bottom"
-            android:foregroundGravity="top|fill_horizontal" >
+            android:layout_height="match_parent">
 
             <ViewAnimator
                 android:id="@+id/stations_station_details_list_layout"
@@ -78,8 +80,8 @@
         android:id="@+id/stations_station_details_map_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:foreground="@drawable/view_shadow_right"
-        android:foregroundGravity="left|fill_vertical" >
+        android:elevation="@dimen/elevation_map"
+        tools:targetApi="21">
 
         <de.schildbach.oeffi.OeffiMapView
             android:id="@+id/stations_station_details_map"

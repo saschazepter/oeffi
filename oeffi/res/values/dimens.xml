@@ -44,6 +44,11 @@
     <dimen name="layout_navigation_drawer_width">300dp</dimen>
     <dimen name="layout_list_width">360dp</dimen>
 
+    <dimen name="elevation_map">0dp</dimen>
+    <dimen name="elevation_content">4dp</dimen>
+    <dimen name="elevation_panel">6dp</dimen>
+    <dimen name="elevation_action_bar">8dp</dimen>
+
     <bool name="layout_list_show">true</bool>
     <bool name="layout_map_show">false</bool>
     <bool name="layout_navigation_drawer_footer_show">false</bool>

@@ -201,7 +201,6 @@ public abstract class OeffiMainActivity extends OeffiActivity {
                 .addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         navigationDrawerListView.setAdapter(menuAdapter);
 
-        navigationDrawerLayout.setDrawerShadow(R.drawable.view_shadow_right, Gravity.LEFT);
         navigationDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             public void onDrawerOpened(final View drawerView) {
                 handler.postDelayed(() -> heartbeat.start(), 2000);
