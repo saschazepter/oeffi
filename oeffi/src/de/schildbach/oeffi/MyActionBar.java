@@ -122,6 +122,7 @@ public class MyActionBar extends LinearLayout {
 
     public void setTitlesOnClickListener(final OnClickListener listener) {
         titlesGroup.setOnClickListener(listener);
+        titlesGroup.setFocusable(true);
     }
 
     public void swapTitles() {
