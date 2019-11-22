@@ -18,6 +18,7 @@
 package de.schildbach.oeffi;
 
 import java.io.File;
+import java.lang.reflect.Method;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -89,6 +90,13 @@ public class Application extends android.app.Application {
         });
         interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
         builder.addNetworkInterceptor(interceptor);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            log.info("manually enabling TLS 1.2 on API level {}", Build.VERSION.SDK_INT);
+            if (safetyNetInsertProvider()) {
+                final Tls12SocketFactory socketFactory = new Tls12SocketFactory();
+                builder.sslSocketFactory(socketFactory, socketFactory.getTrustManager());
+            }
+        }
         okHttpClient = builder.build();
 
         initMaps();
@@ -152,6 +160,23 @@ public class Application extends android.app.Application {
         log.info("Migrations took {}", watch);
 
         initNotificationManager();
+    }
+
+    private boolean safetyNetInsertProvider() {
+        // This piece of code uses SafetyNet (Google Play Services) to insert a recent version of Conscrypt, if
+        // available. We use reflection to avoid the proprietary Google Play Services client library.
+        try {
+            final Stopwatch watch = Stopwatch.createStarted();
+            final Context remoteContext = createPackageContext("com.google.android.gms", 3);
+            final Method insertProvider = remoteContext.getClassLoader().loadClass("com.google.android.gms.common" +
+                    ".security.ProviderInstallerImpl").getMethod("insertProvider", new Class[] { Context.class });
+            insertProvider.invoke(null, new Object[] { remoteContext });
+            log.info("insertProvider successful, took {}", watch.stop());
+            return true;
+        } catch (final Exception x) {
+            log.warn("insertProvider failed", x);
+            return false;
+        }
     }
 
     private void initLogging() {
