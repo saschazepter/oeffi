@@ -52,7 +52,8 @@ public abstract class OeffiActivity extends Activity {
         this.application = (Application) getApplication();
         this.prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        ErrorReporter.getInstance().check(this, applicationVersionCode(), applicationVersionFlavor());
+        ErrorReporter.getInstance().check(this, applicationVersionCode(), applicationVersionFlavor(),
+                application.okHttpClient());
     }
 
     protected void updateFragments(final int listFrameResId, final int mapFrameResId) {

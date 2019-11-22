@@ -35,6 +35,7 @@ import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 
+import de.schildbach.oeffi.Application;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.StationsAware;
@@ -102,6 +103,8 @@ public class PlanActivity extends Activity {
         context.startActivity(intent(context, planId, selectedStationId));
     }
 
+    private Application application;
+
     private ViewAnimator viewAnimator;
     private ScrollImageView plan;
     private View bubble;
@@ -122,6 +125,7 @@ public class PlanActivity extends Activity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.application = (Application) getApplication();
 
         // background thread
         backgroundThread = new HandlerThread("queryDeparturesThread", Process.THREAD_PRIORITY_BACKGROUND);
@@ -214,7 +218,7 @@ public class PlanActivity extends Activity {
         final Downloader downloader = new Downloader(getCacheDir());
         final HttpUrl remoteUrl = planUrlStr != null ? HttpUrl.parse(planUrlStr)
                 : Constants.PLANS_BASE_URL.newBuilder().addEncodedPathSegment(planFilename).build();
-        final ListenableFuture<Integer> download = downloader.download(remoteUrl, planFile);
+        final ListenableFuture<Integer> download = downloader.download(application.okHttpClient(), remoteUrl, planFile);
         Futures.addCallback(download, new FutureCallback<Integer>() {
             public void onSuccess(final @Nullable Integer status) {
                 if (status == HttpURLConnection.HTTP_OK)

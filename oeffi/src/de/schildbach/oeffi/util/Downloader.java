@@ -39,7 +39,6 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
 import com.google.common.util.concurrent.Striped;
 
-import de.schildbach.oeffi.Application;
 import de.schildbach.oeffi.util.bzip2.BZip2CompressorInputStream;
 
 import androidx.annotation.Nullable;
@@ -47,6 +46,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
@@ -66,16 +66,18 @@ public class Downloader {
         this.cacheDir = cacheDir;
     }
 
-    public ListenableFuture<Integer> download(final HttpUrl remoteUrl, final File targetFile) {
-        return download(remoteUrl, targetFile, false, null);
+    public ListenableFuture<Integer> download(final OkHttpClient okHttpClient, final HttpUrl remoteUrl,
+            final File targetFile) {
+        return download(okHttpClient, remoteUrl, targetFile, false, null);
     }
 
-    public ListenableFuture<Integer> download(final HttpUrl remoteUrl, final File targetFile, final boolean unzip) {
-        return download(remoteUrl, targetFile, unzip, null);
+    public ListenableFuture<Integer> download(final OkHttpClient okHttpClient, final HttpUrl remoteUrl,
+            final File targetFile, final boolean unzip) {
+        return download(okHttpClient, remoteUrl, targetFile, unzip, null);
     }
 
-    public ListenableFuture<Integer> download(final HttpUrl remoteUrl, final File targetFile, final boolean unzip,
-            @Nullable final ProgressCallback progressCallback) {
+    public ListenableFuture<Integer> download(final OkHttpClient okHttpClient, final HttpUrl remoteUrl,
+            final File targetFile, final boolean unzip, @Nullable final ProgressCallback progressCallback) {
         final SettableFuture<Integer> future = SettableFuture.create();
         final Semaphore semaphore = semaphores.get(targetFile);
         if (semaphore.tryAcquire()) {
@@ -98,7 +100,7 @@ public class Downloader {
                 if (etag != null)
                     request.header("If-None-Match", etag);
             }
-            final Call call = Application.OKHTTP_CLIENT.newCall(request.build());
+            final Call call = okHttpClient.newCall(request.build());
             call.enqueue(new Callback() {
                 private final File tempFile = new File(cacheDir,
                         targetFile.getName() + ".part." + String.format("%04x", random.nextInt(0x10000)));

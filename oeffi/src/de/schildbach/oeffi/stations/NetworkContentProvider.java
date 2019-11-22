@@ -35,6 +35,7 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.MoreExecutors;
 
+import de.schildbach.oeffi.Application;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.util.Downloader;
 import de.schildbach.pte.NetworkId;
@@ -64,6 +65,7 @@ public final class NetworkContentProvider extends ContentProvider {
 
     public static final String QUERY_PARAM_Q = "q";
 
+    private Application application;
     private Downloader downloader;
     private final List<SQLiteDatabase> databasesToClose = new LinkedList<>();
     private static final int NUM_DATABASES_TO_KEEP = 4;
@@ -83,7 +85,8 @@ public final class NetworkContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        downloader = new Downloader(getContext().getCacheDir());
+        this.application = (Application) getContext();
+        downloader = new Downloader(application.getCacheDir());
         return true;
     }
 
@@ -104,7 +107,7 @@ public final class NetworkContentProvider extends ContentProvider {
         final NetworkId networkId = NetworkId.valueOf(uri.getPathSegments().get(0));
         final File dbFile = new File(getContext().getFilesDir(), dbName(networkId));
         final HttpUrl remoteUrl = downloadUrl(networkId);
-        final ListenableFuture<Integer> download = downloader.download(remoteUrl, dbFile, true, null);
+        final ListenableFuture<Integer> download = downloader.download(application.okHttpClient(), remoteUrl, dbFile, true, null);
         Futures.addCallback(download, new FutureCallback<Integer>() {
             public void onSuccess(final @Nullable Integer status) {
                 if (status == HttpURLConnection.HTTP_OK)

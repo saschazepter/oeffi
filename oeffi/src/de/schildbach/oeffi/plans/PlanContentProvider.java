@@ -48,6 +48,7 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.MoreExecutors;
 
+import de.schildbach.oeffi.Application;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.util.Downloader;
 import de.schildbach.pte.NetworkId;
@@ -83,6 +84,7 @@ public class PlanContentProvider extends ContentProvider {
     public static final String KEY_STATION_X = "station_x";
     public static final String KEY_STATION_Y = "station_y";
 
+    private Application application;
     private Downloader downloader;
 
     private static final Logger log = LoggerFactory.getLogger(PlanContentProvider.class);
@@ -102,7 +104,8 @@ public class PlanContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        downloader = new Downloader(getContext().getCacheDir());
+        this.application = (Application) getContext();
+        downloader = new Downloader(application.getCacheDir());
         return true;
     }
 
@@ -127,13 +130,13 @@ public class PlanContentProvider extends ContentProvider {
         final File indexFile = new File(getContext().getFilesDir(), Constants.PLAN_INDEX_FILENAME);
         final HttpUrl remoteIndexUrl = Constants.PLANS_BASE_URL.newBuilder()
                 .addPathSegment(Constants.PLAN_INDEX_FILENAME).build();
-        final ListenableFuture<Integer> download = downloader.download(remoteIndexUrl, indexFile);
+        final ListenableFuture<Integer> download = downloader.download(application.okHttpClient(), remoteIndexUrl, indexFile);
         Futures.addCallback(download, notifyChangeCallback, MoreExecutors.directExecutor());
 
         final File stationsFile = new File(getContext().getFilesDir(), Constants.PLAN_STATIONS_FILENAME);
         final HttpUrl remoteStationsUrl = Constants.PLANS_BASE_URL.newBuilder()
                 .addPathSegment(Constants.PLAN_STATIONS_FILENAME + ".bz2").build();
-        final ListenableFuture<Integer> stationsDownload = downloader.download(remoteStationsUrl, stationsFile, true);
+        final ListenableFuture<Integer> stationsDownload = downloader.download(application.okHttpClient(), remoteStationsUrl, stationsFile, true);
         Futures.addCallback(stationsDownload, notifyChangeCallback, MoreExecutors.directExecutor());
 
         final List<String> pathSegments = uri.getPathSegments();

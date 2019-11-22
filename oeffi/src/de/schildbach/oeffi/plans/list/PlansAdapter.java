@@ -67,7 +67,8 @@ public class PlansAdapter extends RecyclerView.Adapter<PlanViewHolder> {
     private final OkHttpClient cachingOkHttpClient;
 
     public PlansAdapter(final Context context, final Cursor cursor, final Cache thumbCache,
-            final PlanClickListener clickListener, final PlanContextMenuItemListener contextMenuItemListener) {
+            final PlanClickListener clickListener, final PlanContextMenuItemListener contextMenuItemListener,
+            final OkHttpClient okHttpClient) {
         this.context = context;
         this.res = context.getResources();
         this.inflater = LayoutInflater.from(context);
@@ -85,7 +86,7 @@ public class PlansAdapter extends RecyclerView.Adapter<PlanViewHolder> {
 
         setHasStableIds(true);
 
-        cachingOkHttpClient = Application.OKHTTP_CLIENT.newBuilder().cache(thumbCache).build();
+        cachingOkHttpClient = okHttpClient.newBuilder().cache(thumbCache).build();
     }
 
     public void setProgressPermille(final int position, final int progressPermille) {

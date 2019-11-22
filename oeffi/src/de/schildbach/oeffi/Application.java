@@ -55,25 +55,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 
 public class Application extends android.app.Application {
     private PackageInfo packageInfo;
-
-    public static final OkHttpClient OKHTTP_CLIENT;
-    static {
-        final OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.followRedirects(false);
-        builder.followSslRedirects(true);
-        builder.connectTimeout(5, TimeUnit.SECONDS);
-        builder.writeTimeout(5, TimeUnit.SECONDS);
-        builder.readTimeout(15, TimeUnit.SECONDS);
-        final HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(final String message) {
-                log.debug(message);
-            }
-        });
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
-        builder.addNetworkInterceptor(interceptor);
-        OKHTTP_CLIENT = builder.build();
-    }
+    private OkHttpClient okHttpClient;
 
     private static final Logger log = LoggerFactory.getLogger(Application.class);
 
@@ -91,9 +73,25 @@ public class Application extends android.app.Application {
             throw new RuntimeException(x);
         }
 
-        initMaps();
-
         log.info("=== Starting app version {} ({})", packageInfo.versionName, packageInfo.versionCode);
+
+        final OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.followRedirects(false);
+        builder.followSslRedirects(true);
+        builder.connectTimeout(5, TimeUnit.SECONDS);
+        builder.writeTimeout(5, TimeUnit.SECONDS);
+        builder.readTimeout(15, TimeUnit.SECONDS);
+        final HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(final String message) {
+                log.debug(message);
+            }
+        });
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        builder.addNetworkInterceptor(interceptor);
+        okHttpClient = builder.build();
+
+        initMaps();
 
         final Stopwatch watch = Stopwatch.createStarted();
 
@@ -232,6 +230,10 @@ public class Application extends android.app.Application {
 
     public PackageInfo packageInfo() {
         return packageInfo;
+    }
+
+    public OkHttpClient okHttpClient() {
+        return okHttpClient;
     }
 
     public static final String versionName(final Application application) {
