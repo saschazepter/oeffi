@@ -122,7 +122,7 @@ public class PlansPickerActivity extends OeffiMainActivity implements ActivityCo
         listView = (RecyclerView) findViewById(android.R.id.list);
         listView.setLayoutManager(new LinearLayoutManager(this));
         listView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
-        listAdapter = new PlansAdapter(this, cursor, thumbCache, this, this);
+        listAdapter = new PlansAdapter(this, cursor, thumbCache, this, this, application.okHttpClient());
         listView.setAdapter(listAdapter);
 
         connectivityWarningView = (TextView) findViewById(R.id.plans_picker_connectivity_warning_box);
@@ -252,7 +252,7 @@ public class PlansPickerActivity extends OeffiMainActivity implements ActivityCo
         if (filter != null)
             uri.appendPath(SearchManager.SUGGEST_URI_PATH_QUERY).appendPath(filter);
         cursor = getContentResolver().query(uri.build(), null, null, null, sortOrder);
-        listAdapter = new PlansAdapter(this, cursor, thumbCache, this, this);
+        listAdapter = new PlansAdapter(this, cursor, thumbCache, this, this, application.okHttpClient());
         listView.setAdapter(listAdapter);
 
         findViewById(android.R.id.empty).setVisibility(cursor.getCount() > 0 ? View.GONE : View.VISIBLE);
@@ -298,8 +298,8 @@ public class PlansPickerActivity extends OeffiMainActivity implements ActivityCo
             final Downloader downloader = new Downloader(getCacheDir());
             final HttpUrl remoteUrl = plan.url != null ? plan.url
                     : Constants.PLANS_BASE_URL.newBuilder().addEncodedPathSegment(planFilename).build();
-            final ListenableFuture<Integer> download = downloader.download(remoteUrl, planFile, false,
-                    (contentRead, contentLength) -> runOnUiThread(() -> {
+            final ListenableFuture<Integer> download = downloader.download(application.okHttpClient(), remoteUrl,
+                    planFile, false, (contentRead, contentLength) -> runOnUiThread(() -> {
                         final RecyclerView.ViewHolder holder = listView.findViewHolderForItemId(plan.rowId);
                         if (holder != null) {
                             final int position = holder.getAdapterPosition();

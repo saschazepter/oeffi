@@ -379,7 +379,8 @@ public abstract class OeffiMainActivity extends OeffiActivity {
         remoteUrl.addQueryParameter("task", taskName());
         final File localFile = new File(getFilesDir(), "messages.txt");
         final Downloader downloader = new Downloader(getCacheDir());
-        final ListenableFuture<Integer> download = downloader.download(remoteUrl.build(), localFile);
+        final ListenableFuture<Integer> download = downloader.download(application.okHttpClient(), remoteUrl.build(),
+                localFile);
         Futures.addCallback(download, new FutureCallback<Integer>() {
             public void onSuccess(final @Nullable Integer status) {
                 processMessages(network);
@@ -531,7 +532,7 @@ public abstract class OeffiMainActivity extends OeffiActivity {
                     .addEncodedPathSegment(id + (Locale.getDefault().getLanguage().equals("de") ? "-de" : "") + ".txt");
             final Request.Builder request = new Request.Builder();
             request.url(url.build());
-            final Call call = Application.OKHTTP_CLIENT.newCall(request.build());
+            final Call call = application.okHttpClient().newCall(request.build());
             call.enqueue(new Callback() {
                 public void onResponse(final Call call, final Response r) throws IOException {
                     try (final Response response = r) {

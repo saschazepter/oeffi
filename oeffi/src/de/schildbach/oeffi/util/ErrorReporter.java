@@ -38,7 +38,6 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 
-import de.schildbach.oeffi.Application;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.R;
 import de.schildbach.pte.NetworkId;
@@ -65,6 +64,7 @@ import androidx.core.content.FileProvider;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -321,7 +321,8 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler {
 
     private final static Pattern PATTERN_VERSION = Pattern.compile("<dt id=\"(\\d+)\">([^<]*)</dt>");
 
-    public void check(final Context context, final int applicationVersionCode, final String applicationVersionFlavor) {
+    public void check(final Context context, final int applicationVersionCode, final String applicationVersionFlavor,
+            final OkHttpClient okHttpClient) {
         if (!stackTraceFile.exists())
             return;
 
@@ -332,7 +333,7 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler {
         url.addQueryParameter("sdk", Integer.toString(Build.VERSION.SDK_INT));
         url.addQueryParameter("check", null);
         final Request.Builder request = new Request.Builder().url(url.build());
-        final Call call = Application.OKHTTP_CLIENT.newCall(request.build());
+        final Call call = okHttpClient.newCall(request.build());
         final Handler callbackHandler = new Handler(Looper.myLooper());
         call.enqueue(new Callback() {
             public void onResponse(final Call call, final Response r) throws IOException {

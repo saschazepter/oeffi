@@ -46,9 +46,12 @@ public class DecodeForeignActivity extends Activity {
     private static final Pattern PATTERN_META_REFRESH = Pattern
             .compile("<meta\\s+http-equiv=\"refresh\"\\s+content=\"0;\\s+URL=([^\"]*)\"");
 
+    private Application application;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.application = (Application) getApplication();
 
         final Intent intent = getIntent();
         final Uri uri = intent.getData();
@@ -66,7 +69,7 @@ public class DecodeForeignActivity extends Activity {
 
                     final Request.Builder request = new Request.Builder();
                     request.url(HttpUrl.parse(uri.toString()));
-                    final Call call = Application.OKHTTP_CLIENT.newCall(request.build());
+                    final Call call = application.okHttpClient().newCall(request.build());
                     call.enqueue(new Callback() {
                         public void onResponse(final Call call, final Response r) throws IOException {
                             try (final Response response = r) {
