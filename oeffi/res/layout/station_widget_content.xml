@@ -3,7 +3,7 @@
     android:id="@+id/station_widget_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/appwidget_dark_bg_clickable"
+    android:background="@drawable/appwidget_background"
     android:focusable="true"
     android:orientation="vertical" >
 
