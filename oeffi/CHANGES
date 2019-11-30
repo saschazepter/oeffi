@@ -1,3 +1,10 @@
+v10.6
+
+* Maintenance release with backports from version 11.
+* New region: Prague.
+* New region: San Francisco.
+* On Android 4.x with Google Play Services, use TLS 1.2 if offered by the server.
+
 v10.5.9
 
 * Modernized Settings and About screens.
