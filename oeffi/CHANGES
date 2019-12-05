@@ -1,4 +1,4 @@
-v11.1.6-v11.1.7
+v11.1.6-v11.1.8
 
 * On Android 4.4 (KitKat) with Google Play Services, use TLS 1.2 if offered by the server.
 
