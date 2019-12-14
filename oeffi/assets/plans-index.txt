@@ -3,27 +3,31 @@
 
 # de
 
-berlin_bsu_ab|52.520134,13.388018|2018-12-09|Berlin S+U-Bahn-Netz (AB)|Berliner Verkehrsbetriebe||BVG
-berlin_bsu_abc|52.520134,13.388018|2018-12-09|Berlin S+U-Bahn-Netz (ABC)|Berliner Verkehrsbetriebe||BVG
-berlin_tram|52.521152,13.412832|2018-12-09|Berlin Tram-Netz|Berliner Verkehrsbetriebe||BVG
-berlin_bus|52.5071378,13.3318680|2018-12-09|Berlin Bus-Netz|Berliner Verkehrsbetriebe||BVG
-berlin_nacht|52.520134,13.388018|2018-12-09|Berlin Nachtverkehr (geografisch)|Berliner Verkehrsbetriebe||BVG
+berlin_bsu_ab|52.520134,13.388018|2019-08-04|Berlin S+U-Bahn-Netz (AB)|Berliner Verkehrsbetriebe||BVG
+berlin_bsu_abc|52.520134,13.388018|2019-12-15|Berlin S+U-Bahn-Netz (ABC)|Berliner Verkehrsbetriebe||BVG
+berlin_tram|52.521152,13.412832|2019-02-02|Berlin Tram-Netz|Berliner Verkehrsbetriebe||BVG
+berlin_bus|52.5071378,13.3318680|2019-12-15|Berlin Bus-Netz|Berliner Verkehrsbetriebe||BVG
+berlin_nacht|52.520134,13.388018|2019-08-04|Berlin Nachtverkehr (geografisch)|Berliner Verkehrsbetriebe||BVG
+berlin_transitmap|52.520134,13.388018|2018-12-09|New Berlin rapid transit route map|berlintransitmap.de
 # berlin_anbindung_ber|52.363127,13.50498|2011-10|Berlin Brandenburg Flughafen Anbindung|Robert Aehnelt, Creative Commons|https://upload.wikimedia.org/wikipedia/commons/d/d3/Anbindung_BER.png
-brandenburg_regionalverkehr|52.525578,13.369523|2018-12-09|Brandenburg Regionalverkehr|Verkehrsverbund Berlin-Brandenburg||VBB
-potsdam_tag|52.390931,13.067171|2018-12-09|Potsdam Tagesliniennetz|Verkehrsverbund Berlin-Brandenburg||VBB
-potsdam_nacht|52.390931,13.067171|2018-12-09|Potsdam Nachtliniennetz|Verkehrsverbund Berlin-Brandenburg||VBB
-cottbus_tag_abc|51.760897,14.330106|2018-12-09|Cottbus Tageslinien ABC|Verkehrsverbund Berlin-Brandenburg||VBB
-cottbus_abend|51.760897,14.330106|2018-12-09|Cottbus Abendlinien|Verkehrsverbund Berlin-Brandenburg||VBB
-frankfurt_oder_abc|52.336876,14.545712|2018-12-09|Frankfurt (Oder) ABC|Verkehrsverbund Berlin-Brandenburg||VBB
-brandenburg_havel|52.405872,12.538199|2018-12-09|Brandenburg an der Havel|Verkehrsverbund Berlin-Brandenburg||VBB
-greifswald|54.092863,13.370336|2018-07|Greifswald Liniennetz|Stadtwerke Greifswald
-dresden|51.050961,13.733239|2018-12-09|Dresden Liniennetz|Dresdner Verkehrsbetriebe AG
-dresden_nacht|51.050961,13.733239|2018-12-09|Dresden Nachtverkehr|dvb.de
+brandenburg_regionalverkehr|52.525578,13.369523|2019-12-15|Brandenburg Regionalverkehr|Verkehrsverbund Berlin-Brandenburg||VBB
+potsdam_tag|52.390931,13.067171|2019-12-15|Potsdam Tagesliniennetz|Verkehrsverbund Berlin-Brandenburg||VBB
+potsdam_nacht|52.390931,13.067171|2019-12-15|Potsdam Nachtliniennetz|Verkehrsverbund Berlin-Brandenburg||VBB
+cottbus_tag_abc|51.760897,14.330106|2019-12-15|Cottbus Tageslinien ABC|Verkehrsverbund Berlin-Brandenburg||VBB
+cottbus_abend|51.760897,14.330106|2019-12-15|Cottbus Abendlinien|Verkehrsverbund Berlin-Brandenburg||VBB
+frankfurt_oder_abc|52.336876,14.545712|2019-12-15|Frankfurt (Oder) ABC|Verkehrsverbund Berlin-Brandenburg||VBB
+brandenburg_havel|52.405872,12.538199|2019-12-15|Brandenburg an der Havel|Verkehrsverbund Berlin-Brandenburg||VBB
+oranienburg|52.7539716,13.2489095|2019-12-15|Oranienburg|Verkehrsverbund Berlin-Brandenburg||VBB
+greifswald|54.092863,13.370336|2019-11|Greifswald Liniennetz|Stadtwerke Greifswald
+stettin|53.4182413,14.5494069|2019-12-09|Stettin|Zarząd Dróg i Transportu Miejskiego
+dresden|51.050961,13.733239|2019-09-29|Dresden Liniennetz|Dresdner Verkehrsbetriebe AG
+dresden_rolli|51.050961,13.733239|2019-09-29|Dresden für mobilitätseingeschränkte Personen|Dresdner Verkehrsbetriebe AG
+dresden_nacht|51.050961,13.733239|2019-09-29|Dresden Nachtverkehr|VVO
 leipzig_halle_schnellbahn|51.423347,12.220980|2018-12-09|Leipzig/Halle Schnellbahn|Mitteldeutscher Verkehrsverbund GmbH
 leipzig_tag|51.345476,12.379382|2018-11-26|Leipzig Linien Tag|Leipziger Verkehrsbetriebe GmbH
 leipzig_nacht|51.345476,12.379382|2018-11-26|Leipzig Linien Nacht|Leipziger Verkehrsbetriebe GmbH
-halle_tag|51.477347,11.985263|2018-10-15|Halle Linien Tag|SWH/HAVAG
-halle_nacht|51.477347,11.985263|2018-10-15|Halle Linien Nacht|SWH/HAVAG
+halle_tag|51.477347,11.985263|2019-10-14|Halle Linien Tag|SWH/HAVAG
+halle_nacht|51.477347,11.985263|2019-10-14|Halle Linien Nacht|SWH/HAVAG
 muenchen_schnellbahn|48.140377,11.560643|2018-12|München Schnellbahn|MVV
 muenchen_tram_metrobus|48.140377,11.560643|2018-12-09|München Tram/MetroBus|MVV/MVG
 muenchen_nacht|48.140377,11.560643|2018-12-09|München Nachtnetz|MVG
@@ -54,8 +58,8 @@ hamburg_usar|53.552946,10.006782|2018-12-09|Hamburg Schnellbahn/Regional|HVV
 hamburg_metrobus_gross|53.552946,10.006782|2018-12-09|Hamburg MetroBus Großbereich|HVV
 hamburg_region|53.552946,10.006782|2018-12-09|Hamburg Regionalverkehr|HVV
 hamburg_nachtbus|53.552946,10.006782|2018-12|Hamburg Nachtbus (geografisch)|OpenStreetMap und HVV
-kiel_liniennetz|54.313282,10.132341|2018-12|Kiel Liniennetz|KVG
-kiel_nacht|54.313282,10.132341|2017-09|Kiel Nachtliniennetz|KVG
+kiel_liniennetz|54.313282,10.132341|2019-12|Kiel Liniennetz|KVG
+kiel_nacht|54.313282,10.132341|2019-12|Kiel Nachtliniennetz|KVG
 luebeck_region|53.858795,10.664646|2018-12-09|Lübeck Liniennetz Region|LVG, nah.sh, Stadtverkehr Lübeck||SH
 rostock_vvw_liniennetz|54.078139,12.131724|2019-01-07|Rostock Liniennetz|Verkehrsverbund Warnow
 rostock_vvw_region|54.078139,12.131724|2019-01-07|Rostock Region|Verkehrsverbund Warnow
@@ -109,7 +113,7 @@ schwerin|53.634476,11.407313|2018-07|Schwerin Liniennetz|Nahverkehr Schwerin Gmb
 magdeburg_tag|52.130783,11.627347|2018-12-03|Magdeburg Liniennetz|Magdeburger Regionalverkehrsverbund
 magdeburg_nacht|52.130783,11.627347|2018-12-03|Magdeburg Nacht-Liniennetz|Magdeburger Regionalverkehrsverbund
 magdeburg_verbund|52.130783,11.627347|2018-12|Magdeburg Verbund-Liniennetz|Magdeburger Regionalverkehrsverbund
-hagen|51.362675,7.461087|2018-06-10|Hagen Liniennetz|Hagener Straßenbahn AG
+hagen|51.362675,7.461087|2019-12-15|Hagen Liniennetz|Hagener Straßenbahn AG
 braunschweig_gesamt|52.252187,10.539705|2017-12|Braunschweig Gesamtnetz|Braunschweiger Verkehrs-AG
 braunschweig_innenstadt|52.263931,10.526361|2017-12|Braunschweig Innenstadt|Braunschweiger Verkehrs-AG
 braunschweig_nacht|52.252187,10.539705|2017-12|Braunschweig Nachtnetz|Braunschweiger Verkehrs-AG
@@ -118,14 +122,15 @@ wolfenbuettel|52.15898,10.532012|2018-10|Wolfenbüttel Liniennetz|KVG Braunschwe
 helmstedt|52.222331,11.010690|2015-12|Helmstedt Liniennetz|KVG Braunschweig
 harz|51.888518,10.554843|2018-06|Harz Liniennetz|KVG Braunschweig
 wolfsburg|52.429484,10.788249|2018-08-09|Wolfsburg Liniennetz|WVG
-karlsruhe_liniennetz|48.993988,8.400328|2018-12-09|Karlsruhe Liniennetz|Karlsruher Verkehrsverbund||KVV
-karlsruhe_regio|48.993988,8.400328|2018-12-09|Karlsruhe Regionalverkehr|Karlsruher Verkehrsverbund||KVV
-karlsruhe_bus|49.009498,8.404073|2018-12-09|Karlsruhe Busnetz|Karlsruher Verkehrsverbund||KVV
-karlsruhe_nightliner|49.009498,8.404073|2018-03-24|Karlsruhe Nightliner|Karlsruher Verkehrsverbund||KVV
-freiburg_liniennetz|47.996556,7.840286|2017-12-10|Freiburg Liniennetz|Freiburger Verkehrs AG||VAGFR
-freiburg_nacht|47.996556,7.840286|2017-11-27|Freiburg Nachtbus|Freiburger Verkehrs AG||VAGFR
-freiburg_regio|47.996556,7.840286|2018-01|Freiburg Regio|RVF
-freiburg_tarifzonen|47.996556,7.840286|2016-05|Freiburg Tarifzonen|RVF
+karlsruhe_liniennetz|48.993988,8.400328|2019-12-15|Karlsruhe Liniennetz|Karlsruher Verkehrsverbund||KVV
+karlsruhe_rolli|48.993988,8.400328|2018-12-09|Karlsruhe für mobilitätseingeschränkte Personen|Karlsruher Verkehrsverbund||KVV
+karlsruhe_regio|48.993988,8.400328|2019-12-15|Karlsruhe Regionalverkehr|Karlsruher Verkehrsverbund||KVV
+karlsruhe_bus|49.009498,8.404073|2019-12-15|Karlsruhe Busnetz|Karlsruher Verkehrsverbund||KVV
+karlsruhe_nightliner|49.009498,8.404073|2019-12-15|Karlsruhe Nightliner|Karlsruher Verkehrsverbund||KVV
+freiburg_liniennetz|47.996556,7.840286|2019-11|Freiburg Liniennetz|Freiburger Verkehrs AG||VAGFR
+freiburg_nacht|47.996556,7.840286|2019-11|Freiburg Nachtbus|Freiburger Verkehrs AG||VAGFR
+freiburg_regio|47.996556,7.840286|2019-03|Freiburg Regio|RVF
+freiburg_tarifzonen|47.996556,7.840286|2017-05|Freiburg Tarifzonen|RVF
 freudenstadt_werktag|48.460501,8.428012|2017-12-10|Freudenstadt Liniennetz Werktags|vgf
 freudenstadt_freizeit|48.460501,8.428012|2017-12-10|Freudenstadt Liniennetz Freizeit|vgf
 mannheim_ludwigshafen|49.481844,8.459115|2018-11-05|Mannheim/Ludwigshafen Liniennetz|RNV GmbH
@@ -181,8 +186,8 @@ amsterdam_centre|52.378861,4.900392||Amsterdam City Centre (geographical)|GVB
 copenhagen_city|55.672717,12.562532||Copenhagen City|DOT
 copenhagen_region|55.672717,12.562532||Copenhagen Greater Area|DOT
 copenhagen_night|55.672717,12.562532|2015-02|Copenhagen Night Bus|DOT
-aarhus_dag|56.149808,10.204283|2019-01-01|Aarhus Dag|Damian Leonhardt
-aarhus_nat|56.149808,10.204283|2019-01-01|Aarhus Nat|Damian Leonhardt
+aarhus_dag|56.149808,10.204283|2019-04-30|Aarhus Dag|Damian Leonhardt
+aarhus_nat|56.149808,10.204283|2019-04-30|Aarhus Nat|Damian Leonhardt
 
 # se
 
