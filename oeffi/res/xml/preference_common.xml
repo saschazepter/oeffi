@@ -19,6 +19,21 @@
             android:key="show_hints"
             android:summary="@string/global_preferences_show_hints_summary"
             android:title="@string/global_preferences_show_hints_title"/>
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="show_trip_details_on_lockscreen"
+            android:summary="@string/global_preferences_show_trip_details_on_lockscreen_summary"
+            android:title="@string/global_preferences_show_trip_details_on_lockscreen_title"/>
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="show_station_details_on_lockscreen"
+            android:summary="@string/global_preferences_show_station_details_on_lockscreen_summary"
+            android:title="@string/global_preferences_show_station_details_on_lockscreen_title"/>
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="show_plan_on_lockscreen"
+            android:summary="@string/global_preferences_show_plan_on_lockscreen_summary"
+            android:title="@string/global_preferences_show_plan_on_lockscreen_title"/>
     <Preference
             android:key="location_settings"
             android:summary="@string/global_preferences_location_settings_summary"

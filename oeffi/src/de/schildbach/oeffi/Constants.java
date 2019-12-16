@@ -65,6 +65,10 @@ public class Constants {
     public static final String PREFS_KEY_LAST_VERSION = "last_version";
     public static final String PREFS_KEY_SHOW_INFO = "show_hints";
     public static final String PREFS_KEY_LAST_INFO_AT = "last_hint_at";
+    
+    public static final String PREFS_KEY_SHOW_PLAN_ON_LOCKSCREEN = "show_plan_on_lockscreen";
+    public static final String PREFS_KEY_SHOW_TRIP_DETAILS_ON_LOCKSCREEN = "show_trip_details_on_lockscreen";
+    public static final String PREFS_KEY_SHOW_STATION_DETAILS_ON_LOCKSCREEN = "show_station_details_on_lockscreen";            
 
     public static final char CHAR_THIN_SPACE = '\u2009';
     public static final char CHAR_HAIR_SPACE = '\u200a';

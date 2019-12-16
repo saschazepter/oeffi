@@ -42,6 +42,12 @@
     <string name="global_preferences_show_hints_summary">Show useful hints now and then.</string>
     <string name="global_preferences_location_settings_title">Location settings</string>
     <string name="global_preferences_location_settings_summary">Enable location providers, e.g. GPS.</string>
+    <string name="global_preferences_show_trip_details_on_lockscreen_summary">Show the trip details activity on the lockscreen</string>
+    <string name="global_preferences_show_trip_details_on_lockscreen_title">Trip details on lockscreen</string>
+    <string name="global_preferences_show_station_details_on_lockscreen_summary">Show the station details activity on the lockscreen</string>
+    <string name="global_preferences_show_station_details_on_lockscreen_title">Station details on lockscreen</string>
+    <string name="global_preferences_show_plan_on_lockscreen_summary">Show the plan activity on the lockscreen</string>
+    <string name="global_preferences_show_plan_on_lockscreen_title">Plan on lockscreen</string>
     <string name="global_preferences_battery_optimizations_title">Battery optimizations</string>
     <string name="global_preferences_battery_optimizations_summary">If the app-widget cannot fetch departure times while your device is in standby, you should disable battery optimizations for Öffi.</string>
 

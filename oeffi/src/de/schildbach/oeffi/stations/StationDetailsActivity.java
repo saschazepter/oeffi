@@ -89,11 +89,15 @@ import android.widget.ViewAnimator;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.preference.PreferenceManager;
+import android.content.SharedPreferences;
 
 public class StationDetailsActivity extends OeffiActivity implements StationsAware {
     private static final String INTENT_EXTRA_NETWORK = StationDetailsActivity.class.getName() + ".network";
     private static final String INTENT_EXTRA_STATION = StationDetailsActivity.class.getName() + ".station";
     private static final String INTENT_EXTRA_DEPARTURES = StationDetailsActivity.class.getName() + ".departures";
+
+    protected SharedPreferences prefs;
 
     public static void start(final Context context, final NetworkId networkId, final Location station) {
         start(context, networkId, station, null);
@@ -149,6 +153,8 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
         backgroundThread = new HandlerThread("queryDeparturesThread", Process.THREAD_PRIORITY_BACKGROUND);
         backgroundThread.start();
         backgroundHandler = new Handler(backgroundThread.getLooper());
+
+        this.prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         setContentView(R.layout.stations_station_details_content);
         actionBar = getMyActionBar();
@@ -328,7 +334,9 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
 
     @Override
     public void onAttachedToWindow() {
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        if(prefs.getBoolean(Constants.PREFS_KEY_SHOW_STATION_DETAILS_ON_LOCKSCREEN, true)) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        }
     }
 
     @Override

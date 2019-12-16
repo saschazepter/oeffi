@@ -101,10 +101,14 @@ import android.widget.PopupMenu;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
+import android.preference.PreferenceManager;
+import android.content.SharedPreferences;
 
 public class TripDetailsActivity extends OeffiActivity implements LocationListener, LocationAware {
     private static final String INTENT_EXTRA_NETWORK = TripDetailsActivity.class.getName() + ".network";
     private static final String INTENT_EXTRA_TRIP = TripDetailsActivity.class.getName() + ".trip";
+
+    protected SharedPreferences prefs;
 
     public static void start(final Context context, final NetworkId network, final Trip trip) {
         final Intent intent = new Intent(context, TripDetailsActivity.class);
@@ -153,6 +157,8 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         colorGrey600 = res.getColor(R.color.grey600);
         displayMetrics = res.getDisplayMetrics();
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        this.prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         final Intent intent = getIntent();
         network = (NetworkId) intent.getSerializableExtra(INTENT_EXTRA_NETWORK);
@@ -358,7 +364,9 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
 
     @Override
     public void onAttachedToWindow() {
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        if(prefs.getBoolean(Constants.PREFS_KEY_SHOW_TRIP_DETAILS_ON_LOCKSCREEN, true)) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        }
     }
 
     @Override

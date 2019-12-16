@@ -85,11 +85,15 @@ import android.widget.TextView;
 import android.widget.ViewAnimator;
 import androidx.annotation.Nullable;
 import okhttp3.HttpUrl;
+import android.preference.PreferenceManager;
+import android.content.SharedPreferences;
 
 public class PlanActivity extends Activity {
     public static final String INTENT_EXTRA_PLAN_ID = "plan_id"; // Used in launcher shortcuts
     private static final String INTENT_EXTRA_SELECTED_STATION_ID = PlanActivity.class.getName()
             + ".selected_station_id";
+
+    protected SharedPreferences prefs;
 
     public static Intent intent(final Context context, final String planId, final String selectedStationId) {
         final Intent intent = new Intent(Intent.ACTION_VIEW, null, context, PlanActivity.class);
@@ -126,6 +130,8 @@ public class PlanActivity extends Activity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.application = (Application) getApplication();
+
+        this.prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         // background thread
         backgroundThread = new HandlerThread("queryDeparturesThread", Process.THREAD_PRIORITY_BACKGROUND);
@@ -264,7 +270,9 @@ public class PlanActivity extends Activity {
 
     @Override
     public void onAttachedToWindow() {
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        if(prefs.getBoolean(Constants.PREFS_KEY_SHOW_PLAN_ON_LOCKSCREEN, true)) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        }
     }
 
     @Override
