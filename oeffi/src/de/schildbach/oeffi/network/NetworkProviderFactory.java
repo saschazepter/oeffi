@@ -224,7 +224,7 @@ public final class NetworkProviderFactory {
         else if (networkId.equals(NetworkId.RTACHICAGO))
             return new RtaChicagoProvider();
         else if (networkId.equals(NetworkId.CMTA))
-            return new CmtaProvider();
+            return new CmtaProvider("{\"type\":\"AID\",\"aid\":\"web9j2nak29uz41irb\"}");
         else if (networkId.equals(NetworkId.SYDNEY))
             return new SydneyProvider();
         else if (networkId.equals(NetworkId.NICARAGUA))
