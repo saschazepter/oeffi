@@ -17,7 +17,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
     implementation 'androidx.drawerlayout:drawerlayout:1.0.0'
-    implementation 'androidx.core:core:1.1.0'
+    implementation 'androidx.core:core:1.2.0'
     //noinspection GradleDependency
     implementation 'com.squareup.okhttp3:okhttp:3.12.10'
     //noinspection GradleDependency
