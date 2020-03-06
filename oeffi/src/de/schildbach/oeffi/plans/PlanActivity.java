@@ -139,6 +139,7 @@ public class PlanActivity extends Activity {
         zoomControlsAnimation.setFillAfter(true); // workaround: set through code because XML does not work
 
         viewAnimator = (ViewAnimator) findViewById(R.id.plans_layout);
+        viewAnimator.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         plan = (ScrollImageView) findViewById(R.id.plans_plan);
         plan.setOnMoveListener(() -> {
