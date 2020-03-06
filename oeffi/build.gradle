@@ -19,9 +19,9 @@ dependencies {
     implementation 'androidx.drawerlayout:drawerlayout:1.0.0'
     implementation 'androidx.core:core:1.1.0'
     //noinspection GradleDependency
-    implementation 'com.squareup.okhttp3:okhttp:3.12.8'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.10'
     //noinspection GradleDependency
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.8'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.10'
     implementation 'com.google.guava:guava:28.2-android'
     implementation 'org.osmdroid:osmdroid-android:6.1.5'
     implementation 'org.slf4j:slf4j-api:1.7.30'
