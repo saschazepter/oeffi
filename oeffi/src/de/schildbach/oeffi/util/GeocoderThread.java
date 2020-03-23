@@ -82,28 +82,32 @@ public class GeocoderThread extends Thread {
         try {
             if (Geocoder.isPresent()) {
                 final List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-
-                if (addresses.size() >= 1)
-                    onResult(addresses.get(0));
-                else
-                    onFail(new IllegalStateException("No addresses."));
+                if (addresses.size() >= 1) {
+                    final Address address = addresses.get(0);
+                    log.info("Geocoder took {} ms, for {}/{} returned {}", System.currentTimeMillis() - startTime,
+                            latitude, longitude, address);
+                    onResult(address);
+                } else {
+                    final String msg = "Geocoder returned no addresses";
+                    log.info(msg);
+                    onFail(new IllegalStateException(msg));
+                }
             } else {
-                onFail(new UnsupportedOperationException("Geocoder not implemented."));
+                final String msg = "Geocoder not implemented";
+                log.info(msg);
+                onFail(new UnsupportedOperationException(msg));
             }
         } catch (final IOException x) {
+            log.info("Geocoder failed: {}",x.getMessage());
             onFail(x);
         }
     }
 
     private void onResult(final Address address) {
-        log.info("Geocoder took {} ms, returned {}", System.currentTimeMillis() - startTime, address);
-
         callbackHandler.post(() -> callback.onGeocoderResult(address));
     }
 
     private void onFail(final Exception exception) {
-        log.info("Geocoder failed: {}", exception.getMessage());
-
         callbackHandler.post(() -> callback.onGeocoderFail(exception));
     }
 
