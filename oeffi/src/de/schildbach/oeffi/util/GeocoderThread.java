@@ -114,16 +114,18 @@ public class GeocoderThread extends Thread {
         else
             coord = null;
 
-        final Location location;
         final int maxAddressLineIndex = address.getMaxAddressLineIndex();
-        if (maxAddressLineIndex >= 2 && Strings.emptyToNull(address.getAddressLine(2)) != null) {
-            location = new Location(LocationType.ADDRESS, null, coord, address.getAddressLine(1),
-                    address.getAddressLine(0));
-        } else if (address.getThoroughfare() != null) {
+        final Location location;
+        if (Strings.emptyToNull(address.getFeatureName()) != null && Strings.emptyToNull(address.getLocality()) != null
+                && Strings.emptyToNull(address.getPostalCode()) != null) {
             final Joiner joiner = Joiner.on(' ').skipNulls();
+            final String thoroughfare = Strings.emptyToNull(address.getThoroughfare());
             location = new Location(LocationType.ADDRESS, null, coord,
                     joiner.join(address.getPostalCode(), address.getLocality()),
-                    joiner.join(address.getThoroughfare(), address.getFeatureName()));
+                    joiner.join(thoroughfare, address.getFeatureName()));
+        } else if (maxAddressLineIndex >= 2 && Strings.emptyToNull(address.getAddressLine(2)) != null) {
+            location = new Location(LocationType.ADDRESS, null, coord, address.getAddressLine(1),
+                    address.getAddressLine(0));
         } else {
             location = new Location(LocationType.ADDRESS, null, coord);
         }
