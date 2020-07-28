@@ -19,7 +19,7 @@ SH|de-DE|Schleswig-Holstein;Kiel;Lübeck;Hamburg
 GVH|de-DE|Niedersachsen;Hannover;Hamburg
 BSVAG|de-DE|Braunschweig;Wolfsburg
 VBN|de-DE|Niedersachsen;Hamburg;Bremen;Bremerhaven;Oldenburg (Oldenburg);Osnabrück;Göttingen;Rostock
-VVO|de-DE|Sachsen;Dresden
+VVO|de-DE|Sachsen;Dresden|disabled
 VMS|de-DE|Mittelsachsen;Chemnitz
 NASA|de-DE|Sachsen;Leipzig;Sachsen-Anhalt;Magdeburg;Halle
 VMT|de-DE|Thüringen;Mittelthüringen;Erfurt;Jena;Gera;Weimar;Gotha
