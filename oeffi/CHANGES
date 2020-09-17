@@ -1,3 +1,7 @@
+v11.3
+
+* Remove the caching system in Öffi Stations as it led to too much stale data.
+
 v11.2-v11.2.4
 
 * Use the display cutout area for network plans.
