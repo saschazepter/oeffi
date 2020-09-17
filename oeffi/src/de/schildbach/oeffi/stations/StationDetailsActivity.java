@@ -28,7 +28,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,7 +36,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Joiner;
-import com.google.common.base.Strings;
 
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.MyActionBar;
@@ -57,11 +55,8 @@ import de.schildbach.pte.dto.Line;
 import de.schildbach.pte.dto.LineDestination;
 import de.schildbach.pte.dto.Location;
 import de.schildbach.pte.dto.LocationType;
-import de.schildbach.pte.dto.Point;
-import de.schildbach.pte.dto.Product;
 import de.schildbach.pte.dto.QueryDeparturesResult;
 import de.schildbach.pte.dto.StationDepartures;
-import de.schildbach.pte.dto.Style;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -69,7 +64,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -122,8 +116,6 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
     private Integer selectedFavState = null;
     @Nullable
     private LinkedHashMap<Line, List<Location>> selectedLines = null;
-    @Nullable
-    private List<Line> selectedAdditionalLines = null;
 
     private MyActionBar actionBar;
     private ToggleImageButton favoriteButton;
@@ -381,68 +373,6 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
                             for (final StationDepartures stationDepartures : result.stationDepartures) {
                                 Location location = stationDepartures.location;
                                 if (location.hasId()) {
-                                    List<Line> additionalLines = null;
-
-                                    final Cursor cursor = getContentResolver().query(
-                                            NetworkContentProvider.CONTENT_URI.buildUpon()
-                                                    .appendPath(selectedNetwork.name()).build(),
-                                            null, NetworkContentProvider.KEY_ID + "=?", new String[] { location.id },
-                                            null);
-                                    if (cursor != null) {
-                                        if (cursor.moveToFirst()) {
-                                            final int placeCol = cursor
-                                                    .getColumnIndex(NetworkContentProvider.KEY_PLACE);
-                                            final int nameCol = cursor
-                                                    .getColumnIndexOrThrow(NetworkContentProvider.KEY_NAME);
-                                            final int latCol = cursor
-                                                    .getColumnIndexOrThrow(NetworkContentProvider.KEY_LAT);
-                                            final int lonCol = cursor
-                                                    .getColumnIndexOrThrow(NetworkContentProvider.KEY_LON);
-                                            final int productsCol = cursor
-                                                    .getColumnIndex(NetworkContentProvider.KEY_PRODUCTS);
-                                            final int linesCol = cursor
-                                                    .getColumnIndexOrThrow(NetworkContentProvider.KEY_LINES);
-
-                                            final Point coord = Point.from1E6(cursor.getInt(latCol),
-                                                    cursor.getInt(lonCol));
-                                            final String place = placeCol != -1 ? cursor.getString(placeCol)
-                                                    : selectedStation.place;
-                                            final String name = cursor.getString(nameCol);
-                                            final Set<Product> products;
-                                            if (productsCol != -1 && !cursor.isNull(productsCol))
-                                                products = Product
-                                                        .fromCodes(cursor.getString(productsCol).toCharArray());
-                                            else
-                                                products = null;
-                                            location = new Location(LocationType.STATION, location.id, coord, place,
-                                                    name, products);
-
-                                            final String[] additionalLinesArray = cursor.getString(linesCol).split(",");
-                                            additionalLines = new ArrayList<>(additionalLinesArray.length);
-                                            l: for (final String additionalLineStr : additionalLinesArray) {
-                                                if (!additionalLineStr.isEmpty()) {
-                                                    final Product additionalLineProduct = Product
-                                                            .fromCode(additionalLineStr.charAt(0));
-                                                    final String additionalLineLabel = Strings
-                                                            .emptyToNull(additionalLineStr.substring(1));
-                                                    final Line additionalLine = new Line(null, null,
-                                                            additionalLineProduct, additionalLineLabel);
-                                                    final List<LineDestination> lineDestinations = stationDepartures.lines;
-                                                    if (lineDestinations != null)
-                                                        for (final LineDestination lineDestination : lineDestinations)
-                                                            if (lineDestination.line.equals(additionalLine))
-                                                                continue l;
-                                                    final Style style = networkProvider.lineStyle(null,
-                                                            additionalLine.product, additionalLine.label);
-                                                    additionalLines.add(new Line(null, null, additionalLine.product,
-                                                            additionalLine.label, style));
-                                                }
-                                            }
-                                        }
-
-                                        cursor.close();
-                                    }
-
                                     Station station = findStation(location.id);
                                     if (station == null) {
                                         station = new Station(selectedNetwork, location);
@@ -455,7 +385,6 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
                                     if (location.equals(selectedStation)) {
                                         selectedDepartures = stationDepartures.departures;
                                         selectedLines = groupDestinationsByLine(stationDepartures.lines);
-                                        selectedAdditionalLines = additionalLines;
                                     }
                                 }
                             }
@@ -510,53 +439,6 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
         selectedStation = station.location;
         selectedDepartures = station.departures;
         selectedLines = groupDestinationsByLine(station.getLines());
-        selectedAdditionalLines = null;
-
-        final Cursor stationCursor = getContentResolver().query(
-                NetworkContentProvider.CONTENT_URI.buildUpon().appendPath(selectedNetwork.name()).build(), null,
-                NetworkContentProvider.KEY_ID + "=?", new String[] { selectedStation.id }, null);
-        if (stationCursor != null) {
-            if (stationCursor.moveToFirst()) {
-                final int placeCol = stationCursor.getColumnIndex(NetworkContentProvider.KEY_PLACE);
-                final int nameCol = stationCursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_NAME);
-                final int latCol = stationCursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LAT);
-                final int lonCol = stationCursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LON);
-                final int productsCol = stationCursor.getColumnIndex(NetworkContentProvider.KEY_PRODUCTS);
-                final int linesCol = stationCursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LINES);
-
-                final Point coord = Point.from1E6(stationCursor.getInt(latCol), stationCursor.getInt(lonCol));
-                final String place = placeCol != -1 ? stationCursor.getString(placeCol) : selectedStation.place;
-                final String name = stationCursor.getString(nameCol);
-                final Set<Product> products;
-                if (productsCol != -1 && !stationCursor.isNull(productsCol))
-                    products = Product.fromCodes(stationCursor.getString(productsCol).toCharArray());
-                else
-                    products = null;
-                selectedStation = new Location(LocationType.STATION, selectedStation.id, coord, place, name, products);
-
-                final NetworkProvider networkProvider = NetworkProviderFactory.provider(selectedNetwork);
-
-                final String[] additionalLinesArray = stationCursor.getString(linesCol).split(",");
-                final List<Line> additionalLines = new ArrayList<>(additionalLinesArray.length);
-                l: for (final String additionalLineStr : additionalLinesArray) {
-                    if (!additionalLineStr.isEmpty()) {
-                        final Product additionalLineProduct = Product.fromCode(additionalLineStr.charAt(0));
-                        final String additionalLineLabel = Strings.emptyToNull(additionalLineStr.substring(1));
-                        final Line additionalLine = new Line(null, null, additionalLineProduct, additionalLineLabel);
-                        final List<LineDestination> lineDestinations = station.getLines();
-                        if (lineDestinations != null)
-                            for (final LineDestination line : lineDestinations)
-                                if (line.line.equals(additionalLine))
-                                    continue l;
-                        additionalLines.add(new Line(null, null, additionalLine.product, additionalLine.label,
-                                networkProvider.lineStyle(null, additionalLine.product, additionalLine.label)));
-                    }
-                }
-                selectedAdditionalLines = additionalLines;
-            }
-
-            stationCursor.close();
-        }
 
         selectedFavState = FavoriteStationsProvider.favState(getContentResolver(), selectedNetwork, selectedStation);
 
@@ -647,7 +529,7 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
         @Override
         public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
             if (holder instanceof HeaderViewHolder) {
-                ((HeaderViewHolder) holder).bind(selectedStation, selectedLines, selectedAdditionalLines);
+                ((HeaderViewHolder) holder).bind(selectedStation, selectedLines, null);
             } else {
                 final Departure departure = getItem(position);
                 ((DepartureViewHolder) holder).bind(selectedNetwork, departure);

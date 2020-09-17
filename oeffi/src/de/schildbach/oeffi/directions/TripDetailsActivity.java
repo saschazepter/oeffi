@@ -42,7 +42,6 @@ import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.TripAware;
 import de.schildbach.oeffi.directions.TimeSpec.DepArr;
 import de.schildbach.oeffi.stations.LineView;
-import de.schildbach.oeffi.stations.NetworkContentProvider;
 import de.schildbach.oeffi.stations.StationContextMenu;
 import de.schildbach.oeffi.stations.StationDetailsActivity;
 import de.schildbach.oeffi.util.Formats;
@@ -54,7 +53,6 @@ import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.dto.Fare;
 import de.schildbach.pte.dto.Line;
 import de.schildbach.pte.dto.Location;
-import de.schildbach.pte.dto.LocationType;
 import de.schildbach.pte.dto.Point;
 import de.schildbach.pte.dto.Position;
 import de.schildbach.pte.dto.Stop;
@@ -72,7 +70,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
@@ -695,13 +692,6 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         if (leg.arrival.hasCoord()) {
             mapView.setVisibility(View.VISIBLE);
             mapView.setOnClickListener(new MapClickListener(leg.arrival));
-        } else if (leg.arrival.hasId()) {
-            final Point point = pointFromStationDb(leg.arrival.id);
-            if (point != null) {
-                mapView.setVisibility(View.VISIBLE);
-                mapView.setOnClickListener(new MapClickListener(new Location(LocationType.STATION, leg.arrival.id,
-                        point, leg.arrival.place, leg.arrival.name)));
-            }
         }
     }
 
@@ -940,53 +930,6 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         }
     }
 
-    private Point pointFromStationDb(final String id) {
-        final Cursor cursor = getContentResolver().query(
-                NetworkContentProvider.CONTENT_URI.buildUpon().appendPath(network.name()).build(),
-                new String[] { NetworkContentProvider.KEY_LAT, NetworkContentProvider.KEY_LON },
-                NetworkContentProvider.KEY_ID + "=?", new String[] { id }, null);
-        if (cursor == null)
-            return null;
-
-        final Point point;
-
-        if (cursor.moveToFirst()) {
-            final int latColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LAT);
-            final int lonColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LON);
-            point = Point.from1E6(cursor.getInt(latColumnIndex), cursor.getInt(lonColumnIndex));
-        } else {
-            point = null;
-        }
-
-        cursor.close();
-
-        return point;
-    }
-
-    private Point pointFromStationDb(final String place, final String name) {
-        final Cursor cursor = getContentResolver().query(
-                NetworkContentProvider.CONTENT_URI.buildUpon().appendPath(network.name())
-                        .appendQueryParameter(NetworkContentProvider.KEY_PLACE, place != null ? place : "")
-                        .appendQueryParameter(NetworkContentProvider.KEY_NAME, name != null ? name : "").build(),
-                new String[] { NetworkContentProvider.KEY_LAT, NetworkContentProvider.KEY_LON }, null, null, null);
-        if (cursor == null)
-            return null;
-
-        final Point point;
-
-        if (cursor.moveToFirst()) {
-            final int latColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LAT);
-            final int lonColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LON);
-            point = Point.from1E6(cursor.getInt(latColumnIndex), cursor.getInt(lonColumnIndex));
-        } else {
-            point = null;
-        }
-
-        cursor.close();
-
-        return point;
-    }
-
     private void shareTripShort() {
         final Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
@@ -1112,19 +1055,6 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
     private Point pointFromLocation(final Location location) {
         if (location.hasCoord())
             return location.coord;
-
-        if (location.hasId()) {
-            final Point point = pointFromStationDb(location.id);
-            if (point != null)
-                return point;
-        }
-
-        // fallback kludge: search db by name
-        if (location.name != null) {
-            final Point point = pointFromStationDb(location.place, location.name);
-            if (point != null)
-                return point;
-        }
 
         return null;
     }

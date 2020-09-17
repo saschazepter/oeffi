@@ -26,7 +26,6 @@ import okhttp3.HttpUrl;
 
 public class Constants {
     public static final HttpUrl OEFFI_BASE_URL = HttpUrl.parse("https://oeffi.schildbach.de/");
-    public static final HttpUrl STATIONS_BASE_URL = OEFFI_BASE_URL.newBuilder().addPathSegment("stations").build();
     public static final HttpUrl PLANS_BASE_URL = OEFFI_BASE_URL.newBuilder().addPathSegment("plans").build();
     public static final HttpUrl MESSAGES_BASE_URL = OEFFI_BASE_URL.newBuilder().addPathSegment("messages").build();
     public static final String PLANS_DIR = "plans";

@@ -229,11 +229,6 @@
             android:taskAffinity="de.schildbach.oeffi.stations" />
 
         <provider
-            android:name=".stations.NetworkContentProvider"
-            android:authorities="de.schildbach.oeffi.networks"
-            android:exported="false" />
-
-        <provider
             android:name=".stations.FavoriteStationsProvider"
             android:authorities="de.schildbach.oeffi.stations.favorites"
             android:exported="false" />

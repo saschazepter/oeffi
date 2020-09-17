@@ -33,15 +33,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Strings;
 import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.Ordering;
 import com.google.common.primitives.Ints;
@@ -72,11 +69,11 @@ import de.schildbach.pte.dto.Line;
 import de.schildbach.pte.dto.LineDestination;
 import de.schildbach.pte.dto.Location;
 import de.schildbach.pte.dto.LocationType;
+import de.schildbach.pte.dto.NearbyLocationsResult;
 import de.schildbach.pte.dto.Point;
 import de.schildbach.pte.dto.Product;
 import de.schildbach.pte.dto.QueryDeparturesResult;
 import de.schildbach.pte.dto.StationDepartures;
-import de.schildbach.pte.dto.Style;
 import de.schildbach.pte.dto.SuggestLocationsResult;
 
 import android.Manifest;
@@ -90,8 +87,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.database.ContentObserver;
-import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -105,7 +100,6 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.net.Uri.Builder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -449,9 +443,6 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         if (network != null && NetworkProviderFactory.provider(network).hasCapabilities(Capability.DEPARTURES)) {
             startLocationProvider();
 
-            // request update on content change (db loaded)
-            getContentResolver().registerContentObserver(NetworkContentProvider.CONTENT_URI, true, contentObserver);
-
             // request update on orientation change
             sensorManager.registerListener(orientationListener, sensorAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
             sensorManager.registerListener(orientationListener, sensorMagnetometer, SensorManager.SENSOR_DELAY_NORMAL);
@@ -528,9 +519,6 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
 
         // cancel update on orientation change
         sensorManager.unregisterListener(orientationListener);
-
-        // cancel content change
-        getContentResolver().unregisterContentObserver(contentObserver);
 
         // cancel background thread
         backgroundThread.getLooper().quit();
@@ -755,13 +743,6 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         return super.onCreateDialog(id);
     }
 
-    private final ContentObserver contentObserver = new ContentObserver(handler) {
-        @Override
-        public void onChange(final boolean selfChange) {
-            runOnUiThread(initStationsRunnable);
-        }
-    };
-
     private final Runnable initStationsRunnable = new Runnable() {
         public void run() {
             if (network != null) {
@@ -792,75 +773,42 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                         updateGUI();
                     });
 
-                    final Builder uriBuilder = NetworkContentProvider.CONTENT_URI.buildUpon();
-                    uriBuilder.appendPath(network.name());
-                    uriBuilder.appendQueryParameter("lat", Integer.toString(referenceLocation.getLatAs1E6()));
-                    uriBuilder.appendQueryParameter("lon", Integer.toString(referenceLocation.getLonAs1E6()));
-                    uriBuilder.appendQueryParameter("ids", favoriteIds.toString());
-                    final Cursor cursor = getContentResolver().query(uriBuilder.build(), null, null, null, null);
+                    final NetworkProvider networkProvider = NetworkProviderFactory.provider(network);
+                    try {
+                        final NearbyLocationsResult result =
+                                networkProvider.queryNearbyLocations(EnumSet.of(LocationType.STATION),
+                                referenceLocation, 0, 0);
+                        if (result.status == NearbyLocationsResult.Status.OK) {
+                            log.info("Got {}", result.toShortString());
 
-                    if (cursor != null) {
-                        final int nativeIdColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_ID);
-                        final int localIdColumnIndex = cursor.getColumnIndex(NetworkContentProvider.KEY_LOCAL_ID);
-                        final int placeColumnIndex = cursor.getColumnIndex(NetworkContentProvider.KEY_PLACE);
-                        final int nameColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_NAME);
-                        final int latColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LAT);
-                        final int lonColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LON);
-                        final int productsColumnIndex = cursor.getColumnIndex(NetworkContentProvider.KEY_PRODUCTS);
-                        final int linesColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LINES);
+                            final List<Station> freshStations = new ArrayList<>(result.locations.size());
+                            final float[] distanceBetweenResults = new float[2];
 
-                        final List<Station> freshStations = new ArrayList<>(cursor.getCount());
-
-                        final float[] distanceBetweenResults = new float[2];
-
-                        final NetworkProvider networkProvider = NetworkProviderFactory.provider(network);
-
-                        while (cursor.moveToNext()) {
-                            final List<LineDestination> lineDestinations = new LinkedList<>();
-                            for (final String lineStr : cursor.getString(linesColumnIndex).split(",")) {
-                                if (!lineStr.isEmpty()) {
-                                    final Product product = Product.fromCode(lineStr.charAt(0));
-                                    final String label = Strings.emptyToNull(lineStr.substring(1));
-                                    // FIXME don't access networkProvider
-                                    // from thread
-                                    final Style style = networkProvider.lineStyle(null, product, label);
-                                    lineDestinations.add(
-                                            new LineDestination(new Line(null, null, product, label, style), null));
+                            for (final Location location : result.locations) {
+                                if (location.type == LocationType.STATION) {
+                                    final Station station = new Station(network, location, null);
+                                    if (deviceLocation != null) {
+                                        android.location.Location.distanceBetween(referenceLocation.getLatAsDouble(),
+                                                referenceLocation.getLonAsDouble(), location.getLatAsDouble(),
+                                                location.getLonAsDouble(), distanceBetweenResults);
+                                        station.setDistanceAndBearing(distanceBetweenResults[0],
+                                                distanceBetweenResults[1]);
+                                    }
+                                    freshStations.add(station);
                                 }
                             }
 
-                            final String id = localIdColumnIndex != -1 ? cursor.getString(localIdColumnIndex)
-                                    : cursor.getString(nativeIdColumnIndex);
-                            final String place = placeColumnIndex != -1 ? cursor.getString(placeColumnIndex) : null;
-                            final String name = cursor.getString(nameColumnIndex);
-                            final Point coord = Point.from1E6(cursor.getInt(latColumnIndex),
-                                    cursor.getInt(lonColumnIndex));
-                            final Set<Product> products;
-                            if (productsColumnIndex != -1 && !cursor.isNull(productsColumnIndex))
-                                products = Product.fromCodes(cursor.getString(productsColumnIndex).toCharArray());
-                            else
-                                products = null;
-                            final Station station = new Station(network, new Location(
-                                    LocationType.STATION, id, coord, place, name, products), lineDestinations);
-                            if (deviceLocation != null) {
-                                android.location.Location.distanceBetween(referenceLocation.getLatAsDouble(),
-                                        referenceLocation.getLonAsDouble(), coord.getLatAsDouble(), coord.getLonAsDouble(),
-                                        distanceBetweenResults);
-                                station.setDistanceAndBearing(distanceBetweenResults[0], distanceBetweenResults[1]);
-                            }
-                            freshStations.add(station);
+                            runOnUiThread(() -> mergeIntoStations(freshStations, true));
                         }
 
-                        cursor.close();
-
-                        runOnUiThread(() -> mergeIntoStations(freshStations, true));
+                        runOnUiThread(() -> {
+                            actionBar.stopProgress();
+                            loading = false;
+                            updateGUI();
+                        });
+                    } catch (final IOException x) {
+                        log.info("IO problem while querying for nearby locations to " + referenceLocation, x);
                     }
-
-                    runOnUiThread(() -> {
-                        actionBar.stopProgress();
-                        loading = false;
-                        updateGUI();
-                    });
                 });
             }
 
@@ -1524,69 +1472,19 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
 
             final String query = params[0];
 
-            final Builder uriBuilder = NetworkContentProvider.CONTENT_URI.buildUpon();
-            uriBuilder.appendPath(network.name());
-            uriBuilder.appendQueryParameter(NetworkContentProvider.QUERY_PARAM_Q, query);
-
-            final Cursor cursor = getContentResolver().query(uriBuilder.build(), null, null, null,
-                    NetworkContentProvider.KEY_NAME);
-            final Matcher mQuery = Pattern.compile("(^|[ -/\\(])" + query, Pattern.CASE_INSENSITIVE).matcher("");
             final NetworkProvider networkProvider = NetworkProviderFactory.provider(network);
 
             final List<Station> stations = new LinkedList<>();
-            if (cursor != null) {
-                final int nativeIdColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_ID);
-                final int localIdColumnIndex = cursor.getColumnIndex(NetworkContentProvider.KEY_LOCAL_ID);
-                final int placeColumnIndex = cursor.getColumnIndex(NetworkContentProvider.KEY_PLACE);
-                final int nameColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_NAME);
-                final int latColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LAT);
-                final int lonColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LON);
-                final int productsColumnIndex = cursor.getColumnIndex(NetworkContentProvider.KEY_PRODUCTS);
-                final int linesColumnIndex = cursor.getColumnIndexOrThrow(NetworkContentProvider.KEY_LINES);
-
-                while (cursor.moveToNext()) {
-                    final String id = localIdColumnIndex != -1 ? cursor.getString(localIdColumnIndex)
-                            : cursor.getString(nativeIdColumnIndex);
-                    final String place = placeColumnIndex != -1 ? cursor.getString(placeColumnIndex) : null;
-                    final String name = cursor.getString(nameColumnIndex);
-
-                    if (id.equals(query) || (place != null && mQuery.reset(place).find())
-                            || mQuery.reset(name).find()) {
-                        final int lat = cursor.getInt(latColumnIndex);
-                        final int lon = cursor.getInt(lonColumnIndex);
-                        final Point coord = Point.from1E6(lat, lon);
-                        final Set<Product> products;
-                        if (productsColumnIndex != -1 && !cursor.isNull(productsColumnIndex))
-                            products = Product.fromCodes(cursor.getString(productsColumnIndex).toCharArray());
-                        else
-                            products = null;
-                        final List<LineDestination> lineDestinations = new LinkedList<>();
-                        for (final String lineStr : cursor.getString(linesColumnIndex).split(",")) {
-                            if (!lineStr.isEmpty()) {
-                                final Product product = Product.fromCode(lineStr.charAt(0));
-                                final String label = Strings.emptyToNull(lineStr.substring(1));
-                                final Style style = networkProvider.lineStyle(null, product, label);
-                                lineDestinations
-                                        .add(new LineDestination(new Line(null, null, product, label, style), null));
-                            }
-                        }
-                        final Location location = new Location(LocationType.STATION, id, coord, place, name, products);
-                        stations.add(new Station(network, location, lineDestinations));
-                    }
-                }
-
-                cursor.close();
-            } else {
-                try {
-                    final SuggestLocationsResult result = networkProvider.suggestLocations(query,
-                            EnumSet.of(LocationType.STATION), 0);
-                    if (result.status == SuggestLocationsResult.Status.OK)
-                        for (final Location l : result.getLocations())
-                            if (l.type == LocationType.STATION)
-                                stations.add(new Station(network, l));
-                } catch (final IOException x) {
-                    x.printStackTrace();
-                }
+            try {
+                final SuggestLocationsResult result = networkProvider.suggestLocations(query,
+                        EnumSet.of(LocationType.STATION), 0);
+                if (result.status == SuggestLocationsResult.Status.OK)
+                    log.info("Got {}", result.toShortString());
+                    for (final Location l : result.getLocations())
+                        if (l.type == LocationType.STATION)
+                            stations.add(new Station(network, l));
+            } catch (final IOException x) {
+                x.printStackTrace();
             }
 
             return stations;
