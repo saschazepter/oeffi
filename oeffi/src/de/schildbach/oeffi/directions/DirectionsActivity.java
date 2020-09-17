@@ -791,9 +791,11 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
     private void expandForm() {
         initLayoutTransitions(true);
 
+        final NetworkProvider networkProvider = network != null ? NetworkProviderFactory.provider(network) : null;
         final boolean hasBikeOption = network != NetworkId.BVG;
 
-        viewViaLocation.setVisibility(View.VISIBLE);
+        viewViaLocation.setVisibility(networkProvider != null && networkProvider.hasCapabilities(NetworkProvider.Capability.TRIPS_VIA) ?
+                View.VISIBLE : View.GONE);
         viewProducts.setVisibility(View.VISIBLE);
         if (hasBikeOption)
             viewBike.setVisibility(View.VISIBLE);
