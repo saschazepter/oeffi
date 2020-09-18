@@ -151,7 +151,7 @@ public final class NetworkProviderFactory {
         else if (networkId.equals(NetworkId.VMS))
             return new VmsProvider(HttpUrl.parse("https://www.vms.de/Oeffi/"));
         else if (networkId.equals(NetworkId.VRR))
-            return new VrrProvider(HttpUrl.parse("https://app.vrr.de/oeffi/"));
+            return new VrrProvider();
         else if (networkId.equals(NetworkId.VRS))
             return new VrsProvider();
         else if (networkId.equals(NetworkId.AVV_AACHEN))
