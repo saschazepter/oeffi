@@ -800,14 +800,14 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
 
                             runOnUiThread(() -> mergeIntoStations(freshStations, true));
                         }
-
+                    } catch (final IOException x) {
+                        log.info("IO problem while querying for nearby locations to " + referenceLocation, x);
+                    } finally {
                         runOnUiThread(() -> {
                             actionBar.stopProgress();
                             loading = false;
                             updateGUI();
                         });
-                    } catch (final IOException x) {
-                        log.info("IO problem while querying for nearby locations to " + referenceLocation, x);
                     }
                 });
             }
