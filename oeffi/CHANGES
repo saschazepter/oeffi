@@ -1,4 +1,4 @@
-v11.3-v11.3.1
+v11.3-v11.3.2
 
 * Remove the caching system in Öffi Stations as it led to too much stale data.
 
