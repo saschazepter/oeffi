@@ -937,6 +937,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
     }
 
     private static boolean filter(final Station station, final Collection<Product> productFilter) {
+        // if station has products declared, use that for matching
         final Set<Product> products = station.location.products;
         if (products != null) {
             final Set<Product> copy = EnumSet.copyOf(products);
@@ -944,6 +945,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
             return !copy.isEmpty();
         }
 
+        // if station has lines, go through them and try to match each
         final List<LineDestination> lines = station.getLines();
         if (lines != null) {
             for (final LineDestination line : lines) {
@@ -954,6 +956,10 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                             return true;
             }
         }
+
+        // special case: if station has no metadata suitable for product filtering, match always
+        if (products == null && lines == null)
+            return true;
 
         return false;
     }
