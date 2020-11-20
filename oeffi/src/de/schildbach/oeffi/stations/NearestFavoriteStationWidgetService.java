@@ -38,6 +38,7 @@ import com.google.common.util.concurrent.SettableFuture;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.network.NetworkProviderFactory;
+import de.schildbach.oeffi.util.Formats;
 import de.schildbach.oeffi.util.Objects;
 import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.NetworkProvider;
@@ -265,15 +266,14 @@ public class NearestFavoriteStationWidgetService extends JobIntentService {
                 views.setViewVisibility(R.id.station_widget_message, View.GONE);
 
                 if (numFavorites > 0) {
-                    views.setTextViewText(R.id.station_widget_number, (i + 1) + "/" + appWidgetIds.length);
-                    views.setViewVisibility(R.id.station_widget_number,
-                            appWidgetIds.length != 1 ? View.VISIBLE : View.GONE);
+                    final Favorite favorite = favorites.get(i % numFavorites);
+                    log.debug("Favorite: {}", favorite);
+
+                    views.setTextViewText(R.id.station_widget_distance, Formats.formatDistance(favorite.distance));
+                    views.setViewVisibility(R.id.station_widget_distance, View.VISIBLE);
 
                     setHeader(appWidgetId, getString(R.string.nearest_favorite_station_widget_loading));
                     appWidgetManager.updateAppWidget(appWidgetId, views);
-
-                    final Favorite favorite = favorites.get(i % numFavorites);
-                    log.debug("Favorite: {}", favorite);
 
                     final NetworkProvider networkProvider = NetworkProviderFactory.provider(favorite.networkId);
                     final String stationId = favorite.id;
