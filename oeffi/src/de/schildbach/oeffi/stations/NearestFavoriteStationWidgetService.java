@@ -195,7 +195,11 @@ public class NearestFavoriteStationWidgetService extends JobIntentService {
 
     private void widgetsMessage(final int[] appWidgetIds, final String message) {
         setMessage(message);
+        views.setTextViewText(R.id.station_widget_distance, null);
+        views.setTextViewText(R.id.station_widget_lastupdated, null);
         for (final int appWidgetId : appWidgetIds) {
+            views.setTextViewText(R.id.station_widget_header,
+                    getString(R.string.nearest_favorite_station_widget_label));
             views.setOnClickPendingIntent(R.id.station_widget_content, clickIntent(appWidgetId));
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
