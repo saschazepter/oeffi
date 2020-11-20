@@ -156,6 +156,7 @@
 
     <!-- stations widget -->
     <string name="nearest_favorite_station_widget_label">Departure times of nearest favorite station</string>
+    <string name="nearest_favorite_station_widget_no_location_permission">Background Location Permission is needed for locating stations close to you.\n\nTap to grant permission.</string>
     <string name="nearest_favorite_station_widget_no_favorites">No station favorites defined.</string>
     <string name="nearest_favorite_station_widget_loading">Loading departures…</string>
     <string name="nearest_favorite_station_widget_no_departures">No departures.</string>

@@ -155,6 +155,7 @@
 
     <!-- stations widget -->
     <string name="nearest_favorite_station_widget_label">Abfahrtszeiten von nahegelegener favorisierter Haltestelle</string>
+    <string name="nearest_favorite_station_widget_no_location_permission">Standortermittlung im Hintergrund ist nötig, um Haltestellen in deiner Nähe zu finden.\n\nTapp um die Erlaubnis zu geben.</string>
     <string name="nearest_favorite_station_widget_no_favorites">Keine Haltestellen favorisiert.</string>
     <string name="nearest_favorite_station_widget_loading">Lade Abfahrtszeiten…</string>
     <string name="nearest_favorite_station_widget_no_departures">Keine Abfahrten.</string>

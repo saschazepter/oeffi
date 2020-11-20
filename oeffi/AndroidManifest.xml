@@ -233,6 +233,10 @@
             android:authorities="de.schildbach.oeffi.stations.favorites"
             android:exported="false" />
 
+        <activity
+            android:name=".stations.NearestFavoriteStationsWidgetPermissionActivity"
+            android:theme="@style/My.Theme.Translucent" />
+
         <receiver
             android:name=".stations.NearestFavoriteStationWidgetProvider"
             android:label="@string/nearest_favorite_station_widget_label">

@@ -136,9 +136,11 @@ public class NearestFavoriteStationWidgetService extends JobIntentService {
 
         views = new RemoteViews(getPackageName(), R.layout.station_widget_content);
 
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            widgetsMessage(appWidgetIds, getString(R.string.acquire_location_no_permission));
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            final PendingIntent intent = PendingIntent.getActivity(this, 0, new Intent(this,
+                    NearestFavoriteStationsWidgetPermissionActivity.class), 0);
+            widgetsMessage(appWidgetIds, getString(R.string.nearest_favorite_station_widget_no_location_permission), intent);
             log.info("No location permission");
             return;
         }
@@ -155,7 +157,7 @@ public class NearestFavoriteStationWidgetService extends JobIntentService {
             criteria.setPowerRequirement(Criteria.POWER_LOW);
             provider = locationManager.getBestProvider(criteria, true);
             if (provider == null || LocationManager.PASSIVE_PROVIDER.equals(provider)) {
-                widgetsMessage(appWidgetIds, getString(R.string.acquire_location_no_provider));
+                widgetsMessage(appWidgetIds, getString(R.string.acquire_location_no_provider), null);
                 log.info("No location provider found");
                 return;
             }
@@ -193,14 +195,15 @@ public class NearestFavoriteStationWidgetService extends JobIntentService {
         }
     }
 
-    private void widgetsMessage(final int[] appWidgetIds, final String message) {
+    private void widgetsMessage(final int[] appWidgetIds, final String message, final PendingIntent intent) {
         setMessage(message);
         views.setTextViewText(R.id.station_widget_distance, null);
         views.setTextViewText(R.id.station_widget_lastupdated, null);
         for (final int appWidgetId : appWidgetIds) {
             views.setTextViewText(R.id.station_widget_header,
                     getString(R.string.nearest_favorite_station_widget_label));
-            views.setOnClickPendingIntent(R.id.station_widget_content, clickIntent(appWidgetId));
+            views.setOnClickPendingIntent(R.id.station_widget_content,
+                    intent != null ? intent : clickIntent(appWidgetId));
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
     }
