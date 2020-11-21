@@ -30,41 +30,28 @@ public class Toast {
     }
 
     public final void toast(final int textResId, final Object... formatArgs) {
-        customToast(0, textResId, android.widget.Toast.LENGTH_SHORT, formatArgs);
+        customToast(textResId, android.widget.Toast.LENGTH_SHORT, formatArgs);
     }
 
     public final void toast(final CharSequence text) {
-        customToast(0, text, android.widget.Toast.LENGTH_SHORT);
+        customToast(text, android.widget.Toast.LENGTH_SHORT);
     }
 
     public final void longToast(final int textResId, final Object... formatArgs) {
-        customToast(0, textResId, android.widget.Toast.LENGTH_LONG, formatArgs);
+        customToast(textResId, android.widget.Toast.LENGTH_LONG, formatArgs);
     }
 
     public final void longToast(final CharSequence text) {
-        customToast(0, text, android.widget.Toast.LENGTH_LONG);
+        customToast(text, android.widget.Toast.LENGTH_LONG);
     }
 
-    public final void imageToast(final int imageResId, final int textResId, final Object... formatArgs) {
-        customToast(imageResId, textResId, android.widget.Toast.LENGTH_LONG, formatArgs);
-    }
-
-    private void customToast(final int imageResId, final int textResId, final int duration,
+    private void customToast(final int textResId, final int duration,
             final Object... formatArgs) {
-        customToast(imageResId, context.getString(textResId, formatArgs), duration);
+        customToast(context.getString(textResId, formatArgs), duration);
     }
 
-    private void customToast(final int imageResId, final CharSequence text, final int duration) {
+    private void customToast(final CharSequence text, final int duration) {
         final android.widget.Toast toast = android.widget.Toast.makeText(context, text, duration);
-        final TextView toastText = toast.getView().findViewById(android.R.id.message);
-        if (imageResId != 0 && toastText != null) {
-            toastText.setCompoundDrawablesWithIntrinsicBounds(imageResId, 0, 0, 0);
-            toastText.setCompoundDrawablePadding(
-                    context.getResources().getDimensionPixelOffset(R.dimen.list_entry_padding_horizontal_verylax));
-            // tint
-            final int textColor = toastText.getTextColors().getDefaultColor();
-            toastText.getCompoundDrawables()[0].setColorFilter(textColor, PorterDuff.Mode.SRC_IN);
-        }
         toast.show();
     }
 }

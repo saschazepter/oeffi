@@ -367,8 +367,7 @@ public class PlanActivity extends Activity {
             viewAnimator.setDisplayedChild(1);
 
             if (!stations.isEmpty()) {
-                new Toast(PlanActivity.this).imageToast(R.drawable.ic_info_outline_white_24dp,
-                        R.string.toast_plan_interactive_hint);
+                new Toast(PlanActivity.this).toast(R.string.toast_plan_interactive_hint);
 
                 plan.setStationsAware(new StationsAware() {
                     public List<Station> getStations() {
