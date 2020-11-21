@@ -30,6 +30,7 @@
 
     <style name="My.Theme.Translucent" parent="@style/My.Theme.Light">
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsFloating">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
