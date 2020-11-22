@@ -436,27 +436,6 @@ public class QueryHistoryProvider extends ContentProvider {
         helper.close();
     }
 
-    /**
-     * Restricted to usage by {@link Application#onCreate()} only.
-     */
-    public static void cleanupQueryHistory(final Context context) {
-        final QueryHistoryHelper helper = new QueryHistoryHelper(context);
-        final SQLiteDatabase db = helper.getWritableDatabase();
-
-        db.beginTransaction();
-        try {
-            db.execSQL("DELETE FROM " + DATABASE_TABLE + " WHERE " + KEY_FROM_TYPE + "=" + TYPE_ANY + " AND "
-                    + KEY_FROM_ID + " IS NOT NULL");
-            db.execSQL("DELETE FROM " + DATABASE_TABLE + " WHERE " + KEY_TO_TYPE + "=" + TYPE_ANY + " AND " + KEY_TO_ID
-                    + " IS NOT NULL");
-            db.setTransactionSuccessful();
-        } finally {
-            db.endTransaction();
-        }
-
-        helper.close();
-    }
-
     private static class QueryHistoryHelper extends SQLiteOpenHelper {
         private static final String DATABASE_NAME = "oeffi";
         private static final int DATABASE_VERSION = 6;

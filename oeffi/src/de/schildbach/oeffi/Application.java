@@ -103,39 +103,6 @@ public class Application extends android.app.Application {
 
         final Stopwatch watch = Stopwatch.createStarted();
 
-        // clean up databases
-        QueryHistoryProvider.cleanupQueryHistory(this);
-
-        // 2017-01-03: migrate OOEVV to use OEBB
-        migrateSelectedNetwork(NetworkId.OOEVV.name(), NetworkId.OEBB);
-        Downloader.deleteDownload(new File(getFilesDir(), NetworkId.OOEVV.name().toLowerCase(Locale.ENGLISH) + ".db"));
-
-        // 2017-01-13: remove Melbourne
-        final String MET = "MET";
-        Downloader.deleteDownload(new File(getFilesDir(), MET.toLowerCase(Locale.ENGLISH) + ".db"));
-
-        // 2017-02-06: remove Philadelphia
-        final String SEPTA = "SEPTA";
-        Downloader.deleteDownload(new File(getFilesDir(), SEPTA.toLowerCase(Locale.ENGLISH) + ".db"));
-
-        // 2017-02-16: remove Provence-Alpes-Côte d'Azur
-        final String PACA = "PACA";
-        migrateSelectedNetwork(PACA, NetworkId.RT);
-        Downloader.deleteDownload(new File(getFilesDir(), PACA.toLowerCase(Locale.ENGLISH) + ".db"));
-
-        // 2017-08-31: migrate BVB to use NVBW
-        final String BVB = "BVB";
-        migrateSelectedNetwork(BVB, NetworkId.NVBW);
-        Downloader.deleteDownload(new File(getFilesDir(), BVB.toLowerCase(Locale.ENGLISH) + ".db"));
-
-        // 2017-09-19: migrate VBB to new station IDs
-        FavoriteStationsProvider.migrateFavoriteStationIds(this, NetworkId.VBB, "9000000", "9600000", 891000000);
-        QueryHistoryProvider.migrateQueryHistoryIds(this, NetworkId.VBB, "9000000", "9600000", 891000000);
-
-        // 2017-09-19: migrate BVG to new station IDs
-        FavoriteStationsProvider.migrateFavoriteStationIds(this, NetworkId.BVG, "9000000", "9600000", 891000000);
-        QueryHistoryProvider.migrateQueryHistoryIds(this, NetworkId.BVG, "9000000", "9600000", 891000000);
-
         // 2018-07-06: migrate IVB to use OEBB
         final String IVB = "IVB";
         migrateSelectedNetwork(IVB, NetworkId.OEBB);
