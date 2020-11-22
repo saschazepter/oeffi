@@ -17,13 +17,10 @@
 
 package de.schildbach.oeffi.network.list;
 
-import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
 import de.schildbach.oeffi.R;
-import de.schildbach.oeffi.stations.NetworkContentProvider;
-import de.schildbach.pte.NetworkId;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -89,12 +86,7 @@ public class NetworksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } else {
             final NetworkListEntry.Network entry = (NetworkListEntry.Network) entries.get(position);
             if (!NetworkListEntry.Network.STATE_DISABLED.equals(entry.state)) {
-                final File dbFile = new File(context.getFilesDir(),
-                        NetworkContentProvider.dbName(NetworkId.valueOf(entry.id)));
-                final long dbFileLength = dbFile.exists() ? dbFile.length() : 0;
-                ((NetworkViewHolder) holder).bind(entry, true, dbFileLength, clickListener,
-                        !entry.id.equals(previouslySelectedNetwork) && dbFile.exists() ? contextMenuItemListener
-                                : null);
+                ((NetworkViewHolder) holder).bind(entry, true, 0, clickListener, null);
             } else {
                 ((NetworkViewHolder) holder).bind(entry, false, 0, null, null);
             }

@@ -18,7 +18,6 @@
 package de.schildbach.oeffi.network;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Iterator;
@@ -41,9 +40,7 @@ import de.schildbach.oeffi.network.list.NetworkClickListener;
 import de.schildbach.oeffi.network.list.NetworkContextMenuItemListener;
 import de.schildbach.oeffi.network.list.NetworkListEntry;
 import de.schildbach.oeffi.network.list.NetworksAdapter;
-import de.schildbach.oeffi.stations.NetworkContentProvider;
 import de.schildbach.oeffi.util.DividerItemDecoration;
-import de.schildbach.oeffi.util.Downloader;
 import de.schildbach.oeffi.util.GeocoderThread;
 import de.schildbach.oeffi.util.LocationHelper;
 import de.schildbach.pte.AbstractNavitiaProvider;
@@ -322,8 +319,7 @@ public class NetworkPickerActivity extends Activity implements ActivityCompat.On
 
     public boolean onNetworkContextMenuItemClick(final NetworkListEntry.Network entry, final int menuItemId) {
         if (menuItemId == R.id.network_picker_context_remove) {
-            final File dbFile = new File(getFilesDir(), NetworkContentProvider.dbName(NetworkId.valueOf(entry.id)));
-            Downloader.deleteDownload(dbFile);
+            // placeholder for action
             listAdapter.notifyDataSetChanged();
             return true;
         } else {

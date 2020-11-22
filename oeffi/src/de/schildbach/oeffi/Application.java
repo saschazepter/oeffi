@@ -18,8 +18,8 @@
 package de.schildbach.oeffi;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.lang.reflect.Method;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import org.osmdroid.config.Configuration;
@@ -32,7 +32,6 @@ import com.google.common.base.Stopwatch;
 import de.schildbach.oeffi.directions.QueryHistoryProvider;
 import de.schildbach.oeffi.stations.FavoriteStationsProvider;
 import de.schildbach.oeffi.stations.NearestFavoriteStationWidgetService;
-import de.schildbach.oeffi.util.Downloader;
 import de.schildbach.oeffi.util.ErrorReporter;
 import de.schildbach.pte.NetworkId;
 
@@ -106,23 +105,25 @@ public class Application extends android.app.Application {
         // 2018-07-06: migrate IVB to use OEBB
         final String IVB = "IVB";
         migrateSelectedNetwork(IVB, NetworkId.OEBB);
-        Downloader.deleteDownload(new File(getFilesDir(), IVB.toLowerCase(Locale.ENGLISH) + ".db"));
         FavoriteStationsProvider.deleteFavoriteStations(this, IVB);
         QueryHistoryProvider.deleteQueryHistory(this, IVB);
 
         // 2018-11-05: migrate NRI to use RT
         final String NRI = "NRI";
         migrateSelectedNetwork(NRI, NetworkId.RT);
-        Downloader.deleteDownload(new File(getFilesDir(), NRI.toLowerCase(Locale.ENGLISH) + ".db"));
         FavoriteStationsProvider.deleteFavoriteStations(this, NRI);
         QueryHistoryProvider.deleteQueryHistory(this, NRI);
 
         // 2018-12-06: migrate VAGFR to use NVBW
         final String VAGFR = "VAGFR";
         migrateSelectedNetwork(VAGFR, NetworkId.NVBW);
-        Downloader.deleteDownload(new File(getFilesDir(), VAGFR.toLowerCase(Locale.ENGLISH) + ".db"));
         FavoriteStationsProvider.migrateFavoriteStations(this, VAGFR, NetworkId.NVBW);
         QueryHistoryProvider.migrateQueryHistory(this, VAGFR, NetworkId.NVBW);
+
+        // 2020-11-22: delete unused downloaded station databases
+        final FilenameFilter filter = (dir, name) -> name.endsWith(".db") || name.endsWith(".db.meta");
+        for (final File file : getFilesDir().listFiles(filter))
+            file.delete();
 
         log.info("Migrations took {}", watch);
 
