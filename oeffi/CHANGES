@@ -1,3 +1,8 @@
+v11.4
+
+* Show distance to station in the app-widget.
+* Request background location permission only on setup of the app-widget.
+
 v11.3-v11.3.7
 
 * Remove the caching system in Öffi Stations as it led to too much stale data.
