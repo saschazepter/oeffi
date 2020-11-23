@@ -137,7 +137,7 @@ public class NearestFavoriteStationWidgetService extends JobIntentService {
         views = new RemoteViews(getPackageName(), R.layout.station_widget_content);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
             final PendingIntent intent = PendingIntent.getActivity(this, 0, new Intent(this,
                     NearestFavoriteStationsWidgetPermissionActivity.class), 0);
             widgetsMessage(appWidgetIds, getString(R.string.nearest_favorite_station_widget_no_location_permission), intent);
