@@ -200,7 +200,7 @@ public final class NetworkProviderFactory {
         else if (networkId.equals(NetworkId.SNCB))
             return new SncbProvider("{\"type\":\"AID\",\"aid\":\"sncb-mobi\"}");
         else if (networkId.equals(NetworkId.LU))
-            return new LuProvider("{\"type\":\"AID\",\"aid\":\"Aqf9kNqJLjxFx6vv\"}");
+            return new LuProvider("{\"type\":\"AID\",\"aid\":\"SkC81GuwuzL4e0\"}");
         else if (networkId.equals(NetworkId.NS))
             return new NsProvider();
         else if (networkId.equals(NetworkId.DSB))
