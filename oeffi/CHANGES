@@ -1,4 +1,4 @@
-v11.4-v11.4.2
+v11.4-v11.4.3
 
 * Show distance to station in the app-widget.
 * Request background location permission only on setup of the app-widget.
