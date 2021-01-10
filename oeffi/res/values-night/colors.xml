@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- foreground -->
+    <color name="fg_significant">#ffffff</color>
+    <color name="fg_less_significant">#aaaaaa</color>
+    <color name="fg_insignificant">#888888</color>
+    <color name="fg_highlighted">#ff9966</color>
+    <color name="fg_arrow">#ff6666</color>
+    <color name="fg_position">#000000</color>
+
+    <!-- background -->
+    <color name="bg_level0">#222222</color>
+    <color name="bg_level1">#333333</color>
+    <color name="bg_divider">#444444</color>
+    <color name="bg_action_bar">#444444</color>
+    <color name="bg_action_bar_stations">#444400</color>
+    <color name="bg_action_bar_directions">#114411</color>
+    <color name="bg_action_bar_appendix">#555555</color>
+    <color name="bg_selected_entry">#284028</color>
+    <color name="bg_individual">#444444</color>
+    <color name="bg_delayed">#444444</color>
+    <color name="bg_current_time">#ffff00</color>
+    <color name="bg_position">#bbbbbb</color>
+
+    <item name="alpha_bright_white" format="float" type="dimen">0.7</item>
+
+</resources>

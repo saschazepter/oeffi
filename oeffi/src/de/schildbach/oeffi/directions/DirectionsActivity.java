@@ -698,7 +698,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
         final int month = calendar.get(Calendar.MONTH);
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        new DatePickerDialog(DirectionsActivity.this, Constants.ALERT_DIALOG_THEME, (view, year1, month1, day1) -> {
+        new DatePickerDialog(DirectionsActivity.this, R.style.My_Theme_Dialog, (view, year1, month1, day1) -> {
             calendar.set(Calendar.YEAR, year1);
             calendar.set(Calendar.MONTH, month1);
             calendar.set(Calendar.DAY_OF_MONTH, day1);
@@ -713,7 +713,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
         final int hour = calendar.get(Calendar.HOUR_OF_DAY);
         final int minute = calendar.get(Calendar.MINUTE);
 
-        new TimePickerDialog(DirectionsActivity.this, Constants.ALERT_DIALOG_THEME, (view, hour1, minute1) -> {
+        new TimePickerDialog(DirectionsActivity.this, R.style.My_Theme_Dialog, (view, hour1, minute1) -> {
             calendar.set(Calendar.HOUR_OF_DAY, hour1);
             calendar.set(Calendar.MINUTE, minute1);
             time = new TimeSpec.Absolute(time.depArr, calendar.getTimeInMillis());

@@ -26,8 +26,6 @@
             android:layout_gravity="bottom|left"
             android:layout_margin="4dp"
             android:gravity="left"
-            android:shadowColor="#000"
-            android:shadowRadius="2"
             android:textSize="@dimen/font_size_disclaimer"
             android:visibility="gone" />
 
@@ -37,8 +35,6 @@
             android:layout_gravity="bottom|right"
             android:layout_margin="4dp"
             android:gravity="right"
-            android:shadowColor="#000"
-            android:shadowRadius="2"
             android:text="@string/disclaimer_responsibility_2line"
             android:textSize="@dimen/font_size_disclaimer" />
     </FrameLayout>

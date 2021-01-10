@@ -131,7 +131,7 @@ public class TripsOverviewActivity extends OeffiActivity {
 
         setContentView(R.layout.directions_trip_overview_content);
         final MyActionBar actionBar = getMyActionBar();
-        setPrimaryColor(R.color.bg_action_bar_directions_dark);
+        setPrimaryColor(R.color.bg_action_bar_directions);
         actionBar.setBack(v -> finish());
         actionBar.setCustomTitles(R.layout.directions_trip_overview_custom_title);
         actionBar.addProgressButton().setOnClickListener(v -> handler.post(checkMoreRunnable));

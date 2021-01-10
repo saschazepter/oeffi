@@ -5,14 +5,14 @@
     <!-- activated, plain -->
     <item android:state_activated="true">
         <shape>
-            <solid android:color="#ffcfffaf" />
+            <solid android:color="@color/bg_selected_entry" />
         </shape>
     </item>
 
     <!-- plain -->
     <item>
         <shape>
-            <solid android:color="#ffffffff" />
+            <solid android:color="@color/bg_level0" />
         </shape>
     </item>
 

@@ -69,7 +69,4 @@ public class Constants {
     public static final String DESTINATION_ARROW_PREFIX = Character.toString(Constants.CHAR_RIGHTWARDS_ARROW)
             + Constants.CHAR_THIN_SPACE;
     public static final String DESTINATION_ARROW_INVISIBLE_PREFIX = "     ";
-
-    @SuppressWarnings("deprecation")
-    public static final int ALERT_DIALOG_THEME = android.R.style.Theme_DeviceDefault_Light_Dialog;
 }

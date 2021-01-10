@@ -17,7 +17,8 @@
         android:gravity="left"
         android:paddingBottom="@dimen/list_entry_padding_vertical"
         android:paddingLeft="@dimen/list_entry_padding_horizontal"
-        android:paddingRight="@dimen/list_entry_padding_horizontal" />
+        android:paddingRight="@dimen/list_entry_padding_horizontal"
+        android:textColor="@color/fg_significant_on_light" />
 
     <LinearLayout
         android:id="@+id/directions_map_pin_buttons"
@@ -35,7 +36,8 @@
             android:paddingLeft="@dimen/list_entry_padding_horizontal_cram"
             android:paddingRight="@dimen/list_entry_padding_horizontal_cram"
             android:singleLine="true"
-            android:text="@string/directions_map_pin_button_from" />
+            android:text="@string/directions_map_pin_button_from"
+            android:textColor="@color/fg_significant_on_light" />
 
         <Button
             android:id="@+id/directions_map_pin_button_to"
@@ -46,7 +48,8 @@
             android:paddingLeft="@dimen/list_entry_padding_horizontal_cram"
             android:paddingRight="@dimen/list_entry_padding_horizontal_cram"
             android:singleLine="true"
-            android:text="@string/directions_map_pin_button_to" />
+            android:text="@string/directions_map_pin_button_to"
+            android:textColor="@color/fg_significant_on_light" />
     </LinearLayout>
 
 </LinearLayout>

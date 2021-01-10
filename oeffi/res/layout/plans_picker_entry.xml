@@ -29,7 +29,8 @@
             <ImageView
                 android:id="@+id/plans_picker_entry_thumb"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:alpha="@dimen/alpha_bright_white" />
 
             <ProgressBar
                 android:id="@+id/plans_picker_entry_progress"
@@ -56,7 +57,8 @@
             android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
             android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
             android:layout_toLeftOf="@id/plans_picker_entry_context_button_space"
-            android:src="@drawable/ic_offline_pin_grey600_24dp" />
+            android:src="@drawable/ic_offline_pin_grey600_24dp"
+            android:tint="@color/fg_less_significant" />
 
         <TextView
             android:id="@+id/plans_picker_entry_name"
@@ -80,7 +82,7 @@
             android:gravity="right"
             android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
             android:paddingTop="@dimen/list_entry_padding_vertical_lax"
-            android:textColor="#a00" />
+            android:textColor="@color/fg_less_significant" />
 
         <ImageView
             android:id="@+id/plans_picker_entry_network_logo"
@@ -102,7 +104,7 @@
             android:maxLines="2"
             android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
             android:paddingTop="@dimen/list_entry_padding_vertical_lax"
-            android:textColor="#aaa" />
+            android:textColor="@color/fg_less_significant" />
     </RelativeLayout>
 
     <ImageButton

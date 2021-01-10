@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="grey600">#757575</color>
-
     <!-- foreground -->
     <color name="fg_significant">#000000</color>
     <color name="fg_less_significant">#999999</color>
     <color name="fg_insignificant">#bbbbbb</color>
     <color name="fg_highlighted">#dd9055</color>
     <color name="fg_arrow">#aa0000</color>
+    <color name="fg_position">#ffffff</color>
     <color name="fg_significant_on_dark">#ffffff</color>
+    <color name="fg_significant_on_light">#000000</color>
 
     <!-- background -->
+    <color name="bg_level0">#f7f7f7</color>
+    <color name="bg_level1">#ffffff</color>
+    <color name="bg_divider">#dddddd</color>
     <color name="bg_action_bar">#555555</color>
     <color name="bg_action_bar_stations">#777700</color>
     <color name="bg_action_bar_directions">#227722</color>
-    <color name="bg_action_bar_directions_dark">#114411</color>
     <color name="bg_action_bar_appendix">#cccccc</color>
+    <color name="bg_selected_entry">#ffcfffaf</color>
+    <color name="bg_individual">#cccccc</color>
+    <color name="bg_delayed">#cccccc</color>
+    <color name="bg_current_time">#eebb00</color>
+    <color name="bg_position">#757575</color>
+
+    <item name="alpha_bright_white" format="float" type="dimen">1</item>
 
 </resources>

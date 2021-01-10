@@ -4,11 +4,11 @@
     android:id="@android:id/text1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?android:attr/listDivider"
+    android:background="@color/bg_divider"
     android:focusable="false"
     android:paddingBottom="1dp"
     android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
     android:paddingRight="@dimen/list_entry_padding_horizontal_lax"
     android:paddingTop="1dp"
-    android:textColor="@color/grey600"
+    android:textColor="@color/fg_less_significant"
     android:textStyle="bold" />

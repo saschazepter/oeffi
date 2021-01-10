@@ -37,6 +37,7 @@ public class PearlView extends View {
     private final int lineWidth;
     private final int intermediateSize;
     private final float stopStrokeWidth;
+    private final int colorBackground;
 
     private final Paint paint = new Paint();
 
@@ -57,11 +58,13 @@ public class PearlView extends View {
 
         final Resources res = getResources();
 
-        defaultStyle = new Style(res.getColor(R.color.grey600), Color.WHITE);
+        defaultStyle = new Style(Color.GRAY, Color.WHITE);
 
         lineWidth = res.getDimensionPixelSize(R.dimen.pearl_line_width);
         intermediateSize = res.getDimensionPixelSize(R.dimen.pearl_intermediate_size);
         stopStrokeWidth = res.getDisplayMetrics().density;
+
+        colorBackground = res.getColor(R.color.bg_level0);
 
         paint.setAntiAlias(true);
     }
@@ -110,7 +113,7 @@ public class PearlView extends View {
 
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeWidth(stopStrokeWidth);
-            paint.setColor(style.hasBorder() ? style.borderColor : Color.WHITE);
+            paint.setColor(style.hasBorder() ? style.borderColor : colorBackground);
             canvas.drawCircle(x, y, circleRadius, paint);
 
             paint.setStyle(Paint.Style.FILL);
@@ -125,7 +128,7 @@ public class PearlView extends View {
 
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeWidth(stopStrokeWidth);
-            paint.setColor(style.hasBorder() ? style.borderColor : Color.WHITE);
+            paint.setColor(style.hasBorder() ? style.borderColor : colorBackground);
             canvas.drawCircle(x, y, circleRadius, paint);
 
             paint.setStyle(Paint.Style.FILL);

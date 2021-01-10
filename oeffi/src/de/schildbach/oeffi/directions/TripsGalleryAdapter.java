@@ -76,6 +76,7 @@ public final class TripsGalleryAdapter extends BaseAdapter {
     private final Paint individualTimePaint = new Paint();
     private final Paint publicTimePaint = new Paint();
     private final Paint cannotScrollPaint = new Paint();
+    private final int colorDelayed;
 
     private static final float ROUNDED_CORNER_RADIUS = 8f;
     private static final float CIRCLE_CORNER_RADIUS = 16f;
@@ -86,7 +87,10 @@ public final class TripsGalleryAdapter extends BaseAdapter {
         final Resources res = context.getResources();
 
         final float strokeWidth = res.getDimension(R.dimen.trips_overview_entry_box_stroke_width);
-        final int colorSignificant = res.getColor(R.color.fg_significant_on_dark);
+        final int colorSignificant = res.getColor(R.color.fg_significant);
+        final int colorLessSignificant = res.getColor(R.color.fg_less_significant);
+        final int colorIndividual = res.getColor(R.color.bg_individual);
+        colorDelayed = res.getColor(R.color.bg_delayed);
 
         tripWidth = res.getDimensionPixelSize(R.dimen.trips_overview_entry_width);
 
@@ -102,24 +106,22 @@ public final class TripsGalleryAdapter extends BaseAdapter {
         publicLabelPaint.setAntiAlias(true);
 
         individualFillPaint.setStyle(Paint.Style.FILL);
-        individualFillPaint.setColor(Color.DKGRAY);
+        individualFillPaint.setColor(colorIndividual);
 
         individualLabelPaint.setColor(Color.GRAY);
         individualLabelPaint.setTypeface(Typeface.DEFAULT);
         individualLabelPaint.setTextSize(res.getDimension(R.dimen.font_size_xlarge));
         individualLabelPaint.setTextAlign(Align.CENTER);
 
-        individualTimePaint.setColor(Color.LTGRAY);
+        individualTimePaint.setColor(colorLessSignificant);
         individualTimePaint.setTypeface(Typeface.DEFAULT);
         individualTimePaint.setTextSize(res.getDimension(R.dimen.font_size_normal) * 0.9f);
-        individualTimePaint.setShadowLayer(1, 0, 0, Color.BLACK);
         individualTimePaint.setAntiAlias(true);
         individualTimePaint.setTextAlign(Align.CENTER);
 
         publicTimePaint.setColor(colorSignificant);
         publicTimePaint.setTypeface(Typeface.DEFAULT_BOLD);
         publicTimePaint.setTextSize(res.getDimension(R.dimen.font_size_normal));
-        publicTimePaint.setShadowLayer(1, 0, 0, Color.BLACK);
         publicTimePaint.setAntiAlias(true);
         publicTimePaint.setTextAlign(Align.CENTER);
 
@@ -331,7 +333,7 @@ public final class TripsGalleryAdapter extends BaseAdapter {
                     if (leg instanceof Public) {
                         final Public publicLeg = (Public) leg;
                         publicFillPaint.setShader(null);
-                        publicFillPaint.setColor(Color.DKGRAY);
+                        publicFillPaint.setColor(colorDelayed);
                         final Line line = publicLeg.line;
                         final Style style = line.style;
                         final float radius;

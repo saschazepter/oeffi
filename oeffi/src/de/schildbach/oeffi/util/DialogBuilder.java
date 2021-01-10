@@ -19,12 +19,11 @@ package de.schildbach.oeffi.util;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.R;
 
 public class DialogBuilder extends AlertDialog.Builder {
     public static DialogBuilder get(final Context context) {
-        return new DialogBuilder(context, Constants.ALERT_DIALOG_THEME);
+        return new DialogBuilder(context, R.style.My_Theme_Dialog);
     }
 
     public static DialogBuilder warn(final Context context, final int titleResId) {

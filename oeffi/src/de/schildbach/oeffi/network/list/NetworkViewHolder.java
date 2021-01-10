@@ -33,7 +33,7 @@ public class NetworkViewHolder extends RecyclerView.ViewHolder {
     private final Context context;
     private final Resources res;
     private final int colorSignificant;
-    private final int colorGrey600;
+    private final int colorLessSignificant;
 
     private final ImageView iconView;
     private final TextView labelView;
@@ -50,7 +50,7 @@ public class NetworkViewHolder extends RecyclerView.ViewHolder {
         this.context = context;
         this.res = context.getResources();
         this.colorSignificant = res.getColor(R.color.fg_significant);
-        this.colorGrey600 = res.getColor(R.color.grey600);
+        this.colorLessSignificant = res.getColor(R.color.fg_less_significant);
 
         iconView = itemView.findViewById(R.id.network_picker_entry_icon);
         labelView = itemView.findViewById(R.id.network_picker_entry_label);
@@ -81,7 +81,7 @@ public class NetworkViewHolder extends RecyclerView.ViewHolder {
         }
 
         labelView.setText(networkRes.label);
-        labelView.setTextColor(isEnabled ? colorSignificant : colorGrey600);
+        labelView.setTextColor(isEnabled ? colorSignificant : colorLessSignificant);
 
         if (entry.state != null && isEnabled)
             stateView.setText(
@@ -90,7 +90,7 @@ public class NetworkViewHolder extends RecyclerView.ViewHolder {
             stateView.setText(null);
 
         commentView.setText(networkRes.comment);
-        commentView.setTextColor(isEnabled ? colorSignificant : colorGrey600);
+        commentView.setTextColor(isEnabled ? colorSignificant : colorLessSignificant);
 
         if (dbFileLength > 0) {
             usageView.setVisibility(View.VISIBLE);

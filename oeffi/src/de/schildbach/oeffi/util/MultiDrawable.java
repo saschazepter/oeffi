@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import de.schildbach.oeffi.R;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,6 +35,7 @@ public class MultiDrawable extends AnimationDrawable {
     public MultiDrawable(final Context context) {
         this.res = context.getResources();
         setFadeDuration(250);
+        setTint(res.getColor(R.color.fg_less_significant));
     }
 
     private void setFadeDuration(final int ms) {

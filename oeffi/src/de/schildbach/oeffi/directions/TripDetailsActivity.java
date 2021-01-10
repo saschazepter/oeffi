@@ -25,7 +25,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -109,7 +108,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
     private int colorSignificant;
     private int colorInsignificant;
     private int colorHighlighted;
-    private int colorGrey600;
+    private int colorPosition, colorPositionBackground;
     private DisplayMetrics displayMetrics;
     private LocationManager locationManager;
     private BroadcastReceiver tickReceiver;
@@ -141,7 +140,8 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         colorSignificant = res.getColor(R.color.fg_significant);
         colorInsignificant = res.getColor(R.color.fg_insignificant);
         colorHighlighted = res.getColor(R.color.fg_highlighted);
-        colorGrey600 = res.getColor(R.color.grey600);
+        colorPosition = res.getColor(R.color.fg_position);
+        colorPositionBackground = res.getColor(R.color.bg_position);
         displayMetrics = res.getDisplayMetrics();
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -816,8 +816,8 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
             stopPositionView.setText(positionStr);
             stopPositionView.setTypeface(null, Typeface.BOLD + (isPositionPredicted ? Typeface.ITALIC : 0));
             final int padding = (int) (2 * displayMetrics.density);
-            stopPositionView.setBackgroundDrawable(new ColorDrawable(colorGrey600));
-            stopPositionView.setTextColor(Color.WHITE);
+            stopPositionView.setBackgroundDrawable(new ColorDrawable(colorPositionBackground));
+            stopPositionView.setTextColor(colorPosition);
             stopPositionView.setPadding(padding, 0, padding, 0);
         }
 
