@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <de.schildbach.oeffi.MyActionBar
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/action_bar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
-    android:elevation="@dimen/elevation_action_bar"
-    tools:targetApi="21">
+    android:elevation="@dimen/elevation_action_bar">
 
     <ImageButton
         android:id="@+id/action_bar_menu_button"

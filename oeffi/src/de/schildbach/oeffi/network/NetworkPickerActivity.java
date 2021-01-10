@@ -560,8 +560,7 @@ public class NetworkPickerActivity extends Activity implements ActivityCompat.On
     protected final void setPrimaryColor(final int colorResId) {
         final int color = getResources().getColor(colorResId);
         actionBar.setBackgroundColor(color);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            setTaskDescription(new TaskDescription(null, null, color));
+        setTaskDescription(new TaskDescription(null, null, color));
     }
 
     @TargetApi(24)

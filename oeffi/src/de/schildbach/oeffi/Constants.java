@@ -17,8 +17,6 @@
 
 package de.schildbach.oeffi;
 
-import android.app.AlertDialog;
-import android.os.Build;
 import android.text.format.DateUtils;
 import okhttp3.HttpUrl;
 
@@ -74,6 +72,5 @@ public class Constants {
     public static final String DESTINATION_ARROW_INVISIBLE_PREFIX = "     ";
 
     @SuppressWarnings("deprecation")
-    public static final int ALERT_DIALOG_THEME = Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP
-            ? AlertDialog.THEME_DEVICE_DEFAULT_LIGHT : android.R.style.Theme_DeviceDefault_Light_Dialog;
+    public static final int ALERT_DIALOG_THEME = android.R.style.Theme_DeviceDefault_Light_Dialog;
 }

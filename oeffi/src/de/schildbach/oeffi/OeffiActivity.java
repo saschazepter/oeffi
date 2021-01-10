@@ -115,8 +115,7 @@ public abstract class OeffiActivity extends Activity {
     protected final void setPrimaryColor(final int colorResId) {
         final int color = getResources().getColor(colorResId);
         getMyActionBar().setBackgroundColor(color);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            setTaskDescription(new TaskDescription(null, null, color));
+        setTaskDescription(new TaskDescription(null, null, color));
     }
 
     protected void updateDisclaimerSource(final TextView disclaimerSourceView, final String network,

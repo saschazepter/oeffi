@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false"
@@ -11,8 +10,7 @@
         android:id="@+id/navigation_drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="@dimen/elevation_content"
-        tools:targetApi="21">
+        android:elevation="@dimen/elevation_content">
 
         <LinearLayout
             android:id="@+id/directions_content_layout"
@@ -90,8 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="top"
                     android:background="@android:color/white"
-                    android:elevation="@dimen/elevation_panel"
-                    tools:targetApi="21">
+                    android:elevation="@dimen/elevation_panel">
 
                     <include layout="@layout/directions_form_include" />
                 </ScrollView>
@@ -105,8 +102,7 @@
         android:id="@+id/directions_map_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="@dimen/elevation_map"
-        tools:targetApi="21">
+        android:elevation="@dimen/elevation_map">
 
         <de.schildbach.oeffi.OeffiMapView
             android:id="@+id/directions_map"

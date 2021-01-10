@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/stations_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:elevation="@dimen/elevation_content"
-        tools:targetApi="21">
+        android:elevation="@dimen/elevation_content">
 
         <include layout="@layout/action_bar" />
 
@@ -122,8 +120,7 @@
         android:id="@+id/directions_trip_details_map_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="@dimen/elevation_map"
-        tools:targetApi="21">
+        android:elevation="@dimen/elevation_map">
 
         <de.schildbach.oeffi.OeffiMapView
             android:id="@+id/directions_trip_details_map"
