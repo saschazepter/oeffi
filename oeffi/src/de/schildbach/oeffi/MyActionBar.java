@@ -22,7 +22,6 @@ import de.schildbach.oeffi.util.ToggleImageButton;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -85,11 +84,9 @@ public class MyActionBar extends LinearLayout {
         progressImage = (ImageView) findViewById(R.id.action_bar_progress_image);
 
         // Make sure action bar isn't stuck under a transparent status bar.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            final int statusHeight = res
-                    .getDimensionPixelSize(res.getIdentifier("status_bar_height", "dimen", "android"));
-            setPadding(getPaddingLeft(), getPaddingTop() + statusHeight, getPaddingRight(), getPaddingBottom());
-        }
+        final int statusHeight = res
+                .getDimensionPixelSize(res.getIdentifier("status_bar_height", "dimen", "android"));
+        setPadding(getPaddingLeft(), getPaddingTop() + statusHeight, getPaddingRight(), getPaddingBottom());
     }
 
     public void setDrawer(final OnClickListener onClickListener) {

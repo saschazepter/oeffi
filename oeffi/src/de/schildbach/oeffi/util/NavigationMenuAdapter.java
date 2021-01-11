@@ -29,7 +29,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.util.TypedValue;
 import android.view.ActionProvider;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -87,7 +86,7 @@ public class NavigationMenuAdapter extends RecyclerView.Adapter<NavigationMenuAd
         holder.bind(visibleItems.get(position));
 
         // Offset the first list item so that it isn't stuck under a transparent status bar.
-        if (position == 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        if (position == 0) {
             final int statusHeight = res
                     .getDimensionPixelSize(res.getIdentifier("status_bar_height", "dimen", "android"));
             holder.itemView.setPadding(0, statusHeight, 0, 0);
