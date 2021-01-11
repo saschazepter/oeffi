@@ -82,12 +82,12 @@
 
         <activity
             android:name=".network.NetworkPickerActivity"
-            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:configChanges="keyboard|keyboardHidden"
             android:label="@string/network_picker_activity_title" />
 
         <activity
             android:name=".stations.StationsActivity"
-            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:configChanges="keyboard|keyboardHidden"
             android:label="@string/stations_icon_label"
             android:launchMode="singleTop"
             android:taskAffinity="de.schildbach.oeffi.stations">
@@ -119,7 +119,7 @@
 
         <activity
             android:name=".stations.StationDetailsActivity"
-            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:configChanges="keyboard|keyboardHidden"
             android:label="@string/station_details_activity_title"
             android:taskAffinity="de.schildbach.oeffi.stations">
             <intent-filter android:label="@string/stations_station_details_intentfilter_title">
@@ -258,7 +258,7 @@
 
         <activity
             android:name=".directions.DirectionsActivity"
-            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:configChanges="keyboard|keyboardHidden"
             android:icon="@mipmap/ic_oeffi_directions_color_48dp"
             android:label="@string/directions_icon_label"
             android:taskAffinity="de.schildbach.oeffi.directions"
@@ -485,13 +485,13 @@
 
         <activity
             android:name=".directions.TripsOverviewActivity"
-            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:configChanges="keyboard|keyboardHidden"
             android:taskAffinity="de.schildbach.oeffi.directions"
             android:theme="@style/My.Theme.Dark" />
 
         <activity
             android:name=".directions.TripDetailsActivity"
-            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:configChanges="keyboard|keyboardHidden"
             android:label="@string/trip_details_title"
             android:taskAffinity="de.schildbach.oeffi.directions" />
 
@@ -512,7 +512,7 @@
 
         <activity
             android:name=".plans.PlansPickerActivity"
-            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:configChanges="keyboard|keyboardHidden"
             android:icon="@mipmap/ic_oeffi_plans_color_48dp"
             android:label="@string/plans_icon_label"
             android:launchMode="singleTop"
@@ -534,7 +534,7 @@
 
         <activity
             android:name=".plans.PlanActivity"
-            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:configChanges="keyboard|keyboardHidden"
             android:launchMode="singleTop"
             android:taskAffinity="de.schildbach.oeffi.plans"
             android:theme="@style/My.Theme.Fullscreen">
