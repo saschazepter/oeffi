@@ -27,10 +27,10 @@
                 android:id="@+id/network_picker_firsttime_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/action_bar_appendix"
+                android:background="@color/bg_action_bar_appendix"
                 android:padding="@dimen/list_entry_padding_horizontal_lax"
                 android:text="@string/network_picker_firsttime_message"
-                android:textColor="@color/text"
+                android:textColor="@color/fg_significant"
                 android:textSize="@dimen/font_size_large"
                 android:textStyle="normal" />
 

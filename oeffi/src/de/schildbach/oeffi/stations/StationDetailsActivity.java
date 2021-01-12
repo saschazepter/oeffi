@@ -144,7 +144,7 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
 
         setContentView(R.layout.stations_station_details_content);
         actionBar = getMyActionBar();
-        setPrimaryColor(R.color.action_bar_background_stations);
+        setPrimaryColor(R.color.bg_action_bar_stations);
         actionBar.setBack(v -> finish());
         actionBar.swapTitles();
         actionBar.addProgressButton().setOnClickListener(v -> load());

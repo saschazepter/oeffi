@@ -75,7 +75,7 @@ public class FavoriteStationsActivity extends OeffiActivity
 
         setContentView(R.layout.favorites_content);
         final MyActionBar actionBar = getMyActionBar();
-        setPrimaryColor(R.color.action_bar_background_stations);
+        setPrimaryColor(R.color.bg_action_bar_stations);
         actionBar.setPrimaryTitle(getTitle());
         actionBar.setBack(v -> finish());
 

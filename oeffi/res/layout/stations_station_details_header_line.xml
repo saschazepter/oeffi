@@ -20,7 +20,7 @@
         android:layout_weight="1"
         android:ellipsize="middle"
         android:singleLine="true"
-        android:textColor="@color/text"
+        android:textColor="@color/fg_significant"
         android:textSize="@dimen/font_size_small" />
 
 </LinearLayout>

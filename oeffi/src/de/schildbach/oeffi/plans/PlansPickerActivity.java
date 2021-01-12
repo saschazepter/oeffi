@@ -110,7 +110,7 @@ public class PlansPickerActivity extends OeffiMainActivity implements ActivityCo
 
         setContentView(R.layout.plans_picker_content);
         actionBar = getMyActionBar();
-        setPrimaryColor(R.color.action_bar_background);
+        setPrimaryColor(R.color.bg_action_bar);
         actionBar.setPrimaryTitle(R.string.plans_activity_title);
         actionBar.addButton(R.drawable.ic_search_white_24dp, R.string.plans_picker_action_search_title)
                 .setOnClickListener(v -> onSearchRequested());

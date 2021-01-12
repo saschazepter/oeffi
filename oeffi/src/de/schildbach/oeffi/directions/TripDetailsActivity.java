@@ -112,9 +112,9 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
 
     private LayoutInflater inflater;
     private Resources res;
-    private int colorText;
-    private int colorTextGhosted;
-    private int colorTextHighlight;
+    private int colorSignificant;
+    private int colorInsignificant;
+    private int colorHighlighted;
     private int colorGrey600;
     private DisplayMetrics displayMetrics;
     private LocationManager locationManager;
@@ -144,9 +144,9 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
 
         inflater = getLayoutInflater();
         res = getResources();
-        colorText = res.getColor(R.color.text);
-        colorTextGhosted = res.getColor(R.color.text_ghosted);
-        colorTextHighlight = res.getColor(R.color.text_highlight);
+        colorSignificant = res.getColor(R.color.fg_significant);
+        colorInsignificant = res.getColor(R.color.fg_insignificant);
+        colorHighlighted = res.getColor(R.color.fg_highlighted);
         colorGrey600 = res.getColor(R.color.grey600);
         displayMetrics = res.getDisplayMetrics();
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -193,7 +193,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
 
         setContentView(R.layout.directions_trip_details_content);
         final MyActionBar actionBar = getMyActionBar();
-        setPrimaryColor(R.color.action_bar_background_directions);
+        setPrimaryColor(R.color.bg_action_bar_directions);
         actionBar.setPrimaryTitle(getTitle());
         actionBar.setBack(v -> finish());
 
@@ -749,16 +749,16 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         stopNameView.setText(stop.location.uniqueShortName());
         setStrikeThru(stopNameView, isCancelled);
         if (highlightLocation) {
-            stopNameView.setTextColor(colorTextHighlight);
+            stopNameView.setTextColor(colorHighlighted);
             stopNameView.setTypeface(null, Typeface.BOLD);
         } else if (pearlType == PearlView.Type.DEPARTURE || pearlType == PearlView.Type.ARRIVAL) {
-            stopNameView.setTextColor(colorText);
+            stopNameView.setTextColor(colorSignificant);
             stopNameView.setTypeface(null, Typeface.BOLD);
         } else if (pearlType == PearlView.Type.PASSING) {
-            stopNameView.setTextColor(colorTextGhosted);
+            stopNameView.setTextColor(colorInsignificant);
             stopNameView.setTypeface(null, Typeface.NORMAL);
         } else {
-            stopNameView.setTextColor(colorText);
+            stopNameView.setTextColor(colorSignificant);
             stopNameView.setTypeface(null, Typeface.NORMAL);
         }
         if (stop.location.hasId())
@@ -788,7 +788,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
             setStrikeThru(stopTimeView, isCancelled);
             highlightTime = time.equals(highlightedTime);
         }
-        final int stopTimeColor = highlightTime ? colorTextHighlight : colorText;
+        final int stopTimeColor = highlightTime ? colorHighlighted : colorSignificant;
         stopDateView.setTextColor(stopTimeColor);
         stopTimeView.setTextColor(stopTimeColor);
         stopDateView.setTypeface(null, (highlightTime ? Typeface.BOLD : 0) + (isTimePredicted ? Typeface.ITALIC : 0));
@@ -839,7 +839,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         stopNameView.setText(
                 res.getQuantityString(R.plurals.directions_trip_details_public_entry_collapsed_intermediate_stops,
                         numIntermediateStops, numIntermediateStops));
-        stopNameView.setTextColor(colorTextGhosted);
+        stopNameView.setTextColor(colorInsignificant);
 
         // pearl
         final PearlView pearlView = (PearlView) row

@@ -35,7 +35,7 @@
                         android:id="@+id/stations_connectivity_warning_box"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/action_bar_appendix"
+                        android:background="@color/bg_action_bar_appendix"
                         android:drawableLeft="@drawable/ic_portable_wifi_off_grey600_24dp"
                         android:gravity="center"
                         android:paddingBottom="@dimen/list_entry_padding_vertical"
@@ -49,7 +49,7 @@
                         android:id="@+id/stations_search_box"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/action_bar_appendix"
+                        android:background="@color/bg_action_bar_appendix"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:visibility="gone" >
@@ -81,7 +81,7 @@
                         android:id="@+id/stations_location_box"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/action_bar_appendix"
+                        android:background="@color/bg_action_bar_appendix"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:visibility="gone" >

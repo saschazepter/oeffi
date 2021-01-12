@@ -12,19 +12,19 @@
         android:layout_marginLeft="@dimen/list_entry_padding_horizontal_cram"
         android:layout_marginRight="@dimen/list_entry_padding_horizontal_cram"
         android:maxWidth="128dp"
-        android:textColor="@color/text"
+        android:textColor="@color/fg_significant"
         android:textSize="@dimen/font_size_large" />
 
     <TextView
         android:id="@+id/directions_trip_details_public_entry_stop_time"
         android:layout_marginLeft="@dimen/list_entry_padding_horizontal_cram"
-        android:textColor="@color/text"
+        android:textColor="@color/fg_significant"
         android:textSize="@dimen/font_size_large" />
 
     <TextView
         android:id="@+id/directions_trip_details_public_entry_stop_delay"
         android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-        android:textColor="@color/text"
+        android:textColor="@color/fg_significant"
         android:textSize="@dimen/font_size_large" />
 
     <TextView
@@ -35,14 +35,14 @@
         android:includeFontPadding="false"
         android:maxWidth="@dimen/position_max_width"
         android:singleLine="true"
-        android:textColor="@color/text"
+        android:textColor="@color/fg_significant"
         android:textSize="@dimen/font_size_large" />
 
     <TextView
         android:id="@+id/directions_trip_details_public_entry_stop_name"
         android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
         android:background="?android:attr/selectableItemBackground"
-        android:textColor="@color/text"
+        android:textColor="@color/fg_significant"
         android:textSize="@dimen/font_size_large" />
 
 </TableRow>

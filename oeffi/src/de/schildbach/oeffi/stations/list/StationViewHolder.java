@@ -83,7 +83,7 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
     private final LayoutInflater inflater;
     private final Display display;
     private final int colorArrow;
-    private final int colorText, colorTextLessSignificant, colorTextGhosted;
+    private final int colorSignificant, colorLessSignificant, colorInsignificant;
     private final int listEntryVerticalPadding;
 
     private static final int CONDENSE_LINES_THRESHOLD = 5;
@@ -112,10 +112,10 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
 
         this.inflater = LayoutInflater.from(context);
         this.display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-        this.colorArrow = res.getColor(R.color.arrow);
-        this.colorText = res.getColor(R.color.text);
-        this.colorTextLessSignificant = res.getColor(R.color.text_less_significant);
-        this.colorTextGhosted = res.getColor(R.color.text_ghosted);
+        this.colorArrow = res.getColor(R.color.fg_arrow);
+        this.colorSignificant = res.getColor(R.color.fg_significant);
+        this.colorLessSignificant = res.getColor(R.color.fg_less_significant);
+        this.colorInsignificant = res.getColor(R.color.fg_insignificant);
         this.listEntryVerticalPadding = res.getDimensionPixelOffset(R.dimen.list_entry_padding_vertical);
     }
 
@@ -130,7 +130,7 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
         final boolean isIgnored = favState != null && favState == FavoriteStationsProvider.TYPE_IGNORE;
         final boolean isGhosted = isIgnored || queryNotOk;
 
-        final int color = !isGhosted ? colorText : colorTextGhosted;
+        final int color = !isGhosted ? colorSignificant : colorInsignificant;
 
         // favorite
         favoriteView.setVisibility(isFavorite ? View.VISIBLE : View.GONE);
@@ -176,7 +176,7 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
                 bearingView.setStationBearing(null);
             bearingView.setCallback(compassCallback);
             bearingView.setDisplayRotation(display.getRotation());
-            bearingView.setArrowColor(!isGhosted ? colorArrow : colorTextGhosted);
+            bearingView.setArrowColor(!isGhosted ? colorArrow : colorInsignificant);
             bearingView.setVisibility(View.VISIBLE);
         } else {
             bearingView.setVisibility(View.GONE);
@@ -278,7 +278,7 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
                                 destinationView.setVisibility(View.VISIBLE);
                                 destinationView.setText(Constants.DESTINATION_ARROW_INVISIBLE_PREFIX
                                         + res.getString(R.string.stations_list_entry_interval, interval));
-                                destinationView.setTextColor(colorTextLessSignificant);
+                                destinationView.setTextColor(colorLessSignificant);
                             } else {
                                 lineView.setVisibility(View.INVISIBLE);
                                 lineView.setLine(lineDestination.line); // Padding only

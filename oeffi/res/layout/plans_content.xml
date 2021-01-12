@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
             android:text="@string/plan_progress_loading"
-            android:textColor="@color/text.dark"
+            android:textColor="@color/fg_significant_on_dark"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -54,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxWidth="196dp"
-                    android:textColor="@color/text"
+                    android:textColor="@color/fg_significant"
                     android:textStyle="bold" />
 
                 <de.schildbach.oeffi.stations.LineView
@@ -85,7 +85,7 @@
             android:shadowColor="#000"
             android:shadowRadius="2"
             android:text="@string/disclaimer_responsibility_2line"
-            android:textColor="@color/text.dark"
+            android:textColor="@color/fg_significant_on_dark"
             android:textSize="@dimen/font_size_disclaimer"
             android:textStyle="bold" />
     </FrameLayout>

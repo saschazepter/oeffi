@@ -63,7 +63,7 @@ public class LineView extends TextView {
     private int condenseThreshold = 0;
 
     private final float strokeWidth;
-    private final int colorTextGhosted;
+    private final int colorInsignificant;
 
     private static final Style DEFAULT_STYLE = new Style(Shape.ROUNDED, Color.BLACK, Color.WHITE, Color.BLACK);
 
@@ -84,7 +84,7 @@ public class LineView extends TextView {
 
         final Resources res = getResources();
         strokeWidth = res.getDimension(R.dimen.line_style_border_stroke);
-        colorTextGhosted = res.getColor(R.color.text_ghosted);
+        colorInsignificant = res.getColor(R.color.fg_insignificant);
     }
 
     public void setLine(final Line line) {
@@ -149,7 +149,7 @@ public class LineView extends TextView {
                 final Style lineStyle = line.style;
                 final Style style;
                 if (ghosted)
-                    style = new Style(lineStyle != null ? lineStyle.shape : DEFAULT_STYLE.shape, colorTextGhosted,
+                    style = new Style(lineStyle != null ? lineStyle.shape : DEFAULT_STYLE.shape, colorInsignificant,
                             DEFAULT_STYLE.foregroundColor, DEFAULT_STYLE.borderColor);
                 else if (lineStyle != null)
                     style = lineStyle;

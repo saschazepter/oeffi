@@ -19,7 +19,7 @@
     <TextView
         android:id="@+id/directions_trip_details_public_entry_collapsed_message"
         android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-        android:textColor="@color/text"
+        android:textColor="@color/fg_significant"
         android:textSize="@dimen/font_size_large" />
 
 </TableRow>

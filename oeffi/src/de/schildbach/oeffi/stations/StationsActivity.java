@@ -187,7 +187,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
 
         setContentView(R.layout.stations_content);
         actionBar = getMyActionBar();
-        setPrimaryColor(R.color.action_bar_background_stations);
+        setPrimaryColor(R.color.bg_action_bar_stations);
         actionBar.setPrimaryTitle(R.string.stations_activity_title);
         actionBar.setTitlesOnClickListener(v -> NetworkPickerActivity.start(StationsActivity.this));
         actionBar.addProgressButton().setOnClickListener(v -> {

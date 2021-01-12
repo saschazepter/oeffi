@@ -99,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/list_entry_padding_vertical_cram"
                 android:paddingTop="@dimen/list_entry_padding_vertical_cram"
-                android:textColor="@color/text_ghosted"
+                android:textColor="@color/fg_insignificant"
                 android:textStyle="bold" />
 
             <de.schildbach.oeffi.stations.LineView

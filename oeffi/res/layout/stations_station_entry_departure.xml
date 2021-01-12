@@ -29,7 +29,7 @@
         android:paddingLeft="3dp"
         android:paddingRight="3dp"
         android:singleLine="true"
-        android:textColor="@color/text.dark"
+        android:textColor="@color/fg_significant_on_dark"
         android:textStyle="bold" />
 
     <TextView

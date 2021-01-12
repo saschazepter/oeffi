@@ -88,7 +88,7 @@ public final class TripsGalleryAdapter extends BaseAdapter {
         final Resources res = context.getResources();
 
         final float strokeWidth = res.getDimension(R.dimen.trips_overview_entry_box_stroke_width);
-        final int textColor = res.getColor(R.color.text_dark);
+        final int colorSignificant = res.getColor(R.color.fg_significant_on_dark);
 
         tripWidth = res.getDimensionPixelSize(R.dimen.trips_overview_entry_width);
 
@@ -118,7 +118,7 @@ public final class TripsGalleryAdapter extends BaseAdapter {
         individualTimePaint.setAntiAlias(true);
         individualTimePaint.setTextAlign(Align.CENTER);
 
-        publicTimePaint.setColor(textColor);
+        publicTimePaint.setColor(colorSignificant);
         publicTimePaint.setTypeface(Typeface.DEFAULT_BOLD);
         publicTimePaint.setTextSize(res.getDimension(R.dimen.font_size_normal));
         publicTimePaint.setShadowLayer(1, 0, 0, Color.BLACK);

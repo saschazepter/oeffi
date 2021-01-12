@@ -78,7 +78,7 @@ public class TripsGallery extends Gallery {
         final Resources res = getResources();
         density = res.getDisplayMetrics().density;
         final float strokeWidth = res.getDimension(R.dimen.trips_overview_stroke_width);
-        final int textColor = res.getColor(R.color.text_dark);
+        final int colorSignificant = res.getColor(R.color.fg_significant_on_dark);
 
         gridPaint.setColor(Color.GRAY);
         gridPaint.setStyle(Paint.Style.STROKE);
@@ -86,7 +86,7 @@ public class TripsGallery extends Gallery {
         gridPaint.setPathEffect(new DashPathEffect(new float[] { 4f * density, 4f * density }, 0));
         gridPaint.setAntiAlias(false);
 
-        gridLabelPaint.setColor(textColor);
+        gridLabelPaint.setColor(colorSignificant);
         gridLabelPaint.setAntiAlias(true);
         gridLabelPaint.setTextSize(res.getDimension(R.dimen.font_size_normal));
         gridLabelPaint.setTextAlign(Align.CENTER);

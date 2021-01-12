@@ -34,8 +34,8 @@ import androidx.recyclerview.widget.RecyclerView;
 public class NetworkViewHolder extends RecyclerView.ViewHolder {
     private final Context context;
     private final Resources res;
-    private final int textColor;
-    private final int grey600;
+    private final int colorSignificant;
+    private final int colorGrey600;
 
     private final ImageView iconView;
     private final TextView labelView;
@@ -51,8 +51,8 @@ public class NetworkViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         this.context = context;
         this.res = context.getResources();
-        this.textColor = res.getColor(R.color.text);
-        this.grey600 = res.getColor(R.color.grey600);
+        this.colorSignificant = res.getColor(R.color.fg_significant);
+        this.colorGrey600 = res.getColor(R.color.grey600);
 
         iconView = (ImageView) itemView.findViewById(R.id.network_picker_entry_icon);
         labelView = (TextView) itemView.findViewById(R.id.network_picker_entry_label);
@@ -83,7 +83,7 @@ public class NetworkViewHolder extends RecyclerView.ViewHolder {
         }
 
         labelView.setText(networkRes.label);
-        labelView.setTextColor(isEnabled ? textColor : grey600);
+        labelView.setTextColor(isEnabled ? colorSignificant : colorGrey600);
 
         if (entry.state != null && isEnabled)
             stateView.setText(
@@ -92,7 +92,7 @@ public class NetworkViewHolder extends RecyclerView.ViewHolder {
             stateView.setText(null);
 
         commentView.setText(networkRes.comment);
-        commentView.setTextColor(isEnabled ? textColor : grey600);
+        commentView.setTextColor(isEnabled ? colorSignificant : colorGrey600);
 
         if (dbFileLength > 0) {
             usageView.setVisibility(View.VISIBLE);

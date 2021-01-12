@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/list_entry_padding_horizontal"
-                    android:textColor="@color/text"
+                    android:textColor="@color/fg_significant"
                     android:textSize="@dimen/font_size_large" />
 
                 <TextView
@@ -52,7 +52,7 @@
                     android:drawableLeft="@drawable/ic_accessible_grey600_18dp"
                     android:drawablePadding="@dimen/list_entry_padding_horizontal"
                     android:text="@string/directions_trip_details_public_entry_accessibility"
-                    android:textColor="@color/text_ghosted"
+                    android:textColor="@color/fg_insignificant"
                     android:visibility="gone" />
 
                 <TextView
@@ -62,7 +62,7 @@
                     android:drawableLeft="@drawable/ic_directions_bike_grey600_18dp"
                     android:drawablePadding="@dimen/list_entry_padding_horizontal"
                     android:text="@string/directions_trip_details_public_entry_bicycle_carriage"
-                    android:textColor="@color/text_ghosted"
+                    android:textColor="@color/fg_insignificant"
                     android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>

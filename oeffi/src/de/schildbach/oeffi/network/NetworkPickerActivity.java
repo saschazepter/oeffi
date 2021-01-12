@@ -123,7 +123,7 @@ public class NetworkPickerActivity extends Activity implements ActivityCompat.On
 
         setContentView(R.layout.network_picker_content);
         actionBar = (MyActionBar) findViewById(R.id.action_bar);
-        setPrimaryColor(R.color.action_bar_background);
+        setPrimaryColor(R.color.bg_action_bar);
         actionBar.setPrimaryTitle(getTitle());
 
         listView = (RecyclerView) findViewById(android.R.id.list);

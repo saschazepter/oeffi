@@ -269,7 +269,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
 
         setContentView(R.layout.directions_content);
         final MyActionBar actionBar = getMyActionBar();
-        setPrimaryColor(R.color.action_bar_background_directions);
+        setPrimaryColor(R.color.bg_action_bar_directions);
         actionBar.setPrimaryTitle(R.string.directions_activity_title);
         actionBar.setTitlesOnClickListener(v -> NetworkPickerActivity.start(DirectionsActivity.this));
         buttonExpand = actionBar.addToggleButton(R.drawable.ic_expand_white_24dp,
