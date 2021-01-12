@@ -83,7 +83,7 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
     private final LayoutInflater inflater;
     private final Display display;
     private final int colorArrow;
-    private final int colorSignificant, colorLessSignificant, colorInsignificant;
+    private final int colorSignificant, colorLessSignificant, colorInsignificant, colorHighlighted;
     private final int listEntryVerticalPadding;
 
     private static final int CONDENSE_LINES_THRESHOLD = 5;
@@ -116,6 +116,7 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
         this.colorSignificant = res.getColor(R.color.fg_significant);
         this.colorLessSignificant = res.getColor(R.color.fg_less_significant);
         this.colorInsignificant = res.getColor(R.color.fg_insignificant);
+        this.colorHighlighted = res.getColor(R.color.fg_highlighted);
         this.listEntryVerticalPadding = res.getDimensionPixelOffset(R.dimen.list_entry_padding_vertical);
     }
 
@@ -130,7 +131,9 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
         final boolean isIgnored = favState != null && favState == FavoriteStationsProvider.TYPE_IGNORE;
         final boolean isGhosted = isIgnored || queryNotOk;
 
-        final int color = !isGhosted ? colorSignificant : colorInsignificant;
+        final int colorSignificant = !isGhosted ? this.colorSignificant : colorInsignificant;
+        final int colorLessSignificant = !isGhosted ? this.colorLessSignificant : colorInsignificant;
+        final int colorHighlighted = !isGhosted ? this.colorHighlighted : colorInsignificant;
 
         // favorite
         favoriteView.setVisibility(isFavorite ? View.VISIBLE : View.GONE);
@@ -139,10 +142,10 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
         final boolean showPlace = forceShowPlace || itemView.isActivated();
         nameView.setText(showPlace ? station.location.place : station.location.uniqueShortName());
         nameView.setTypeface(showPlace ? Typeface.DEFAULT : Typeface.DEFAULT_BOLD);
-        nameView.setTextColor(color);
+        nameView.setTextColor(colorSignificant);
         name2View.setVisibility(showPlace ? View.VISIBLE : View.GONE);
         name2View.setText(station.location.name);
-        name2View.setTextColor(color);
+        name2View.setTextColor(colorSignificant);
 
         // lines
         final Set<Line> lines = new TreeSet<>();
@@ -165,7 +168,7 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
         // distance
         distanceView.setText(station.hasDistanceAndBearing ? Formats.formatDistance(station.distance) : null);
         distanceView.setVisibility(station.hasDistanceAndBearing ? View.VISIBLE : View.GONE);
-        distanceView.setTextColor(color);
+        distanceView.setTextColor(colorSignificant);
 
         // bearing
         if (deviceLocation != null && station.hasDistanceAndBearing) {
@@ -271,7 +274,7 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
                                 } else {
                                     destinationView.setText(null);
                                 }
-                                destinationView.setTextColor(color);
+                                destinationView.setTextColor(colorSignificant);
                             } else if (iDeparture == 1 && interval > 0) {
                                 lineView.setVisibility(View.INVISIBLE);
                                 lineView.setLine(lineDestination.line); // Padding only
@@ -307,7 +310,7 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
                                 }
 
                                 messageIndexView.setText(indexText);
-                                messageIndexView.setBackgroundColor(isGhosted ? color : MESSAGE_INDEX_COLOR);
+                                messageIndexView.setBackgroundColor(isGhosted ? colorSignificant : MESSAGE_INDEX_COLOR);
                             } else {
                                 messageIndexView.setVisibility(View.GONE);
                             }
@@ -330,7 +333,7 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
                             final Date updatedAt = station.updatedAt;
                             final boolean isStale = updatedAt != null
                                     && System.currentTimeMillis() - updatedAt.getTime() > Constants.STALE_UPDATE_MS;
-                            timeView.setTextColor(isStale ? Color.LTGRAY : color);
+                            timeView.setTextColor(isStale ? colorLessSignificant : colorSignificant);
 
                             // delay
                             final TextView delayView = departureViewHolder.delay;
@@ -339,7 +342,8 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
                             final long delayMins = delay / DateUtils.MINUTE_IN_MILLIS;
                             delayView.setText(delayMins != 0 ? String.format("(%+d)", delayMins) + ' ' : "");
                             delayView.setTypeface(Typeface.DEFAULT, isPredicted ? Typeface.ITALIC : Typeface.NORMAL);
-                            delayView.setTextColor(isStale ? Color.LTGRAY : (isGhosted ? color : Color.RED));
+                            delayView.setTextColor(isStale ? colorLessSignificant : (isGhosted ? colorSignificant :
+                                    colorHighlighted));
 
                             if (++iDeparture == maxDeparturesPerGroup)
                                 break;
@@ -376,7 +380,7 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
                 final TextView messageView = (TextView) inflater.inflate(R.layout.stations_station_entry_message,
                         messagesViewGroup, false);
                 messageView.setText(index + ". " + message);
-                messageView.setTextColor(color);
+                messageView.setTextColor(colorSignificant);
                 messagesViewGroup.addView(messageView);
             }
         } else {
