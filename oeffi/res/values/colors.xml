@@ -13,6 +13,5 @@
     <color name="action_bar_background_directions">#227722</color>
     <color name="action_bar_background_directions_dark">#114411</color>
     <color name="action_bar_appendix">#cccccc</color>
-    <color name="dialog.header.text">#000000</color>
 
 </resources>
