@@ -12,11 +12,6 @@
     </Preference>
     <CheckBoxPreference
         android:defaultValue="true"
-        android:key="show_changelog"
-        android:summary="@string/global_preferences_show_changelog_summary"
-        android:title="@string/global_preferences_show_changelog_title" />
-    <CheckBoxPreference
-        android:defaultValue="true"
         android:key="show_hints"
         android:summary="@string/global_preferences_show_hints_summary"
         android:title="@string/global_preferences_show_hints_title" />

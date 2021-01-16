@@ -26,7 +26,6 @@ import androidx.annotation.Nullable;
 import de.schildbach.oeffi.Application;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.R;
-import de.schildbach.oeffi.util.ChangelogDialogBuilder;
 
 public class AboutFragment extends PreferenceFragment {
     private static final String KEY_ABOUT_VERSION = "about_version";
@@ -52,10 +51,8 @@ public class AboutFragment extends PreferenceFragment {
         final Uri marketUri = Uri.parse(String.format(Constants.MARKET_APP_URL, application.getPackageName()));
         findPreference(KEY_ABOUT_MARKET_APP).setSummary(marketUri.toString());
         findPreference(KEY_ABOUT_MARKET_APP).setIntent(new Intent(Intent.ACTION_VIEW, marketUri));
-        findPreference(KEY_ABOUT_CHANGELOG).setOnPreferenceClickListener(preference -> {
-            ChangelogDialogBuilder.get(activity, Application.versionCode(application), null,
-                    Application.versionFlavor(application), 0, null).show();
-            return true;
-        });
+        final Uri changelogUri = Uri.parse(activity.getString(R.string.about_changelog_summary));
+        findPreference(KEY_ABOUT_CHANGELOG).setSummary(changelogUri.toString());
+        findPreference(KEY_ABOUT_CHANGELOG).setIntent(new Intent(Intent.ACTION_VIEW, changelogUri));
     }
 }

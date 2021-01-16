@@ -36,8 +36,6 @@
     <string name="global_preferences_title">Common</string>
     <string name="global_preferences_network_provider_title">Transport network</string>
     <string name="global_preferences_network_provider_summary">Pick transportation network.</string>
-    <string name="global_preferences_show_changelog_title">Show changes</string>
-    <string name="global_preferences_show_changelog_summary">Show Offi\'s changelog after each upgrade to a new version.</string>
     <string name="global_preferences_show_hints_title">Show hints</string>
     <string name="global_preferences_show_hints_summary">Show useful hints now and then.</string>
     <string name="global_preferences_location_settings_title">Location settings</string>
@@ -322,9 +320,6 @@
     <string name="alert_network_problem_title">Network problems?</string>
     <string name="alert_network_problem_message">Could not fetch data.</string>
     <string name="alert_network_problem_retry">Retry</string>
-    <string name="changelog_dialog_title_version">Welcome to Offi version %s!</string>
-    <string name="changelog_dialog_title">Here is what\'s new:</string>
-    <string name="changelog_dialog_button_dismiss">Dismiss</string>
     <string name="alert_message_button_dismiss">Dismiss</string>
     <string name="alert_message_button_update">Update app</string>
     <string name="alert_crash_report_title">Previous crash detected</string>

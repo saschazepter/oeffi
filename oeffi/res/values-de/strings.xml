@@ -36,8 +36,6 @@
     <string name="global_preferences_title">Allgemein</string>
     <string name="global_preferences_network_provider_title">Verkehrsnetz</string>
     <string name="global_preferences_network_provider_summary">Verkehrsnetz wählen.</string>
-    <string name="global_preferences_show_changelog_title">Änderungen zeigen</string>
-    <string name="global_preferences_show_changelog_summary">Nach Aktualisierung auf eine neue Version von Öffi Änderungen zeigen.</string>
     <string name="global_preferences_show_hints_title">Tipps zeigen</string>
     <string name="global_preferences_show_hints_summary">Hin und wieder einen nützlichen Tipp anzeigen.</string>
     <string name="global_preferences_location_settings_title">Standorteinstellungen</string>
@@ -321,9 +319,6 @@
     <string name="alert_network_problem_title">Netzwerk-Probleme?</string>
     <string name="alert_network_problem_message">Kann Daten nicht laden.</string>
     <string name="alert_network_problem_retry">Nochmal versuchen</string>
-    <string name="changelog_dialog_title_version">Willkommen zu Öffi Version %s!</string>
-    <string name="changelog_dialog_title">Folgendes ist neu:</string>
-    <string name="changelog_dialog_button_dismiss">Weiter</string>
     <string name="alert_message_button_dismiss">Weiter</string>
     <string name="alert_message_button_update">App-Update</string>
     <string name="alert_crash_report_title">Öffi ist letztens abgestürzt</string>

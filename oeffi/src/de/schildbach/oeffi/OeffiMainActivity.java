@@ -54,7 +54,6 @@ import de.schildbach.oeffi.preference.AboutFragment;
 import de.schildbach.oeffi.preference.DonateFragment;
 import de.schildbach.oeffi.preference.PreferenceActivity;
 import de.schildbach.oeffi.stations.StationsActivity;
-import de.schildbach.oeffi.util.ChangelogDialogBuilder;
 import de.schildbach.oeffi.util.DialogBuilder;
 import de.schildbach.oeffi.util.DividerItemDecoration;
 import de.schildbach.oeffi.util.Downloader;
@@ -98,7 +97,6 @@ public abstract class OeffiMainActivity extends OeffiActivity {
 
     private final Handler handler = new Handler();
 
-    private static final int DIALOG_NEW_VERSION = 101;
     private static final int DIALOG_MESSAGE = 102;
 
     private static final Logger log = LoggerFactory.getLogger(OeffiMainActivity.class);
@@ -123,11 +121,6 @@ public abstract class OeffiMainActivity extends OeffiActivity {
             downloadAndProcessMessages(prefsGetNetwork());
         } else if (versionCode != lastVersionCode) {
             prefs.edit().putInt(Constants.PREFS_KEY_LAST_VERSION, versionCode).commit();
-
-            if (versionCode > lastVersionCode) {
-                if (lastVersionCode > 0 && prefs.getBoolean(Constants.PREFS_KEY_SHOW_CHANGELOG, true))
-                    showDialog(DIALOG_NEW_VERSION);
-            }
         } else {
             downloadAndProcessMessages(prefsGetNetwork());
         }
@@ -349,9 +342,6 @@ public abstract class OeffiMainActivity extends OeffiActivity {
     @Override
     protected Dialog onCreateDialog(final int id, final Bundle bundle) {
         switch (id) {
-        case DIALOG_NEW_VERSION:
-            return ChangelogDialogBuilder.get(this, versionCode, applicationVersionName(), applicationVersionFlavor(),
-                    lastVersionCode, taskName()).create();
         case DIALOG_MESSAGE:
             return messageDialog(bundle);
         }
