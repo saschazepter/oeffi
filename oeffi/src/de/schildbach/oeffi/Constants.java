@@ -34,7 +34,7 @@ public class Constants {
 
     public static final String MARKET_APP_URL = "market://details?id=%s";
     public static final String GOOGLE_PLAY_APP_URL = "https://play.google.com/store/apps/details?id=%s";
-    public static final String BITCOIN_ADDRESS = "1PW21MuBgPnjfUQriwK7TnRADFotEhdysr";
+    public static final String BITCOIN_ADDRESS = "bc1q8ruc8hanp7hrzfs48dvtuzz4ukmpe7cgsvvzrt";
 
     public static final String REPORT_EMAIL = "oeffi.app@gmail.com";
 
