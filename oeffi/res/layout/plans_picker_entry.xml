@@ -28,8 +28,7 @@
             <ImageView
                 android:id="@+id/plans_picker_entry_thumb"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/image_frame_default" />
+                android:layout_height="match_parent" />
 
             <ProgressBar
                 android:id="@+id/plans_picker_entry_progress"
