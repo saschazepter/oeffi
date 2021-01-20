@@ -975,9 +975,9 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
             final List<LineDestination> lines1 = station1.getLines();
             final List<LineDestination> lines2 = station2.getLines();
             final List<LineDestination> lineDestinations1 = lines1 != null ? lines1
-                    : Collections.<LineDestination> emptyList();
+                    : Collections.emptyList();
             final List<LineDestination> lineDestinations2 = lines2 != null ? lines2
-                    : Collections.<LineDestination> emptyList();
+                    : Collections.emptyList();
             final int length1 = lineDestinations1.size();
             final int length2 = lineDestinations2.size();
             final int length = Math.max(length1, length2);
