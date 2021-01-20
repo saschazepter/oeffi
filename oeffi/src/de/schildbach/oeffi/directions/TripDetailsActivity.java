@@ -262,7 +262,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
                     .setOnClickListener(v -> startActivity(scheduleTripIntent));
         }
 
-        legsGroup = (ViewGroup) findViewById(R.id.directions_trip_details_legs_group);
+        legsGroup = findViewById(R.id.directions_trip_details_legs_group);
 
         updateLocations();
         updateFares(trip.fares);
@@ -278,10 +278,10 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         ((TextView) findViewById(R.id.directions_trip_details_footer))
                 .setText(Html.fromHtml(getString(R.string.directions_trip_details_realtime)));
 
-        final TextView disclaimerSourceView = (TextView) findViewById(R.id.directions_trip_details_disclaimer_source);
+        final TextView disclaimerSourceView = findViewById(R.id.directions_trip_details_disclaimer_source);
         updateDisclaimerSource(disclaimerSourceView, network.name(), null);
 
-        mapView = (OeffiMapView) findViewById(R.id.directions_trip_details_map);
+        mapView = findViewById(R.id.directions_trip_details_map);
         mapView.setTripAware(new TripAware() {
             public Trip getTrip() {
                 return trip;
@@ -527,16 +527,16 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
     }
 
     private void updateLocations() {
-        final LocationTextView fromView = (LocationTextView) findViewById(R.id.directions_trip_details_location_from);
+        final LocationTextView fromView = findViewById(R.id.directions_trip_details_location_from);
         fromView.setLabel(R.string.directions_overview_from);
         fromView.setLocation(trip.from);
-        final LocationTextView toView = (LocationTextView) findViewById(R.id.directions_trip_details_location_to);
+        final LocationTextView toView = findViewById(R.id.directions_trip_details_location_to);
         toView.setLabel(R.string.directions_overview_to);
         toView.setLocation(trip.to);
     }
 
     private void updateFares(final List<Fare> fares) {
-        final TableLayout faresTable = (TableLayout) findViewById(R.id.directions_trip_details_fares);
+        final TableLayout faresTable = findViewById(R.id.directions_trip_details_fares);
         if (trip.fares != null && !trip.fares.isEmpty()) {
             faresTable.setVisibility(View.VISIBLE);
 
@@ -550,7 +550,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
                 ((TextView) fareRow.findViewById(R.id.directions_trip_details_fare_entry_row_name)).setText(fare.name);
                 ((TextView) fareRow.findViewById(R.id.directions_trip_details_fare_entry_row_fare))
                         .setText(String.format(Locale.US, "%s%.2f", fare.currency.getSymbol(), fare.fare));
-                final TextView unitView = (TextView) fareRow
+                final TextView unitView = fareRow
                         .findViewById(R.id.directions_trip_details_fare_entry_row_unit);
                 if (fare.units != null && fare.unitName != null)
                     unitView.setText(String.format("(%s %s)", fare.units, fare.unitName));
@@ -573,12 +573,12 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         final boolean showBicycleCarriage = leg.line.hasAttr(Line.Attr.BICYCLE_CARRIAGE);
         final List<Stop> intermediateStops = leg.intermediateStops;
 
-        final LineView lineView = (LineView) row.findViewById(R.id.directions_trip_details_public_entry_line);
+        final LineView lineView = row.findViewById(R.id.directions_trip_details_public_entry_line);
         lineView.setLine(leg.line);
         if (showDestination || showAccessibility)
             lineView.setMaxWidth(res.getDimensionPixelSize(R.dimen.line_max_width));
 
-        final LinearLayout lineGroup = (LinearLayout) row
+        final LinearLayout lineGroup = row
                 .findViewById(R.id.directions_trip_details_public_entry_line_group);
         if (showDestination)
             lineGroup.setBaselineAlignedChildIndex(0);
@@ -587,7 +587,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         else if (showBicycleCarriage)
             lineGroup.setBaselineAlignedChildIndex(2);
 
-        final TextView destinationView = (TextView) row
+        final TextView destinationView = row
                 .findViewById(R.id.directions_trip_details_public_entry_destination);
         if (destination != null) {
             destinationView.setVisibility(View.VISIBLE);
@@ -603,7 +603,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         final View bicycleCarriageView = row.findViewById(R.id.directions_trip_details_public_entry_bicycle_carriage);
         bicycleCarriageView.setVisibility(showBicycleCarriage ? View.VISIBLE : View.GONE);
 
-        final ToggleImageButton expandButton = (ToggleImageButton) row
+        final ToggleImageButton expandButton = row
                 .findViewById(R.id.directions_trip_details_public_entry_expand);
         final Boolean checked = legExpandStates.get(leg);
         expandButton
@@ -614,7 +614,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
             updateGUI();
         });
 
-        final TableLayout stopsView = (TableLayout) row.findViewById(R.id.directions_trip_details_public_entry_stops);
+        final TableLayout stopsView = row.findViewById(R.id.directions_trip_details_public_entry_stops);
         stopsView.removeAllViews();
         final CollapseColumns collapseColumns = new CollapseColumns();
         collapseColumns.dateChanged(now);
@@ -658,14 +658,14 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         stopsView.setColumnCollapsed(3, collapseColumns.collapseDelayColumn);
         stopsView.setColumnCollapsed(4, collapseColumns.collapsePositionColumn);
 
-        final TextView messageView = (TextView) row.findViewById(R.id.directions_trip_details_public_entry_message);
+        final TextView messageView = row.findViewById(R.id.directions_trip_details_public_entry_message);
         final String message = leg.message != null ? leg.message : leg.line.message;
         messageView.setText(message);
         messageView.setVisibility(message != null ? View.VISIBLE : View.GONE);
     }
 
     private void updateIndividualLeg(final View row, final Individual leg) {
-        final TextView textView = (TextView) row.findViewById(R.id.directions_trip_details_individual_entry_text);
+        final TextView textView = row.findViewById(R.id.directions_trip_details_individual_entry_text);
         final String distanceStr = leg.distance != 0 ? "(" + leg.distance + "m) " : "";
         final int textResId, iconResId;
         if (leg.type == Individual.Type.WALK) {
@@ -686,7 +686,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         textView.setText(Html.fromHtml(getString(textResId, leg.min, distanceStr, leg.arrival.uniqueShortName())));
         textView.setCompoundDrawablesWithIntrinsicBounds(iconResId, 0, 0, 0);
 
-        final ImageButton mapView = (ImageButton) row.findViewById(R.id.directions_trip_details_individual_entry_map);
+        final ImageButton mapView = row.findViewById(R.id.directions_trip_details_individual_entry_map);
         mapView.setVisibility(View.GONE);
         mapView.setOnClickListener(null);
         if (leg.arrival.hasCoord()) {
@@ -745,7 +745,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         }
 
         // name
-        final TextView stopNameView = (TextView) row.findViewById(R.id.directions_trip_details_public_entry_stop_name);
+        final TextView stopNameView = row.findViewById(R.id.directions_trip_details_public_entry_stop_name);
         stopNameView.setText(stop.location.uniqueShortName());
         setStrikeThru(stopNameView, isCancelled);
         if (highlightLocation) {
@@ -767,14 +767,14 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
             stopNameView.setOnClickListener(null);
 
         // pearl
-        final PearlView pearlView = (PearlView) row.findViewById(R.id.directions_trip_details_public_entry_stop_pearl);
+        final PearlView pearlView = row.findViewById(R.id.directions_trip_details_public_entry_stop_pearl);
         pearlView.setType(pearlType);
         pearlView.setStyle(style);
         pearlView.setFontMetrics(stopNameView.getPaint().getFontMetrics());
 
         // time
-        final TextView stopDateView = (TextView) row.findViewById(R.id.directions_trip_details_public_entry_stop_date);
-        final TextView stopTimeView = (TextView) row.findViewById(R.id.directions_trip_details_public_entry_stop_time);
+        final TextView stopDateView = row.findViewById(R.id.directions_trip_details_public_entry_stop_date);
+        final TextView stopTimeView = row.findViewById(R.id.directions_trip_details_public_entry_stop_time);
         stopDateView.setText(null);
         stopTimeView.setText(null);
         boolean highlightTime = false;
@@ -796,7 +796,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
                 + (isTimePredicted ? Typeface.ITALIC : 0));
 
         // delay
-        final TextView stopDelayView = (TextView) row
+        final TextView stopDelayView = row
                 .findViewById(R.id.directions_trip_details_public_entry_stop_delay);
         if (delay != null) {
             final long delayMins = delay / DateUtils.MINUTE_IN_MILLIS;
@@ -808,7 +808,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         }
 
         // position
-        final TextView stopPositionView = (TextView) row
+        final TextView stopPositionView = row
                 .findViewById(R.id.directions_trip_details_public_entry_stop_position);
         if (position != null && !isCancelled) {
             collapseColumns.collapsePositionColumn = false;
@@ -834,7 +834,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         final View row = inflater.inflate(R.layout.directions_trip_details_public_entry_collapsed, null);
 
         // message
-        final TextView stopNameView = (TextView) row
+        final TextView stopNameView = row
                 .findViewById(R.id.directions_trip_details_public_entry_collapsed_message);
         stopNameView.setText(
                 res.getQuantityString(R.plurals.directions_trip_details_public_entry_collapsed_intermediate_stops,
@@ -842,7 +842,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         stopNameView.setTextColor(colorInsignificant);
 
         // pearl
-        final PearlView pearlView = (PearlView) row
+        final PearlView pearlView = row
                 .findViewById(R.id.directions_trip_details_public_entry_collapsed_pearl);
         pearlView.setType(PearlView.Type.PASSING);
         pearlView.setStyle(style);

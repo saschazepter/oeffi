@@ -53,7 +53,7 @@ public class StationsFilterPopup extends PopupWindow
 
         final View contentView = getContentView();
         for (final Product product : Product.ALL) {
-            final CheckBox checkBox = (CheckBox) contentView.findViewWithTag(Character.toString(product.code));
+            final CheckBox checkBox = contentView.findViewWithTag(Character.toString(product.code));
             checkBox.setChecked(filter.contains(product));
             checkBox.setOnCheckedChangeListener(this);
             checkBox.setOnLongClickListener(this);
@@ -73,7 +73,7 @@ public class StationsFilterPopup extends PopupWindow
         final Product product = Product.fromCode(((String) v.getTag()).charAt(0));
         final View contentView = getContentView();
         for (final Product p : Product.ALL) {
-            final CheckBox checkBox = (CheckBox) contentView.findViewWithTag(Character.toString(p.code));
+            final CheckBox checkBox = contentView.findViewWithTag(Character.toString(p.code));
             checkBox.setChecked(p != product); // Implicit notify
         }
         return true;

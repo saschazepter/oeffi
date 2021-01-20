@@ -167,20 +167,20 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
             }
         });
 
-        viewAnimator = (ViewAnimator) findViewById(R.id.stations_station_details_list_layout);
+        viewAnimator = findViewById(R.id.stations_station_details_list_layout);
 
-        listView = (RecyclerView) findViewById(R.id.stations_station_details_list);
+        listView = findViewById(R.id.stations_station_details_list);
         listView.setLayoutManager(new LinearLayoutManager(this));
         listView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         listAdapter = new DeparturesAdapter(this);
         listView.setAdapter(listAdapter);
 
-        mapView = (OeffiMapView) findViewById(R.id.stations_station_details_map);
+        mapView = findViewById(R.id.stations_station_details_map);
         mapView.setStationsAware(this);
         ((TextView) findViewById(R.id.stations_station_details_map_disclaimer))
                 .setText(mapView.getTileProvider().getTileSource().getCopyrightNotice());
 
-        resultStatusView = (TextView) findViewById(R.id.stations_station_details_result_status);
+        resultStatusView = findViewById(R.id.stations_station_details_result_status);
 
         final Intent intent = getIntent();
         final Uri uri = intent.getData();
@@ -267,7 +267,7 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
         favoriteButton
                 .setChecked(selectedFavState != null && selectedFavState == FavoriteStationsProvider.TYPE_FAVORITE);
 
-        disclaimerSourceView = (TextView) findViewById(R.id.stations_station_details_disclaimer_source);
+        disclaimerSourceView = findViewById(R.id.stations_station_details_disclaimer_source);
         updateDisclaimerSource(disclaimerSourceView, selectedNetwork.name(), null);
     }
 
@@ -550,9 +550,9 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
         public HeaderViewHolder(final Context context, final View itemView) {
             super(itemView);
 
-            idView = (TextView) itemView.findViewById(R.id.stations_station_details_header_id);
-            linesGroup = (LinearLayout) itemView.findViewById(R.id.stations_station_details_header_lines);
-            additionalLinesView = (LineView) itemView
+            idView = itemView.findViewById(R.id.stations_station_details_header_id);
+            linesGroup = itemView.findViewById(R.id.stations_station_details_header_lines);
+            additionalLinesView = itemView
                     .findViewById(R.id.stations_station_details_header_additional_lines);
 
             inflater = LayoutInflater.from(context);
@@ -577,11 +577,11 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
                     final View lineRow = inflater.inflate(R.layout.stations_station_details_header_line, null);
                     linesGroup.addView(lineRow, LINES_LAYOUT_PARAMS);
 
-                    final LineView lineView = (LineView) lineRow
+                    final LineView lineView = lineRow
                             .findViewById(R.id.stations_station_details_header_line_line);
                     lineView.setLine(line);
 
-                    final TextView destinationView = (TextView) lineRow
+                    final TextView destinationView = lineRow
                             .findViewById(R.id.stations_station_details_header_line_destination);
                     final StringBuilder text = new StringBuilder();
                     for (final Location destination : destinations) {
@@ -618,15 +618,15 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
         public DepartureViewHolder(final Context context, final View itemView) {
             super(itemView);
 
-            timeRelView = (TextView) itemView.findViewById(R.id.stations_station_entry_time_rel);
-            timeAbsView = (TextView) itemView.findViewById(R.id.stations_station_entry_time_abs);
-            delayView = (TextView) itemView.findViewById(R.id.stations_station_entry_delay);
-            lineView = (LineView) itemView.findViewById(R.id.stations_station_entry_line);
-            destinationView = (TextView) itemView.findViewById(R.id.stations_station_entry_destination);
-            positionView = (TextView) itemView.findViewById(R.id.stations_station_entry_position);
-            capacity1stView = (TextView) itemView.findViewById(R.id.stations_station_entry_capacity_1st_class);
-            capacity2ndView = (TextView) itemView.findViewById(R.id.stations_station_entry_capacity_2nd_class);
-            msgView = (TextView) itemView.findViewById(R.id.stations_station_entry_msg);
+            timeRelView = itemView.findViewById(R.id.stations_station_entry_time_rel);
+            timeAbsView = itemView.findViewById(R.id.stations_station_entry_time_abs);
+            delayView = itemView.findViewById(R.id.stations_station_entry_delay);
+            lineView = itemView.findViewById(R.id.stations_station_entry_line);
+            destinationView = itemView.findViewById(R.id.stations_station_entry_destination);
+            positionView = itemView.findViewById(R.id.stations_station_entry_position);
+            capacity1stView = itemView.findViewById(R.id.stations_station_entry_capacity_1st_class);
+            capacity2ndView = itemView.findViewById(R.id.stations_station_entry_capacity_2nd_class);
+            msgView = itemView.findViewById(R.id.stations_station_entry_msg);
 
             this.context = context;
             this.timeFormat = DateFormat.getTimeFormat(context);
@@ -673,7 +673,7 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
             final Location destination = departure.destination;
             if (destination != null) {
                 destinationView.setText(Constants.DESTINATION_ARROW_PREFIX + destination.uniqueShortName());
-                itemView.setOnClickListener(destination.id != null ? (OnClickListener) v -> start(context, network, destination) : null);
+                itemView.setOnClickListener(destination.id != null ? v -> start(context, network, destination) : null);
             } else {
                 destinationView.setText(null);
                 itemView.setOnClickListener(null);

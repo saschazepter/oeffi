@@ -27,7 +27,7 @@ public class SeparatorViewHolder extends RecyclerView.ViewHolder {
     public SeparatorViewHolder(final View itemView) {
         super(itemView);
 
-        textView = ((TextView) itemView.findViewById(android.R.id.text1));
+        textView = itemView.findViewById(android.R.id.text1);
     }
 
     public void bind(final NetworkListEntry.Separator entry) {

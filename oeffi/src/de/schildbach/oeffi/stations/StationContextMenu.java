@@ -85,8 +85,8 @@ public class StationContextMenu extends PopupMenu {
         builder.setTitle(R.string.station_context_launcher_shortcut_title);
         builder.setView(view);
         builder.setPositiveButton(R.string.create_launcher_shortcut_dialog_button_ok,
-                (DialogInterface.OnClickListener) (dialog, which) -> {
-                    final EditText nameView = (EditText) view
+                (dialog, which) -> {
+                    final EditText nameView = view
                             .findViewById(R.id.create_launcher_shortcut_dialog_name);
                     final String shortcutName = nameView.getText().toString();
                     final String shortcutId = "directions-to-" + networkId.name() + "-" + location.id;

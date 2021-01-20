@@ -70,7 +70,7 @@ public abstract class OeffiActivity extends Activity {
         listFrame.getLayoutParams().width = listShow && mapShow ? res.getDimensionPixelSize(R.dimen.layout_list_width)
                 : LinearLayout.LayoutParams.MATCH_PARENT;
 
-        final ViewGroup navigationDrawer = (ViewGroup) findViewById(R.id.navigation_drawer_layout);
+        final ViewGroup navigationDrawer = findViewById(R.id.navigation_drawer_layout);
         if (navigationDrawer != null) {
             final View child = navigationDrawer.getChildAt(1);
             child.getLayoutParams().width = res.getDimensionPixelSize(R.dimen.layout_navigation_drawer_width);
@@ -111,7 +111,7 @@ public abstract class OeffiActivity extends Activity {
     }
 
     protected final MyActionBar getMyActionBar() {
-        return (MyActionBar) findViewById(R.id.action_bar);
+        return findViewById(R.id.action_bar);
     }
 
     protected final void setPrimaryColor(final int colorResId) {

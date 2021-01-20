@@ -54,12 +54,12 @@ public class NetworkViewHolder extends RecyclerView.ViewHolder {
         this.colorSignificant = res.getColor(R.color.fg_significant);
         this.colorGrey600 = res.getColor(R.color.grey600);
 
-        iconView = (ImageView) itemView.findViewById(R.id.network_picker_entry_icon);
-        labelView = (TextView) itemView.findViewById(R.id.network_picker_entry_label);
-        stateView = (TextView) itemView.findViewById(R.id.network_picker_entry_state);
-        commentView = (TextView) itemView.findViewById(R.id.network_picker_entry_comment);
-        usageView = (TextView) itemView.findViewById(R.id.network_picker_entry_usage);
-        contextButton = (ImageButton) itemView.findViewById(R.id.network_picker_entry_context_button);
+        iconView = itemView.findViewById(R.id.network_picker_entry_icon);
+        labelView = itemView.findViewById(R.id.network_picker_entry_label);
+        stateView = itemView.findViewById(R.id.network_picker_entry_state);
+        commentView = itemView.findViewById(R.id.network_picker_entry_comment);
+        usageView = itemView.findViewById(R.id.network_picker_entry_usage);
+        contextButton = itemView.findViewById(R.id.network_picker_entry_context_button);
         contextButtonSpace = itemView.findViewById(R.id.network_picker_entry_context_button_space);
     }
 

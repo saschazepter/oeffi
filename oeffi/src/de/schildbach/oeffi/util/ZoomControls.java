@@ -43,8 +43,8 @@ public class ZoomControls extends LinearLayout {
         final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.zoom_controls, this, true);
 
-        mZoomIn = (ZoomButton) findViewById(R.id.zoomIn);
-        mZoomOut = (ZoomButton) findViewById(R.id.zoomOut);
+        mZoomIn = findViewById(R.id.zoomIn);
+        mZoomOut = findViewById(R.id.zoomOut);
 
         setZoomSpeed(250);
     }

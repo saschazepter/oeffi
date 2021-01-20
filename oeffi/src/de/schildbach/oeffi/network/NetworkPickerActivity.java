@@ -122,23 +122,23 @@ public class NetworkPickerActivity extends Activity implements ActivityCompat.On
         backgroundHandler = new Handler(backgroundThread.getLooper());
 
         setContentView(R.layout.network_picker_content);
-        actionBar = (MyActionBar) findViewById(R.id.action_bar);
+        actionBar = findViewById(R.id.action_bar);
         setPrimaryColor(R.color.bg_action_bar);
         actionBar.setPrimaryTitle(getTitle());
 
-        listView = (RecyclerView) findViewById(android.R.id.list);
+        listView = findViewById(android.R.id.list);
         listView.setLayoutManager(new LinearLayoutManager(this));
         listView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         final String network = prefsGetNetwork();
         listAdapter = new NetworksAdapter(this, network, this, this);
         listView.setAdapter(listAdapter);
 
-        mapView = (OeffiMapView) findViewById(R.id.network_picker_map);
+        mapView = findViewById(R.id.network_picker_map);
         ((TextView) findViewById(R.id.network_picker_map_disclaimer))
                 .setText(mapView.getTileProvider().getTileSource().getCopyrightNotice());
 
         if (network == null) {
-            ((FrameLayout) findViewById(R.id.network_picker_firsttime_message_shadow)).setForeground(null);
+            findViewById(R.id.network_picker_firsttime_message_shadow).setForeground(null);
         } else {
             findViewById(R.id.network_picker_firsttime_message).setVisibility(View.GONE);
             actionBar.setBack(v -> finish());

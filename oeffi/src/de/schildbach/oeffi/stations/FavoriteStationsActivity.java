@@ -79,9 +79,9 @@ public class FavoriteStationsActivity extends OeffiActivity
         actionBar.setPrimaryTitle(getTitle());
         actionBar.setBack(v -> finish());
 
-        viewAnimator = (ViewAnimator) findViewById(R.id.favorites_layout);
+        viewAnimator = findViewById(R.id.favorites_layout);
 
-        listView = (RecyclerView) findViewById(R.id.favorites_list);
+        listView = findViewById(R.id.favorites_list);
         listView.setLayoutManager(new LinearLayoutManager(this));
         listView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         adapter = new FavoriteStationsAdapter(this, network, this, network == null ? this : null);

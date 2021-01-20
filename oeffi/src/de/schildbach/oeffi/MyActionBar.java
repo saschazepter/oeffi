@@ -76,12 +76,12 @@ public class MyActionBar extends LinearLayout {
 
         backButtonView = findViewById(R.id.action_bar_back_button);
         menuButtonView = findViewById(R.id.action_bar_menu_button);
-        titlesGroup = (ViewGroup) findViewById(R.id.action_bar_titles);
-        primaryTitleView = (TextView) findViewById(R.id.action_bar_primary_title);
-        secondaryTitleView = (TextView) findViewById(R.id.action_bar_secondary_title);
+        titlesGroup = findViewById(R.id.action_bar_titles);
+        primaryTitleView = findViewById(R.id.action_bar_primary_title);
+        secondaryTitleView = findViewById(R.id.action_bar_secondary_title);
         progressView = findViewById(R.id.action_bar_progress);
-        progressButton = (ImageButton) findViewById(R.id.action_bar_progress_button);
-        progressImage = (ImageView) findViewById(R.id.action_bar_progress_image);
+        progressButton = findViewById(R.id.action_bar_progress_button);
+        progressImage = findViewById(R.id.action_bar_progress_image);
 
         // Make sure action bar isn't stuck under a transparent status bar.
         final int statusHeight = res

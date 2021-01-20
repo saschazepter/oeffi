@@ -52,11 +52,11 @@ public class QueryHistoryViewHolder extends RecyclerView.ViewHolder {
         this.context = context;
         this.network = network;
 
-        fromView = (LocationTextView) itemView.findViewById(R.id.directions_query_history_entry_from);
-        toView = (LocationTextView) itemView.findViewById(R.id.directions_query_history_entry_to);
+        fromView = itemView.findViewById(R.id.directions_query_history_entry_from);
+        toView = itemView.findViewById(R.id.directions_query_history_entry_to);
         favoriteView = itemView.findViewById(R.id.directions_query_history_entry_favorite);
-        tripView = (Button) itemView.findViewById(R.id.directions_query_history_entry_trip);
-        contextButton = (ImageButton) itemView.findViewById(R.id.directions_query_history_entry_context_button);
+        tripView = itemView.findViewById(R.id.directions_query_history_entry_trip);
+        contextButton = itemView.findViewById(R.id.directions_query_history_entry_context_button);
     }
 
     public void bind(final long rowId, final Location from, final Location to, final boolean isFavorite,

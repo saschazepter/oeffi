@@ -94,16 +94,16 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         favoriteView = itemView.findViewById(R.id.station_entry_favorite);
-        nameView = (TextView) itemView.findViewById(R.id.station_entry_name);
-        name2View = (TextView) itemView.findViewById(R.id.station_entry_name2);
-        linesView = (LineView) itemView.findViewById(R.id.station_entry_lines);
-        distanceView = (TextView) itemView.findViewById(R.id.station_entry_distance);
-        bearingView = (CompassNeedleView) itemView.findViewById(R.id.station_entry_bearing);
-        contextButton = (ImageButton) itemView.findViewById(R.id.station_entry_context_button);
+        nameView = itemView.findViewById(R.id.station_entry_name);
+        name2View = itemView.findViewById(R.id.station_entry_name2);
+        linesView = itemView.findViewById(R.id.station_entry_lines);
+        distanceView = itemView.findViewById(R.id.station_entry_distance);
+        bearingView = itemView.findViewById(R.id.station_entry_bearing);
+        contextButton = itemView.findViewById(R.id.station_entry_context_button);
         contextButtonSpace = itemView.findViewById(R.id.station_entry_context_button_space);
-        departuresViewGroup = (ViewGroup) itemView.findViewById(R.id.station_entry_departures);
-        departuresStatusView = (TextView) itemView.findViewById(R.id.station_entry_status);
-        messagesViewGroup = (ViewGroup) itemView.findViewById(R.id.station_entry_messages);
+        departuresViewGroup = itemView.findViewById(R.id.station_entry_departures);
+        departuresStatusView = itemView.findViewById(R.id.station_entry_status);
+        messagesViewGroup = itemView.findViewById(R.id.station_entry_messages);
 
         this.context = context;
         this.res = context.getResources();
@@ -188,7 +188,7 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
         // context button
         contextButton.setVisibility(itemView.isActivated() ? View.VISIBLE : View.GONE);
         contextButtonSpace.setVisibility(itemView.isActivated() ? View.VISIBLE : View.GONE);
-        contextButton.setOnClickListener(itemView.isActivated() ? (View.OnClickListener) v -> {
+        contextButton.setOnClickListener(itemView.isActivated() ? v -> {
             final PopupMenu contextMenu = new StationContextMenu(context, v, station.network, station.location,
                     favState, true, true, true, true, true);
             contextMenu.setOnMenuItemClickListener(item -> {
@@ -240,15 +240,15 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
                                 departureView = (ViewGroup) inflater.inflate(R.layout.stations_station_entry_departure,
                                         departuresViewGroup, false);
                                 departureViewHolder = new DepartureViewHolder();
-                                departureViewHolder.line = (LineView) departureView
+                                departureViewHolder.line = departureView
                                         .findViewById(R.id.departure_entry_line);
-                                departureViewHolder.destination = (TextView) departureView
+                                departureViewHolder.destination = departureView
                                         .findViewById(R.id.departure_entry_destination);
                                 departureViewHolder.messageIndex = departureView
                                         .findViewById(R.id.departure_entry_message_index);
-                                departureViewHolder.time = (TextView) departureView
+                                departureViewHolder.time = departureView
                                         .findViewById(R.id.departure_entry_time);
-                                departureViewHolder.delay = (TextView) departureView
+                                departureViewHolder.delay = departureView
                                         .findViewById(R.id.departure_entry_delay);
                                 departureView.setTag(departureViewHolder);
 

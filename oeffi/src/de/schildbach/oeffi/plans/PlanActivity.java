@@ -138,10 +138,10 @@ public class PlanActivity extends Activity {
         final Animation zoomControlsAnimation = AnimationUtils.loadAnimation(this, R.anim.zoom_controls);
         zoomControlsAnimation.setFillAfter(true); // workaround: set through code because XML does not work
 
-        viewAnimator = (ViewAnimator) findViewById(R.id.plans_layout);
+        viewAnimator = findViewById(R.id.plans_layout);
         viewAnimator.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
-        plan = (ScrollImageView) findViewById(R.id.plans_plan);
+        plan = findViewById(R.id.plans_plan);
         plan.setOnMoveListener(() -> {
             updateBubble();
             updateScale();
@@ -167,11 +167,11 @@ public class PlanActivity extends Activity {
             contextMenu.show();
         });
 
-        bubbleName = (TextView) findViewById(R.id.plans_bubble_name);
+        bubbleName = findViewById(R.id.plans_bubble_name);
 
-        bubbleLinesView = (LineView) findViewById(R.id.plans_bubble_lines);
+        bubbleLinesView = findViewById(R.id.plans_bubble_lines);
 
-        zoom = (ZoomControls) findViewById(R.id.plans_zoom);
+        zoom = findViewById(R.id.plans_zoom);
         zoom.setOnZoomInClickListener(v -> {
             plan.animateScaleStepIn();
             updateScale();

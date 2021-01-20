@@ -144,7 +144,7 @@ public class TripsOverviewActivity extends OeffiActivity {
         actionBar.setCustomTitles(R.layout.directions_trip_overview_custom_title);
         actionBar.addProgressButton().setOnClickListener(v -> handler.post(checkMoreRunnable));
 
-        barView = (TripsGallery) findViewById(R.id.trips_bar_view);
+        barView = findViewById(R.id.trips_bar_view);
         barView.setOnItemClickListener((parent, v, position, id) -> {
             final Trip trip = (Trip) barView.getAdapter().getItem(position);
 
@@ -330,7 +330,7 @@ public class TripsOverviewActivity extends OeffiActivity {
 
         // update server product
         if (result.header != null) {
-            final TextView serverProductView = (TextView) findViewById(R.id.trips_server_product);
+            final TextView serverProductView = findViewById(R.id.trips_server_product);
             serverProductView.setText(product(result.header));
             serverProductView.setVisibility(View.VISIBLE);
         }

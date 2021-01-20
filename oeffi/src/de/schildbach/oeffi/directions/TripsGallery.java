@@ -147,7 +147,7 @@ public class TripsGallery extends Gallery {
             long maxTime = 0;
 
             for (int i = first; i <= last; i++) {
-                final Trip trip = (Trip) adapter.getItem(i);
+                final Trip trip = adapter.getItem(i);
                 if (trip != null) {
                     final Date tripMinTime = trip.getMinTime();
                     if (tripMinTime != null && tripMinTime.getTime() < minTime)

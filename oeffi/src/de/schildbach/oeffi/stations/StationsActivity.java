@@ -242,33 +242,33 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
 
         initNavigation();
 
-        locationProvidersView = (ViewGroup) findViewById(R.id.stations_list_location_providers);
+        locationProvidersView = findViewById(R.id.stations_list_location_providers);
 
-        final Button locationPermissionRequestButton = (Button) findViewById(
+        final Button locationPermissionRequestButton = findViewById(
                 R.id.stations_location_permission_request_button);
         locationPermissionRequestButton.setOnClickListener(v -> ActivityCompat.requestPermissions(StationsActivity.this,
                 new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, 0));
 
-        final Button locationSettingsButton = (Button) findViewById(R.id.stations_list_location_settings);
+        final Button locationSettingsButton = findViewById(R.id.stations_list_location_settings);
         locationSettingsButton.setOnClickListener(v -> startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)));
 
         final OnClickListener selectNetworkListener = v -> NetworkPickerActivity.start(StationsActivity.this);
-        final Button networkSettingsButton = (Button) findViewById(R.id.stations_list_empty_network_settings);
+        final Button networkSettingsButton = findViewById(R.id.stations_list_empty_network_settings);
         networkSettingsButton.setOnClickListener(selectNetworkListener);
-        final Button missingCapabilityButton = (Button) findViewById(R.id.stations_network_missing_capability_button);
+        final Button missingCapabilityButton = findViewById(R.id.stations_network_missing_capability_button);
         missingCapabilityButton.setOnClickListener(selectNetworkListener);
 
-        mapView = (OeffiMapView) findViewById(R.id.stations_map);
+        mapView = findViewById(R.id.stations_map);
         mapView.setStationsAware(this);
         mapView.setLocationAware(this);
         ((TextView) findViewById(R.id.stations_map_disclaimer))
                 .setText(mapView.getTileProvider().getTileSource().getCopyrightNotice());
 
-        final ZoomControls zoom = (ZoomControls) findViewById(R.id.stations_map_zoom);
+        final ZoomControls zoom = findViewById(R.id.stations_map_zoom);
         mapView.setZoomControls(zoom);
 
-        connectivityWarningView = (TextView) findViewById(R.id.stations_connectivity_warning_box);
-        disclaimerSourceView = (TextView) findViewById(R.id.stations_disclaimer_source);
+        connectivityWarningView = findViewById(R.id.stations_connectivity_warning_box);
+        disclaimerSourceView = findViewById(R.id.stations_disclaimer_source);
 
         // initialize stations list
         maxDeparturesPerStation = res.getInteger(R.integer.max_departures_per_station);
@@ -394,7 +394,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                         throw new IllegalStateException();
                     }
                 });
-        stationList = (RecyclerView) findViewById(R.id.stations_list);
+        stationList = findViewById(R.id.stations_list);
         stationListLayoutManager = new LinearLayoutManager(this);
         stationList.setLayoutManager(stationListLayoutManager);
         stationList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
@@ -640,7 +640,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         final boolean isActive = products.size() < Product.values().length;
         filterActionButton.setSelected(isActive);
 
-        final ViewAnimator viewAnimator = (ViewAnimator) findViewById(R.id.stations_list_layout);
+        final ViewAnimator viewAnimator = findViewById(R.id.stations_list_layout);
         if (network == null || !NetworkProviderFactory.provider(network).hasCapabilities(Capability.DEPARTURES)) {
             viewAnimator.setDisplayedChild(1); // Missing capability
         } else if (searchQuery == null && ContextCompat.checkSelfPermission(this,
@@ -1279,9 +1279,9 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
             final boolean enabled = locationManager.isProviderEnabled(provider);
             final boolean acquiring = provider.equals(accurateLocationProvider)
                     || provider.equals(lowPowerLocationProvider);
-            final View row = (View) getLayoutInflater().inflate(R.layout.stations_location_provider_row, null);
+            final View row = getLayoutInflater().inflate(R.layout.stations_location_provider_row, null);
             ((TextView) row.findViewById(R.id.stations_location_provider_row_provider)).setText(provider + ":");
-            final TextView enabledView = (TextView) row.findViewById(R.id.stations_location_provider_row_enabled);
+            final TextView enabledView = row.findViewById(R.id.stations_location_provider_row_enabled);
             enabledView.setText(enabled
                     ? (acquiring ? R.string.stations_location_provider_acquiring
                             : R.string.stations_location_provider_enabled)

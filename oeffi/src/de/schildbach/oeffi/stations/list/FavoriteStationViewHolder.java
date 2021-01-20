@@ -50,10 +50,10 @@ public class FavoriteStationViewHolder extends RecyclerView.ViewHolder {
         this.clickListener = clickListener;
         this.contextMenuItemListener = contextMenuItemListener;
 
-        networkView = (TextView) itemView.findViewById(R.id.favorites_list_entry_network);
-        placeView = (TextView) itemView.findViewById(R.id.favorites_list_entry_place);
-        nameView = (TextView) itemView.findViewById(R.id.favorites_list_entry_name);
-        contextButton = (ImageButton) itemView.findViewById(R.id.favorites_list_entry_context_button);
+        networkView = itemView.findViewById(R.id.favorites_list_entry_network);
+        placeView = itemView.findViewById(R.id.favorites_list_entry_place);
+        nameView = itemView.findViewById(R.id.favorites_list_entry_name);
+        contextButton = itemView.findViewById(R.id.favorites_list_entry_context_button);
     }
 
     public void bind(final long rowId, final NetworkId network, final Location station, final boolean showNetwork,

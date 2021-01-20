@@ -59,14 +59,14 @@ public class PlanViewHolder extends RecyclerView.ViewHolder {
         this.context = context;
         this.dateFormat = DateFormat.getDateFormat(context);
 
-        thumbView = (ImageView) itemView.findViewById(R.id.plans_picker_entry_thumb);
-        nameView = (TextView) itemView.findViewById(R.id.plans_picker_entry_name);
-        disclaimerView = (TextView) itemView.findViewById(R.id.plans_picker_entry_disclaimer);
-        loadedView = (ImageView) itemView.findViewById(R.id.plans_picker_entry_loaded);
-        progressView = (ProgressBar) itemView.findViewById(R.id.plans_picker_entry_progress);
-        validFromView = (TextView) itemView.findViewById(R.id.plans_picker_entry_valid_from);
-        networkLogoView = (ImageView) itemView.findViewById(R.id.plans_picker_entry_network_logo);
-        contextButton = (ImageButton) itemView.findViewById(R.id.plans_picker_entry_context_button);
+        thumbView = itemView.findViewById(R.id.plans_picker_entry_thumb);
+        nameView = itemView.findViewById(R.id.plans_picker_entry_name);
+        disclaimerView = itemView.findViewById(R.id.plans_picker_entry_disclaimer);
+        loadedView = itemView.findViewById(R.id.plans_picker_entry_loaded);
+        progressView = itemView.findViewById(R.id.plans_picker_entry_progress);
+        validFromView = itemView.findViewById(R.id.plans_picker_entry_valid_from);
+        networkLogoView = itemView.findViewById(R.id.plans_picker_entry_network_logo);
+        contextButton = itemView.findViewById(R.id.plans_picker_entry_context_button);
     }
 
     public void bind(final PlansAdapter.Plan plan, final PlanClickListener clickListener,

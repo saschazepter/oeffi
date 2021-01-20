@@ -296,9 +296,9 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
 
         initNavigation();
 
-        ((Button) findViewById(R.id.directions_network_missing_capability_button))
-                .setOnClickListener((OnClickListener) v -> NetworkPickerActivity.start(DirectionsActivity.this));
-        connectivityWarningView = (TextView) findViewById(R.id.directions_connectivity_warning_box);
+        findViewById(R.id.directions_network_missing_capability_button)
+                .setOnClickListener(v -> NetworkPickerActivity.start(DirectionsActivity.this));
+        connectivityWarningView = findViewById(R.id.directions_connectivity_warning_box);
 
         initLayoutTransitions();
 
@@ -310,19 +310,19 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
             requestFocusFirst();
         };
 
-        viewFromLocation = (LocationView) findViewById(R.id.directions_from);
+        viewFromLocation = findViewById(R.id.directions_from);
         viewFromLocation.setAdapter(autoCompleteAdapter);
         viewFromLocation.setListener(locationChangeListener);
         viewFromLocation.setContextMenuItemClickListener(new LocationContextMenuItemClickListener(viewFromLocation,
                 REQUEST_CODE_LOCATION_PERMISSION_FROM, REQUEST_CODE_PICK_CONTACT_FROM, REQUEST_CODE_PICK_STATION_FROM));
 
-        viewViaLocation = (LocationView) findViewById(R.id.directions_via);
+        viewViaLocation = findViewById(R.id.directions_via);
         viewViaLocation.setAdapter(autoCompleteAdapter);
         viewViaLocation.setListener(locationChangeListener);
         viewViaLocation.setContextMenuItemClickListener(new LocationContextMenuItemClickListener(viewViaLocation,
                 REQUEST_CODE_LOCATION_PERMISSION_VIA, REQUEST_CODE_PICK_CONTACT_VIA, REQUEST_CODE_PICK_STATION_VIA));
 
-        viewToLocation = (LocationView) findViewById(R.id.directions_to);
+        viewToLocation = findViewById(R.id.directions_to);
         viewToLocation.setAdapter(autoCompleteAdapter);
         viewToLocation.setListener(locationChangeListener);
         viewToLocation.setOnEditorActionListener((v, actionId, event) -> {
@@ -340,15 +340,15 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
                 REQUEST_CODE_LOCATION_PERMISSION_TO, REQUEST_CODE_PICK_CONTACT_TO, REQUEST_CODE_PICK_STATION_TO));
 
         viewProducts = findViewById(R.id.directions_products);
-        viewProductToggles.add((ToggleImageButton) findViewById(R.id.directions_products_i));
-        viewProductToggles.add((ToggleImageButton) findViewById(R.id.directions_products_r));
-        viewProductToggles.add((ToggleImageButton) findViewById(R.id.directions_products_s));
-        viewProductToggles.add((ToggleImageButton) findViewById(R.id.directions_products_u));
-        viewProductToggles.add((ToggleImageButton) findViewById(R.id.directions_products_t));
-        viewProductToggles.add((ToggleImageButton) findViewById(R.id.directions_products_b));
-        viewProductToggles.add((ToggleImageButton) findViewById(R.id.directions_products_p));
-        viewProductToggles.add((ToggleImageButton) findViewById(R.id.directions_products_f));
-        viewProductToggles.add((ToggleImageButton) findViewById(R.id.directions_products_c));
+        viewProductToggles.add(findViewById(R.id.directions_products_i));
+        viewProductToggles.add(findViewById(R.id.directions_products_r));
+        viewProductToggles.add(findViewById(R.id.directions_products_s));
+        viewProductToggles.add(findViewById(R.id.directions_products_u));
+        viewProductToggles.add(findViewById(R.id.directions_products_t));
+        viewProductToggles.add(findViewById(R.id.directions_products_b));
+        viewProductToggles.add(findViewById(R.id.directions_products_p));
+        viewProductToggles.add(findViewById(R.id.directions_products_f));
+        viewProductToggles.add(findViewById(R.id.directions_products_c));
         initProductToggles();
 
         final OnLongClickListener productLongClickListener = v -> {
@@ -372,9 +372,9 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
         for (final View view : viewProductToggles)
             view.setOnLongClickListener(productLongClickListener);
 
-        viewBike = (CheckBox) findViewById(R.id.directions_option_bike);
+        viewBike = findViewById(R.id.directions_option_bike);
 
-        viewTimeDepArr = (Button) findViewById(R.id.directions_time_dep_arr);
+        viewTimeDepArr = findViewById(R.id.directions_time_dep_arr);
         viewTimeDepArr.setOnClickListener(v -> {
             final DialogBuilder builder = DialogBuilder.get(DirectionsActivity.this);
             builder.setTitle(R.string.directions_set_time_prompt);
@@ -400,13 +400,13 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
             builder.show();
         });
 
-        viewTime1 = (Button) findViewById(R.id.directions_time_1);
-        viewTime2 = (Button) findViewById(R.id.directions_time_2);
+        viewTime1 = findViewById(R.id.directions_time_1);
+        viewTime2 = findViewById(R.id.directions_time_2);
 
-        viewGo = (Button) findViewById(R.id.directions_go);
+        viewGo = findViewById(R.id.directions_go);
         viewGo.setOnClickListener(v -> handleGo());
 
-        viewQueryHistoryList = (RecyclerView) findViewById(android.R.id.list);
+        viewQueryHistoryList = findViewById(android.R.id.list);
         viewQueryHistoryList.setLayoutManager(new LinearLayoutManager(this));
         viewQueryHistoryList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         queryHistoryListAdapter = new QueryHistoryAdapter(this, network, this, this);
@@ -430,7 +430,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
                     viewQueryMissingCapability.getPaddingRight(), viewQueryMissingCapability.getPaddingBottom());
         });
 
-        mapView = (OeffiMapView) findViewById(R.id.directions_map);
+        mapView = findViewById(R.id.directions_map);
         if (ContextCompat.checkSelfPermission(DirectionsActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             android.location.Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
@@ -453,7 +453,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
                 pinLocation = Location.coord(Point.fromDouble(p.getLatitude(), p.getLongitude()));
 
                 final View view = getLayoutInflater().inflate(R.layout.directions_map_pin, null);
-                final LocationTextView locationView = (LocationTextView) view
+                final LocationTextView locationView = view
                         .findViewById(R.id.directions_map_pin_location);
                 final View buttonGroup = view.findViewById(R.id.directions_map_pin_buttons);
                 buttonGroup.findViewById(R.id.directions_map_pin_button_from).setOnClickListener(v -> {
@@ -496,7 +496,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
         ((TextView) findViewById(R.id.directions_map_disclaimer))
                 .setText(mapView.getTileProvider().getTileSource().getCopyrightNotice());
 
-        final ZoomControls zoom = (ZoomControls) findViewById(R.id.directions_map_zoom);
+        final ZoomControls zoom = findViewById(R.id.directions_map_zoom);
         mapView.setZoomControls(zoom);
 
         connectivityReceiver = new ConnectivityBroadcastReceiver(connectivityManager) {

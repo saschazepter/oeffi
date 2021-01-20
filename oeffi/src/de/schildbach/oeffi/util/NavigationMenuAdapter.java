@@ -102,9 +102,9 @@ public class NavigationMenuAdapter extends RecyclerView.Adapter<NavigationMenuAd
         public ViewHolder(final View itemView, final MenuItem.OnMenuItemClickListener menuClickListener) {
             super(itemView);
 
-            iconView = (ImageView) itemView.findViewById(R.id.navigation_drawer_entry_icon);
-            titleView = (TextView) itemView.findViewById(R.id.navigation_drawer_entry_title);
-            commentView = (TextView) itemView.findViewById(R.id.navigation_drawer_entry_comment);
+            iconView = itemView.findViewById(R.id.navigation_drawer_entry_icon);
+            titleView = itemView.findViewById(R.id.navigation_drawer_entry_title);
+            commentView = itemView.findViewById(R.id.navigation_drawer_entry_comment);
 
             this.menuClickListener = menuClickListener;
         }

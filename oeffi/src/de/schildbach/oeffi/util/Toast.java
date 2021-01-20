@@ -57,7 +57,7 @@ public class Toast {
 
     private void customToast(final int imageResId, final CharSequence text, final int duration) {
         final android.widget.Toast toast = android.widget.Toast.makeText(context, text, duration);
-        final TextView toastText = (TextView) toast.getView().findViewById(android.R.id.message);
+        final TextView toastText = toast.getView().findViewById(android.R.id.message);
         if (imageResId != 0 && toastText != null) {
             toastText.setCompoundDrawablesWithIntrinsicBounds(imageResId, 0, 0, 0);
             toastText.setCompoundDrawablePadding(

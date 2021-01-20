@@ -119,13 +119,13 @@ public class PlansPickerActivity extends OeffiMainActivity implements ActivityCo
 
         cursor = getContentResolver().query(PlanContentProvider.CONTENT_URI, null, null, null, null);
 
-        listView = (RecyclerView) findViewById(android.R.id.list);
+        listView = findViewById(android.R.id.list);
         listView.setLayoutManager(new LinearLayoutManager(this));
         listView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         listAdapter = new PlansAdapter(this, cursor, thumbCache, this, this, application.okHttpClient());
         listView.setAdapter(listAdapter);
 
-        connectivityWarningView = (TextView) findViewById(R.id.plans_picker_connectivity_warning_box);
+        connectivityWarningView = findViewById(R.id.plans_picker_connectivity_warning_box);
         filterBox = findViewById(R.id.plans_picker_filter_box);
 
         findViewById(R.id.plans_picker_filter_clear).setOnClickListener(v -> clearListFilter());
