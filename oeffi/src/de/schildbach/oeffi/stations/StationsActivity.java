@@ -178,6 +178,8 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         res = getResources();
 
         setContentView(R.layout.stations_content);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+
         actionBar = getMyActionBar();
         setPrimaryColor(R.color.bg_action_bar_stations);
         actionBar.setPrimaryTitle(R.string.stations_activity_title);
@@ -392,6 +394,11 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         stationList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         stationListAdapter = new StationsAdapter(this, maxDeparturesPerStation, products, this, this);
         stationList.setAdapter(stationListAdapter);
+        stationList.setOnApplyWindowInsetsListener((v, insets) -> {
+            v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(),
+                    insets.getSystemWindowInsetBottom() + (int)(48 * res.getDisplayMetrics().density));
+            return insets;
+        });
         stationList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {

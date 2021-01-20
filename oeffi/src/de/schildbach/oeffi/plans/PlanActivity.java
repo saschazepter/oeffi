@@ -30,7 +30,6 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -126,14 +125,13 @@ public class PlanActivity extends Activity {
         backgroundThread.start();
         backgroundHandler = new Handler(backgroundThread.getLooper());
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.plans_content);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
 
         final Animation zoomControlsAnimation = AnimationUtils.loadAnimation(this, R.anim.zoom_controls);
         zoomControlsAnimation.setFillAfter(true); // workaround: set through code because XML does not work
 
         viewAnimator = findViewById(R.id.plans_layout);
-        viewAnimator.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         plan = findViewById(R.id.plans_plan);
         plan.setOnMoveListener(() -> {

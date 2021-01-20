@@ -5,7 +5,8 @@
 
     <style name="My.Theme" parent="@android:style/Theme.Material.Light.NoActionBar">
         <item name="android:windowBackground">@color/bg_level0</item>
-        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@color/bg_status_bar</item>
+        <item name="android:navigationBarColor">@color/bg_navigation_bar</item>
         <item name="android:textViewStyle">@style/My.Widget.TextView</item>
         <item name="android:autoCompleteTextViewStyle">@style/My.Widget.AutoCompleteTextView</item>
         <item name="android:dropDownListViewStyle">@style/My.Widget.ListView.DropDown</item>
@@ -17,8 +18,9 @@
 
     <style name="My.Theme.Fullscreen" parent="@android:style/Theme.Material.Light.NoActionBar.Fullscreen">
         <item name="android:windowBackground">@android:color/black</item>
-        <item name="android:textViewStyle">@style/My.Widget.TextView</item>
         <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="27">shortEdges</item>
+        <item name="android:navigationBarColor">@color/bg_navigation_bar_fullscreen</item>
+        <item name="android:textViewStyle">@style/My.Widget.TextView</item>
     </style>
 
     <style name="My.Theme.Preference" parent="@android:style/Theme.Material.Light.DarkActionBar">

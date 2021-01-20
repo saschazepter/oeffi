@@ -105,6 +105,8 @@ public class PlansPickerActivity extends OeffiMainActivity implements ActivityCo
         thumbCache = new Cache(cacheDir, THUMB_CACHE_SIZE);
 
         setContentView(R.layout.plans_picker_content);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+
         actionBar = getMyActionBar();
         setPrimaryColor(R.color.bg_action_bar);
         actionBar.setPrimaryTitle(R.string.plans_activity_title);
@@ -120,6 +122,11 @@ public class PlansPickerActivity extends OeffiMainActivity implements ActivityCo
         listView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         listAdapter = new PlansAdapter(this, cursor, thumbCache, this, this, application.okHttpClient());
         listView.setAdapter(listAdapter);
+        listView.setOnApplyWindowInsetsListener((v, insets) -> {
+            v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(),
+                    insets.getSystemWindowInsetBottom());
+            return insets;
+        });
 
         connectivityWarningView = findViewById(R.id.plans_picker_connectivity_warning_box);
         filterBox = findViewById(R.id.plans_picker_filter_box);

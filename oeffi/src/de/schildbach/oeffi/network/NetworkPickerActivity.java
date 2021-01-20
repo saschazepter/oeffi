@@ -119,6 +119,8 @@ public class NetworkPickerActivity extends Activity implements ActivityCompat.On
         backgroundHandler = new Handler(backgroundThread.getLooper());
 
         setContentView(R.layout.network_picker_content);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+
         actionBar = findViewById(R.id.action_bar);
         setPrimaryColor(R.color.bg_action_bar);
         actionBar.setPrimaryTitle(getTitle());
@@ -129,6 +131,11 @@ public class NetworkPickerActivity extends Activity implements ActivityCompat.On
         final String network = prefsGetNetwork();
         listAdapter = new NetworksAdapter(this, network, this, this);
         listView.setAdapter(listAdapter);
+        listView.setOnApplyWindowInsetsListener((v, insets) -> {
+            v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(),
+                    insets.getSystemWindowInsetBottom());
+            return insets;
+        });
 
         mapView = findViewById(R.id.network_picker_map);
         ((TextView) findViewById(R.id.network_picker_map_disclaimer))

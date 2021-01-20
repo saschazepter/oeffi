@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ViewAnimator;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -71,6 +72,8 @@ public class FavoriteStationsActivity extends OeffiActivity
         network = (NetworkId) intent.getSerializableExtra(INTENT_EXTRA_NETWORK);
 
         setContentView(R.layout.favorites_content);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+
         final MyActionBar actionBar = getMyActionBar();
         setPrimaryColor(R.color.bg_action_bar_stations);
         actionBar.setPrimaryTitle(getTitle());
@@ -83,6 +86,11 @@ public class FavoriteStationsActivity extends OeffiActivity
         listView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         adapter = new FavoriteStationsAdapter(this, network, this, network == null ? this : null);
         listView.setAdapter(adapter);
+        listView.setOnApplyWindowInsetsListener((v, insets) -> {
+            v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(),
+                    insets.getSystemWindowInsetBottom());
+            return insets;
+        });
 
         updateGUI();
     }

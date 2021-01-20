@@ -67,28 +67,36 @@
             </LinearLayout>
         </de.schildbach.oeffi.plans.BubbleLayout>
 
-        <de.schildbach.oeffi.util.ZoomControls
-            android:id="@+id/plans_zoom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_margin="8dp"
-            android:orientation="vertical"
-            android:visibility="invisible" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_verylax"
+            android:layout_marginRight="@dimen/list_entry_padding_horizontal_verylax"
+            android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
+            android:layout_marginBottom="@dimen/list_entry_padding_vertical_lax"
+            android:fitsSystemWindows="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|left"
-            android:layout_margin="8dp"
-            android:background="@drawable/disclaimer_background_dark"
-            android:gravity="center"
-            android:shadowColor="#000"
-            android:shadowRadius="2"
-            android:text="@string/disclaimer_responsibility_2line"
-            android:textColor="@color/fg_significant_on_dark"
-            android:textSize="@dimen/font_size_disclaimer"
-            android:textStyle="bold" />
+            <de.schildbach.oeffi.util.ZoomControls
+                android:id="@+id/plans_zoom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:orientation="vertical"
+                android:visibility="invisible" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:background="@drawable/disclaimer_background_dark"
+                android:gravity="center"
+                android:shadowColor="#000"
+                android:shadowRadius="2"
+                android:text="@string/disclaimer_responsibility_2line"
+                android:textColor="@color/fg_significant_on_dark"
+                android:textSize="@dimen/font_size_disclaimer"
+                android:textStyle="bold" />
+        </FrameLayout>
     </FrameLayout>
 
 </ViewAnimator>

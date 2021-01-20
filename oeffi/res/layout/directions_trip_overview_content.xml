@@ -19,24 +19,32 @@
             android:spacing="0px"
             android:unselectedAlpha="1" />
 
-        <TextView
-            android:id="@+id/trips_server_product"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|left"
-            android:layout_margin="4dp"
-            android:gravity="left"
-            android:textSize="@dimen/font_size_disclaimer"
-            android:visibility="gone" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_verylax"
+            android:layout_marginRight="@dimen/list_entry_padding_horizontal_verylax"
+            android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
+            android:layout_marginBottom="@dimen/list_entry_padding_vertical_lax"
+            android:fitsSystemWindows="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_margin="4dp"
-            android:gravity="right"
-            android:text="@string/disclaimer_responsibility_2line"
-            android:textSize="@dimen/font_size_disclaimer" />
+            <TextView
+                android:id="@+id/trips_server_product"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:gravity="left"
+                android:textSize="@dimen/font_size_disclaimer"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:gravity="right"
+                android:text="@string/disclaimer_responsibility_2line"
+                android:textSize="@dimen/font_size_disclaimer" />
+        </FrameLayout>
     </FrameLayout>
 
 </LinearLayout>

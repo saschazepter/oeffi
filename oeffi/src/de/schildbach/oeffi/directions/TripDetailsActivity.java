@@ -186,6 +186,8 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         scheduleTripIntent = scheduleTripIntent(trip);
 
         setContentView(R.layout.directions_trip_details_content);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+
         final MyActionBar actionBar = getMyActionBar();
         setPrimaryColor(R.color.bg_action_bar_directions);
         actionBar.setPrimaryTitle(getTitle());
