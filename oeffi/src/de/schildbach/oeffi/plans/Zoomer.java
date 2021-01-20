@@ -47,7 +47,7 @@ public class Zoomer {
         if (zoomStart != 0) {
             final float time = (float) (System.currentTimeMillis() - zoomStart) / DEFAULT_ZOOM_DURATION;
 
-            currentValue = interpolator.getInterpolation(time > 1.0f ? 1.0f : time) * zoomSpan + zoomFrom;
+            currentValue = interpolator.getInterpolation(Math.min(time, 1.0f)) * zoomSpan + zoomFrom;
 
             if (time >= 1.0f)
                 zoomStart = 0;
