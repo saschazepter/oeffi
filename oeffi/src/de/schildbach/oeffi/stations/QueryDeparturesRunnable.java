@@ -17,20 +17,8 @@
 
 package de.schildbach.oeffi.stations;
 
-import java.io.IOException;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
-import javax.net.ssl.SSLException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import android.os.Handler;
 import com.google.common.util.concurrent.Uninterruptibles;
-
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.R;
 import de.schildbach.pte.NetworkProvider;
@@ -40,9 +28,17 @@ import de.schildbach.pte.exception.InternalErrorException;
 import de.schildbach.pte.exception.NotFoundException;
 import de.schildbach.pte.exception.ParserException;
 import de.schildbach.pte.exception.UnexpectedRedirectException;
-
-import android.os.Handler;
 import okhttp3.HttpUrl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.net.ssl.SSLException;
+import java.io.IOException;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public abstract class QueryDeparturesRunnable implements Runnable {
     private final Handler handler;

@@ -17,17 +17,6 @@
 
 package de.schildbach.oeffi.directions;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-
-import com.google.common.math.LongMath;
-
-import de.schildbach.oeffi.R;
-import de.schildbach.oeffi.util.Formats;
-import de.schildbach.pte.dto.Trip;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -44,6 +33,15 @@ import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Gallery;
+import com.google.common.math.LongMath;
+import de.schildbach.oeffi.R;
+import de.schildbach.oeffi.util.Formats;
+import de.schildbach.pte.dto.Trip;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 public class TripsGallery extends Gallery {
     private OnScrollListener onScrollListener;

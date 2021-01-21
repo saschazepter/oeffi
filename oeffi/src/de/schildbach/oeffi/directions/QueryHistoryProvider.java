@@ -17,15 +17,6 @@
 
 package de.schildbach.oeffi.directions;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import de.schildbach.oeffi.Application;
-import de.schildbach.oeffi.Constants;
-import de.schildbach.pte.NetworkId;
-import de.schildbach.pte.dto.Location;
-import de.schildbach.pte.dto.LocationType;
-
 import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -35,6 +26,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import de.schildbach.oeffi.Application;
+import de.schildbach.oeffi.Constants;
+import de.schildbach.pte.NetworkId;
+import de.schildbach.pte.dto.Location;
+import de.schildbach.pte.dto.LocationType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class QueryHistoryProvider extends ContentProvider {
     private static final String DATABASE_TABLE = "query_history";

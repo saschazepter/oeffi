@@ -17,31 +17,6 @@
 
 package de.schildbach.oeffi.plans;
 
-import java.io.File;
-import java.net.HttpURLConnection;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
-
-import de.schildbach.oeffi.Constants;
-import de.schildbach.oeffi.MyActionBar;
-import de.schildbach.oeffi.OeffiMainActivity;
-import de.schildbach.oeffi.R;
-import de.schildbach.oeffi.plans.list.PlanClickListener;
-import de.schildbach.oeffi.plans.list.PlanContextMenuItemListener;
-import de.schildbach.oeffi.plans.list.PlansAdapter;
-import de.schildbach.oeffi.util.ConnectivityBroadcastReceiver;
-import de.schildbach.oeffi.util.DividerItemDecoration;
-import de.schildbach.oeffi.util.Downloader;
-import de.schildbach.oeffi.util.LocationHelper;
-import de.schildbach.oeffi.util.Toast;
-import de.schildbach.oeffi.util.UiThreadExecutor;
-import de.schildbach.pte.dto.Point;
-
 import android.Manifest;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
@@ -57,7 +32,6 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -67,8 +41,30 @@ import androidx.core.content.pm.ShortcutManagerCompat;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
+import de.schildbach.oeffi.Constants;
+import de.schildbach.oeffi.MyActionBar;
+import de.schildbach.oeffi.OeffiMainActivity;
+import de.schildbach.oeffi.R;
+import de.schildbach.oeffi.plans.list.PlanClickListener;
+import de.schildbach.oeffi.plans.list.PlanContextMenuItemListener;
+import de.schildbach.oeffi.plans.list.PlansAdapter;
+import de.schildbach.oeffi.util.ConnectivityBroadcastReceiver;
+import de.schildbach.oeffi.util.DividerItemDecoration;
+import de.schildbach.oeffi.util.Downloader;
+import de.schildbach.oeffi.util.LocationHelper;
+import de.schildbach.oeffi.util.Toast;
+import de.schildbach.oeffi.util.UiThreadExecutor;
+import de.schildbach.pte.dto.Point;
 import okhttp3.Cache;
 import okhttp3.HttpUrl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.net.HttpURLConnection;
 
 public class PlansPickerActivity extends OeffiMainActivity implements ActivityCompat.OnRequestPermissionsResultCallback,
         LocationHelper.Callback, PlanClickListener, PlanContextMenuItemListener {

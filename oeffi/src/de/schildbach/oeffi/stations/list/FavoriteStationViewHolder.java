@@ -17,22 +17,19 @@
 
 package de.schildbach.oeffi.stations.list;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
+import android.widget.TextView;
+import androidx.recyclerview.widget.RecyclerView;
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.network.NetworkResources;
 import de.schildbach.oeffi.stations.FavoriteStationsProvider;
 import de.schildbach.oeffi.stations.StationContextMenu;
 import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.dto.Location;
-
-import android.content.Context;
-import android.content.res.Resources;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.PopupMenu;
-import android.widget.PopupMenu.OnMenuItemClickListener;
-import android.widget.TextView;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class FavoriteStationViewHolder extends RecyclerView.ViewHolder {
     private final Context context;

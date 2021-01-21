@@ -17,11 +17,10 @@
 
 package de.schildbach.oeffi.util;
 
-import de.schildbach.oeffi.R;
-
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.widget.TextView;
+import de.schildbach.oeffi.R;
 
 public class Toast {
     private final Context context;

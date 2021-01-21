@@ -17,18 +17,6 @@
 
 package de.schildbach.oeffi.stations;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
-import de.schildbach.oeffi.Constants;
-import de.schildbach.oeffi.R;
-import de.schildbach.oeffi.util.Objects;
-import de.schildbach.pte.dto.Departure;
-import de.schildbach.pte.dto.Line;
-import de.schildbach.pte.dto.Position;
-import de.schildbach.pte.dto.Style;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -40,6 +28,17 @@ import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
+import de.schildbach.oeffi.Constants;
+import de.schildbach.oeffi.R;
+import de.schildbach.oeffi.util.Objects;
+import de.schildbach.pte.dto.Departure;
+import de.schildbach.pte.dto.Line;
+import de.schildbach.pte.dto.Position;
+import de.schildbach.pte.dto.Style;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class NearestFavoriteStationWidgetListService extends RemoteViewsService {
     public static final String INTENT_EXTRA_DEPARTURES = RemoteViewsFactory.class.getName() + ".departures";

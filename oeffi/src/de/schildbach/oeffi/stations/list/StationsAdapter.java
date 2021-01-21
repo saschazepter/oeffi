@@ -17,22 +17,20 @@
 
 package de.schildbach.oeffi.stations.list;
 
-import static com.google.common.base.Preconditions.checkArgument;
-
-import java.util.List;
-import java.util.Set;
-
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import androidx.recyclerview.widget.RecyclerView;
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.StationsAware;
 import de.schildbach.oeffi.stations.CompassNeedleView;
 import de.schildbach.oeffi.stations.Station;
 import de.schildbach.pte.dto.Product;
 
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import androidx.recyclerview.widget.RecyclerView;
+import java.util.List;
+import java.util.Set;
+
+import static com.google.common.base.Preconditions.checkArgument;
 
 public class StationsAdapter extends RecyclerView.Adapter<StationViewHolder> implements CompassNeedleView.Callback {
     private final Context context;

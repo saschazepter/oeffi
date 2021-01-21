@@ -17,7 +17,21 @@
 
 package de.schildbach.oeffi.util;
 
-import static com.google.common.base.Preconditions.checkState;
+import androidx.annotation.Nullable;
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.SettableFuture;
+import com.google.common.util.concurrent.Striped;
+import de.schildbach.oeffi.util.bzip2.BZip2CompressorInputStream;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Headers;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -32,24 +46,7 @@ import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.Semaphore;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.util.concurrent.ListenableFuture;
-import com.google.common.util.concurrent.SettableFuture;
-import com.google.common.util.concurrent.Striped;
-
-import de.schildbach.oeffi.util.bzip2.BZip2CompressorInputStream;
-
-import androidx.annotation.Nullable;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
+import static com.google.common.base.Preconditions.checkState;
 
 public class Downloader {
     private final File cacheDir;

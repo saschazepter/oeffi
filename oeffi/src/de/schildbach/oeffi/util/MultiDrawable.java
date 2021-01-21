@@ -17,15 +17,15 @@
 
 package de.schildbach.oeffi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class MultiDrawable extends AnimationDrawable {
     private final Resources res;

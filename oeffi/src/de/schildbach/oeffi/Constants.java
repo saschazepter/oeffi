@@ -17,12 +17,12 @@
 
 package de.schildbach.oeffi;
 
-import java.util.Locale;
-
 import android.app.AlertDialog;
 import android.os.Build;
 import android.text.format.DateUtils;
 import okhttp3.HttpUrl;
+
+import java.util.Locale;
 
 public class Constants {
     public static final HttpUrl OEFFI_BASE_URL = HttpUrl.parse("https://oeffi.schildbach.de/");

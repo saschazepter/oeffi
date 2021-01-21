@@ -17,11 +17,8 @@
 
 package de.schildbach.oeffi.network;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import android.os.Build;
 import com.google.common.base.Charsets;
-
 import de.schildbach.pte.AbstractNetworkProvider;
 import de.schildbach.pte.AvvAachenProvider;
 import de.schildbach.pte.AvvProvider;
@@ -82,9 +79,10 @@ import de.schildbach.pte.VvsProvider;
 import de.schildbach.pte.VvvProvider;
 import de.schildbach.pte.WienProvider;
 import de.schildbach.pte.ZvvProvider;
-
-import android.os.Build;
 import okhttp3.HttpUrl;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public final class NetworkProviderFactory {
     private static Map<NetworkId, NetworkProvider> providerCache = new HashMap<>();

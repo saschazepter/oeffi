@@ -17,28 +17,6 @@
 
 package de.schildbach.oeffi;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.osmdroid.api.IGeoPoint;
-import org.osmdroid.util.BoundingBox;
-import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.MapView;
-import org.osmdroid.views.Projection;
-import org.osmdroid.views.overlay.Overlay;
-
-import de.schildbach.oeffi.stations.LineView;
-import de.schildbach.oeffi.stations.Station;
-import de.schildbach.oeffi.util.ZoomControls;
-import de.schildbach.pte.dto.Location;
-import de.schildbach.pte.dto.Point;
-import de.schildbach.pte.dto.Product;
-import de.schildbach.pte.dto.Trip;
-import de.schildbach.pte.dto.Trip.Leg;
-import de.schildbach.pte.dto.Trip.Public;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -52,10 +30,29 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+import de.schildbach.oeffi.stations.LineView;
+import de.schildbach.oeffi.stations.Station;
+import de.schildbach.oeffi.util.ZoomControls;
+import de.schildbach.pte.dto.Location;
+import de.schildbach.pte.dto.Point;
+import de.schildbach.pte.dto.Product;
+import de.schildbach.pte.dto.Trip;
+import de.schildbach.pte.dto.Trip.Leg;
+import de.schildbach.pte.dto.Trip.Public;
+import org.osmdroid.api.IGeoPoint;
+import org.osmdroid.util.BoundingBox;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.Projection;
+import org.osmdroid.views.overlay.Overlay;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class OeffiMapView extends MapView {
     private ZoomControls zoomControls = null;

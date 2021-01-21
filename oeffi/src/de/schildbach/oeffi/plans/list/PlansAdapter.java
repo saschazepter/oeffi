@@ -17,18 +17,6 @@
 
 package de.schildbach.oeffi.plans.list;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-
-import de.schildbach.oeffi.Application;
-import de.schildbach.oeffi.Constants;
-import de.schildbach.oeffi.R;
-import de.schildbach.oeffi.plans.PlanContentProvider;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -40,6 +28,9 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+import de.schildbach.oeffi.Constants;
+import de.schildbach.oeffi.R;
+import de.schildbach.oeffi.plans.PlanContentProvider;
 import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -47,6 +38,13 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class PlansAdapter extends RecyclerView.Adapter<PlanViewHolder> {
     private final Context context;

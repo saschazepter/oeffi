@@ -17,15 +17,15 @@
 
 package de.schildbach.oeffi.util;
 
+import de.schildbach.pte.dto.Location;
+import de.schildbach.pte.dto.LocationType;
+import de.schildbach.pte.dto.Point;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import de.schildbach.pte.dto.Location;
-import de.schildbach.pte.dto.LocationType;
-import de.schildbach.pte.dto.Point;
 
 public class LocationUriParser {
     public static final Location[] parseLocations(final String encodedUriString) {

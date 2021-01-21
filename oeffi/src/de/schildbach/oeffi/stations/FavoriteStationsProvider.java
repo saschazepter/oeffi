@@ -17,16 +17,6 @@
 
 package de.schildbach.oeffi.stations;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import de.schildbach.oeffi.Application;
-import de.schildbach.pte.NetworkId;
-import de.schildbach.pte.dto.Location;
-import de.schildbach.pte.dto.LocationType;
-import de.schildbach.pte.dto.Point;
-
 import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -37,6 +27,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import de.schildbach.oeffi.Application;
+import de.schildbach.pte.NetworkId;
+import de.schildbach.pte.dto.Location;
+import de.schildbach.pte.dto.LocationType;
+import de.schildbach.pte.dto.Point;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class FavoriteStationsProvider extends ContentProvider {
     private static final String DATABASE_TABLE = "favorites";

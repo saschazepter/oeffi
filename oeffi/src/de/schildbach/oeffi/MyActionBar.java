@@ -17,9 +17,6 @@
 
 package de.schildbach.oeffi;
 
-import de.schildbach.oeffi.util.CheatSheet;
-import de.schildbach.oeffi.util.ToggleImageButton;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Handler;
@@ -36,6 +33,8 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import de.schildbach.oeffi.util.CheatSheet;
+import de.schildbach.oeffi.util.ToggleImageButton;
 
 public class MyActionBar extends LinearLayout {
     private final Context context;

@@ -17,10 +17,10 @@
 
 package de.schildbach.oeffi.util;
 
+import android.widget.PopupMenu;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-
-import android.widget.PopupMenu;
 
 public class PopupHelper {
     public static void setForceShowIcon(final PopupMenu popupMenu) {

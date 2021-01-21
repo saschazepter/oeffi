@@ -17,24 +17,6 @@
 
 package de.schildbach.oeffi.directions;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import com.google.common.base.Preconditions;
-
-import de.schildbach.oeffi.R;
-import de.schildbach.pte.dto.Line;
-import de.schildbach.pte.dto.Stop;
-import de.schildbach.pte.dto.Style;
-import de.schildbach.pte.dto.Style.Shape;
-import de.schildbach.pte.dto.Trip;
-import de.schildbach.pte.dto.Trip.Individual;
-import de.schildbach.pte.dto.Trip.Leg;
-import de.schildbach.pte.dto.Trip.Public;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -58,6 +40,22 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import androidx.annotation.Nullable;
+import com.google.common.base.Preconditions;
+import de.schildbach.oeffi.R;
+import de.schildbach.pte.dto.Line;
+import de.schildbach.pte.dto.Stop;
+import de.schildbach.pte.dto.Style;
+import de.schildbach.pte.dto.Style.Shape;
+import de.schildbach.pte.dto.Trip;
+import de.schildbach.pte.dto.Trip.Individual;
+import de.schildbach.pte.dto.Trip.Leg;
+import de.schildbach.pte.dto.Trip.Public;
+
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public final class TripsGalleryAdapter extends BaseAdapter {
     private List<Trip> trips = Collections.emptyList();

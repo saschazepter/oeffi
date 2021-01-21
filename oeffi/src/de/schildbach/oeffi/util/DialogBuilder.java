@@ -17,11 +17,10 @@
 
 package de.schildbach.oeffi.util;
 
-import de.schildbach.oeffi.Constants;
-import de.schildbach.oeffi.R;
-
 import android.app.AlertDialog;
 import android.content.Context;
+import de.schildbach.oeffi.Constants;
+import de.schildbach.oeffi.R;
 
 public class DialogBuilder extends AlertDialog.Builder {
     public static DialogBuilder get(final Context context) {

@@ -17,14 +17,6 @@
 
 package de.schildbach.oeffi.directions.list;
 
-import de.schildbach.oeffi.R;
-import de.schildbach.oeffi.directions.QueryHistoryProvider;
-import de.schildbach.oeffi.stations.FavoriteStationsProvider;
-import de.schildbach.pte.NetworkId;
-import de.schildbach.pte.dto.Location;
-import de.schildbach.pte.dto.LocationType;
-import de.schildbach.pte.dto.Point;
-
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -36,6 +28,13 @@ import android.provider.BaseColumns;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
+import de.schildbach.oeffi.R;
+import de.schildbach.oeffi.directions.QueryHistoryProvider;
+import de.schildbach.oeffi.stations.FavoriteStationsProvider;
+import de.schildbach.pte.NetworkId;
+import de.schildbach.pte.dto.Location;
+import de.schildbach.pte.dto.LocationType;
+import de.schildbach.pte.dto.Point;
 
 public class QueryHistoryAdapter extends RecyclerView.Adapter<QueryHistoryViewHolder> {
     private final Context context;

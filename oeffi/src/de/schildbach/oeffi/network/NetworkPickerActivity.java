@@ -17,38 +17,6 @@
 
 package de.schildbach.oeffi.network;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.oeffi.AreaAware;
-import de.schildbach.oeffi.Constants;
-import de.schildbach.oeffi.LocationAware;
-import de.schildbach.oeffi.MyActionBar;
-import de.schildbach.oeffi.OeffiMapView;
-import de.schildbach.oeffi.R;
-import de.schildbach.oeffi.network.list.NetworkClickListener;
-import de.schildbach.oeffi.network.list.NetworkContextMenuItemListener;
-import de.schildbach.oeffi.network.list.NetworkListEntry;
-import de.schildbach.oeffi.network.list.NetworksAdapter;
-import de.schildbach.oeffi.util.DividerItemDecoration;
-import de.schildbach.oeffi.util.GeocoderThread;
-import de.schildbach.oeffi.util.LocationHelper;
-import de.schildbach.pte.AbstractNavitiaProvider;
-import de.schildbach.pte.NetworkId;
-import de.schildbach.pte.NetworkProvider;
-import de.schildbach.pte.dto.Location;
-import de.schildbach.pte.dto.Point;
-
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -70,13 +38,42 @@ import android.os.Process;
 import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import de.schildbach.oeffi.AreaAware;
+import de.schildbach.oeffi.Constants;
+import de.schildbach.oeffi.LocationAware;
+import de.schildbach.oeffi.MyActionBar;
+import de.schildbach.oeffi.OeffiMapView;
+import de.schildbach.oeffi.R;
+import de.schildbach.oeffi.network.list.NetworkClickListener;
+import de.schildbach.oeffi.network.list.NetworkContextMenuItemListener;
+import de.schildbach.oeffi.network.list.NetworkListEntry;
+import de.schildbach.oeffi.network.list.NetworksAdapter;
+import de.schildbach.oeffi.util.DividerItemDecoration;
+import de.schildbach.oeffi.util.GeocoderThread;
+import de.schildbach.oeffi.util.LocationHelper;
+import de.schildbach.pte.AbstractNavitiaProvider;
+import de.schildbach.pte.NetworkId;
+import de.schildbach.pte.NetworkProvider;
+import de.schildbach.pte.dto.Location;
+import de.schildbach.pte.dto.Point;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class NetworkPickerActivity extends Activity implements ActivityCompat.OnRequestPermissionsResultCallback,
         LocationHelper.Callback, NetworkClickListener, NetworkContextMenuItemListener {

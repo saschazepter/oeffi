@@ -17,12 +17,6 @@
 
 package de.schildbach.oeffi.stations;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import de.schildbach.pte.NetworkId;
-import de.schildbach.pte.dto.Location;
-
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProviderInfo;
 import android.content.ContentResolver;
@@ -31,6 +25,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import de.schildbach.pte.NetworkId;
+import de.schildbach.pte.dto.Location;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class FavoriteUtils {
     public static Uri persist(final ContentResolver contentResolver, final int type, final NetworkId networkId,

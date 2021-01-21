@@ -17,15 +17,14 @@
 
 package de.schildbach.oeffi.directions;
 
-import java.util.Locale;
-
-import de.schildbach.oeffi.R;
-import de.schildbach.pte.dto.Location;
-
 import android.content.Context;
 import android.text.Html;
 import android.util.AttributeSet;
 import android.widget.TextView;
+import de.schildbach.oeffi.R;
+import de.schildbach.pte.dto.Location;
+
+import java.util.Locale;
 
 public class LocationTextView extends TextView {
     private String label = null;

@@ -17,7 +17,30 @@
 
 package de.schildbach.oeffi.plans;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import android.app.SearchManager;
+import android.content.ContentProvider;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.CursorWrapper;
+import android.database.MatrixCursor;
+import android.net.Uri;
+import android.provider.BaseColumns;
+import androidx.annotation.Nullable;
+import com.google.common.base.Objects;
+import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.MoreExecutors;
+import de.schildbach.oeffi.Application;
+import de.schildbach.oeffi.Constants;
+import de.schildbach.oeffi.util.Downloader;
+import de.schildbach.pte.NetworkId;
+import de.schildbach.pte.dto.Point;
+import okhttp3.HttpUrl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -37,33 +60,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Objects;
-import com.google.common.base.Splitter;
-import com.google.common.base.Strings;
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
-import com.google.common.util.concurrent.MoreExecutors;
-
-import de.schildbach.oeffi.Application;
-import de.schildbach.oeffi.Constants;
-import de.schildbach.oeffi.util.Downloader;
-import de.schildbach.pte.NetworkId;
-import de.schildbach.pte.dto.Point;
-
-import android.app.SearchManager;
-import android.content.ContentProvider;
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.CursorWrapper;
-import android.database.MatrixCursor;
-import android.net.Uri;
-import android.provider.BaseColumns;
-import androidx.annotation.Nullable;
-import okhttp3.HttpUrl;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class PlanContentProvider extends ContentProvider {
     public static final Uri CONTENT_URI = Uri.parse("content://de.schildbach.oeffi.plans");

@@ -17,51 +17,6 @@
 
 package de.schildbach.oeffi.directions;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.MoreObjects;
-
-import de.schildbach.oeffi.Constants;
-import de.schildbach.oeffi.LocationAware;
-import de.schildbach.oeffi.MyActionBar;
-import de.schildbach.oeffi.OeffiActivity;
-import de.schildbach.oeffi.OeffiMapView;
-import de.schildbach.oeffi.R;
-import de.schildbach.oeffi.TripAware;
-import de.schildbach.oeffi.directions.TimeSpec.DepArr;
-import de.schildbach.oeffi.stations.LineView;
-import de.schildbach.oeffi.stations.StationContextMenu;
-import de.schildbach.oeffi.stations.StationDetailsActivity;
-import de.schildbach.oeffi.util.Formats;
-import de.schildbach.oeffi.util.LocationHelper;
-import de.schildbach.oeffi.util.Toast;
-import de.schildbach.oeffi.util.ToggleImageButton;
-import de.schildbach.oeffi.util.ToggleImageButton.OnCheckedChangeListener;
-import de.schildbach.pte.NetworkId;
-import de.schildbach.pte.dto.Fare;
-import de.schildbach.pte.dto.Line;
-import de.schildbach.pte.dto.Location;
-import de.schildbach.pte.dto.Point;
-import de.schildbach.pte.dto.Position;
-import de.schildbach.pte.dto.Stop;
-import de.schildbach.pte.dto.Style;
-import de.schildbach.pte.dto.Trip;
-import de.schildbach.pte.dto.Trip.Individual;
-import de.schildbach.pte.dto.Trip.Leg;
-import de.schildbach.pte.dto.Trip.Public;
-
 import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -87,9 +42,7 @@ import android.text.format.DateUtils;
 import android.text.style.RelativeSizeSpan;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -98,6 +51,47 @@ import android.widget.PopupMenu;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
+import com.google.common.base.MoreObjects;
+import de.schildbach.oeffi.Constants;
+import de.schildbach.oeffi.LocationAware;
+import de.schildbach.oeffi.MyActionBar;
+import de.schildbach.oeffi.OeffiActivity;
+import de.schildbach.oeffi.OeffiMapView;
+import de.schildbach.oeffi.R;
+import de.schildbach.oeffi.TripAware;
+import de.schildbach.oeffi.directions.TimeSpec.DepArr;
+import de.schildbach.oeffi.stations.LineView;
+import de.schildbach.oeffi.stations.StationContextMenu;
+import de.schildbach.oeffi.stations.StationDetailsActivity;
+import de.schildbach.oeffi.util.Formats;
+import de.schildbach.oeffi.util.LocationHelper;
+import de.schildbach.oeffi.util.Toast;
+import de.schildbach.oeffi.util.ToggleImageButton;
+import de.schildbach.pte.NetworkId;
+import de.schildbach.pte.dto.Fare;
+import de.schildbach.pte.dto.Line;
+import de.schildbach.pte.dto.Location;
+import de.schildbach.pte.dto.Point;
+import de.schildbach.pte.dto.Position;
+import de.schildbach.pte.dto.Stop;
+import de.schildbach.pte.dto.Style;
+import de.schildbach.pte.dto.Trip;
+import de.schildbach.pte.dto.Trip.Individual;
+import de.schildbach.pte.dto.Trip.Leg;
+import de.schildbach.pte.dto.Trip.Public;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class TripDetailsActivity extends OeffiActivity implements LocationListener, LocationAware {
     private static final String INTENT_EXTRA_NETWORK = TripDetailsActivity.class.getName() + ".network";

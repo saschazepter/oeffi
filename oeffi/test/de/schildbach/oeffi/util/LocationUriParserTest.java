@@ -17,11 +17,10 @@
 
 package de.schildbach.oeffi.util;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 import de.schildbach.pte.dto.Location;
 import de.schildbach.pte.dto.LocationType;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class LocationUriParserTest {
     @Test

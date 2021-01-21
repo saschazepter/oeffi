@@ -17,37 +17,6 @@
 
 package de.schildbach.oeffi.stations;
 
-import java.net.ConnectException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
-import javax.net.ssl.SSLException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Throwables;
-import com.google.common.util.concurrent.SettableFuture;
-
-import de.schildbach.oeffi.Constants;
-import de.schildbach.oeffi.R;
-import de.schildbach.oeffi.network.NetworkProviderFactory;
-import de.schildbach.oeffi.util.Formats;
-import de.schildbach.oeffi.util.Objects;
-import de.schildbach.pte.NetworkId;
-import de.schildbach.pte.NetworkProvider;
-import de.schildbach.pte.dto.Departure;
-import de.schildbach.pte.dto.Point;
-import de.schildbach.pte.dto.QueryDeparturesResult;
-import de.schildbach.pte.dto.StationDepartures;
-import de.schildbach.pte.exception.BlockedException;
-
 import android.Manifest;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -74,6 +43,33 @@ import android.widget.RemoteViews;
 import androidx.core.app.JobIntentService;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+import com.google.common.base.Throwables;
+import com.google.common.util.concurrent.SettableFuture;
+import de.schildbach.oeffi.Constants;
+import de.schildbach.oeffi.R;
+import de.schildbach.oeffi.network.NetworkProviderFactory;
+import de.schildbach.oeffi.util.Formats;
+import de.schildbach.oeffi.util.Objects;
+import de.schildbach.pte.NetworkId;
+import de.schildbach.pte.NetworkProvider;
+import de.schildbach.pte.dto.Departure;
+import de.schildbach.pte.dto.Point;
+import de.schildbach.pte.dto.QueryDeparturesResult;
+import de.schildbach.pte.dto.StationDepartures;
+import de.schildbach.pte.exception.BlockedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.net.ssl.SSLException;
+import java.net.ConnectException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public class NearestFavoriteStationWidgetService extends JobIntentService {
     private AppWidgetManager appWidgetManager;

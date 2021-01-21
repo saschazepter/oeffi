@@ -17,12 +17,6 @@
 
 package de.schildbach.oeffi.util;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
-import de.schildbach.oeffi.R;
-
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -42,6 +36,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+import de.schildbach.oeffi.R;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public class NavigationMenuAdapter extends RecyclerView.Adapter<NavigationMenuAdapter.ViewHolder> {
     private final Resources res;

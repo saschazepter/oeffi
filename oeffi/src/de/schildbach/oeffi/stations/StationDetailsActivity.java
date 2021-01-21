@@ -17,47 +17,6 @@
 
 package de.schildbach.oeffi.stations;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.osmdroid.util.GeoPoint;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Joiner;
-
-import de.schildbach.oeffi.Constants;
-import de.schildbach.oeffi.MyActionBar;
-import de.schildbach.oeffi.OeffiActivity;
-import de.schildbach.oeffi.OeffiMapView;
-import de.schildbach.oeffi.R;
-import de.schildbach.oeffi.StationsAware;
-import de.schildbach.oeffi.network.NetworkProviderFactory;
-import de.schildbach.oeffi.util.DividerItemDecoration;
-import de.schildbach.oeffi.util.Formats;
-import de.schildbach.oeffi.util.ToggleImageButton;
-import de.schildbach.oeffi.util.ToggleImageButton.OnCheckedChangeListener;
-import de.schildbach.pte.NetworkId;
-import de.schildbach.pte.NetworkProvider;
-import de.schildbach.pte.dto.Departure;
-import de.schildbach.pte.dto.Line;
-import de.schildbach.pte.dto.LineDestination;
-import de.schildbach.pte.dto.Location;
-import de.schildbach.pte.dto.LocationType;
-import de.schildbach.pte.dto.QueryDeparturesResult;
-import de.schildbach.pte.dto.StationDepartures;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -74,7 +33,6 @@ import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -83,6 +41,43 @@ import android.widget.ViewAnimator;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.common.base.Joiner;
+import de.schildbach.oeffi.Constants;
+import de.schildbach.oeffi.MyActionBar;
+import de.schildbach.oeffi.OeffiActivity;
+import de.schildbach.oeffi.OeffiMapView;
+import de.schildbach.oeffi.R;
+import de.schildbach.oeffi.StationsAware;
+import de.schildbach.oeffi.network.NetworkProviderFactory;
+import de.schildbach.oeffi.util.DividerItemDecoration;
+import de.schildbach.oeffi.util.Formats;
+import de.schildbach.oeffi.util.ToggleImageButton;
+import de.schildbach.pte.NetworkId;
+import de.schildbach.pte.NetworkProvider;
+import de.schildbach.pte.dto.Departure;
+import de.schildbach.pte.dto.Line;
+import de.schildbach.pte.dto.LineDestination;
+import de.schildbach.pte.dto.Location;
+import de.schildbach.pte.dto.LocationType;
+import de.schildbach.pte.dto.QueryDeparturesResult;
+import de.schildbach.pte.dto.StationDepartures;
+import org.osmdroid.util.GeoPoint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class StationDetailsActivity extends OeffiActivity implements StationsAware {
     private static final String INTENT_EXTRA_NETWORK = StationDetailsActivity.class.getName() + ".network";

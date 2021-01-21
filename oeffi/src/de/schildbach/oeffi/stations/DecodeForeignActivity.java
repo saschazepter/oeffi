@@ -17,30 +17,26 @@
 
 package de.schildbach.oeffi.stations;
 
-import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
 import de.schildbach.oeffi.Application;
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.util.DialogBuilder;
 import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.dto.Location;
 import de.schildbach.pte.dto.LocationType;
-
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
-import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.Response;
+
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DecodeForeignActivity extends Activity {
     private static final Pattern PATTERN_META_REFRESH = Pattern

@@ -17,14 +17,14 @@
 
 package de.schildbach.oeffi.network;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.Locale;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import androidx.annotation.Nullable;
+
+import java.util.Locale;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class NetworkResources {
     public final @Nullable Drawable icon;

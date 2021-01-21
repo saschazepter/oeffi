@@ -17,15 +17,14 @@
 
 package de.schildbach.oeffi.network.list;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import de.schildbach.oeffi.R;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
+import de.schildbach.oeffi.R;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class NetworksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final Context context;

@@ -17,26 +17,10 @@
 
 package de.schildbach.oeffi.stations;
 
-import java.net.URLEncoder;
-import java.util.Locale;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.schildbach.oeffi.R;
-import de.schildbach.oeffi.directions.DirectionsActivity;
-import de.schildbach.oeffi.directions.DirectionsShortcutActivity;
-import de.schildbach.oeffi.plans.PlanActivity;
-import de.schildbach.oeffi.plans.PlanContentProvider;
-import de.schildbach.oeffi.util.DialogBuilder;
-import de.schildbach.pte.NetworkId;
-import de.schildbach.pte.dto.Location;
-
 import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -51,6 +35,19 @@ import android.widget.PopupMenu;
 import androidx.core.content.pm.ShortcutInfoCompat;
 import androidx.core.content.pm.ShortcutManagerCompat;
 import androidx.core.graphics.drawable.IconCompat;
+import de.schildbach.oeffi.R;
+import de.schildbach.oeffi.directions.DirectionsActivity;
+import de.schildbach.oeffi.directions.DirectionsShortcutActivity;
+import de.schildbach.oeffi.plans.PlanActivity;
+import de.schildbach.oeffi.plans.PlanContentProvider;
+import de.schildbach.oeffi.util.DialogBuilder;
+import de.schildbach.pte.NetworkId;
+import de.schildbach.pte.dto.Location;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.net.URLEncoder;
+import java.util.Locale;
 
 public class StationContextMenu extends PopupMenu {
     private static final Logger log = LoggerFactory.getLogger(StationContextMenu.class);

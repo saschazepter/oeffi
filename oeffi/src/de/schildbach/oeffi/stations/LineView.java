@@ -17,29 +17,6 @@
 
 package de.schildbach.oeffi.stations;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import com.google.common.base.Joiner;
-import com.google.common.base.Strings;
-
-import de.schildbach.oeffi.R;
-import de.schildbach.oeffi.util.CheatSheet;
-import de.schildbach.pte.Standard;
-import de.schildbach.pte.dto.Line;
-import de.schildbach.pte.dto.Line.Attr;
-import de.schildbach.pte.dto.Product;
-import de.schildbach.pte.dto.Style;
-import de.schildbach.pte.dto.Style.Shape;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -56,6 +33,26 @@ import android.text.SpannableStringBuilder;
 import android.text.style.ReplacementSpan;
 import android.util.AttributeSet;
 import android.widget.TextView;
+import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
+import de.schildbach.oeffi.R;
+import de.schildbach.oeffi.util.CheatSheet;
+import de.schildbach.pte.Standard;
+import de.schildbach.pte.dto.Line;
+import de.schildbach.pte.dto.Line.Attr;
+import de.schildbach.pte.dto.Product;
+import de.schildbach.pte.dto.Style;
+import de.schildbach.pte.dto.Style.Shape;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class LineView extends TextView {
     private Collection<Line> lines = null;

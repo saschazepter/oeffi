@@ -17,36 +17,8 @@
 
 package de.schildbach.oeffi.util;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Formatter;
-import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Joiner;
-import com.google.common.base.Strings;
-
-import de.schildbach.oeffi.Constants;
-import de.schildbach.oeffi.R;
-import de.schildbach.pte.NetworkId;
-
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -61,12 +33,34 @@ import android.os.Looper;
 import android.os.StatFs;
 import androidx.core.app.ActivityManagerCompat;
 import androidx.core.content.FileProvider;
+import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
+import de.schildbach.oeffi.Constants;
+import de.schildbach.oeffi.R;
+import de.schildbach.pte.NetworkId;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Formatter;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ErrorReporter implements Thread.UncaughtExceptionHandler {
     private static final String STACKTRACE_FILENAME = ".stacktrace";

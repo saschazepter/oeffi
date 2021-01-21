@@ -17,16 +17,22 @@
 
 package de.schildbach.oeffi.stations.list;
 
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.text.format.DateUtils;
+import android.view.Display;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
+import android.widget.TextView;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.common.base.Joiner;
-
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.stations.CompassNeedleView;
@@ -44,23 +50,13 @@ import de.schildbach.pte.dto.Location;
 import de.schildbach.pte.dto.Product;
 import de.schildbach.pte.dto.QueryDeparturesResult;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.text.format.DateUtils;
-import android.view.Display;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.ImageButton;
-import android.widget.PopupMenu;
-import android.widget.PopupMenu.OnMenuItemClickListener;
-import android.widget.TextView;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class StationViewHolder extends RecyclerView.ViewHolder {
     public final View favoriteView;

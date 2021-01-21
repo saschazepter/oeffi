@@ -17,10 +17,10 @@
 
 package de.schildbach.oeffi.directions;
 
+import android.text.format.DateUtils;
+
 import java.io.Serializable;
 import java.util.Locale;
-
-import android.text.format.DateUtils;
 
 public abstract class TimeSpec implements Serializable {
     public enum DepArr {

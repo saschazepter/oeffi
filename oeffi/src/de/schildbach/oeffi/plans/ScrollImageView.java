@@ -17,12 +17,6 @@
 
 package de.schildbach.oeffi.plans;
 
-import java.util.List;
-
-import de.schildbach.oeffi.StationsAware;
-import de.schildbach.oeffi.stations.Station;
-import de.schildbach.oeffi.util.UpGestureDetector;
-
 import android.content.Context;
 import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
@@ -35,6 +29,11 @@ import android.view.ScaleGestureDetector;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.Scroller;
+import de.schildbach.oeffi.StationsAware;
+import de.schildbach.oeffi.stations.Station;
+import de.schildbach.oeffi.util.UpGestureDetector;
+
+import java.util.List;
 
 public class ScrollImageView extends ImageView implements Runnable {
     private OnMoveListener onMoveListener;

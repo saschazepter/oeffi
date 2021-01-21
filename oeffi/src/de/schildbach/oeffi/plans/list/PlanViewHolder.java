@@ -17,15 +17,9 @@
 
 package de.schildbach.oeffi.plans.list;
 
-import java.util.Date;
-
-import de.schildbach.oeffi.R;
-import de.schildbach.oeffi.network.NetworkResources;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.format.DateFormat;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
@@ -37,7 +31,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+import de.schildbach.oeffi.R;
+import de.schildbach.oeffi.network.NetworkResources;
 import okhttp3.Call;
+
+import java.util.Date;
 
 public class PlanViewHolder extends RecyclerView.ViewHolder {
     private final Context context;

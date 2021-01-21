@@ -17,14 +17,11 @@
 
 package de.schildbach.oeffi.preference;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
-import android.provider.Settings;
 import androidx.annotation.Nullable;
 import de.schildbach.oeffi.R;
-import de.schildbach.oeffi.network.NetworkPickerActivity;
 
 public class CommonFragment extends PreferenceFragment {
     private static final String KEY_BATTERY_OPTIMIZATIONS = "battery_optimizations";

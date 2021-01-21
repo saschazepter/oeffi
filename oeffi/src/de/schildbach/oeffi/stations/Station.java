@@ -17,12 +17,7 @@
 
 package de.schildbach.oeffi.stations;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.List;
-
+import androidx.annotation.Nullable;
 import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.dto.Departure;
 import de.schildbach.pte.dto.LineDestination;
@@ -30,7 +25,11 @@ import de.schildbach.pte.dto.Location;
 import de.schildbach.pte.dto.Product;
 import de.schildbach.pte.dto.QueryDeparturesResult;
 
-import androidx.annotation.Nullable;
+import java.util.Date;
+import java.util.EnumSet;
+import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class Station {
     public final NetworkId network;

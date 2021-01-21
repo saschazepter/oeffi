@@ -17,20 +17,6 @@
 
 package de.schildbach.oeffi.directions;
 
-import java.util.Locale;
-
-import com.google.common.base.Strings;
-
-import de.schildbach.oeffi.Constants;
-import de.schildbach.oeffi.R;
-import de.schildbach.oeffi.util.GeocoderThread;
-import de.schildbach.oeffi.util.LocationHelper;
-import de.schildbach.oeffi.util.MultiDrawable;
-import de.schildbach.oeffi.util.PopupHelper;
-import de.schildbach.pte.dto.Location;
-import de.schildbach.pte.dto.LocationType;
-import de.schildbach.pte.dto.Point;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -49,8 +35,6 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.Filterable;
 import android.widget.FrameLayout;
@@ -58,6 +42,18 @@ import android.widget.ListAdapter;
 import android.widget.PopupMenu;
 import android.widget.TextView.OnEditorActionListener;
 import androidx.annotation.Nullable;
+import com.google.common.base.Strings;
+import de.schildbach.oeffi.Constants;
+import de.schildbach.oeffi.R;
+import de.schildbach.oeffi.util.GeocoderThread;
+import de.schildbach.oeffi.util.LocationHelper;
+import de.schildbach.oeffi.util.MultiDrawable;
+import de.schildbach.oeffi.util.PopupHelper;
+import de.schildbach.pte.dto.Location;
+import de.schildbach.pte.dto.LocationType;
+import de.schildbach.pte.dto.Point;
+
+import java.util.Locale;
 
 public class LocationView extends FrameLayout implements LocationHelper.Callback {
     public static interface Listener {

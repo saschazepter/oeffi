@@ -17,12 +17,6 @@
 
 package de.schildbach.oeffi.stations;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import de.schildbach.oeffi.R;
-import de.schildbach.pte.dto.Product;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +25,11 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.PopupWindow;
+import de.schildbach.oeffi.R;
+import de.schildbach.pte.dto.Product;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class StationsFilterPopup extends PopupWindow
         implements CompoundButton.OnCheckedChangeListener, OnLongClickListener {

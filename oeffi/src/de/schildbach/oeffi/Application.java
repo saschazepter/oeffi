@@ -17,24 +17,6 @@
 
 package de.schildbach.oeffi;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.lang.reflect.Method;
-import java.util.concurrent.TimeUnit;
-
-import org.osmdroid.config.Configuration;
-import org.osmdroid.config.IConfigurationProvider;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Stopwatch;
-
-import de.schildbach.oeffi.directions.QueryHistoryProvider;
-import de.schildbach.oeffi.stations.FavoriteStationsProvider;
-import de.schildbach.oeffi.stations.NearestFavoriteStationWidgetService;
-import de.schildbach.oeffi.util.ErrorReporter;
-import de.schildbach.pte.NetworkId;
-
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -50,8 +32,23 @@ import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.rolling.RollingFileAppender;
 import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
+import com.google.common.base.Stopwatch;
+import de.schildbach.oeffi.directions.QueryHistoryProvider;
+import de.schildbach.oeffi.stations.FavoriteStationsProvider;
+import de.schildbach.oeffi.stations.NearestFavoriteStationWidgetService;
+import de.schildbach.oeffi.util.ErrorReporter;
+import de.schildbach.pte.NetworkId;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import org.osmdroid.config.Configuration;
+import org.osmdroid.config.IConfigurationProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.FilenameFilter;
+import java.lang.reflect.Method;
+import java.util.concurrent.TimeUnit;
 
 public class Application extends android.app.Application {
     private PackageInfo packageInfo;

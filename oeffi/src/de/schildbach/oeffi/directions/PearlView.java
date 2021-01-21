@@ -17,9 +17,6 @@
 
 package de.schildbach.oeffi.directions;
 
-import de.schildbach.oeffi.R;
-import de.schildbach.pte.dto.Style;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -28,6 +25,8 @@ import android.graphics.Paint;
 import android.graphics.Paint.FontMetrics;
 import android.util.AttributeSet;
 import android.view.View;
+import de.schildbach.oeffi.R;
+import de.schildbach.pte.dto.Style;
 
 public class PearlView extends View {
     private Type type = null;

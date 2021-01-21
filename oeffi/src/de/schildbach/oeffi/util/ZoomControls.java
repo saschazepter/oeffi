@@ -17,8 +17,6 @@
 
 package de.schildbach.oeffi.util;
 
-import de.schildbach.oeffi.R;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -27,6 +25,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.LinearLayout;
 import android.widget.ZoomButton;
+import de.schildbach.oeffi.R;
 
 public class ZoomControls extends LinearLayout {
     private final ZoomButton mZoomIn;

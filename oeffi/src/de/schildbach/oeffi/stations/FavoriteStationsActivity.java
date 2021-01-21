@@ -17,10 +17,15 @@
 
 package de.schildbach.oeffi.stations;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.List;
-
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.widget.ViewAnimator;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import de.schildbach.oeffi.MyActionBar;
 import de.schildbach.oeffi.OeffiActivity;
 import de.schildbach.oeffi.R;
@@ -32,17 +37,9 @@ import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.dto.Departure;
 import de.schildbach.pte.dto.Location;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ViewAnimator;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class FavoriteStationsActivity extends OeffiActivity
         implements StationClickListener, StationContextMenuItemListener {

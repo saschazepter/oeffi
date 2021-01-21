@@ -17,49 +17,6 @@
 
 package de.schildbach.oeffi.directions;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.NavigableSet;
-import java.util.TreeSet;
-import java.util.concurrent.TimeUnit;
-
-import javax.net.ssl.SSLException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.collect.ComparisonChain;
-import com.google.common.collect.Ordering;
-import com.google.common.util.concurrent.Uninterruptibles;
-
-import de.schildbach.oeffi.Constants;
-import de.schildbach.oeffi.MyActionBar;
-import de.schildbach.oeffi.OeffiActivity;
-import de.schildbach.oeffi.R;
-import de.schildbach.oeffi.directions.TripsGallery.OnScrollListener;
-import de.schildbach.oeffi.network.NetworkProviderFactory;
-import de.schildbach.oeffi.util.Toast;
-import de.schildbach.pte.NetworkId;
-import de.schildbach.pte.NetworkProvider;
-import de.schildbach.pte.dto.Location;
-import de.schildbach.pte.dto.QueryTripsContext;
-import de.schildbach.pte.dto.QueryTripsResult;
-import de.schildbach.pte.dto.Trip;
-import de.schildbach.pte.exception.InternalErrorException;
-import de.schildbach.pte.exception.InvalidDataException;
-import de.schildbach.pte.exception.NotFoundException;
-import de.schildbach.pte.exception.SessionExpiredException;
-
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -72,11 +29,46 @@ import android.os.HandlerThread;
 import android.os.Process;
 import android.text.format.DateUtils;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
+import com.google.common.collect.ComparisonChain;
+import com.google.common.collect.Ordering;
+import com.google.common.util.concurrent.Uninterruptibles;
+import de.schildbach.oeffi.Constants;
+import de.schildbach.oeffi.MyActionBar;
+import de.schildbach.oeffi.OeffiActivity;
+import de.schildbach.oeffi.R;
+import de.schildbach.oeffi.network.NetworkProviderFactory;
+import de.schildbach.oeffi.util.Toast;
+import de.schildbach.pte.NetworkId;
+import de.schildbach.pte.NetworkProvider;
+import de.schildbach.pte.dto.Location;
+import de.schildbach.pte.dto.QueryTripsContext;
+import de.schildbach.pte.dto.QueryTripsResult;
+import de.schildbach.pte.dto.Trip;
+import de.schildbach.pte.exception.InternalErrorException;
+import de.schildbach.pte.exception.InvalidDataException;
+import de.schildbach.pte.exception.NotFoundException;
+import de.schildbach.pte.exception.SessionExpiredException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.net.ssl.SSLException;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.NavigableSet;
+import java.util.TreeSet;
+import java.util.concurrent.TimeUnit;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class TripsOverviewActivity extends OeffiActivity {
     private static final String INTENT_EXTRA_NETWORK = TripsOverviewActivity.class.getName() + ".network";

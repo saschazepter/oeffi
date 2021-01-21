@@ -17,14 +17,13 @@
 
 package de.schildbach.oeffi.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class ConnectivityBroadcastReceiver extends BroadcastReceiver {
 

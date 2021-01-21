@@ -17,11 +17,6 @@
 
 package de.schildbach.oeffi.stations.list;
 
-import de.schildbach.oeffi.R;
-import de.schildbach.oeffi.stations.FavoriteStationsProvider;
-import de.schildbach.pte.NetworkId;
-import de.schildbach.pte.dto.Location;
-
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
@@ -31,6 +26,10 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+import de.schildbach.oeffi.R;
+import de.schildbach.oeffi.stations.FavoriteStationsProvider;
+import de.schildbach.pte.NetworkId;
+import de.schildbach.pte.dto.Location;
 
 public class FavoriteStationsAdapter extends RecyclerView.Adapter<FavoriteStationViewHolder> {
     private final Context context;

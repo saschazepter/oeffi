@@ -17,8 +17,6 @@
 
 package de.schildbach.oeffi.stations;
 
-import static com.google.common.base.Preconditions.checkArgument;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -27,6 +25,8 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.Surface;
 import android.view.View;
+
+import static com.google.common.base.Preconditions.checkArgument;
 
 public final class CompassNeedleView extends View {
     public interface Callback {

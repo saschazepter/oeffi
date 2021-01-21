@@ -17,9 +17,9 @@
 
 package de.schildbach.oeffi;
 
-import java.util.List;
-
 import de.schildbach.oeffi.stations.Station;
+
+import java.util.List;
 
 public interface StationsAware {
     List<Station> getStations();

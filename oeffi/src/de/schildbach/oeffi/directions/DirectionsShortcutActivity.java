@@ -17,15 +17,22 @@
 
 package de.schildbach.oeffi.directions;
 
-import java.util.Set;
-
-import javax.net.ssl.SSLException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Criteria;
+import android.location.LocationManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Process;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import com.google.common.base.Throwables;
-
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.OeffiActivity;
 import de.schildbach.oeffi.R;
@@ -44,26 +51,12 @@ import de.schildbach.pte.dto.Point;
 import de.schildbach.pte.dto.Product;
 import de.schildbach.pte.dto.QueryTripsResult;
 import de.schildbach.pte.dto.TripOptions;
-
-import android.Manifest;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
-import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Criteria;
-import android.location.LocationManager;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Process;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import okhttp3.HttpUrl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.net.ssl.SSLException;
+import java.util.Set;
 
 public class DirectionsShortcutActivity extends OeffiActivity
         implements ActivityCompat.OnRequestPermissionsResultCallback, LocationHelper.Callback {

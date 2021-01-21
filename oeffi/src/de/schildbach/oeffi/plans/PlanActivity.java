@@ -17,30 +17,35 @@
 
 package de.schildbach.oeffi.plans;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
-import java.util.TreeSet;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import android.app.Activity;
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Process;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.PopupMenu;
+import android.widget.TextView;
+import android.widget.ViewAnimator;
+import androidx.annotation.Nullable;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
-
 import de.schildbach.oeffi.Application;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.StationsAware;
 import de.schildbach.oeffi.network.NetworkProviderFactory;
-import de.schildbach.oeffi.plans.ScrollImageView.OnMoveListener;
 import de.schildbach.oeffi.stations.LineView;
 import de.schildbach.oeffi.stations.QueryDeparturesRunnable;
 import de.schildbach.oeffi.stations.Station;
@@ -60,31 +65,20 @@ import de.schildbach.pte.dto.LocationType;
 import de.schildbach.pte.dto.Point;
 import de.schildbach.pte.dto.QueryDeparturesResult;
 import de.schildbach.pte.dto.StationDepartures;
-
-import android.app.Activity;
-import android.app.SearchManager;
-import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Process;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.PopupMenu;
-import android.widget.TextView;
-import android.widget.ViewAnimator;
-import androidx.annotation.Nullable;
 import okhttp3.HttpUrl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+import java.util.TreeSet;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class PlanActivity extends Activity {
     public static final String INTENT_EXTRA_PLAN_ID = "plan_id"; // Used in launcher shortcuts

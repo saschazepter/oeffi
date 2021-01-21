@@ -17,6 +17,15 @@
 
 package de.schildbach.oeffi.directions.list;
 
+import android.content.Context;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.SubMenu;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
+import androidx.recyclerview.widget.RecyclerView;
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.directions.LocationTextView;
 import de.schildbach.oeffi.stations.FavoriteStationsProvider;
@@ -25,18 +34,6 @@ import de.schildbach.oeffi.util.Formats;
 import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.dto.Location;
 import de.schildbach.pte.dto.LocationType;
-
-import android.content.Context;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.SubMenu;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.PopupMenu;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class QueryHistoryViewHolder extends RecyclerView.ViewHolder {
     private final Context context;

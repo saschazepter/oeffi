@@ -17,15 +17,14 @@
 
 package de.schildbach.oeffi.util;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
-import de.schildbach.oeffi.Constants;
-import de.schildbach.oeffi.R;
-
 import android.content.Context;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
+import de.schildbach.oeffi.Constants;
+import de.schildbach.oeffi.R;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public final class Formats {
     public static String formatDate(final Context context, final long time) {

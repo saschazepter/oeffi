@@ -17,21 +17,13 @@
 
 package de.schildbach.oeffi.directions;
 
-import java.io.IOException;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import javax.net.ssl.SSLException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import android.app.ProgressDialog;
+import android.content.res.Resources;
+import android.graphics.Typeface;
+import android.os.Handler;
+import android.text.SpannableStringBuilder;
+import android.text.style.StyleSpan;
 import com.google.common.util.concurrent.Uninterruptibles;
-
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.R;
 import de.schildbach.pte.NetworkProvider;
@@ -44,14 +36,18 @@ import de.schildbach.pte.exception.BlockedException;
 import de.schildbach.pte.exception.InternalErrorException;
 import de.schildbach.pte.exception.NotFoundException;
 import de.schildbach.pte.exception.UnexpectedRedirectException;
-
-import android.app.ProgressDialog;
-import android.content.res.Resources;
-import android.graphics.Typeface;
-import android.os.Handler;
-import android.text.SpannableStringBuilder;
-import android.text.style.StyleSpan;
 import okhttp3.HttpUrl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.net.ssl.SSLException;
+import java.io.IOException;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class QueryTripsRunnable implements Runnable {
     private final Resources res;

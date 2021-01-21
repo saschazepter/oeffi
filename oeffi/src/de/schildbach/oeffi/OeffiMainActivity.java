@@ -17,49 +17,6 @@
 
 package de.schildbach.oeffi;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import de.schildbach.oeffi.preference.AboutFragment;
-import de.schildbach.oeffi.preference.DonateFragment;
-import de.schildbach.oeffi.preference.PreferenceActivity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Charsets;
-import com.google.common.base.Splitter;
-import com.google.common.base.Strings;
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
-
-import de.schildbach.oeffi.directions.DirectionsActivity;
-import de.schildbach.oeffi.network.NetworkPickerActivity;
-import de.schildbach.oeffi.network.NetworkResources;
-import de.schildbach.oeffi.plans.PlansPickerActivity;
-import de.schildbach.oeffi.stations.StationsActivity;
-import de.schildbach.oeffi.util.ChangelogDialogBuilder;
-import de.schildbach.oeffi.util.DialogBuilder;
-import de.schildbach.oeffi.util.DividerItemDecoration;
-import de.schildbach.oeffi.util.Downloader;
-import de.schildbach.oeffi.util.ErrorReporter;
-import de.schildbach.oeffi.util.Installer;
-import de.schildbach.oeffi.util.NavigationMenuAdapter;
-import de.schildbach.oeffi.util.UiThreadExecutor;
-import de.schildbach.pte.NetworkId;
-
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.app.Dialog;
@@ -79,16 +36,55 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.common.base.Charsets;
+import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
+import de.schildbach.oeffi.directions.DirectionsActivity;
+import de.schildbach.oeffi.network.NetworkPickerActivity;
+import de.schildbach.oeffi.network.NetworkResources;
+import de.schildbach.oeffi.plans.PlansPickerActivity;
+import de.schildbach.oeffi.preference.AboutFragment;
+import de.schildbach.oeffi.preference.DonateFragment;
+import de.schildbach.oeffi.preference.PreferenceActivity;
+import de.schildbach.oeffi.stations.StationsActivity;
+import de.schildbach.oeffi.util.ChangelogDialogBuilder;
+import de.schildbach.oeffi.util.DialogBuilder;
+import de.schildbach.oeffi.util.DividerItemDecoration;
+import de.schildbach.oeffi.util.Downloader;
+import de.schildbach.oeffi.util.ErrorReporter;
+import de.schildbach.oeffi.util.Installer;
+import de.schildbach.oeffi.util.NavigationMenuAdapter;
+import de.schildbach.oeffi.util.UiThreadExecutor;
+import de.schildbach.pte.NetworkId;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public abstract class OeffiMainActivity extends OeffiActivity {
     protected NetworkId network;

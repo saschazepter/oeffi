@@ -17,12 +17,8 @@
 
 package de.schildbach.oeffi.util;
 
-import de.schildbach.oeffi.Constants;
-import de.schildbach.oeffi.R;
-
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +26,8 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import androidx.annotation.Nullable;
+import de.schildbach.oeffi.Constants;
+import de.schildbach.oeffi.R;
 import okhttp3.HttpUrl;
 
 public class ChangelogDialogBuilder extends AlertDialog.Builder {
