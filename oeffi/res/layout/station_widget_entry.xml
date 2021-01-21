@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/station_widget_entry"
     android:layout_width="match_parent"
@@ -7,7 +8,7 @@
     android:baselineAligned="true"
     android:orientation="horizontal"
     android:paddingLeft="@dimen/list_entry_padding_horizontal"
-    android:paddingRight="@dimen/list_entry_padding_horizontal" >
+    android:paddingRight="@dimen/list_entry_padding_horizontal">
 
     <TextView
         android:id="@+id/station_widget_entry_line"

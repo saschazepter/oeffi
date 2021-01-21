@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableRow xmlns:android="http://schemas.android.com/apk/res/android" >
+<TableRow
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
         android:id="@+id/directions_trip_details_fare_entry_row_type"

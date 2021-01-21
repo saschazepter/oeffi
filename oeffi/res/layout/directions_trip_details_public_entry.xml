@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingBottom="8dp" >
+    android:paddingBottom="8dp">
 
     <LinearLayout
         style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0px"
@@ -20,7 +20,7 @@
             android:baselineAligned="true"
             android:orientation="horizontal"
             android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
-            android:paddingTop="6dp" >
+            android:paddingTop="6dp">
 
             <de.schildbach.oeffi.stations.LineView
                 android:id="@+id/directions_trip_details_public_entry_line"
@@ -35,7 +35,7 @@
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:paddingBottom="4dp"
-                android:paddingLeft="@dimen/list_entry_padding_horizontal_lax" >
+                android:paddingLeft="@dimen/list_entry_padding_horizontal_lax">
 
                 <TextView
                     android:id="@+id/directions_trip_details_public_entry_destination"

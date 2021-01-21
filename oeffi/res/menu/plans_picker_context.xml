@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/plans_picker_context_open"
-        android:title="@string/plans_picker_context_open_title"/>
+        android:title="@string/plans_picker_context_open_title" />
     <item
         android:id="@+id/plans_picker_context_remove"
-        android:title="@string/plans_picker_context_remove_title"/>
+        android:title="@string/plans_picker_context_remove_title" />
     <item
         android:id="@+id/plans_picker_context_launcher_shortcut"
-        android:title="@string/plans_picker_context_launcher_shortcut_title"/>
+        android:title="@string/plans_picker_context_launcher_shortcut_title" />
 
 </menu>

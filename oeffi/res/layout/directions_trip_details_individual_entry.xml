@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     style="?android:attr/buttonBarStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingLeft="@dimen/list_entry_padding_horizontal_lax" >
+    android:paddingLeft="@dimen/list_entry_padding_horizontal_lax">
 
     <TextView
         android:id="@+id/directions_trip_details_individual_entry_text"

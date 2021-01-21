@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
-                android:paddingBottom="48dp" >
+                android:paddingBottom="48dp">
 
                 <LinearLayout
                     android:id="@+id/directions_trip_details_legs_group"
@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:divider="?android:attr/listDivider"
                     android:orientation="vertical"
-                    android:showDividers="middle" >
+                    android:showDividers="middle">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -44,7 +44,7 @@
                         android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
                         android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
                         android:paddingRight="@dimen/list_entry_padding_horizontal_lax"
-                        android:paddingTop="@dimen/list_entry_padding_vertical_lax" >
+                        android:paddingTop="@dimen/list_entry_padding_vertical_lax">
 
                         <de.schildbach.oeffi.directions.LocationTextView
                             android:id="@+id/directions_trip_details_location_from"
@@ -94,7 +94,7 @@
                 android:layout_margin="4dp"
                 android:background="@drawable/disclaimer_background"
                 android:baselineAligned="false"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/directions_trip_details_disclaimer_source"

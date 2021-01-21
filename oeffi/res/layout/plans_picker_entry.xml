@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/list_entry_background"
     android:descendantFocusability="blocksDescendants"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    android:minHeight="?android:attr/listPreferredItemHeight" >
+    android:minHeight="?android:attr/listPreferredItemHeight">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,7 +15,7 @@
         android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
         android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
         android:paddingRight="@dimen/list_entry_padding_horizontal_lax"
-        android:paddingTop="@dimen/list_entry_padding_vertical_lax" >
+        android:paddingTop="@dimen/list_entry_padding_vertical_lax">
 
         <FrameLayout
             android:id="@+id/plans_picker_entry_image"
@@ -23,7 +24,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
-            android:padding="2dp" >
+            android:padding="2dp">
 
             <ImageView
                 android:id="@+id/plans_picker_entry_thumb"

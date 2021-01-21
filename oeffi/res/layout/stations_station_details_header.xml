@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:attr/listDivider"
@@ -7,7 +8,7 @@
     android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
     android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
     android:paddingRight="@dimen/list_entry_padding_horizontal_lax"
-    android:paddingTop="@dimen/list_entry_padding_vertical_lax" >
+    android:paddingTop="@dimen/list_entry_padding_vertical_lax">
 
     <LinearLayout
         android:id="@+id/stations_station_details_header_lines"
@@ -21,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
         android:baselineAligned="true"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <de.schildbach.oeffi.stations.LineView
             android:id="@+id/stations_station_details_header_additional_lines"

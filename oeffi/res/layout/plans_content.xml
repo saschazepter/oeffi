@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ViewAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+<ViewAnimator
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/plans_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:inAnimation="@android:anim/fade_in"
-    android:outAnimation="@android:anim/fade_out" >
+    android:outAnimation="@android:anim/fade_out">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center_horizontal"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <ProgressBar
             android:layout_width="wrap_content"
@@ -29,7 +30,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <de.schildbach.oeffi.plans.ScrollImageView
             android:id="@+id/plans_plan"
@@ -39,7 +40,7 @@
 
         <de.schildbach.oeffi.plans.BubbleLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:id="@+id/plans_bubble"
@@ -47,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/popup_dir_pointer_button"
                 android:minWidth="128dp"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/plans_bubble_name"

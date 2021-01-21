@@ -40,7 +40,7 @@
         android:minHeight="@dimen/action_bar_height"
         android:orientation="vertical"
         android:paddingLeft="@dimen/action_bar_padding"
-        android:paddingRight="@dimen/action_bar_padding" >
+        android:paddingRight="@dimen/action_bar_padding">
 
         <TextView
             android:id="@+id/action_bar_primary_title"
@@ -76,7 +76,7 @@
         android:layout_width="@dimen/action_bar_button_width"
         android:layout_height="match_parent"
         android:minHeight="@dimen/action_bar_height"
-        android:visibility="gone" >
+        android:visibility="gone">
 
         <ImageButton
             android:id="@+id/action_bar_progress_button"

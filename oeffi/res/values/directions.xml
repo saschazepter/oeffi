@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources
+    xmlns:tools="http://schemas.android.com/tools">
 
     <string name="directions_location_context_current_location">My current location</string>
     <string name="directions_location_context_contact">Contact address</string>

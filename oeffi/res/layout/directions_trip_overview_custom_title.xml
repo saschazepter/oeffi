@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
     android:shrinkColumns="1"
-    android:stretchColumns="1" >
+    android:stretchColumns="1">
 
     <TableRow>
 
@@ -31,7 +32,7 @@
             android:textSize="@dimen/font_size_action_bar" />
     </TableRow>
 
-    <TableRow android:id="@+id/directions_trip_overview_custom_title_via_row" >
+    <TableRow android:id="@+id/directions_trip_overview_custom_title_via_row">
 
         <TextView
             android:paddingLeft="4dp"

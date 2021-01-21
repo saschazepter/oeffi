@@ -10,11 +10,15 @@
             <stop offset="100%" style="stop-color:#40a33f" />
         </linearGradient>
         <filter id="background-shadow">
-            <feOffset result="offsetOut" in="SourceGraphic" dx="0" dy="32" />
-            <feColorMatrix result="matrixOut" in="offsetOut" type="matrix"
+            <feOffset
+                result="offsetOut" in="SourceGraphic" dx="0" dy="32" />
+            <feColorMatrix
+                result="matrixOut" in="offsetOut" type="matrix"
                 values="0.15 0 0 0 0 0 0.15 0 0 0 0 0 0.15 0 0 0 0 0 1 0" />
-            <feGaussianBlur result="blurOut" in="matrixOut" stdDeviation="32" />
-            <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+            <feGaussianBlur
+                result="blurOut" in="matrixOut" stdDeviation="32" />
+            <feBlend
+                in="SourceGraphic" in2="blurOut" mode="normal" />
         </filter>
     </defs>
 

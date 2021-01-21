@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/directions_query_history_context_show_trip"
-        android:title="@string/directions_query_history_context_show_trip"/>
+        android:title="@string/directions_query_history_context_show_trip" />
     <item
         android:id="@+id/directions_query_history_context_remove_trip"
-        android:title="@string/directions_query_history_context_remove_trip"/>
+        android:title="@string/directions_query_history_context_remove_trip" />
     <item
         android:id="@+id/directions_query_history_context_remove_entry"
-        android:title="@string/directions_query_history_context_remove_entry"/>
+        android:title="@string/directions_query_history_context_remove_entry" />
     <item
         android:id="@+id/directions_query_history_context_add_favorite"
-        android:title="@string/directions_query_history_context_add_favorite"/>
+        android:title="@string/directions_query_history_context_add_favorite" />
     <item
         android:id="@+id/directions_query_history_context_remove_favorite"
-        android:title="@string/directions_query_history_context_remove_favorite"/>
+        android:title="@string/directions_query_history_context_remove_favorite" />
 
 </menu>

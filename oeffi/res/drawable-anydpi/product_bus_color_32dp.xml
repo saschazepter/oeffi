@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:height="32dp"
     android:viewportHeight="500"
     android:viewportWidth="500"
-    android:width="32dp" >
+    android:width="32dp">
 
     <path
         android:fillColor="#a3007c"
@@ -12,7 +13,7 @@
     <group
         android:scaleX="0.93"
         android:scaleY="0.93"
-        android:translateY="28" >
+        android:translateY="28">
         <path
             android:fillColor="#ffffff"
             android:pathData="M178.20792 263.87558C178.20776 271.38825 176.67741 278.10092 173.61686

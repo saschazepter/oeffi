@@ -18,7 +18,7 @@
             android:id="@+id/directions_content_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <include layout="@layout/action_bar" />
 
@@ -39,12 +39,12 @@
             <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
                 android:layout_height="0px"
-                android:layout_weight="1" >
+                android:layout_weight="1">
 
                 <FrameLayout
                     android:id="@+id/directions_list_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@android:id/list"
@@ -65,7 +65,7 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:orientation="vertical" >
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"

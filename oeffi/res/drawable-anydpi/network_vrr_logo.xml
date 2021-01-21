@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:height="48dp"
     android:viewportHeight="137"
     android:viewportWidth="137"
-    android:width="48dp" >
+    android:width="48dp">
 
     <group
         android:translateX="8"
-        android:translateY="0" >
+        android:translateY="0">
         <path
             android:fillColor="#007e32"
             android:pathData="M 63.88672,0 L 63.88672,21.59178 L 103.26172,44.00878 L 103.26172,91.90917 L 63.88672,115.13671 L 63.88672,136.6748 L 121.91895,103.61327 L 121.91895,32.51952 L 63.88672,0"
