@@ -23,7 +23,7 @@ import de.schildbach.oeffi.R;
 
 public class DialogBuilder extends AlertDialog.Builder {
     public static DialogBuilder get(final Context context) {
-        return new DialogBuilder(context, R.style.My_Theme_Dialog);
+        return new DialogBuilder(context, 0);
     }
 
     public static DialogBuilder warn(final Context context, final int titleResId) {

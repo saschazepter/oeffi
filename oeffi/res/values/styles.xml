@@ -27,10 +27,6 @@
         <item name="android:actionBarStyle">@style/My.Widget.ActionBar</item>
     </style>
 
-    <style name="My.Theme.Dialog" parent="@android:style/Theme.Material.Light.Dialog.Alert">
-        <item name="android:background">@color/bg_level1</item>
-    </style>
-
     <style name="My.Theme.Translucent" parent="@style/My.Theme">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowIsFloating">true</item>
