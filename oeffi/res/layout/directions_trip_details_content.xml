@@ -138,7 +138,8 @@
             android:layout_gravity="bottom|left"
             android:layout_marginBottom="@dimen/list_entry_padding_vertical_lax"
             android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-            android:textSize="@dimen/font_size_disclaimer" />
+            android:textSize="@dimen/font_size_disclaimer"
+            android:textColor="@color/fg_significant_on_light" />
     </FrameLayout>
 
 </LinearLayout>
