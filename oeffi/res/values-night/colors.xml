@@ -24,6 +24,6 @@
     <color name="bg_position">#bbbbbb</color>
     <color name="bg_status_bar">#44000000</color>
 
-    <item name="alpha_bright_white" format="float" type="dimen">0.7</item>
+    <item name="alpha_bright_white" format="float" type="dimen">0.8</item>
 
 </resources>
