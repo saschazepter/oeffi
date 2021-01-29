@@ -56,7 +56,8 @@
         <de.schildbach.oeffi.OeffiMapView
             android:id="@+id/network_picker_map"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:alpha="@dimen/alpha_bright_white" />
 
         <TextView
             android:id="@+id/network_picker_map_disclaimer"
