@@ -120,6 +120,10 @@ public class NetworkPickerActivity extends Activity implements ActivityCompat.On
 
         setContentView(R.layout.network_picker_content);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+        findViewById(android.R.id.content).setOnApplyWindowInsetsListener((v, insets) -> {
+            v.setPadding(insets.getSystemWindowInsetLeft(), 0, insets.getSystemWindowInsetRight(), 0);
+            return insets;
+        });
 
         actionBar = findViewById(R.id.action_bar);
         setPrimaryColor(R.color.bg_action_bar);
