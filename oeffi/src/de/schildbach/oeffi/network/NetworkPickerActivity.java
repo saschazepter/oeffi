@@ -138,8 +138,12 @@ public class NetworkPickerActivity extends Activity implements ActivityCompat.On
         });
 
         mapView = findViewById(R.id.network_picker_map);
-        ((TextView) findViewById(R.id.network_picker_map_disclaimer))
-                .setText(mapView.getTileProvider().getTileSource().getCopyrightNotice());
+        final TextView mapDisclaimerView = findViewById(R.id.network_picker_map_disclaimer);
+        mapDisclaimerView.setText(mapView.getTileProvider().getTileSource().getCopyrightNotice());
+        mapDisclaimerView.setOnApplyWindowInsetsListener((v, insets) -> {
+            v.setPadding(0, 0, 0, insets.getSystemWindowInsetBottom());
+            return insets;
+        });
 
         if (network == null) {
             findViewById(R.id.network_picker_firsttime_message_shadow).setForeground(null);

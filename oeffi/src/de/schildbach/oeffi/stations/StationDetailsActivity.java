@@ -179,8 +179,12 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
 
         mapView = findViewById(R.id.stations_station_details_map);
         mapView.setStationsAware(this);
-        ((TextView) findViewById(R.id.stations_station_details_map_disclaimer))
-                .setText(mapView.getTileProvider().getTileSource().getCopyrightNotice());
+        final TextView mapDisclaimerView = findViewById(R.id.stations_station_details_map_disclaimer);
+        mapDisclaimerView.setText(mapView.getTileProvider().getTileSource().getCopyrightNotice());
+        mapDisclaimerView.setOnApplyWindowInsetsListener((v, insets) -> {
+            v.setPadding(0,0,0, insets.getSystemWindowInsetBottom());
+            return insets;
+        });
 
         resultStatusView = findViewById(R.id.stations_station_details_result_status);
 

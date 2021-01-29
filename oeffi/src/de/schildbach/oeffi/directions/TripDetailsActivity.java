@@ -303,8 +303,12 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
                 return trip.legs.get(selectedLegIndex).equals(part);
             }
         });
-        ((TextView) findViewById(R.id.directions_trip_details_map_disclaimer))
-                .setText(mapView.getTileProvider().getTileSource().getCopyrightNotice());
+        final TextView mapDisclaimerView = findViewById(R.id.directions_trip_details_map_disclaimer);
+        mapDisclaimerView.setText(mapView.getTileProvider().getTileSource().getCopyrightNotice());
+        mapDisclaimerView.setOnApplyWindowInsetsListener((v, insets) -> {
+            v.setPadding(0,0,0, insets.getSystemWindowInsetBottom());
+            return insets;
+        });
     }
 
     @Override

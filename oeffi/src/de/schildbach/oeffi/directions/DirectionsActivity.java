@@ -489,8 +489,12 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
                 return false;
             }
         });
-        ((TextView) findViewById(R.id.directions_map_disclaimer))
-                .setText(mapView.getTileProvider().getTileSource().getCopyrightNotice());
+        final TextView mapDisclaimerView = findViewById(R.id.directions_map_disclaimer);
+        mapDisclaimerView.setText(mapView.getTileProvider().getTileSource().getCopyrightNotice());
+        mapDisclaimerView.setOnApplyWindowInsetsListener((v, insets) -> {
+            v.setPadding(0,0,0, insets.getSystemWindowInsetBottom());
+            return insets;
+        });
 
         final ZoomControls zoom = findViewById(R.id.directions_map_zoom);
         mapView.setZoomControls(zoom);

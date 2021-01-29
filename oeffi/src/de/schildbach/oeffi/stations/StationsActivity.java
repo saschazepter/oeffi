@@ -255,8 +255,12 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         mapView = findViewById(R.id.stations_map);
         mapView.setStationsAware(this);
         mapView.setLocationAware(this);
-        ((TextView) findViewById(R.id.stations_map_disclaimer))
-                .setText(mapView.getTileProvider().getTileSource().getCopyrightNotice());
+        final TextView mapDisclaimerView = findViewById(R.id.stations_map_disclaimer);
+        mapDisclaimerView.setText(mapView.getTileProvider().getTileSource().getCopyrightNotice());
+        mapDisclaimerView.setOnApplyWindowInsetsListener((v, insets) -> {
+            v.setPadding(0, 0, 0, insets.getSystemWindowInsetBottom());
+            return insets;
+        });
 
         final ZoomControls zoom = findViewById(R.id.stations_map_zoom);
         mapView.setZoomControls(zoom);
