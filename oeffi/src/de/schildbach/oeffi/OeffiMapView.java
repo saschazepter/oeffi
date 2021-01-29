@@ -89,7 +89,6 @@ public class OeffiMapView extends MapView {
         final Drawable deviceLocationIcon = drawableCenter(R.drawable.location_on, 2);
         final Drawable referenceLocationIcon = drawablePointer(R.drawable.da_marker_red, 2);
 
-        final Drawable glowIcon = drawableCenter(R.drawable.station_glow, 2);
         final Drawable stationDefaultIcon = drawableCenter(R.drawable.ic_maps_product_default, 2);
         final Drawable stationHighspeedIcon = drawableCenter(R.drawable.product_highspeed_color_22dp, 2);
         final Drawable stationTrainIcon = drawableCenter(R.drawable.product_train_color_22dp, 2);
@@ -318,10 +317,8 @@ public class OeffiMapView extends MapView {
                                     projection.toPixels(new GeoPoint(station.location.getLatAsDouble(),
                                             station.location.getLonAsDouble()), point);
 
-                                    if (stationsAware.isSelectedStation(station.location.id)) {
-                                        drawAt(canvas, glowIcon, point.x, point.y, false, 0);
+                                    if (stationsAware.isSelectedStation(station.location.id))
                                         selectedStation = station;
-                                    }
 
                                     final Product product = station.getRelevantProduct();
                                     if (product == null)
