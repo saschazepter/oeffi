@@ -262,6 +262,10 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         mapView.setZoomControls(zoom);
 
         connectivityWarningView = findViewById(R.id.stations_connectivity_warning_box);
+        findViewById(R.id.stations_disclaimer_group).setOnApplyWindowInsetsListener((v, insets) -> {
+            v.setPadding(0, 0, 0, insets.getSystemWindowInsetBottom());
+            return insets;
+        });
         disclaimerSourceView = findViewById(R.id.stations_disclaimer_source);
 
         // initialize stations list

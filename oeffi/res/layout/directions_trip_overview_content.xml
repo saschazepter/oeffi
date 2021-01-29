@@ -20,13 +20,13 @@
             android:unselectedAlpha="1" />
 
         <FrameLayout
+            android:id="@+id/directions_trip_overview_disclaimer_group"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/list_entry_padding_horizontal_verylax"
             android:layout_marginRight="@dimen/list_entry_padding_horizontal_verylax"
             android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
-            android:layout_marginBottom="@dimen/list_entry_padding_vertical_lax"
-            android:fitsSystemWindows="true">
+            android:layout_marginBottom="@dimen/list_entry_padding_vertical_lax">
 
             <TextView
                 android:id="@+id/trips_server_product"

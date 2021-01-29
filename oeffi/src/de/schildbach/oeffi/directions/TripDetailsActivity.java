@@ -274,6 +274,10 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         ((TextView) findViewById(R.id.directions_trip_details_footer))
                 .setText(Html.fromHtml(getString(R.string.directions_trip_details_realtime)));
 
+        findViewById(R.id.directions_trip_details_disclaimer_group).setOnApplyWindowInsetsListener((v, insets) -> {
+            v.setPadding(0, 0, 0, insets.getSystemWindowInsetBottom());
+            return insets;
+        });
         final TextView disclaimerSourceView = findViewById(R.id.directions_trip_details_disclaimer_source);
         updateDisclaimerSource(disclaimerSourceView, network.name(), null);
 

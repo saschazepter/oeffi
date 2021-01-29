@@ -269,6 +269,10 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
         favoriteButton
                 .setChecked(selectedFavState != null && selectedFavState == FavoriteStationsProvider.TYPE_FAVORITE);
 
+        findViewById(R.id.stations_station_details_disclaimer_group).setOnApplyWindowInsetsListener((v, insets) -> {
+            v.setPadding(0, 0, 0, insets.getSystemWindowInsetBottom());
+            return insets;
+        });
         disclaimerSourceView = findViewById(R.id.stations_station_details_disclaimer_source);
         updateDisclaimerSource(disclaimerSourceView, selectedNetwork.name(), null);
     }

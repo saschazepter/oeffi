@@ -160,6 +160,11 @@ public class TripsOverviewActivity extends OeffiActivity {
         });
         barView.setOnScrollListener(() -> handler.post(checkMoreRunnable));
 
+        findViewById(R.id.directions_trip_overview_disclaimer_group).setOnApplyWindowInsetsListener((v, insets) -> {
+            v.setPadding(0, 0, 0, insets.getSystemWindowInsetBottom());
+            return insets;
+        });
+
         processResult(result, dep);
     }
 

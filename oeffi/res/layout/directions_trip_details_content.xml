@@ -87,6 +87,7 @@
             </ScrollView>
 
             <LinearLayout
+                android:id="@+id/directions_trip_details_disclaimer_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -94,7 +95,6 @@
                 android:layout_marginRight="@dimen/list_entry_padding_horizontal_verylax"
                 android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
                 android:layout_marginBottom="@dimen/list_entry_padding_vertical_lax"
-                android:fitsSystemWindows="true"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
 
