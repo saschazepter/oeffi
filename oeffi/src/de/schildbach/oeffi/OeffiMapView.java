@@ -354,6 +354,7 @@ public class OeffiMapView extends MapView {
                                 bubble.setText(selectedStation.location.name);
                                 bubble.setTypeface(Typeface.DEFAULT_BOLD);
                                 bubble.setTextSize(TypedValue.COMPLEX_UNIT_PX, stationFontSize);
+                                bubble.setTextColor(res.getColor(R.color.fg_significant_on_light));
                                 bubble.setIncludeFontPadding(false);
                                 bubble.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
                                         MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
