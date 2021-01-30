@@ -501,6 +501,10 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
         });
 
         final ZoomControls zoom = findViewById(R.id.directions_map_zoom);
+        zoom.setOnApplyWindowInsetsListener((v, insets) -> {
+            v.setPadding(0, 0, 0, insets.getSystemWindowInsetBottom());
+            return insets;
+        });
         mapView.setZoomControls(zoom);
 
         connectivityReceiver = new ConnectivityBroadcastReceiver(connectivityManager) {
