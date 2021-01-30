@@ -53,6 +53,7 @@ public class TripsGallery extends Gallery {
     private final Paint currenttimeLabelTextPaint = new Paint();
 
     private final Context context;
+    private final int paddingHorizontal;
     private final float density;
     private final java.text.DateFormat timeFormat;
 
@@ -74,6 +75,7 @@ public class TripsGallery extends Gallery {
         this.context = context;
 
         final Resources res = getResources();
+        paddingHorizontal = res.getDimensionPixelSize(R.dimen.list_entry_padding_horizontal);
         density = res.getDisplayMetrics().density;
         final float strokeWidth = res.getDimension(R.dimen.trips_overview_stroke_width);
         final int colorSignificant = res.getColor(R.color.fg_significant);
@@ -285,10 +287,10 @@ public class TripsGallery extends Gallery {
                 }
 
                 gridLabelPaint.getTextBounds(labelTime.toString(), 0, labelTime.length(), bounds);
-                bounds.offsetTo(0, Math.round(y) - bounds.height());
+                bounds.offsetTo(paddingHorizontal, Math.round(y) - bounds.height());
 
                 path.reset();
-                path.moveTo(bounds.right, y);
+                path.moveTo(bounds.right + paddingHorizontal, y);
                 path.lineTo(width, y);
                 // can't use drawLine here because of
                 // https://code.google.com/p/android/issues/detail?id=29944
@@ -306,7 +308,7 @@ public class TripsGallery extends Gallery {
                     .append(Formats.formatDate(context, now, firstGrid));
 
             gridLabelPaint.getTextBounds(labelTime.toString(), 0, labelTime.length(), bounds);
-            bounds.offsetTo(0, Math.round(adapter.timeToCoord(firstGrid, height)) - bounds.height());
+            bounds.offsetTo(paddingHorizontal, Math.round(adapter.timeToCoord(firstGrid, height)) - bounds.height());
 
             canvas.drawText(labelTime, 0, labelTime.length(), bounds.centerX(), bounds.bottom, gridLabelPaint);
         }
@@ -319,9 +321,9 @@ public class TripsGallery extends Gallery {
         currenttimeLabelTextPaint.getTextBounds(label, 0, label.length(), bounds);
         final int inset = Math.round(2 * density);
         bounds.inset(-inset, -inset);
-        bounds.offsetTo(0, Math.round(y) - bounds.height());
+        bounds.offsetTo(paddingHorizontal, Math.round(y) - bounds.height());
 
-        canvas.drawLine(bounds.right, y, width, y, currenttimePaint);
+        canvas.drawLine(bounds.right + paddingHorizontal, y, width, y, currenttimePaint);
         final float roundRadius = 3 * density;
         boundsF.set(bounds);
         canvas.drawRoundRect(boundsF, roundRadius, roundRadius, currenttimeLabelBackgroundPaint);
