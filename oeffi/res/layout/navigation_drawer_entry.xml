@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingBottom="@dimen/list_entry_padding_vertical_verylax"
-        android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
+        android:paddingLeft="@dimen/list_entry_padding_horizontal_verylax"
         android:paddingRight="0px"
         android:paddingTop="@dimen/list_entry_padding_vertical_verylax">
 

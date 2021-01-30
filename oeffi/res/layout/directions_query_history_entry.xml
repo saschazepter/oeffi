@@ -7,8 +7,7 @@
     android:background="@drawable/list_entry_background"
     android:descendantFocusability="blocksDescendants"
     android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:minHeight="?android:attr/listPreferredItemHeight">
+    android:foreground="?android:attr/selectableItemBackground">
 
     <LinearLayout
         style="?android:attr/buttonBarStyle"
@@ -29,7 +28,7 @@
                 android:drawablePadding="@dimen/list_entry_padding_horizontal_lax"
                 android:drawableTint="@color/fg_less_significant"
                 android:gravity="center_vertical"
-                android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
+                android:paddingLeft="@dimen/list_entry_padding_horizontal_verylax"
                 android:paddingRight="@dimen/list_entry_padding_horizontal_cram"
                 android:paddingTop="@dimen/list_entry_padding_vertical_verylax" />
 
@@ -41,7 +40,7 @@
                 android:drawableTint="@color/fg_less_significant"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/list_entry_padding_vertical_verylax"
-                android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
+                android:paddingLeft="@dimen/list_entry_padding_horizontal_verylax"
                 android:paddingRight="@dimen/list_entry_padding_horizontal_cram" />
         </LinearLayout>
 

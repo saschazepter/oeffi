@@ -6,8 +6,8 @@
     android:background="@color/bg_divider"
     android:orientation="vertical"
     android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
-    android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
-    android:paddingRight="@dimen/list_entry_padding_horizontal_lax"
+    android:paddingLeft="@dimen/list_entry_padding_horizontal_verylax"
+    android:paddingRight="@dimen/list_entry_padding_horizontal_verylax"
     android:paddingTop="@dimen/list_entry_padding_vertical_lax">
 
     <LinearLayout

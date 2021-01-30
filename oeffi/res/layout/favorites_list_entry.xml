@@ -6,18 +6,17 @@
     android:background="@drawable/list_entry_background"
     android:descendantFocusability="blocksDescendants"
     android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:minHeight="?android:attr/listPreferredItemHeight">
+    android:foreground="?android:attr/selectableItemBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
-        android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
-        android:paddingRight="@dimen/list_entry_padding_horizontal_lax"
-        android:paddingTop="@dimen/list_entry_padding_vertical_lax">
+        android:paddingBottom="@dimen/list_entry_padding_vertical_verylax"
+        android:paddingLeft="@dimen/list_entry_padding_horizontal_verylax"
+        android:paddingRight="@dimen/list_entry_padding_horizontal_verylax"
+        android:paddingTop="@dimen/list_entry_padding_vertical_verylax">
 
         <TextView
             android:id="@+id/favorites_list_entry_network"

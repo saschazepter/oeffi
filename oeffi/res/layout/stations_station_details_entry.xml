@@ -7,10 +7,10 @@
     android:clipToPadding="false"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
-    android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
-    android:paddingRight="@dimen/list_entry_padding_horizontal_lax"
-    android:paddingTop="@dimen/list_entry_padding_vertical_lax">
+    android:paddingBottom="@dimen/list_entry_padding_vertical_verylax"
+    android:paddingLeft="@dimen/list_entry_padding_horizontal_verylax"
+    android:paddingRight="@dimen/list_entry_padding_horizontal_verylax"
+    android:paddingTop="@dimen/list_entry_padding_vertical_verylax">
 
     <!-- first row -->
 
