@@ -1,4 +1,4 @@
-v12.0-v12.0.1
+v12.0-v12.0.2
 
 * The app now requires Android 5.0 (Lollipop) or higher.
 * Introduce dark UI mode and UI improvements on Android 10 (and higher) devices.
