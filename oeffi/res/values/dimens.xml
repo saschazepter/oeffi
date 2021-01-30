@@ -8,9 +8,9 @@
     <dimen name="font_size_xlarge">20sp</dimen>
     <dimen name="font_size_action_bar">14dp</dimen>
     <dimen name="font_size_disclaimer">12dp</dimen>
-    <dimen name="action_bar_height">48dp</dimen>
-    <dimen name="action_bar_button_width">48dp</dimen>
-    <dimen name="action_bar_overflow_button_width">36dp</dimen>
+    <dimen name="action_bar_height">50dp</dimen>
+    <dimen name="action_bar_button_width">50dp</dimen>
+    <dimen name="action_bar_overflow_button_width">38dp</dimen>
     <dimen name="action_bar_padding">4dp</dimen>
     <dimen name="dialog_padding">6dp</dimen>
     <dimen name="line_max_width">128dp</dimen>

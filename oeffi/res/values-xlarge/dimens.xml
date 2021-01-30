@@ -7,8 +7,8 @@
     <dimen name="font_size_large">20sp</dimen>
     <dimen name="font_size_xlarge">24sp</dimen>
     <dimen name="font_size_action_bar">16dp</dimen>
-    <dimen name="action_bar_height">58dp</dimen>
-    <dimen name="action_bar_button_width">58dp</dimen>
+    <dimen name="action_bar_height">60dp</dimen>
+    <dimen name="action_bar_button_width">50dp</dimen>
     <dimen name="action_bar_padding">8dp</dimen>
     <dimen name="dialog_padding">16dp</dimen>
     <dimen name="list_entry_padding_vertical_cram">3dp</dimen>
