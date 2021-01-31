@@ -44,6 +44,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/list_entry_padding_horizontal"
+            android:paddingRight="@dimen/list_entry_padding_horizontal"
             android:minHeight="@dimen/action_bar_button_width"
             android:orientation="horizontal">
 

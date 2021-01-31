@@ -8,5 +8,6 @@
     android:drawablePadding="@dimen/list_entry_padding_horizontal_lax"
     android:drawableTint="@color/fg_less_significant"
     android:minHeight="52dp"
-    android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
+    android:paddingLeft="@dimen/list_entry_padding_horizontal_verylax"
+    android:paddingRight="@dimen/list_entry_padding_horizontal"
     android:textSize="@dimen/font_size_large" />

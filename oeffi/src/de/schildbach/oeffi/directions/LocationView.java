@@ -154,7 +154,7 @@ public class LocationView extends FrameLayout implements LocationHelper.Callback
         textView.setThreshold(0);
         textView.setCompoundDrawablePadding(res.getDimensionPixelSize(R.dimen.list_entry_padding_horizontal_lax));
         final int paddingCram = res.getDimensionPixelSize(R.dimen.list_entry_padding_horizontal_cram);
-        final int paddingLax = res.getDimensionPixelSize(R.dimen.list_entry_padding_horizontal_lax);
+        final int paddingLax = res.getDimensionPixelSize(R.dimen.list_entry_padding_horizontal_verylax);
         textView.setPadding(paddingLax, paddingCram, paddingLax, paddingCram);
         textView.setOnItemClickListener((parent, view, position, id) -> {
             // workaround for NPE
