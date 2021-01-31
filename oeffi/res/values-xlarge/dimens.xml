@@ -27,6 +27,6 @@
     <item name="trips_overview_entry_public_box_fraction" type="fraction">70%</item>
 
     <dimen name="trip_details_stop_offset">8sp</dimen>
-    <dimen name="layout_list_width">420dp</dimen>
+    <dimen name="layout_list_width">430dp</dimen>
 
 </resources>
