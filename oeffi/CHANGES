@@ -1,3 +1,7 @@
+v12.0.3
+
+* For devices running Android 10 and higher, add a light UI mode to app-widget.
+
 v12.0-v12.0.2
 
 * The app now requires Android 5.0 (Lollipop) or higher.
