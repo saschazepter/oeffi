@@ -75,6 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
         android:singleLine="true"
-        android:textColor="@color/fg_significant_darkdefault" />
+        android:textColor="@color/fg_significant_darkdefault"
+        android:textStyle="bold" />
 
 </LinearLayout>
