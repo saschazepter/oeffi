@@ -37,7 +37,7 @@ VGS|de-DE|Saarland;Saarbrücken|disabled
 
 # AT
 OEBB|de-AT|AT
-WIEN|de-AT|Wien
+WIEN|de-AT|Wien|disabled
 LINZ|de-AT|Oberösterreich;Linz
 STV|de-AT|Steiermark;Graz;Marburg;Maribor;Klagenfurt
 VOR|de-AT|Niederösterreich;Burgenland;Wien|disabled
