@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="@dimen/list_entry_padding_horizontal"
-        android:paddingRight="@dimen/list_entry_padding_horizontal">
+        android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
+        android:paddingRight="@dimen/list_entry_padding_horizontal_lax">
 
         <TextView
             android:id="@+id/station_widget_distance"
