@@ -10,7 +10,7 @@
         style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+        android:layout_marginLeft="@dimen/text_padding_horizontal_lax"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -19,7 +19,7 @@
             android:layout_weight="1"
             android:baselineAligned="true"
             android:orientation="horizontal"
-            android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
+            android:paddingBottom="@dimen/text_padding_vertical_lax"
             android:paddingTop="6dp">
 
             <de.schildbach.oeffi.stations.LineView
@@ -35,13 +35,13 @@
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:paddingBottom="4dp"
-                android:paddingLeft="@dimen/list_entry_padding_horizontal_lax">
+                android:paddingLeft="@dimen/text_padding_horizontal_lax">
 
                 <TextView
                     android:id="@+id/directions_trip_details_public_entry_destination"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawablePadding="@dimen/list_entry_padding_horizontal"
+                    android:drawablePadding="@dimen/text_padding_horizontal"
                     android:textColor="@color/fg_significant"
                     android:textSize="@dimen/font_size_large" />
 
@@ -50,7 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_accessible_grey600_18dp"
-                    android:drawablePadding="@dimen/list_entry_padding_horizontal"
+                    android:drawablePadding="@dimen/text_padding_horizontal"
                     android:text="@string/directions_trip_details_public_entry_accessibility"
                     android:textColor="@color/fg_insignificant"
                     android:visibility="gone" />
@@ -60,7 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_directions_bike_grey600_18dp"
-                    android:drawablePadding="@dimen/list_entry_padding_horizontal"
+                    android:drawablePadding="@dimen/text_padding_horizontal"
                     android:text="@string/directions_trip_details_public_entry_bicycle_carriage"
                     android:textColor="@color/fg_insignificant"
                     android:visibility="gone" />
@@ -80,8 +80,8 @@
         android:id="@+id/directions_trip_details_public_entry_stops"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-        android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+        android:layout_marginLeft="@dimen/text_padding_horizontal_lax"
+        android:layout_marginRight="@dimen/text_padding_horizontal_lax"
         android:baselineAligned="true"
         android:shrinkColumns="5"
         android:stretchColumns="5" />
@@ -90,9 +90,9 @@
         android:id="@+id/directions_trip_details_public_entry_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-        android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
-        android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
+        android:layout_marginLeft="@dimen/text_padding_horizontal_lax"
+        android:layout_marginRight="@dimen/text_padding_horizontal_lax"
+        android:layout_marginTop="@dimen/text_padding_vertical_lax"
         android:textSize="@dimen/font_size_tiny"
         android:visibility="gone" />
 

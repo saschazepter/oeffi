@@ -294,7 +294,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                     private final Drawable drawableClear = getResources().getDrawable(R.drawable.ic_clear_black_24dp);
                     private final Drawable drawableBlock = getResources().getDrawable(R.drawable.ic_block_black_24dp);
                     private final int starMargin = getResources()
-                            .getDimensionPixelOffset(R.dimen.list_entry_padding_horizontal_lax);
+                            .getDimensionPixelOffset(R.dimen.text_padding_horizontal_lax);
                     private final int actionTriggerThreshold = Ints.max(drawableStar.getIntrinsicWidth(),
                             drawableClear.getIntrinsicWidth(), drawableBlock.getIntrinsicWidth()) + starMargin * 2;
 

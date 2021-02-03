@@ -23,10 +23,10 @@
             android:id="@+id/directions_trip_overview_disclaimer_group"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_verylax"
-            android:layout_marginRight="@dimen/list_entry_padding_horizontal_verylax"
-            android:layout_marginTop="@dimen/list_entry_padding_vertical"
-            android:layout_marginBottom="@dimen/list_entry_padding_vertical">
+            android:layout_marginLeft="@dimen/text_padding_horizontal_verylax"
+            android:layout_marginRight="@dimen/text_padding_horizontal_verylax"
+            android:layout_marginTop="@dimen/text_padding_vertical"
+            android:layout_marginBottom="@dimen/text_padding_vertical">
 
             <TextView
                 android:id="@+id/trips_server_product"

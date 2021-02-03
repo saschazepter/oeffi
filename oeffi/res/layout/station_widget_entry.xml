@@ -7,8 +7,8 @@
     android:layout_height="wrap_content"
     android:baselineAligned="true"
     android:orientation="horizontal"
-    android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
-    android:paddingRight="@dimen/list_entry_padding_horizontal_lax">
+    android:paddingLeft="@dimen/text_padding_horizontal_lax"
+    android:paddingRight="@dimen/text_padding_horizontal_lax">
 
     <TextView
         android:id="@+id/station_widget_entry_line"
@@ -16,8 +16,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
         android:background="@color/bg_divider"
-        android:paddingLeft="@dimen/list_entry_padding_horizontal"
-        android:paddingRight="@dimen/list_entry_padding_horizontal"
+        android:paddingLeft="@dimen/text_padding_horizontal"
+        android:paddingRight="@dimen/text_padding_horizontal"
         android:textColor="@color/fg_significant_darkdefault"
         android:textStyle="bold" />
 
@@ -37,8 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
         android:background="@color/bg_highlighted_darkdefault"
-        android:paddingLeft="@dimen/list_entry_padding_horizontal"
-        android:paddingRight="@dimen/list_entry_padding_horizontal"
+        android:paddingLeft="@dimen/text_padding_horizontal"
+        android:paddingRight="@dimen/text_padding_horizontal"
         android:singleLine="true"
         android:text="!"
         android:textColor="@color/fg_significant_darkdefault"
@@ -52,8 +52,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
         android:background="@color/bg_position_darkdefault"
-        android:paddingLeft="@dimen/list_entry_padding_horizontal"
-        android:paddingRight="@dimen/list_entry_padding_horizontal"
+        android:paddingLeft="@dimen/text_padding_horizontal"
+        android:paddingRight="@dimen/text_padding_horizontal"
         android:singleLine="true"
         android:textColor="@color/bg_level0_darkdefault"
         android:textStyle="bold"

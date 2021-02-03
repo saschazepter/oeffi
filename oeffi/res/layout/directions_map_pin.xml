@@ -15,9 +15,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="left"
-        android:paddingBottom="@dimen/list_entry_padding_vertical"
-        android:paddingLeft="@dimen/list_entry_padding_horizontal"
-        android:paddingRight="@dimen/list_entry_padding_horizontal"
+        android:paddingBottom="@dimen/text_padding_vertical"
+        android:paddingLeft="@dimen/text_padding_horizontal"
+        android:paddingRight="@dimen/text_padding_horizontal"
         android:textColor="@color/fg_significant_on_light" />
 
     <LinearLayout
@@ -33,8 +33,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:minHeight="42dp"
-            android:paddingLeft="@dimen/list_entry_padding_horizontal_cram"
-            android:paddingRight="@dimen/list_entry_padding_horizontal_cram"
+            android:paddingLeft="@dimen/text_padding_horizontal_cram"
+            android:paddingRight="@dimen/text_padding_horizontal_cram"
             android:singleLine="true"
             android:text="@string/directions_map_pin_button_from"
             android:textColor="@color/fg_significant_on_light" />
@@ -45,8 +45,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:minHeight="42dp"
-            android:paddingLeft="@dimen/list_entry_padding_horizontal_cram"
-            android:paddingRight="@dimen/list_entry_padding_horizontal_cram"
+            android:paddingLeft="@dimen/text_padding_horizontal_cram"
+            android:paddingRight="@dimen/text_padding_horizontal_cram"
             android:singleLine="true"
             android:text="@string/directions_map_pin_button_to"
             android:textColor="@color/fg_significant_on_light" />

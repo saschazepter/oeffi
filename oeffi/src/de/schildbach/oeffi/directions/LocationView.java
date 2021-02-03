@@ -152,9 +152,9 @@ public class LocationView extends FrameLayout implements LocationHelper.Callback
         textView.setSelectAllOnFocus(true);
         textView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         textView.setThreshold(0);
-        textView.setCompoundDrawablePadding(res.getDimensionPixelSize(R.dimen.list_entry_padding_horizontal_lax));
-        final int paddingCram = res.getDimensionPixelSize(R.dimen.list_entry_padding_horizontal_cram);
-        final int paddingLax = res.getDimensionPixelSize(R.dimen.list_entry_padding_horizontal_verylax);
+        textView.setCompoundDrawablePadding(res.getDimensionPixelSize(R.dimen.text_padding_horizontal_lax));
+        final int paddingCram = res.getDimensionPixelSize(R.dimen.text_padding_horizontal_cram);
+        final int paddingLax = res.getDimensionPixelSize(R.dimen.text_padding_horizontal_verylax);
         textView.setPadding(paddingLax, paddingCram, paddingLax, paddingCram);
         textView.setOnItemClickListener((parent, view, position, id) -> {
             // workaround for NPE

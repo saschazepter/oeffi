@@ -75,7 +75,7 @@ public class TripsGallery extends Gallery {
         this.context = context;
 
         final Resources res = getResources();
-        paddingHorizontal = res.getDimensionPixelSize(R.dimen.list_entry_padding_horizontal);
+        paddingHorizontal = res.getDimensionPixelSize(R.dimen.text_padding_horizontal);
         density = res.getDisplayMetrics().density;
         final float strokeWidth = res.getDimension(R.dimen.trips_overview_stroke_width);
         final int colorSignificant = res.getColor(R.color.fg_significant);

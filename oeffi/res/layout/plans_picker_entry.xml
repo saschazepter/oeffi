@@ -11,10 +11,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/list_entry_padding_vertical_verylax"
-        android:paddingLeft="@dimen/list_entry_padding_horizontal_verylax"
-        android:paddingRight="@dimen/list_entry_padding_horizontal_verylax"
-        android:paddingTop="@dimen/list_entry_padding_vertical_verylax">
+        android:paddingBottom="@dimen/text_padding_vertical_verylax"
+        android:paddingLeft="@dimen/text_padding_horizontal_verylax"
+        android:paddingRight="@dimen/text_padding_horizontal_verylax"
+        android:paddingTop="@dimen/text_padding_vertical_verylax">
 
         <FrameLayout
             android:id="@+id/plans_picker_entry_image"
@@ -22,7 +22,7 @@
             android:layout_height="86dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+            android:layout_marginRight="@dimen/text_padding_horizontal_lax"
             android:padding="2dp">
 
             <ImageView
@@ -53,8 +53,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-            android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
+            android:layout_marginLeft="@dimen/text_padding_horizontal_lax"
+            android:layout_marginTop="@dimen/text_padding_vertical_lax"
             android:layout_toLeftOf="@id/plans_picker_entry_context_button_space"
             android:src="@drawable/ic_offline_pin_grey600_24dp"
             android:tint="@color/fg_less_significant" />
@@ -66,7 +66,7 @@
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@id/plans_picker_entry_loaded"
             android:layout_toRightOf="@id/plans_picker_entry_image"
-            android:paddingTop="@dimen/list_entry_padding_vertical_lax"
+            android:paddingTop="@dimen/text_padding_vertical_lax"
             android:textSize="@dimen/font_size_large"
             android:textStyle="bold" />
 
@@ -79,8 +79,8 @@
             android:layout_below="@id/plans_picker_entry_name"
             android:layout_marginLeft="6dp"
             android:gravity="right"
-            android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
-            android:paddingTop="@dimen/list_entry_padding_vertical_lax"
+            android:paddingBottom="@dimen/text_padding_vertical_lax"
+            android:paddingTop="@dimen/text_padding_vertical_lax"
             android:textColor="@color/fg_less_significant" />
 
         <ImageView
@@ -89,8 +89,8 @@
             android:layout_height="26dp"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@id/plans_picker_entry_image"
-            android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
-            android:paddingRight="@dimen/list_entry_padding_horizontal" />
+            android:paddingBottom="@dimen/text_padding_vertical_lax"
+            android:paddingRight="@dimen/text_padding_horizontal" />
 
         <TextView
             android:id="@+id/plans_picker_entry_disclaimer"
@@ -101,8 +101,8 @@
             android:layout_toLeftOf="@id/plans_picker_entry_valid_from"
             android:layout_toRightOf="@id/plans_picker_entry_network_logo"
             android:maxLines="2"
-            android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
-            android:paddingTop="@dimen/list_entry_padding_vertical_lax"
+            android:paddingBottom="@dimen/text_padding_vertical_lax"
+            android:paddingTop="@dimen/text_padding_vertical_lax"
             android:textColor="@color/fg_less_significant" />
     </RelativeLayout>
 

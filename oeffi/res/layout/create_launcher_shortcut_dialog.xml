@@ -3,10 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
-    android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
-    android:paddingRight="@dimen/list_entry_padding_horizontal_lax"
-    android:paddingTop="@dimen/list_entry_padding_vertical_lax">
+    android:paddingBottom="@dimen/text_padding_vertical_lax"
+    android:paddingLeft="@dimen/text_padding_horizontal_lax"
+    android:paddingRight="@dimen/text_padding_horizontal_lax"
+    android:paddingTop="@dimen/text_padding_vertical_lax">
 
     <EditText
         android:id="@+id/create_launcher_shortcut_dialog_name"

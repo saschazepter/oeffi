@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingLeft="@dimen/list_entry_padding_horizontal_lax">
+    android:paddingLeft="@dimen/text_padding_horizontal_lax">
 
     <TextView
         android:id="@+id/directions_trip_details_individual_entry_text"
         android:layout_width="0px"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/list_entry_padding_vertical_lax"
-        android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
+        android:layout_marginBottom="@dimen/text_padding_vertical_lax"
+        android:layout_marginTop="@dimen/text_padding_vertical_lax"
         android:layout_weight="1"
-        android:drawablePadding="@dimen/list_entry_padding_horizontal_cram"
+        android:drawablePadding="@dimen/text_padding_horizontal_cram"
         android:textSize="@dimen/font_size_large" />
 
     <ImageButton

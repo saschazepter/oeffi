@@ -571,7 +571,7 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
 
             inflater = LayoutInflater.from(context);
             final Resources res = context.getResources();
-            LINES_LAYOUT_PARAMS.setMargins(0, res.getDimensionPixelSize(R.dimen.list_entry_padding_vertical_cram), 0,
+            LINES_LAYOUT_PARAMS.setMargins(0, res.getDimensionPixelSize(R.dimen.text_padding_vertical_cram), 0,
                     0);
         }
 

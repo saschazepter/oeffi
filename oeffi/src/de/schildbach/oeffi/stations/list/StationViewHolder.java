@@ -113,7 +113,7 @@ public class StationViewHolder extends RecyclerView.ViewHolder {
         this.colorLessSignificant = res.getColor(R.color.fg_less_significant);
         this.colorInsignificant = res.getColor(R.color.fg_insignificant);
         this.colorHighlighted = res.getColor(R.color.fg_highlighted);
-        this.listEntryVerticalPadding = res.getDimensionPixelOffset(R.dimen.list_entry_padding_vertical);
+        this.listEntryVerticalPadding = res.getDimensionPixelOffset(R.dimen.text_padding_vertical);
     }
 
     public void bind(final Station station, final Set<Product> productsFilter, final boolean forceShowPlace,

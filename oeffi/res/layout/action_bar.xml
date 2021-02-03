@@ -37,8 +37,8 @@
         android:gravity="center_vertical"
         android:minHeight="@dimen/action_bar_height"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
-        android:paddingRight="@dimen/list_entry_padding_horizontal_cram">
+        android:paddingLeft="@dimen/text_padding_horizontal_lax"
+        android:paddingRight="@dimen/text_padding_horizontal_cram">
 
         <TextView
             android:id="@+id/action_bar_primary_title"

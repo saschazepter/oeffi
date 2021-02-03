@@ -36,10 +36,10 @@
                         android:background="@color/bg_action_bar_appendix"
                         android:drawableLeft="@drawable/ic_portable_wifi_off_grey600_24dp"
                         android:gravity="center"
-                        android:paddingBottom="@dimen/list_entry_padding_vertical"
-                        android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
-                        android:paddingRight="@dimen/list_entry_padding_horizontal_verylax"
-                        android:paddingTop="@dimen/list_entry_padding_vertical"
+                        android:paddingBottom="@dimen/text_padding_vertical"
+                        android:paddingLeft="@dimen/text_padding_horizontal_lax"
+                        android:paddingRight="@dimen/text_padding_horizontal_verylax"
+                        android:paddingTop="@dimen/text_padding_vertical"
                         android:text="@string/stations_connectivity_warning"
                         android:visibility="gone" />
 
@@ -59,11 +59,11 @@
                             android:layout_weight="1"
                             android:drawableLeft="@drawable/ic_search_grey600_24dp"
                             android:drawableTint="@color/fg_significant"
-                            android:drawablePadding="@dimen/list_entry_padding_horizontal"
+                            android:drawablePadding="@dimen/text_padding_horizontal"
                             android:gravity="left|center_vertical"
-                            android:paddingBottom="@dimen/list_entry_padding_vertical"
-                            android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
-                            android:paddingTop="@dimen/list_entry_padding_vertical"
+                            android:paddingBottom="@dimen/text_padding_vertical"
+                            android:paddingLeft="@dimen/text_padding_horizontal_lax"
+                            android:paddingTop="@dimen/text_padding_vertical"
                             android:singleLine="true"
                             android:textSize="@dimen/font_size_large"
                             android:textStyle="bold" />
@@ -92,11 +92,11 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:drawableLeft="@drawable/ic_location_searching_grey600_24dp"
-                            android:drawablePadding="@dimen/list_entry_padding_horizontal"
+                            android:drawablePadding="@dimen/text_padding_horizontal"
                             android:gravity="left|center_vertical"
-                            android:paddingBottom="@dimen/list_entry_padding_vertical"
-                            android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
-                            android:paddingTop="@dimen/list_entry_padding_vertical"
+                            android:paddingBottom="@dimen/text_padding_vertical"
+                            android:paddingLeft="@dimen/text_padding_horizontal_lax"
+                            android:paddingTop="@dimen/text_padding_vertical"
                             android:singleLine="true"
                             android:textSize="@dimen/font_size_large"
                             android:textStyle="bold" />
@@ -128,8 +128,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_verylax"
-                            android:layout_marginRight="@dimen/list_entry_padding_horizontal_verylax"
+                            android:layout_marginLeft="@dimen/text_padding_horizontal_verylax"
+                            android:layout_marginRight="@dimen/text_padding_horizontal_verylax"
                             android:gravity="center_horizontal"
                             android:orientation="vertical">
 
@@ -147,7 +147,7 @@
                                 style="@style/My.Widget.Button.Border"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/list_entry_padding_vertical_verylax"
+                                android:layout_marginTop="@dimen/text_padding_vertical_verylax"
                                 android:text="@string/stations_list_network_settings" />
                         </LinearLayout>
 
@@ -157,8 +157,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_verylax"
-                            android:layout_marginRight="@dimen/list_entry_padding_horizontal_verylax"
+                            android:layout_marginLeft="@dimen/text_padding_horizontal_verylax"
+                            android:layout_marginRight="@dimen/text_padding_horizontal_verylax"
                             android:gravity="center_horizontal"
                             android:orientation="vertical">
 
@@ -175,7 +175,7 @@
                                 style="@style/My.Widget.Button.Border"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/list_entry_padding_vertical_verylax"
+                                android:layout_marginTop="@dimen/text_padding_vertical_verylax"
                                 android:text="@string/stations_location_permission_request" />
                         </LinearLayout>
 
@@ -185,8 +185,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_verylax"
-                            android:layout_marginRight="@dimen/list_entry_padding_horizontal_verylax"
+                            android:layout_marginLeft="@dimen/text_padding_horizontal_verylax"
+                            android:layout_marginRight="@dimen/text_padding_horizontal_verylax"
                             android:gravity="center_horizontal"
                             android:orientation="vertical">
 
@@ -201,7 +201,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
+                                android:layout_marginTop="@dimen/text_padding_vertical_lax"
                                 android:gravity="center"
                                 android:maxWidth="256dp"
                                 android:text="@string/stations_list_cannot_acquire_location_hint" />
@@ -211,7 +211,7 @@
                                 style="@style/My.Widget.Button.Border"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/list_entry_padding_vertical_verylax"
+                                android:layout_marginTop="@dimen/text_padding_vertical_verylax"
                                 android:text="@string/stations_list_location_settings" />
                         </LinearLayout>
 
@@ -221,8 +221,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_verylax"
-                            android:layout_marginRight="@dimen/list_entry_padding_horizontal_verylax"
+                            android:layout_marginLeft="@dimen/text_padding_horizontal_verylax"
+                            android:layout_marginRight="@dimen/text_padding_horizontal_verylax"
                             android:gravity="center_horizontal"
                             android:orientation="vertical">
 
@@ -234,7 +234,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/list_entry_padding_vertical_verylax"
+                                android:layout_marginTop="@dimen/text_padding_vertical_verylax"
                                 android:gravity="center"
                                 android:maxWidth="256dp"
                                 android:text="@string/stations_list_acquiring_location"
@@ -244,7 +244,7 @@
                                 android:id="@+id/stations_list_location_providers"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/list_entry_padding_vertical_verylax" />
+                                android:layout_marginTop="@dimen/text_padding_vertical_verylax" />
                         </LinearLayout>
 
                         <!-- Querying nearby stations -->
@@ -253,8 +253,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_verylax"
-                            android:layout_marginRight="@dimen/list_entry_padding_horizontal_verylax"
+                            android:layout_marginLeft="@dimen/text_padding_horizontal_verylax"
+                            android:layout_marginRight="@dimen/text_padding_horizontal_verylax"
                             android:gravity="center_horizontal"
                             android:orientation="vertical">
 
@@ -266,7 +266,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/list_entry_padding_vertical_verylax"
+                                android:layout_marginTop="@dimen/text_padding_vertical_verylax"
                                 android:gravity="center"
                                 android:maxWidth="256dp"
                                 android:text="@string/stations_list_querying_nearby"
@@ -279,8 +279,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_verylax"
-                            android:layout_marginRight="@dimen/list_entry_padding_horizontal_verylax"
+                            android:layout_marginLeft="@dimen/text_padding_horizontal_verylax"
+                            android:layout_marginRight="@dimen/text_padding_horizontal_verylax"
                             android:gravity="center_horizontal"
                             android:orientation="vertical">
 
@@ -292,7 +292,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/list_entry_padding_vertical_verylax"
+                                android:layout_marginTop="@dimen/text_padding_vertical_verylax"
                                 android:gravity="center"
                                 android:maxWidth="256dp"
                                 android:text="@string/stations_list_matching"
@@ -305,8 +305,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_verylax"
-                            android:layout_marginRight="@dimen/list_entry_padding_horizontal_verylax"
+                            android:layout_marginLeft="@dimen/text_padding_horizontal_verylax"
+                            android:layout_marginRight="@dimen/text_padding_horizontal_verylax"
                             android:gravity="center_horizontal"
                             android:orientation="vertical">
 
@@ -321,7 +321,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
+                                android:layout_marginTop="@dimen/text_padding_vertical_lax"
                                 android:gravity="center"
                                 android:maxWidth="256dp"
                                 android:text="@string/stations_list_empty_nearby_hint" />
@@ -331,7 +331,7 @@
                                 style="@style/My.Widget.Button.Border"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/list_entry_padding_vertical_verylax"
+                                android:layout_marginTop="@dimen/text_padding_vertical_verylax"
                                 android:text="@string/stations_list_network_settings" />
                         </LinearLayout>
 
@@ -341,8 +341,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_verylax"
-                            android:layout_marginRight="@dimen/list_entry_padding_horizontal_verylax"
+                            android:layout_marginLeft="@dimen/text_padding_horizontal_verylax"
+                            android:layout_marginRight="@dimen/text_padding_horizontal_verylax"
                             android:gravity="center_horizontal"
                             android:orientation="vertical">
 
@@ -357,7 +357,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
+                                android:layout_marginTop="@dimen/text_padding_vertical_lax"
                                 android:gravity="center"
                                 android:maxWidth="256dp"
                                 android:text="@string/stations_list_empty_query_hint" />
@@ -370,10 +370,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:layout_marginLeft="@dimen/list_entry_padding_horizontal_verylax"
-                    android:layout_marginRight="@dimen/list_entry_padding_horizontal_verylax"
-                    android:layout_marginTop="@dimen/list_entry_padding_vertical"
-                    android:layout_marginBottom="@dimen/list_entry_padding_vertical"
+                    android:layout_marginLeft="@dimen/text_padding_horizontal_verylax"
+                    android:layout_marginRight="@dimen/text_padding_horizontal_verylax"
+                    android:layout_marginTop="@dimen/text_padding_vertical"
+                    android:layout_marginBottom="@dimen/text_padding_vertical"
                     android:baselineAligned="false"
                     android:orientation="horizontal">
 
@@ -383,7 +383,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
                         android:layout_weight="1"
-                        android:drawablePadding="@dimen/list_entry_padding_horizontal_lax"
+                        android:drawablePadding="@dimen/text_padding_horizontal_lax"
                         android:gravity="bottom|left"
                         android:maxLines="2"
                         android:textSize="@dimen/font_size_disclaimer" />
@@ -419,8 +419,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|left"
-            android:layout_marginBottom="@dimen/list_entry_padding_vertical"
-            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_verylax"
+            android:layout_marginBottom="@dimen/text_padding_vertical"
+            android:layout_marginLeft="@dimen/text_padding_horizontal_verylax"
             android:textSize="@dimen/font_size_disclaimer"
             android:textColor="@color/fg_significant_on_light" />
 

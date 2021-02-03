@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
-        android:paddingRight="@dimen/list_entry_padding_horizontal_lax">
+        android:paddingLeft="@dimen/text_padding_horizontal_lax"
+        android:paddingRight="@dimen/text_padding_horizontal_lax">
 
         <TextView
             android:id="@+id/station_widget_distance"
@@ -52,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
-        android:paddingBottom="@dimen/list_entry_padding_vertical">
+        android:paddingBottom="@dimen/text_padding_vertical">
 
         <ListView
             android:id="@+id/station_widget_departures"

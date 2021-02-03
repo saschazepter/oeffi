@@ -11,17 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingBottom="@dimen/list_entry_padding_vertical_verylax"
-        android:paddingLeft="@dimen/list_entry_padding_horizontal_verylax"
+        android:paddingBottom="@dimen/text_padding_vertical_verylax"
+        android:paddingLeft="@dimen/text_padding_horizontal_verylax"
         android:paddingRight="0px"
-        android:paddingTop="@dimen/list_entry_padding_vertical_verylax">
+        android:paddingTop="@dimen/text_padding_vertical_verylax">
 
         <ImageView
             android:id="@+id/navigation_drawer_entry_icon"
             android:layout_width="36dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+            android:layout_marginRight="@dimen/text_padding_horizontal_lax"
             android:scaleType="fitCenter" />
 
         <LinearLayout

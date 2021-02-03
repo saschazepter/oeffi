@@ -70,10 +70,10 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_verylax"
-            android:layout_marginRight="@dimen/list_entry_padding_horizontal_verylax"
-            android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
-            android:layout_marginBottom="@dimen/list_entry_padding_vertical_lax"
+            android:layout_marginLeft="@dimen/text_padding_horizontal_verylax"
+            android:layout_marginRight="@dimen/text_padding_horizontal_verylax"
+            android:layout_marginTop="@dimen/text_padding_vertical_lax"
+            android:layout_marginBottom="@dimen/text_padding_vertical_lax"
             android:fitsSystemWindows="true">
 
             <de.schildbach.oeffi.util.ZoomControls
