@@ -32,18 +32,12 @@
                 android:textSize="@dimen/font_size_large"
                 android:textStyle="normal" />
 
-            <FrameLayout
-                android:id="@+id/network_picker_firsttime_message_shadow"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@android:id/list"
                 android:layout_width="match_parent"
                 android:layout_height="0px"
-                android:layout_weight="1">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@android:id/list"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clipToPadding="false" />
-            </FrameLayout>
+                android:layout_weight="1"
+                android:clipToPadding="false" />
         </LinearLayout>
     </LinearLayout>
 

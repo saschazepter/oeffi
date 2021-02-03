@@ -149,9 +149,7 @@ public class NetworkPickerActivity extends Activity implements ActivityCompat.On
             return insets;
         });
 
-        if (network == null) {
-            findViewById(R.id.network_picker_firsttime_message_shadow).setForeground(null);
-        } else {
+        if (network != null) {
             findViewById(R.id.network_picker_firsttime_message).setVisibility(View.GONE);
             actionBar.setBack(v -> finish());
             final NetworkId networkId = prefsGetNetworkId();
