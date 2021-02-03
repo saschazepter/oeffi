@@ -15,10 +15,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
-        android:background="#666"
+        android:background="@color/bg_divider"
         android:paddingLeft="3dp"
         android:paddingRight="3dp"
-        android:textColor="#fff"
+        android:textColor="@color/fg_significant_darkdefault"
         android:textStyle="bold" />
 
     <TextView
@@ -29,19 +29,19 @@
         android:layout_weight="1"
         android:ellipsize="middle"
         android:singleLine="true"
-        android:textColor="#fff" />
+        android:textColor="@color/fg_significant_darkdefault" />
 
     <TextView
         android:id="@+id/station_widget_entry_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
-        android:background="#f44"
+        android:background="@color/bg_highlighted_darkdefault"
         android:paddingLeft="3dp"
         android:paddingRight="3dp"
         android:singleLine="true"
         android:text="!"
-        android:textColor="#fff"
+        android:textColor="@color/fg_significant_darkdefault"
         android:textStyle="bold"
         android:visibility="gone"
         tools:ignore="HardcodedText" />
@@ -51,11 +51,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
-        android:background="#bbb"
+        android:background="@color/bg_position_darkdefault"
         android:paddingLeft="3dp"
         android:paddingRight="3dp"
         android:singleLine="true"
-        android:textColor="#000"
+        android:textColor="@color/bg_level0_darkdefault"
         android:textStyle="bold"
         android:visibility="gone" />
 
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
         android:singleLine="true"
-        android:textColor="#f55"
+        android:textColor="@color/fg_highlighted_darkdefault"
         android:textStyle="bold"
         android:visibility="gone" />
 
@@ -75,6 +75,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
         android:singleLine="true"
-        android:textColor="#fff" />
+        android:textColor="@color/fg_significant_darkdefault" />
 
 </LinearLayout>
