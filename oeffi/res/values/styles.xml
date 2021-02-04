@@ -24,6 +24,8 @@
     </style>
 
     <style name="My.Theme.Preference" parent="@android:style/Theme.Material.Light.DarkActionBar">
+        <item name="android:statusBarColor">@color/bg_action_bar</item>
+        <item name="android:navigationBarColor">@color/bg_level0</item>
         <item name="android:actionBarStyle">@style/My.Widget.ActionBar</item>
     </style>
 
