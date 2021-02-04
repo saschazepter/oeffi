@@ -67,6 +67,11 @@ public class MyActionBar extends LinearLayout {
         this.context = context;
         this.res = getResources();
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        setOnApplyWindowInsetsListener((v, insets) -> {
+            v.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
+            return insets;
+        });
     }
 
     @Override
@@ -81,11 +86,6 @@ public class MyActionBar extends LinearLayout {
         progressView = findViewById(R.id.action_bar_progress);
         progressButton = findViewById(R.id.action_bar_progress_button);
         progressImage = findViewById(R.id.action_bar_progress_image);
-
-        // Make sure action bar isn't stuck under a transparent status bar.
-        final int statusHeight = res
-                .getDimensionPixelSize(res.getIdentifier("status_bar_height", "dimen", "android"));
-        setPadding(getPaddingLeft(), getPaddingTop() + statusHeight, getPaddingRight(), getPaddingBottom());
     }
 
     public void setDrawer(final OnClickListener onClickListener) {
