@@ -1,3 +1,8 @@
+v12.0.4
+
+* Target Android 11.
+* Fixed a crash for new users on Android 5.x.
+
 v12.0.3
 
 * For devices running Android 10 and higher, add a light UI mode to app-widget.
