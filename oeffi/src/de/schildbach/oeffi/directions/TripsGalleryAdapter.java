@@ -167,7 +167,7 @@ public final class TripsGalleryAdapter extends BaseAdapter {
         if (timeDiff == 0)
             return minTime;
 
-        return (time - minTime) * height / timeDiff;
+        return (time - minTime) * height / (float) timeDiff;
     }
 
     public View getView(final int position, View view, final ViewGroup parent) {
