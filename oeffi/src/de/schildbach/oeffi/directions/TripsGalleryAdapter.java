@@ -115,7 +115,7 @@ public final class TripsGalleryAdapter extends BaseAdapter {
 
         individualTimePaint.setColor(colorLessSignificant);
         individualTimePaint.setTypeface(Typeface.DEFAULT);
-        individualTimePaint.setTextSize(res.getDimension(R.dimen.font_size_normal) * 0.9f);
+        individualTimePaint.setTextSize(res.getDimension(R.dimen.font_size_normal));
         individualTimePaint.setAntiAlias(true);
         individualTimePaint.setTextAlign(Align.CENTER);
 
