@@ -84,6 +84,7 @@ public class TripsGallery extends Gallery {
         density = res.getDisplayMetrics().density;
         final float strokeWidth = res.getDimension(R.dimen.trips_overview_stroke_width);
         final int colorSignificant = res.getColor(R.color.fg_significant);
+        final int colorSignificantInverse = res.getColor(R.color.fg_significant_inverse);
         final int colorCurrentTime = res.getColor(R.color.bg_current_time);
 
         gridPaint.setColor(Color.GRAY);
@@ -107,7 +108,7 @@ public class TripsGallery extends Gallery {
         currenttimeLabelBackgroundPaint.setStrokeWidth(strokeWidth);
         currenttimeLabelBackgroundPaint.setAntiAlias(true);
 
-        currenttimeLabelTextPaint.setColor(Color.BLACK);
+        currenttimeLabelTextPaint.setColor(colorSignificantInverse);
         currenttimeLabelTextPaint.setAntiAlias(true);
         currenttimeLabelTextPaint.setTextSize(res.getDimension(R.dimen.font_size_normal));
         currenttimeLabelTextPaint.setTypeface(Typeface.DEFAULT_BOLD);

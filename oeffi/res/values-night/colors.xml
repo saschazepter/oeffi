@@ -3,6 +3,7 @@
 
     <!-- foreground -->
     <color name="fg_significant">#ffffff</color>
+    <color name="fg_significant_inverse">#000000</color>
     <color name="fg_less_significant">#aaaaaa</color>
     <color name="fg_insignificant">#888888</color>
     <color name="fg_highlighted">#ff9966</color>

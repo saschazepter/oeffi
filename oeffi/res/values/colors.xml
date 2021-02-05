@@ -3,6 +3,7 @@
 
     <!-- foreground -->
     <color name="fg_significant">#000000</color>
+    <color name="fg_significant_inverse">#ffffff</color>
     <color name="fg_significant_darkdefault">#ffffff</color>
     <color name="fg_less_significant">#999999</color>
     <color name="fg_less_significant_darkdefault">#aaaaaa</color>
@@ -26,7 +27,7 @@
     <color name="bg_selected_entry">#ffcfffaf</color>
     <color name="bg_individual">#cccccc</color>
     <color name="bg_delayed">#cccccc</color>
-    <color name="bg_current_time">#eebb00</color>
+    <color name="bg_current_time">#cc9900</color>
     <color name="bg_position">#757575</color>
     <color name="bg_position_darkdefault">#bbbbbb</color>
     <color name="bg_highlighted_darkdefault">#ff4444</color>
