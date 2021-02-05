@@ -3,7 +3,7 @@
 
     <!-- foreground -->
     <color name="fg_significant_darkdefault">#000000</color>
-    <color name="fg_less_significant_darkdefault">#999999</color>
+    <color name="fg_less_significant_darkdefault">#777777</color>
     <color name="fg_highlighted_darkdefault">#dd9055</color>
 
     <!-- background -->
