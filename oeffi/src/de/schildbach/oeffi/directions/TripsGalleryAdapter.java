@@ -18,6 +18,7 @@
 package de.schildbach.oeffi.directions;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -63,6 +64,7 @@ public final class TripsGalleryAdapter extends BaseAdapter {
     private long minTime = 0, maxTime = 0;
 
     private final Context context;
+    private final boolean darkMode;
 
     private static final int VIEW_TYPE_TRIP = 0;
     private static final int VIEW_TYPE_CANNOT_SCROLL_EARLIER = 1;
@@ -76,6 +78,7 @@ public final class TripsGalleryAdapter extends BaseAdapter {
     private final Paint individualTimePaint = new Paint();
     private final Paint publicTimePaint = new Paint();
     private final Paint cannotScrollPaint = new Paint();
+    private final int colorSignificantInverse;
     private final int colorDelayed;
 
     private static final float ROUNDED_CORNER_RADIUS = 8f;
@@ -85,11 +88,13 @@ public final class TripsGalleryAdapter extends BaseAdapter {
     public TripsGalleryAdapter(final Context context) {
         this.context = context;
         final Resources res = context.getResources();
+        this.darkMode = (res.getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
 
         final float strokeWidth = res.getDimension(R.dimen.trips_overview_entry_box_stroke_width);
         final int colorSignificant = res.getColor(R.color.fg_significant);
         final int colorLessSignificant = res.getColor(R.color.fg_less_significant);
         final int colorIndividual = res.getColor(R.color.bg_individual);
+        colorSignificantInverse = res.getColor(R.color.fg_significant_inverse);
         colorDelayed = res.getColor(R.color.bg_delayed);
 
         tripWidth = res.getDimensionPixelSize(R.dimen.trips_overview_entry_width);
@@ -496,8 +501,9 @@ public final class TripsGalleryAdapter extends BaseAdapter {
                         if (style != null && style.hasBorder()) {
                             publicStrokePaint.setColor(style.borderColor);
                             canvas.drawRoundRect(legBox, radius, radius, publicStrokePaint);
-                        } else if (Style.perceivedBrightness(fillColor) < 0.13f) {
-                            publicStrokePaint.setColor(Color.DKGRAY);
+                        } else if (darkMode && Style.perceivedBrightness(fillColor) < 0.15f ||
+                                !darkMode && Style.perceivedBrightness(fillColor) > 0.85f) {
+                            publicStrokePaint.setColor(colorSignificantInverse);
                             canvas.drawRoundRect(legBox, radius, radius, publicStrokePaint);
                         }
 
