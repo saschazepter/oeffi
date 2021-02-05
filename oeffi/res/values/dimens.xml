@@ -26,7 +26,7 @@
     <dimen name="station_widget_divider_width">0px</dimen>
     <dimen name="directions_form_location_min_height">48dp</dimen>
     <dimen name="directions_form_location_divider_padding">32dp</dimen>
-    <dimen name="trips_overview_stroke_width">1dp</dimen>
+    <dimen name="trips_overview_stroke_width">2dp</dimen>
     <dimen name="trips_overview_entry_width">72dp</dimen>
 
     <item name="trips_overview_entry_public_box_fraction" type="fraction">80%</item>
