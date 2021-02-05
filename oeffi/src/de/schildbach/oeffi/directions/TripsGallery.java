@@ -20,7 +20,6 @@ package de.schildbach.oeffi.directions;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
@@ -56,7 +55,6 @@ public class TripsGallery extends Gallery {
     private final Context context;
     private final int paddingHorizontal, paddingHorizontalCram;
     private final int currentTimeLabelPaddingHorizontal, currentTimeLabelPaddingVertical;
-    private final float density;
     private final java.text.DateFormat timeFormat;
 
     private final TripsGalleryAdapter adapter;
@@ -81,16 +79,16 @@ public class TripsGallery extends Gallery {
         paddingHorizontalCram = res.getDimensionPixelSize(R.dimen.text_padding_horizontal_cram);
         currentTimeLabelPaddingHorizontal = res.getDimensionPixelSize(R.dimen.text_padding_horizontal);
         currentTimeLabelPaddingVertical = res.getDimensionPixelSize(R.dimen.text_padding_vertical);
-        density = res.getDisplayMetrics().density;
         final float strokeWidth = res.getDimension(R.dimen.trips_overview_stroke_width);
         final int colorSignificant = res.getColor(R.color.fg_significant);
+        final int colorInsignificant = res.getColor(R.color.fg_insignificant);
         final int colorSignificantInverse = res.getColor(R.color.fg_significant_inverse);
         final int colorCurrentTime = res.getColor(R.color.bg_current_time);
 
-        gridPaint.setColor(Color.GRAY);
+        gridPaint.setColor(colorInsignificant);
         gridPaint.setStyle(Paint.Style.STROKE);
         gridPaint.setStrokeWidth(strokeWidth);
-        gridPaint.setPathEffect(new DashPathEffect(new float[] { 4f * density, 4f * density }, 0));
+        gridPaint.setPathEffect(new DashPathEffect(new float[] { paddingHorizontalCram, paddingHorizontal }, 0));
         gridPaint.setAntiAlias(false);
 
         gridLabelPaint.setColor(colorSignificant);
