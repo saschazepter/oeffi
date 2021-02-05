@@ -27,6 +27,7 @@ import android.graphics.Paint.Align;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -53,7 +54,8 @@ public class TripsGallery extends Gallery {
     private final Paint currenttimeLabelTextPaint = new Paint();
 
     private final Context context;
-    private final int paddingHorizontal;
+    private final int paddingHorizontal, paddingHorizontalCram;
+    private final int currentTimeLabelPaddingHorizontal, currentTimeLabelPaddingVertical;
     private final float density;
     private final java.text.DateFormat timeFormat;
 
@@ -76,6 +78,9 @@ public class TripsGallery extends Gallery {
 
         final Resources res = getResources();
         paddingHorizontal = res.getDimensionPixelSize(R.dimen.text_padding_horizontal);
+        paddingHorizontalCram = res.getDimensionPixelSize(R.dimen.text_padding_horizontal_cram);
+        currentTimeLabelPaddingHorizontal = res.getDimensionPixelSize(R.dimen.text_padding_horizontal);
+        currentTimeLabelPaddingVertical = res.getDimensionPixelSize(R.dimen.text_padding_vertical);
         density = res.getDisplayMetrics().density;
         final float strokeWidth = res.getDimension(R.dimen.trips_overview_stroke_width);
         final int colorSignificant = res.getColor(R.color.fg_significant);
@@ -104,7 +109,8 @@ public class TripsGallery extends Gallery {
 
         currenttimeLabelTextPaint.setColor(Color.BLACK);
         currenttimeLabelTextPaint.setAntiAlias(true);
-        currenttimeLabelTextPaint.setTextSize(res.getDimension(R.dimen.font_size_small));
+        currenttimeLabelTextPaint.setTextSize(res.getDimension(R.dimen.font_size_normal));
+        currenttimeLabelTextPaint.setTypeface(Typeface.DEFAULT_BOLD);
         currenttimeLabelTextPaint.setTextAlign(Align.CENTER);
 
         timeFormat = DateFormat.getTimeFormat(context);
@@ -319,15 +325,15 @@ public class TripsGallery extends Gallery {
         final String label = timeFormat.format(now);
 
         currenttimeLabelTextPaint.getTextBounds(label, 0, label.length(), bounds);
-        final int inset = Math.round(2 * density);
-        bounds.inset(-inset, -inset);
-        bounds.offsetTo(paddingHorizontal, Math.round(y) - bounds.height());
+        bounds.inset(-currentTimeLabelPaddingHorizontal, -currentTimeLabelPaddingVertical);
+        bounds.offsetTo(paddingHorizontalCram, Math.round(y) - bounds.height());
 
-        canvas.drawLine(bounds.right + paddingHorizontal, y, width, y, currenttimePaint);
-        final float roundRadius = 3 * density;
+        canvas.drawLine(bounds.right + paddingHorizontalCram, y, width, y, currenttimePaint);
+        final float roundRadius = Math.min(currentTimeLabelPaddingHorizontal, currentTimeLabelPaddingVertical);
         boundsF.set(bounds);
         canvas.drawRoundRect(boundsF, roundRadius, roundRadius, currenttimeLabelBackgroundPaint);
-        canvas.drawText(label, bounds.centerX(), bounds.bottom - inset, currenttimeLabelTextPaint);
+        canvas.drawText(label, bounds.centerX(), bounds.bottom - currentTimeLabelPaddingVertical,
+                currenttimeLabelTextPaint);
     }
 
     public interface OnScrollListener {
