@@ -79,11 +79,11 @@ public class TripsGallery extends Gallery {
         paddingHorizontalCram = res.getDimensionPixelSize(R.dimen.text_padding_horizontal_cram);
         currentTimeLabelPaddingHorizontal = res.getDimensionPixelSize(R.dimen.text_padding_horizontal);
         currentTimeLabelPaddingVertical = res.getDimensionPixelSize(R.dimen.text_padding_vertical);
-        final float strokeWidth = res.getDimension(R.dimen.trips_overview_stroke_width);
-        final int colorSignificant = res.getColor(R.color.fg_significant);
-        final int colorInsignificant = res.getColor(R.color.fg_insignificant);
-        final int colorSignificantInverse = res.getColor(R.color.fg_significant_inverse);
-        final int colorCurrentTime = res.getColor(R.color.bg_current_time);
+        final float strokeWidth = res.getDimension(R.dimen.trips_overview_stroke_width_darkdefault);
+        final int colorSignificant = res.getColor(R.color.fg_significant_darkdefault);
+        final int colorInsignificant = res.getColor(R.color.fg_insignificant_darkdefault);
+        final int colorSignificantInverse = res.getColor(R.color.fg_significant_inverse_darkdefault);
+        final int colorCurrentTime = res.getColor(R.color.bg_current_time_darkdefault);
 
         gridPaint.setColor(colorInsignificant);
         gridPaint.setStyle(Paint.Style.STROKE);

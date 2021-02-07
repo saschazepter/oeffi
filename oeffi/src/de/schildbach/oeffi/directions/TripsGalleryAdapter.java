@@ -34,6 +34,7 @@ import android.graphics.Shader;
 import android.graphics.Shader.TileMode;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.view.View;
@@ -88,14 +89,18 @@ public final class TripsGalleryAdapter extends BaseAdapter {
     public TripsGalleryAdapter(final Context context) {
         this.context = context;
         final Resources res = context.getResources();
-        this.darkMode = (res.getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+            this.darkMode =
+                    (res.getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+        else
+            this.darkMode = true;
 
         final float strokeWidth = res.getDimension(R.dimen.trips_overview_entry_box_stroke_width);
-        final int colorSignificant = res.getColor(R.color.fg_significant);
-        final int colorLessSignificant = res.getColor(R.color.fg_less_significant);
-        final int colorIndividual = res.getColor(R.color.bg_individual);
-        colorSignificantInverse = res.getColor(R.color.fg_significant_inverse);
-        colorDelayed = res.getColor(R.color.bg_delayed);
+        final int colorSignificant = res.getColor(R.color.fg_significant_darkdefault);
+        final int colorLessSignificant = res.getColor(R.color.fg_less_significant_darkdefault);
+        final int colorIndividual = res.getColor(R.color.bg_individual_darkdefault);
+        colorSignificantInverse = res.getColor(R.color.fg_significant_inverse_darkdefault);
+        colorDelayed = res.getColor(R.color.bg_delayed_darkdefault);
 
         tripWidth = res.getDimensionPixelSize(R.dimen.trips_overview_entry_width);
 

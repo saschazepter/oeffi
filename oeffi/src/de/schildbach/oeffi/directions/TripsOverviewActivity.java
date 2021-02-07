@@ -137,7 +137,7 @@ public class TripsOverviewActivity extends OeffiActivity {
         });
 
         final MyActionBar actionBar = getMyActionBar();
-        setPrimaryColor(R.color.bg_action_bar_directions);
+        setPrimaryColor(R.color.bg_action_bar_directions_darkdefault);
         actionBar.setBack(v -> finish());
         actionBar.setCustomTitles(R.layout.directions_trip_overview_custom_title);
         actionBar.addProgressButton().setOnClickListener(v -> handler.post(checkMoreRunnable));

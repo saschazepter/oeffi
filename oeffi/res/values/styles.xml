@@ -16,6 +16,14 @@
         <item name="android:popupMenuStyle">@style/My.Widget.PopupMenu</item>
     </style>
 
+    <style name="My.Theme.DarkDefault" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/bg_level0_darkdefault</item>
+        <item name="android:statusBarColor">@color/bg_status_bar</item>
+        <item name="android:navigationBarColor">@color/bg_navigation_bar</item>
+        <item name="android:textViewStyle">@style/My.Widget.TextView.DarkDefault</item>
+        <item name="android:imageButtonStyle">@style/My.Widget.ImageButton</item>
+    </style>
+
     <style name="My.Theme.Fullscreen" parent="@android:style/Theme.Material.Light.NoActionBar.Fullscreen">
         <item name="android:windowBackground">@android:color/black</item>
         <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="27">shortEdges</item>

@@ -486,7 +486,8 @@
         <activity
             android:name=".directions.TripsOverviewActivity"
             android:configChanges="keyboard|keyboardHidden"
-            android:taskAffinity="de.schildbach.oeffi.directions" />
+            android:taskAffinity="de.schildbach.oeffi.directions"
+            android:theme="@style/My.Theme.DarkDefault" />
 
         <activity
             android:name=".directions.TripDetailsActivity"

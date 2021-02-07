@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="My.Theme.DarkDefault" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/bg_level0_darkdefault</item>
+        <item name="android:statusBarColor">@color/bg_status_bar</item>
+        <item name="android:navigationBarColor">@color/bg_navigation_bar</item>
+        <item name="android:textViewStyle">@style/My.Widget.TextView.DarkDefault</item>
+        <item name="android:imageButtonStyle">@style/My.Widget.ImageButton</item>
+    </style>
+
+    <style name="My.Widget.TextView.DarkDefault" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">@color/fg_significant_darkdefault</item>
+        <item name="android:textSize">@dimen/font_size_normal</item>
+    </style>
+
+</resources>
