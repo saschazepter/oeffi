@@ -1,3 +1,7 @@
+v12.0.7
+
+* Fixed contacts permission and dropped calendar permission.
+
 v12.0.6
 
 * Switch trips overview back to dark mode by default on Android 9 (and lower) devices.
