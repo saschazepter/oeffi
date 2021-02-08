@@ -23,7 +23,8 @@ import android.content.pm.PackageManager;
 import okhttp3.HttpUrl;
 
 public enum Installer {
-    F_DROID("F-Droid"), GOOGLE_PLAY("Google Play"), AMAZON_APPSTORE("Amazon Appstore"), AURORA_STORE("Aurora Store");
+    F_DROID("F-Droid"), GOOGLE_PLAY("Google Play"), AMAZON_APPSTORE("Amazon Appstore"),
+    AURORA_STORE("Aurora Store"), HUAWEI_APP_GALLERY("Huawei AppGallery");
 
     public final String displayName;
 
@@ -46,6 +47,8 @@ public enum Installer {
             return AMAZON_APPSTORE;
         if ("com.aurora.store".equals(installerPackageName))
             return AURORA_STORE;
+        if ("com.huawei.appmarket".equals(installerPackageName))
+            return HUAWEI_APP_GALLERY;
         return null;
     }
 
@@ -64,6 +67,8 @@ public enum Installer {
         } else if (this == AMAZON_APPSTORE) {
             url = HttpUrl.parse("https://www.amazon.com/gp/mas/dl/android").newBuilder();
             url.addQueryParameter("p", application.getPackageName());
+        } else if (this == HUAWEI_APP_GALLERY) {
+            url = null;
         } else {
             throw new IllegalStateException(this.toString());
         }
