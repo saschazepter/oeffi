@@ -326,7 +326,6 @@
     <string name="alert_crash_report_new_version">Es gibt eine neue Öffi-Version %s. Du solltest aktualisieren, denn möglicherweise wurde dein Problem schon behoben.</string>
     <string name="alert_crash_report_message">Möchtest du einen Fehlerbericht senden, um dabei zu helfen das Problem zu lösen?</string>
     <string name="alert_crash_report_positive">Senden</string>
-    <string name="alert_crash_report_update">Google Play</string>
     <string name="alert_crash_report_download">Herunterladen</string>
     <string name="alert_crash_report_negative">Schließen</string>
     <string name="notification_channel_appwidget_name">App-Widget-Aktivität</string>

@@ -327,7 +327,6 @@
     <string name="alert_crash_report_new_version">There is a new Offi version %s available. You should update, as your problem might already have been fixed.</string>
     <string name="alert_crash_report_message">Would you like to send a crash report, helping to fix this issue in the future?</string>
     <string name="alert_crash_report_positive">Send</string>
-    <string name="alert_crash_report_update">Google Play</string>
     <string name="alert_crash_report_download">Download</string>
     <string name="alert_crash_report_negative">Dismiss</string>
     <string name="notification_channel_appwidget_name">App-widget activity</string>
