@@ -254,6 +254,7 @@
 
     <!-- directions trip details options -->
     <string name="directions_trip_details_action_calendar_title">Zum Kalender hinzufügen</string>
+    <string name="directions_trip_details_action_calendar_notfound">Es ist keine Kalender-App installiert</string>
     <string name="directions_trip_details_action_track_title">Ortung</string>
     <string name="directions_trip_details_action_share_title">Weiterleiten…</string>
     <string name="directions_trip_details_action_share_short_title">Kurznachricht weiterleiten…</string>

@@ -18,6 +18,7 @@
 package de.schildbach.oeffi.directions;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -257,10 +258,14 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
                     });
                     popupMenu.show();
                 });
-        if (getPackageManager().resolveActivity(scheduleTripIntent, 0) != null) {
-            actionBar.addButton(R.drawable.ic_today_white_24dp, R.string.directions_trip_details_action_calendar_title)
-                    .setOnClickListener(v -> startActivity(scheduleTripIntent));
-        }
+        actionBar.addButton(R.drawable.ic_today_white_24dp, R.string.directions_trip_details_action_calendar_title)
+                .setOnClickListener(v -> {
+                    try {
+                        startActivity(scheduleTripIntent);
+                    } catch (final ActivityNotFoundException x) {
+                        new Toast(this).longToast(R.string.directions_trip_details_action_calendar_notfound);
+                    }
+                });
 
         legsGroup = findViewById(R.id.directions_trip_details_legs_group);
 
