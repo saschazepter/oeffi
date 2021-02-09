@@ -996,7 +996,8 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
             @Override
             protected void onPostExecute() {
                 viewGo.setClickable(true);
-                progressDialog.dismiss();
+                if (!isDestroyed())
+                    progressDialog.dismiss();
             }
 
             @Override
