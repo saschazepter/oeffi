@@ -20,12 +20,14 @@ package de.schildbach.oeffi.preference;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import androidx.annotation.Nullable;
 import de.schildbach.oeffi.Application;
-import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.R;
+import de.schildbach.oeffi.util.Installer;
 
 public class AboutFragment extends PreferenceFragment {
     private static final String KEY_ABOUT_VERSION = "about_version";
@@ -48,11 +50,23 @@ public class AboutFragment extends PreferenceFragment {
 
         addPreferencesFromResource(R.xml.preference_about);
         findPreference(KEY_ABOUT_VERSION).setSummary(application.packageInfo().versionName);
-        final Uri marketUri = Uri.parse(String.format(Constants.MARKET_APP_URL, application.getPackageName()));
-        findPreference(KEY_ABOUT_MARKET_APP).setSummary(marketUri.toString());
-        findPreference(KEY_ABOUT_MARKET_APP).setIntent(new Intent(Intent.ACTION_VIEW, marketUri));
+        final Installer installer = Installer.from(application);
+        if (installer != null) {
+            final Uri marketUri = installer.appMarketUriFor(application);
+            findPreference(KEY_ABOUT_MARKET_APP).setSummary(marketUri.toString());
+            findPreference(KEY_ABOUT_MARKET_APP).setIntent(new Intent(Intent.ACTION_VIEW, marketUri));
+        } else {
+            removeOrDisablePreference(findPreference(KEY_ABOUT_MARKET_APP));
+        }
         final Uri changelogUri = Uri.parse(activity.getString(R.string.about_changelog_summary));
         findPreference(KEY_ABOUT_CHANGELOG).setSummary(changelogUri.toString());
         findPreference(KEY_ABOUT_CHANGELOG).setIntent(new Intent(Intent.ACTION_VIEW, changelogUri));
+    }
+
+    private void removeOrDisablePreference(final Preference preference) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            preference.getParent().removePreference(preference);
+        else
+            preference.setEnabled(false);
     }
 }

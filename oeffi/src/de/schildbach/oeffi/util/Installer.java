@@ -20,6 +20,7 @@ package de.schildbach.oeffi.util;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import okhttp3.HttpUrl;
 
 public enum Installer {
@@ -73,5 +74,15 @@ public enum Installer {
             throw new IllegalStateException(this.toString());
         }
         return url.build();
+    }
+
+    public Uri appMarketUriFor(final Context context) {
+        final Uri.Builder uri;
+        if (this == HUAWEI_APP_GALLERY)
+            uri = Uri.parse("appmarket://details").buildUpon();
+        else
+            uri = Uri.parse("market://details").buildUpon();
+        uri.appendQueryParameter("id", context.getPackageName());
+        return uri.build();
     }
 }

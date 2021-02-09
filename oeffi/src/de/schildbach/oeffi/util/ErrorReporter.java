@@ -366,8 +366,7 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler {
             if (installer != null) {
                 builder.setNeutralButton(installer.displayName, (dialog, which) -> {
                     stackTraceFile.delete();
-                    context.startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("market://details?id=" + context.getPackageName())));
+                    context.startActivity(new Intent(Intent.ACTION_VIEW, installer.appMarketUriFor(context)));
                 });
             }
             builder.setPositiveButton(R.string.alert_crash_report_download, (dialog, which) -> {
