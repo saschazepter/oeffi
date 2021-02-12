@@ -68,7 +68,7 @@
     <string name="network_oebb_label">ÖBB-Personenverkehr AG</string>
     <string name="network_oebb_comment">Österreich, Fern- und Regionalverkehr (z.B. Wien, Graz, Linz, Salzburg, Innsbruck)</string>
     <string name="network_wien_label">Wien</string>
-    <string name="network_wien_comment">Nicht verfügbar, weil die Wiener Linien ihre Open Data (OGD) API abgeschaltet haben.</string>
+    <string name="network_wien_comment">nur Lokalverkehr, aber Echtzeit</string>
     <string name="network_vor_label">Niederösterreich &amp; Burgenland</string>
     <string name="network_vor_comment">Nicht verfügbar, weil der VOR leider keine freie Schnittstelle mehr anbietet. Du kannst stattdessen die ÖBB verwenden, das funktioniert für Niederösterreich und das Burgenland auch gut.</string>
     <string name="network_linz_label">Linz</string>
