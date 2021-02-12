@@ -1,3 +1,7 @@
+v12.0.8
+
+* Migrate repository to Maven Central, as JCenter is shutting down.
+
 v12.0.7
 
 * Fixed contacts permission and dropped calendar permission.
