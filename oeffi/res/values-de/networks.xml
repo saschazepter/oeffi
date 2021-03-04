@@ -39,8 +39,8 @@
     <string name="network_nasa_comment">Lokal- und Regionalverkehr</string>
     <string name="network_vmt_label">Erfurt, Jena &amp; Mittelthüringen</string>
     <string name="network_vmt_comment">Lokal- und Regionalverkehr</string>
-    <string name="network_vvo_label">Dresden</string>
-    <string name="network_vvo_comment">Lokal- und Regionalverkehr</string>
+    <string name="network_vvo_label">Verkehrsverbund Oberelbe</string>
+    <string name="network_vvo_comment">Dresden, Lokal- und Regionalverkehr</string>
     <string name="network_vms_label">Verkehrsverbund Mittelsachsen</string>
     <string name="network_vms_comment">Chemnitz &amp; Mittelsachsen, Lokal- und Regionalverkehr</string>
     <string name="network_vrr_label">Verkehrsverbund Rhein-Ruhr</string>
