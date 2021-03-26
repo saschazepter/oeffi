@@ -1,4 +1,4 @@
-v12.0.8
+v12.0.8-v12.0.9
 
 * Migrate repository to Maven Central, as JCenter is shutting down.
 
