@@ -144,7 +144,7 @@ public final class NetworkProviderFactory {
         else if (networkId.equals(NetworkId.VVO))
             return new VvoProvider();
         else if (networkId.equals(NetworkId.VMS))
-            return new VmsProvider(HttpUrl.parse("https://www.vms.de/Oeffi/"));
+            return new VmsProvider(HttpUrl.parse("https://efa.vms.de/Oeffi/"));
         else if (networkId.equals(NetworkId.VRR))
             return new VrrProvider();
         else if (networkId.equals(NetworkId.VRS))
