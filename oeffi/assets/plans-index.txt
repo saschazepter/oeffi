@@ -61,6 +61,7 @@ bremen_stadt|53.08319,8.81360|2020-02|Bremen Stadtnetz (geografisch)|BSAG
 hamburg_usar|53.552946,10.006782|2020-12-13|Hamburg Schnellbahn/Regional|HVV
 hamburg_metrobus_gross|53.552946,10.006782|2020-12-13|Hamburg MetroBus Großbereich|HVV
 hamburg_region|53.552946,10.006782|2019-12-15|Hamburg Regionalverkehr|HVV
+hvv_tarifplan_usar_schematisch|53.552946,10.006782|2019-12-15|Hamburg Tarifplan USAR|HVV
 kiel_liniennetz|54.313282,10.132341|2019-12|Kiel Liniennetz|KVG
 kiel_nacht|54.313282,10.132341|2019-12|Kiel Nachtliniennetz|KVG
 luebeck_region|53.858795,10.664646|2018-12-09|Lübeck Liniennetz Region|LVG, nah.sh, Stadtverkehr Lübeck||SH
