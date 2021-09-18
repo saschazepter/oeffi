@@ -53,7 +53,6 @@ import de.schildbach.pte.ParisProvider;
 import de.schildbach.pte.PlProvider;
 import de.schildbach.pte.RtProvider;
 import de.schildbach.pte.RtaChicagoProvider;
-import de.schildbach.pte.SbbProvider;
 import de.schildbach.pte.SeProvider;
 import de.schildbach.pte.ShProvider;
 import de.schildbach.pte.SncbProvider;
@@ -176,8 +175,6 @@ public final class NetworkProviderFactory {
             return new StvProvider();
         else if (networkId.equals(NetworkId.CZECH_REPUBLIC))
             return new CzechRepublicProvider(NAVITIA_AUTHORIZATION);
-        else if (networkId.equals(NetworkId.SBB))
-            return new SbbProvider();
         else if (networkId.equals(NetworkId.VBL))
             return new VblProvider();
         else if (networkId.equals(NetworkId.ZVV))

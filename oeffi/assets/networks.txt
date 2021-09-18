@@ -50,7 +50,6 @@ VMOBIL|de-AT|Vorarlberg;Bregenz|disabled
 CZECH_REPUBLIC|cs-CZ|Tschechien;Praha;Prag|beta
 
 # CH
-SBB|de-CH|CH
 VBL|de-CH|Luzern
 ZVV|de-CH|Zürich
 

@@ -114,6 +114,12 @@ public class Application extends android.app.Application {
         for (final File file : getFilesDir().listFiles(filter))
             file.delete();
 
+        // 2021-09-18: migrate SBB to use RT
+        final String SBB = "SBB";
+        migrateSelectedNetwork(SBB, NetworkId.RT);
+        FavoriteStationsProvider.deleteFavoriteStations(this, SBB);
+        QueryHistoryProvider.deleteQueryHistory(this, SBB);
+
         log.info("Migrations took {}", watch);
 
         initNotificationManager();

@@ -85,8 +85,6 @@
     <string name="network_vmobil_comment">Not available, because the VVV explicitly desires not to be included in Offi. You can use the ÖBB instead, it works well for Vorarlberg too.</string>
     <string name="network_czech_republic_label">Prague</string>
     <string name="network_czech_republic_comment">local and regional</string>
-    <string name="network_sbb_comment">long-distance and regional (e.g. Geneva, Basel, Bern)</string>
-    <string name="network_sbb_label">Switzerland</string>
     <string name="network_vbl_label">Lucerne</string>
     <string name="network_vbl_comment">tram and bus only</string>
     <string name="network_zvv_label">Zurich</string>
