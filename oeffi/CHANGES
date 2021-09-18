@@ -1,3 +1,7 @@
+v12.0.12
+
+* Remove region: Schweizerische Bundesbahnen (SBB)
+
 v12.0.8-v12.0.11
 
 * Migrate repository to Maven Central, as JCenter is shutting down.
