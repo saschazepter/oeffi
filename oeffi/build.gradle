@@ -94,7 +94,6 @@ android {
         exclude 'META-INF/proguard/**'
         exclude 'META-INF/*.kotlin_module'
         exclude 'kotlin/**'
-        exclude 'okhttp3/internal/publicsuffix/publicsuffixes.gz'
     }
 }
 
