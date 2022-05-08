@@ -85,8 +85,6 @@
     <string name="network_vmobil_comment">Nicht verfügbar, weil der VVV ausdrücklich darum gebeten hat, nicht in Öffi enthalten zu sein. Du kannst stattdessen die ÖBB verwenden, das funktioniert für Vorarlberg auch gut.</string>
     <string name="network_czech_republic_label">Prag</string>
     <string name="network_czech_republic_comment">Lokal- und Regionalverkehr</string>
-    <string name="network_sbb_label">Schweiz</string>
-    <string name="network_sbb_comment">Fern- und Regionalverkehr (z.B. Genf, Basel, Bern)</string>
     <string name="network_vbl_label">Luzern</string>
     <string name="network_vbl_comment">nur Tram und Bus</string>
     <string name="network_zvv_label">Zürich</string>

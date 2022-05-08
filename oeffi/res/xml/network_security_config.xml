@@ -18,8 +18,6 @@
         <domain includeSubdomains="false">mobil.vbl.ch</domain><!-- VBL -->
         <domain includeSubdomains="false">efa.vvo-online.de</domain><!-- VVO -->
         <domain includeSubdomains="false">mobil.rozklad-pkp.pl</domain><!-- PKP -->
-        <domain includeSubdomains="false">efa.mobilitaetsverbund.de</domain><!-- VVM -->
-        <domain includeSubdomains="false">fahrplan.sbb.ch</domain><!-- SBB -->
     </domain-config>
 
 </network-security-config>
