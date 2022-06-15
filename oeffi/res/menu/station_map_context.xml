@@ -3,24 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/station_map_context_google_maps"
+        android:id="@+id/station_map_context_maps"
         android:orderInCategory="1"
-        android:title="@string/map_dialog_google_maps" />
-    <item
-        android:id="@+id/station_map_context_amazon_maps"
-        android:orderInCategory="1"
-        android:title="@string/map_dialog_amazon_maps" />
-    <item
-        android:id="@+id/station_map_context_openstreetmap"
-        android:orderInCategory="1"
-        android:title="@string/map_dialog_openstreetmap" />
-    <item
-        android:id="@+id/station_map_context_google_street_view"
-        android:orderInCategory="1"
-        android:title="@string/map_dialog_google_street_view" />
-    <item
-        android:id="@+id/station_map_context_google_navigation"
-        android:orderInCategory="1"
-        android:title="@string/map_dialog_google_navigation" />
+        android:title="@string/map_dialog_maps" />
 
 </menu>

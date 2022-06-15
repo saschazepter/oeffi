@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="map_dialog_google_maps">Google Maps</string>
-    <string name="map_dialog_amazon_maps">Amazon Maps</string>
-    <string name="map_dialog_openstreetmap">OpenStreetMap</string>
-    <string name="map_dialog_google_street_view">Street View</string>
-    <string name="map_dialog_google_navigation">Navigation für Fußgänger</string>
+    <string name="map_dialog_maps">externe Karte</string>
 
 </resources>
