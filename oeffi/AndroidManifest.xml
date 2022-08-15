@@ -86,6 +86,7 @@
 
         <activity
             android:name=".stations.StationsActivity"
+            android:exported="true"
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/stations_icon_label"
             android:launchMode="singleTop"
@@ -118,6 +119,7 @@
 
         <activity
             android:name=".stations.StationDetailsActivity"
+            android:exported="true"
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/station_details_activity_title"
             android:taskAffinity="de.schildbach.oeffi.stations">
@@ -206,6 +208,7 @@
 
         <activity
             android:name=".stations.DecodeForeignActivity"
+            android:exported="true"
             android:launchMode="singleInstance"
             android:taskAffinity="de.schildbach.oeffi.stations"
             android:theme="@style/My.Theme.Translucent">
@@ -236,6 +239,7 @@
 
         <receiver
             android:name=".stations.NearestFavoriteStationWidgetProvider"
+            android:exported="false"
             android:label="@string/nearest_favorite_station_widget_label">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -257,6 +261,7 @@
 
         <activity
             android:name=".directions.DirectionsActivity"
+            android:exported="true"
             android:configChanges="keyboard|keyboardHidden"
             android:icon="@mipmap/ic_oeffi_directions_color_48dp"
             android:label="@string/directions_icon_label"
@@ -496,6 +501,7 @@
 
         <activity
             android:name=".directions.DirectionsShortcutActivity"
+            android:exported="true"
             android:launchMode="singleInstance"
             android:taskAffinity="de.schildbach.oeffi.directions"
             android:theme="@style/My.Theme.Translucent">
@@ -511,6 +517,7 @@
 
         <activity
             android:name=".plans.PlansPickerActivity"
+            android:exported="true"
             android:configChanges="keyboard|keyboardHidden"
             android:icon="@mipmap/ic_oeffi_plans_color_48dp"
             android:label="@string/plans_icon_label"
@@ -533,6 +540,7 @@
 
         <activity
             android:name=".plans.PlanActivity"
+            android:exported="true"
             android:configChanges="keyboard|keyboardHidden"
             android:launchMode="singleTop"
             android:taskAffinity="de.schildbach.oeffi.plans"
