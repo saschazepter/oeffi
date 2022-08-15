@@ -19,8 +19,8 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.schildbach.oeffi"
-    android:versionCode="120020"
-    android:versionName="12.0.20">
+    android:versionCode="120021"
+    android:versionName="12.0.21">
 
     <uses-sdk
         android:minSdkVersion="21"
