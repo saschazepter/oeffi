@@ -30,8 +30,6 @@ public class Constants {
     public static final String PLAN_INDEX_FILENAME = "plans-index.txt";
     public static final String PLAN_STATIONS_FILENAME = "plans-stations.txt";
 
-    public static final String BITCOIN_ADDRESS = "bc1q8ruc8hanp7hrzfs48dvtuzz4ukmpe7cgsvvzrt";
-
     public static final String REPORT_EMAIL = "oeffi.app@gmail.com";
 
     public static final long LOCATION_UPDATE_FREQ_MS = 10 * DateUtils.SECOND_IN_MILLIS;

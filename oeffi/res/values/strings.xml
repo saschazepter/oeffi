@@ -60,6 +60,7 @@
     <string name="about_donate_title">Donations</string>
     <string name="about_donate_bitcoin_title">Donate Bitcoins</string>
     <string name="about_donate_bitcoin_summary">Bitcoin is an Internet currency.</string>
+    <string name="about_donate_bitcoin_uri">bitcoin:bc1q8ruc8hanp7hrzfs48dvtuzz4ukmpe7cgsvvzrt</string>
     <string name="about_donate_euro_title">Donate Euros</string>
     <string name="about_donate_euro_summary">https://oeffi.schildbach.de/donate.html</string>
 

@@ -20,21 +20,12 @@ package de.schildbach.oeffi.preference;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import androidx.annotation.Nullable;
-import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.R;
-import de.schildbach.wallet.integration.android.BitcoinIntegration;
 
 public class DonateFragment extends PreferenceFragment {
-    private static final String KEY_ABOUT_DONATE_BITCOIN = "about_donate_bitcoin";
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         addPreferencesFromResource(R.xml.preference_donate);
-        findPreference(KEY_ABOUT_DONATE_BITCOIN).setOnPreferenceClickListener(preference -> {
-            BitcoinIntegration.request(getActivity(), Constants.BITCOIN_ADDRESS);
-            return true;
-        });
     }
 }
