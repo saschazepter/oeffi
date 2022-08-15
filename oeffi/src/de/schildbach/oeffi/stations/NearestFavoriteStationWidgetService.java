@@ -135,7 +135,7 @@ public class NearestFavoriteStationWidgetService extends JobIntentService {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
                 (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
             final PendingIntent intent = PendingIntent.getActivity(this, 0, new Intent(this,
-                    NearestFavoriteStationsWidgetPermissionActivity.class), 0);
+                    NearestFavoriteStationsWidgetPermissionActivity.class), PendingIntent.FLAG_IMMUTABLE);
             widgetsMessage(appWidgetIds, getString(R.string.nearest_favorite_station_widget_no_location_permission), intent);
             log.info("No location permission");
             return;
@@ -381,7 +381,7 @@ public class NearestFavoriteStationWidgetService extends JobIntentService {
         intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[] { appWidgetId });
         intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
-        return PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        return PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
     }
 
     private static class Favorite implements Comparable<Favorite> {
