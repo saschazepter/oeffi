@@ -42,30 +42,8 @@ public class LocationUriParser {
         }
 
         final String scheme = uri.getScheme();
-        final String host = uri.getHost();
-        final String query = uri.getQuery();
 
-        if (("http".equals(scheme) || "https".equals(scheme)) && "maps.google.com".equals(host)) {
-            final String q = getQueryParameter(query, "q");
-
-            final String saddr = getQueryParameter(query, "saddr");
-            final String sll = getQueryParameter(query, "sll");
-            final Location fromLocation;
-            if (saddr != null)
-                fromLocation = parseAddrParam(saddr, null);
-            else if (sll != null)
-                fromLocation = parseAddrParam(sll, q);
-            else if (q != null)
-                fromLocation = new Location(LocationType.ANY, null, null, q);
-            else
-                fromLocation = null;
-
-            final String daddr = getQueryParameter(query, "daddr");
-            if (daddr != null)
-                return new Location[] { fromLocation, parseAddrParam(daddr, null) };
-            else
-                return new Location[] { fromLocation };
-        } else if ("google.navigation".equals(scheme)) {
+        if ("google.navigation".equals(scheme)) {
             final Location location;
             if (uri.isOpaque())
                 location = parseGoogleNavigation(uri.getSchemeSpecificPart());

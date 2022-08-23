@@ -24,66 +24,6 @@ import org.junit.Test;
 
 public class LocationUriParserTest {
     @Test
-    public void googleNow() throws Exception {
-        final Location[] results = LocationUriParser.parseLocations(
-                "http://maps.google.com/maps/?saddr=@53.5878849,9.9050791&daddr=home@52.36894989013672,9.719719886779785&layer=t&dirflg=d");
-
-        Assert.assertEquals(2, results.length);
-        final Location fromLocation = results[0];
-        final Location toLocation = results[1];
-
-        Assert.assertEquals(LocationType.ADDRESS, fromLocation.type);
-        Assert.assertEquals(9905079, fromLocation.getLonAs1E6());
-        Assert.assertEquals(53587885, fromLocation.getLatAs1E6());
-        Assert.assertNull(fromLocation.name);
-
-        Assert.assertEquals(LocationType.ADDRESS, toLocation.type);
-        Assert.assertEquals(9719720, toLocation.getLonAs1E6());
-        Assert.assertEquals(52368950, toLocation.getLatAs1E6());
-        Assert.assertEquals("home", toLocation.name);
-    }
-
-    @Test
-    public void oldGoogleNow() throws Exception {
-        final Location[] results = LocationUriParser.parseLocations(
-                "http://maps.google.com/maps?daddr=52.52568054199219,13.374129295349121(Work)&dirflg=r&saddr=52.5360876,13.4263088");
-
-        Assert.assertEquals(2, results.length);
-        final Location fromLocation = results[0];
-        final Location toLocation = results[1];
-
-        Assert.assertEquals(LocationType.COORD, fromLocation.type);
-        Assert.assertEquals(13426309, fromLocation.getLonAs1E6());
-        Assert.assertEquals(52536088, fromLocation.getLatAs1E6());
-        Assert.assertNull(fromLocation.name);
-
-        Assert.assertEquals(LocationType.ADDRESS, toLocation.type);
-        Assert.assertEquals(13374129, toLocation.getLonAs1E6());
-        Assert.assertEquals(52525681, toLocation.getLatAs1E6());
-        Assert.assertEquals("Work", toLocation.name);
-    }
-
-    @Test
-    public void artem() throws Exception {
-        final Location[] results = LocationUriParser.parseLocations(
-                "http://maps.google.com/maps?saddr=52.5474,13.344510000000014&daddr=52.5057193,13.353883799999949");
-
-        Assert.assertEquals(2, results.length);
-        final Location fromLocation = results[0];
-        final Location toLocation = results[1];
-
-        Assert.assertEquals(LocationType.COORD, fromLocation.type);
-        Assert.assertEquals(13344510, fromLocation.getLonAs1E6());
-        Assert.assertEquals(52547400, fromLocation.getLatAs1E6());
-        Assert.assertNull(fromLocation.name);
-
-        Assert.assertEquals(LocationType.COORD, toLocation.type);
-        Assert.assertEquals(13353884, toLocation.getLonAs1E6());
-        Assert.assertEquals(52505719, toLocation.getLatAs1E6());
-        Assert.assertNull(toLocation.name);
-    }
-
-    @Test
     public void googleNavigationThrownByGoogleNow() throws Exception {
         // "Take me to Alexanderplatz"
 
@@ -223,22 +163,6 @@ public class LocationUriParserTest {
     }
 
     @Test
-    public void calendar() throws Exception {
-        final Location[] results = LocationUriParser.parseLocations(
-                "http://maps.google.com/maps?q=motion*s Tanz- und Bewegungsstudio - Stella Caric GmbH, Prinzenstraße 85, Aufgang B1 - Zugang von der Oranienstraße, 10969 Berlin, Germany&sll=52.50352,13.409187999999972&radius=5");
-
-        Assert.assertEquals(1, results.length);
-        final Location location = results[0];
-
-        Assert.assertEquals(LocationType.ADDRESS, location.type);
-        Assert.assertEquals(52503520, location.getLatAs1E6());
-        Assert.assertEquals(13409188, location.getLonAs1E6());
-        Assert.assertEquals(
-                "motion*s Tanz- und Bewegungsstudio - Stella Caric GmbH, Prinzenstraße 85, Aufgang B1 - Zugang von der Oranienstraße, 10969 Berlin, Germany",
-                location.name);
-    }
-
-    @Test
     public void geoVariant() throws Exception {
         final Location[] results = LocationUriParser.parseLocations("geo:52.1333313,11.60000038?z=6");
 
@@ -249,17 +173,6 @@ public class LocationUriParserTest {
         Assert.assertEquals(52133331, location.getLatAs1E6());
         Assert.assertEquals(11600000, location.getLonAs1E6());
         Assert.assertNull(location.name);
-    }
-
-    @Test
-    public void googleCalendarWithAddress() throws Exception {
-        final Location[] results = LocationUriParser.parseLocations(
-                "https://maps.google.com/?q=Husemannstra%C3%9Fe,+10435+Berlin,+Germany&ftid=0x47a84e01b6fb4d0b:0x65bf58162bae72fb");
-        Assert.assertEquals(1, results.length);
-        final Location location = results[0];
-        Assert.assertEquals(LocationType.ANY, location.type);
-        Assert.assertFalse(location.hasCoord());
-        Assert.assertEquals("Husemannstraße, 10435 Berlin, Germany", location.name);
     }
 
     @Test(expected = RuntimeException.class)
