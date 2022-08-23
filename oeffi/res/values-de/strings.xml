@@ -330,7 +330,6 @@
     <string name="alert_crash_report_positive">Senden</string>
     <string name="alert_crash_report_download">Herunterladen</string>
     <string name="alert_crash_report_negative">Schließen</string>
-    <string name="notification_channel_appwidget_name">App-Widget-Aktivität</string>
 
     <!-- products -->
     <string name="product_i">Fernverkehr</string>
