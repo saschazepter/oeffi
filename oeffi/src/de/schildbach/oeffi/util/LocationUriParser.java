@@ -43,40 +43,13 @@ public class LocationUriParser {
 
         final String scheme = uri.getScheme();
 
-        if ("google.navigation".equals(scheme)) {
-            final Location location;
-            if (uri.isOpaque())
-                location = parseGoogleNavigation(uri.getSchemeSpecificPart());
-            else
-                location = parseGoogleNavigation(uri.getQuery());
-
-            return new Location[] { location };
-        } else if ("geo".equals(scheme)) {
+        if ("geo".equals(scheme)) {
             final Location location = parseGeo(uri.getSchemeSpecificPart().replaceAll(",?\n+", ",+"));
 
             return new Location[] { location };
         }
 
         throw new IllegalArgumentException("cannot parse: '" + encodedUriString + "'");
-    }
-
-    private static Location parseGoogleNavigation(final String query) {
-        final String q = getQueryParameter(query, "q");
-        final String ll = getQueryParameter(query, "ll");
-        final String title = getQueryParameter(query, "title");
-
-        if (ll != null) {
-            return parseAddrParam(ll, title != null ? title : q);
-        } else if (q != null) {
-            final Location location = parseAddrParam(q, title);
-
-            if (location != null)
-                return location;
-            else
-                return new Location(LocationType.ANY, null, null, q);
-        }
-
-        throw new IllegalArgumentException("cannot parse: '" + query + "'");
     }
 
     private static final Pattern P_URI_GEO = Pattern.compile("(-?\\d*\\.?\\d+),(-?\\d*\\.?\\d+)", Pattern.DOTALL);
