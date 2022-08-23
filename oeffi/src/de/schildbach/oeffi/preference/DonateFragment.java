@@ -17,15 +17,28 @@
 
 package de.schildbach.oeffi.preference;
 
+import android.content.ActivityNotFoundException;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import androidx.annotation.Nullable;
 import de.schildbach.oeffi.R;
 
 public class DonateFragment extends PreferenceFragment {
+    private static final String KEY_ABOUT_DONATE_BITCOIN = "about_donate_bitcoin";
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preference_donate);
+        final Preference donateBitcoinPreference = findPreference(KEY_ABOUT_DONATE_BITCOIN);
+        donateBitcoinPreference.setOnPreferenceClickListener(preference -> {
+            try {
+                startActivity(donateBitcoinPreference.getIntent());
+            } catch (final ActivityNotFoundException x) {
+                donateBitcoinPreference.setEnabled(false);
+            }
+            return true;
+        });
     }
 }
