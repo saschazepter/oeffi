@@ -20,12 +20,16 @@ package de.schildbach.oeffi.stations;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class NearestFavoriteStationsWidgetPermissionActivity extends Activity {
     private static final Logger log = LoggerFactory.getLogger(NearestFavoriteStationsWidgetPermissionActivity.class);
@@ -33,10 +37,14 @@ public class NearestFavoriteStationsWidgetPermissionActivity extends Activity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final String[] permissions = { Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_BACKGROUND_LOCATION };
-        log.info("Requesting permissions: {}", Arrays.toString(permissions));
-        ActivityCompat.requestPermissions(this, permissions, 0);
+        final List<String> permissions = new LinkedList<>();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R || permissions.isEmpty())
+                permissions.add(Manifest.permission.ACCESS_BACKGROUND_LOCATION);
+        log.info("Requesting permissions: {}", permissions);
+        ActivityCompat.requestPermissions(this, permissions.toArray(new String[0]), 0);
     }
 
     @Override
