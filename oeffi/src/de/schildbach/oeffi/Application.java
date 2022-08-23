@@ -17,13 +17,9 @@
 
 package de.schildbach.oeffi;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.Build;
 import android.preference.PreferenceManager;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
@@ -35,7 +31,6 @@ import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
 import com.google.common.base.Stopwatch;
 import de.schildbach.oeffi.directions.QueryHistoryProvider;
 import de.schildbach.oeffi.stations.FavoriteStationsProvider;
-import de.schildbach.oeffi.stations.NearestFavoriteStationWidgetService;
 import de.schildbach.oeffi.util.ErrorReporter;
 import de.schildbach.pte.NetworkId;
 import okhttp3.OkHttpClient;
@@ -121,8 +116,6 @@ public class Application extends android.app.Application {
         QueryHistoryProvider.deleteQueryHistory(this, SBB);
 
         log.info("Migrations took {}", watch);
-
-        initNotificationManager();
     }
 
     private void initLogging() {
@@ -176,20 +169,6 @@ public class Application extends android.app.Application {
         final IConfigurationProvider config = Configuration.getInstance();
         config.setOsmdroidBasePath(new File(getCacheDir(), "org.osmdroid"));
         config.setUserAgentValue(getPackageName());
-    }
-
-    private void initNotificationManager() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            final Stopwatch watch = Stopwatch.createStarted();
-            final NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-            final NotificationChannel appwidget = new NotificationChannel(
-                    NearestFavoriteStationWidgetService.NOTIFICATION_CHANNEL_ID_APPWIDGET,
-                    getString(R.string.notification_channel_appwidget_name), NotificationManager.IMPORTANCE_LOW);
-            nm.createNotificationChannel(appwidget);
-
-            log.info("created notification channels, took {}", watch);
-        }
     }
 
     private void migrateSelectedNetwork(final String fromName, final NetworkId to) {

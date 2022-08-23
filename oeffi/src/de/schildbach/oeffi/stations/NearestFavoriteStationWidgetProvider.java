@@ -17,7 +17,6 @@
 
 package de.schildbach.oeffi.stations;
 
-import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
@@ -32,15 +31,6 @@ public class NearestFavoriteStationWidgetProvider extends AppWidgetProvider {
     public void onReceive(final Context context, final Intent intent) {
         final String action = intent.getAction();
         log.info("got broadcast: {}", action);
-
-        if (Intent.ACTION_BOOT_COMPLETED.equals(action))
-            NearestFavoriteStationWidgetService.enqueueWork(context, new Intent());
-        else
-            super.onReceive(context, intent);
-    }
-
-    @Override
-    public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds) {
-        NearestFavoriteStationWidgetService.enqueueWork(context, new Intent());
+        NearestFavoriteStationWidgetService.schedulePeriodic(context);
     }
 }

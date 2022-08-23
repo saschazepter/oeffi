@@ -696,7 +696,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         if (rowUri != null) {
             favorites.put(location.id, FavoriteStationsProvider.TYPE_FAVORITE);
             postLoadNextVisible(0);
-            FavoriteUtils.notifyFavoritesChanged(this);
+            NearestFavoriteStationWidgetService.scheduleImmediate(this); // refresh app-widget
             return true;
         } else {
             return false;
@@ -707,7 +707,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         final int numRows = FavoriteUtils.delete(getContentResolver(), network, location.id);
         if (numRows > 0) {
             favorites.remove(location.id);
-            FavoriteUtils.notifyFavoritesChanged(this);
+            NearestFavoriteStationWidgetService.scheduleImmediate(this); // refresh app-widget
             return true;
         } else {
             return false;
@@ -719,7 +719,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                 network, location);
         if (rowUriIgnored != null) {
             favorites.put(location.id, FavoriteStationsProvider.TYPE_IGNORE);
-            FavoriteUtils.notifyFavoritesChanged(this);
+            NearestFavoriteStationWidgetService.scheduleImmediate(this); // refresh app-widget
             return true;
         } else {
             return false;
@@ -731,7 +731,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         if (numRowsIgnored > 0) {
             favorites.remove(location.id);
             postLoadNextVisible(0);
-            FavoriteUtils.notifyFavoritesChanged(this);
+            NearestFavoriteStationWidgetService.scheduleImmediate(this); // refresh app-widget
             return true;
         } else {
             return false;

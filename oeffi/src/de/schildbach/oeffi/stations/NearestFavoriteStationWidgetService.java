@@ -19,6 +19,10 @@ package de.schildbach.oeffi.stations;
 
 import android.Manifest;
 import android.app.PendingIntent;
+import android.app.job.JobInfo;
+import android.app.job.JobParameters;
+import android.app.job.JobScheduler;
+import android.app.job.JobService;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -38,10 +42,10 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
 import android.text.format.DateFormat;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.RemoteViews;
-import androidx.core.app.JobIntentService;
-import androidx.core.app.NotificationCompat;
+import androidx.annotation.WorkerThread;
 import androidx.core.content.ContextCompat;
 import com.google.common.base.Throwables;
 import com.google.common.util.concurrent.SettableFuture;
@@ -68,24 +72,59 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-public class NearestFavoriteStationWidgetService extends JobIntentService {
+public class NearestFavoriteStationWidgetService extends JobService {
     private AppWidgetManager appWidgetManager;
     private LocationManager locationManager;
     private ContentResolver contentResolver;
+    private Executor executor = Executors.newFixedThreadPool(2);
     private HandlerThread backgroundThread;
     private Handler backgroundHandler;
 
-    private static final int JOB_ID = 1;
-    public static final String NOTIFICATION_CHANNEL_ID_APPWIDGET = "appwidget";
-    private static final int NOTIFICATION_ID_APPWIDGET_UPDATE = 1;
+    private static final int JOB_ID_PERIODIC = 0;
+    private static final int JOB_ID_IMMEDIATE = 1;
 
     private static final Logger log = LoggerFactory.getLogger(NearestFavoriteStationWidgetService.class);
 
-    public static void enqueueWork(final Context context, final Intent work) {
-        enqueueWork(context, NearestFavoriteStationWidgetService.class, JOB_ID, work);
+    public static void schedulePeriodic(final Context context) {
+        final JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        final ComponentName providerName = new ComponentName(context, NearestFavoriteStationWidgetProvider.class);
+        final boolean haveWidgets = AppWidgetManager.getInstance(context).getAppWidgetIds(providerName).length > 0;
+        if (haveWidgets) {
+            final JobInfo.Builder jobInfo = new JobInfo.Builder(JOB_ID_PERIODIC, new ComponentName(context,
+                    NearestFavoriteStationWidgetService.class));
+            jobInfo.setPeriodic(DateUtils.MINUTE_IN_MILLIS * 15);
+            jobInfo.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY);
+            final JobInfo job = jobInfo.build();
+            jobScheduler.schedule(job);
+            log.info("Scheduled periodic job: {}", job);
+        } else {
+            jobScheduler.cancelAll();
+        }
+    }
+
+    public static void scheduleImmediate(final Context context) {
+        final JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        final ComponentName providerName = new ComponentName(context, NearestFavoriteStationWidgetProvider.class);
+        final boolean haveWidgets = AppWidgetManager.getInstance(context).getAppWidgetIds(providerName).length > 0;
+        if (haveWidgets) {
+            final JobInfo.Builder jobInfo = new JobInfo.Builder(JOB_ID_IMMEDIATE, new ComponentName(context,
+                    NearestFavoriteStationWidgetService.class));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+                jobInfo.setExpedited(true);
+            else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+                jobInfo.setImportantWhileForeground(true);
+            jobInfo.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY);
+            final JobInfo job = jobInfo.build();
+            jobScheduler.schedule(job);
+            log.info("Scheduled immediate job: {}", job);
+        } else {
+            jobScheduler.cancelAll();
+        }
     }
 
     @Override
@@ -110,25 +149,28 @@ public class NearestFavoriteStationWidgetService extends JobIntentService {
     private RemoteViews views;
 
     @Override
-    protected void onHandleWork(final Intent intent) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            final NotificationCompat.Builder notification = new NotificationCompat.Builder(this,
-                    NOTIFICATION_CHANNEL_ID_APPWIDGET);
-            notification.setSmallIcon(R.drawable.ic_stat_notify_sync_24dp);
-            notification.setWhen(System.currentTimeMillis());
-            notification.setOngoing(true);
-            startForeground(NOTIFICATION_ID_APPWIDGET_UPDATE, notification.build());
-        }
-
-        handleIntent();
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            stopForeground(true);
+    public boolean onStartJob(final JobParameters params) {
+        log.info("Job started: {}", params);
+        executor.execute(() -> {
+            runJob();
+            jobFinished(params, false);
+            log.info("Job finished: {}", params);
+        });
+        return true;
     }
 
-    private void handleIntent() {
+    @Override
+    public boolean onStopJob(final JobParameters params) {
+        log.info("Job stopped: {}", params);
+        return false;
+    }
+
+    @WorkerThread
+    private void runJob() {
         final ComponentName providerName = new ComponentName(this, NearestFavoriteStationWidgetProvider.class);
         final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(providerName);
+        if (appWidgetIds.length == 0)
+            return;
 
         views = new RemoteViews(getPackageName(), R.layout.station_widget_content);
 

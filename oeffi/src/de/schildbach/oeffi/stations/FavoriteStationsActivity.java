@@ -121,7 +121,7 @@ public class FavoriteStationsActivity extends OeffiActivity
         } else if (menuItemId == R.id.station_context_remove_favorite) {
             adapter.removeEntry(adapterPosition);
             updateGUI();
-            FavoriteUtils.notifyFavoritesChanged(this);
+            NearestFavoriteStationWidgetService.scheduleImmediate(this); // refresh app-widget
             return true;
         } else {
             return false;

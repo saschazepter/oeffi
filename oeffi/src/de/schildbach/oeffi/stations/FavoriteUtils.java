@@ -17,12 +17,8 @@
 
 package de.schildbach.oeffi.stations;
 
-import android.appwidget.AppWidgetManager;
-import android.appwidget.AppWidgetProviderInfo;
 import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import de.schildbach.pte.NetworkId;
@@ -71,17 +67,4 @@ public class FavoriteUtils {
         return favorites;
     }
 
-    public static void notifyFavoritesChanged(final Context context) {
-        // notify widgets
-        final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        for (final AppWidgetProviderInfo providerInfo : appWidgetManager.getInstalledProviders()) {
-            // limit to own widgets
-            if (providerInfo.provider.getPackageName().equals(context.getPackageName())) {
-                final Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-                intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,
-                        appWidgetManager.getAppWidgetIds(providerInfo.provider));
-                context.sendBroadcast(intent);
-            }
-        }
-    }
 }

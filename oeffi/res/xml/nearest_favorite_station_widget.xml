@@ -6,5 +6,4 @@
     android:minResizeHeight="55dp"
     android:minWidth="294dp"
     android:previewImage="@drawable/nearest_favorite_station_widget_preview"
-    android:resizeMode="horizontal|vertical"
-    android:updatePeriodMillis="1800000" />
+    android:resizeMode="horizontal|vertical" />

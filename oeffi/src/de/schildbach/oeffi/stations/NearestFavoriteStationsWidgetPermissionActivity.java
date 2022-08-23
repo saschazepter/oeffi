@@ -53,7 +53,7 @@ public class NearestFavoriteStationsWidgetPermissionActivity extends Activity {
         for (int i = 0; i < permissions.length; i++)
             log.info("{}{} granted",
                     permissions[i], grantResults[i] == PackageManager.PERMISSION_GRANTED ? "" : " " + "not");
-        FavoriteUtils.notifyFavoritesChanged(this);
+        NearestFavoriteStationWidgetService.scheduleImmediate(this); // refresh app-widget
         finish();
     }
 }

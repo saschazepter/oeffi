@@ -157,13 +157,13 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
                         FavoriteStationsProvider.TYPE_FAVORITE, selectedNetwork, selectedStation);
                 if (rowUri != null) {
                     selectedFavState = FavoriteStationsProvider.TYPE_FAVORITE;
-                    FavoriteUtils.notifyFavoritesChanged(StationDetailsActivity.this);
+                    NearestFavoriteStationWidgetService.scheduleImmediate(this); // refresh app-widget
                 }
             } else {
                 final int numRows = FavoriteUtils.delete(getContentResolver(), selectedNetwork, selectedStation.id);
                 if (numRows > 0) {
                     selectedFavState = null;
-                    FavoriteUtils.notifyFavoritesChanged(StationDetailsActivity.this);
+                    NearestFavoriteStationWidgetService.scheduleImmediate(this); // refresh app-widget
                 }
             }
         });
