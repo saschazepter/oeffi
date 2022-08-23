@@ -19,20 +19,32 @@ package de.schildbach.oeffi.stations;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import androidx.core.app.ActivityCompat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Arrays;
 
 public class NearestFavoriteStationsWidgetPermissionActivity extends Activity {
+    private static final Logger log = LoggerFactory.getLogger(NearestFavoriteStationsWidgetPermissionActivity.class);
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_BACKGROUND_LOCATION }, 0);
+        final String[] permissions = { Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_BACKGROUND_LOCATION };
+        log.info("Requesting permissions: {}", Arrays.toString(permissions));
+        ActivityCompat.requestPermissions(this, permissions, 0);
     }
 
     @Override
     public void onRequestPermissionsResult(final int requestCode, final String[] permissions,
                                            final int[] grantResults) {
+        for (int i = 0; i < permissions.length; i++)
+            log.info("{}{} granted",
+                    permissions[i], grantResults[i] == PackageManager.PERMISSION_GRANTED ? "" : " " + "not");
         FavoriteUtils.notifyFavoritesChanged(this);
         finish();
     }
