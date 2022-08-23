@@ -121,6 +121,7 @@ public class FavoriteStationsActivity extends OeffiActivity
         } else if (menuItemId == R.id.station_context_remove_favorite) {
             adapter.removeEntry(adapterPosition);
             updateGUI();
+            FavoriteUtils.notifyFavoritesChanged(this);
             return true;
         } else {
             return false;
