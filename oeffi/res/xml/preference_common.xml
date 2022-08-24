@@ -27,5 +27,20 @@
         android:title="@string/global_preferences_battery_optimizations_title">
         <intent android:action="android.settings.IGNORE_BATTERY_OPTIMIZATION_SETTINGS" />
     </Preference>
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="show_directions_launcher"
+        android:summary="@string/global_preferences_show_directions_launcher_summary"
+        android:title="@string/global_preferences_show_directions_launcher_title" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="show_plans_launcher"
+        android:summary="@string/global_preferences_show_plans_launcher_summary"
+        android:title="@string/global_preferences_show_plans_launcher_title" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="show_stations_launcher"
+        android:summary="@string/global_preferences_show_stations_launcher_summary"
+        android:title="@string/global_preferences_show_stations_launcher_title" />
 
 </PreferenceScreen>
