@@ -2,8 +2,6 @@ image: ${DOCKER_IMAGE}
 
 variables:
   GIT_SUBMODULE_STRATEGY:         recursive
-  ANDROID_PLATFORM_VERSION_OEFFI: android-31
-  ANDROID_BUILD_TOOLS_VERSION:    33.0.0
   ANDROID_HOME:                   $PWD/android-sdk
 
 before_script:
@@ -12,7 +10,6 @@ before_script:
   - apt-get -y install ${JDK_PACKAGE}
   - apt-get -y install sdkmanager gradle
   - yes | sdkmanager --licenses >/dev/null || true
-  - sdkmanager --install "platforms;$ANDROID_PLATFORM_VERSION_OEFFI" "build-tools;$ANDROID_BUILD_TOOLS_VERSION"
 
 build:
   parallel:
