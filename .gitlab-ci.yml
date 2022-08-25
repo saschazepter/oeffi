@@ -3,7 +3,7 @@ image: ubuntu:jammy
 variables:
   GIT_SUBMODULE_STRATEGY:   recursive
   ANDROID_HOME:             $PWD/android-sdk
-  ANDROID_SDK_TOOLS:        7583922_latest
+  ANDROID_SDK_TOOLS:        8512546_latest
   ANDROID_SDK_LICENSE_HASH: 24333f8a63b6825ea9c5514f83c2829b004d1fee
 
 before_script:
