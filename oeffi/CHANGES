@@ -1,4 +1,8 @@
-v12.0.23-12.0.24
+v12.0.25
+
+* Target Android 13.
+
+v12.0.23-v12.0.24
 
 * Migrate periodic app-widget refresh from JobIntentService to JobScheduler
 
