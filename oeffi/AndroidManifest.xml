@@ -99,12 +99,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-            <!-- thrown by google maps when starting navigation -->
-            <intent-filter android:label="@string/stations_intentfilter_title">
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="google.navigation" />
-            </intent-filter>
             <!-- thrown by google now gesture -->
             <intent-filter android:label="@string/stations_intentfilter_title">
                 <action android:name="android.intent.action.ASSIST" />
