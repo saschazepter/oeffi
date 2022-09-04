@@ -1,3 +1,8 @@
+v12.1
+
+* Enable per-app locale selection on Android 13 (and higher).
+* Drop unnecessary permissions.
+
 v12.0.25
 
 * Target Android 13.
