@@ -59,6 +59,7 @@ import android.widget.Filterable;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -168,9 +169,6 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
 
     private static final int DIALOG_CLEAR_HISTORY = 1;
 
-    private static final int REQUEST_CODE_PICK_CONTACT_FROM = 7;
-    private static final int REQUEST_CODE_PICK_CONTACT_VIA = 8;
-    private static final int REQUEST_CODE_PICK_CONTACT_TO = 9;
     private static final int REQUEST_CODE_PICK_STATION_FROM = 10;
     private static final int REQUEST_CODE_PICK_STATION_VIA = 11;
     private static final int REQUEST_CODE_PICK_STATION_TO = 12;
@@ -180,7 +178,21 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
     private static final String INTENT_EXTRA_FROM_LOCATION = DirectionsActivity.class.getName() + ".from_location";
     private static final String INTENT_EXTRA_TO_LOCATION = DirectionsActivity.class.getName() + ".to_location";
     private static final String INTENT_EXTRA_TIME_SPEC = DirectionsActivity.class.getName() + ".time_spec";
-    private static final Intent INTENT_PICK_CONTACTS = new Intent(Intent.ACTION_PICK, CommonDataKinds.StructuredPostal.CONTENT_URI);
+
+    private static class PickContact extends ActivityResultContract<Void, Uri> {
+        @Override
+        public Intent createIntent(final Context context, Void unused) {
+            return new Intent(Intent.ACTION_PICK, CommonDataKinds.StructuredPostal.CONTENT_URI);
+        }
+
+        @Override
+        public Uri parseResult(final int resultCode, @Nullable final Intent intent) {
+            if (resultCode == Activity.RESULT_OK && intent != null)
+                return intent.getData();
+            else
+                return null;
+        }
+    }
 
     private final ActivityResultLauncher<String> requestLocationPermissionFromLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
@@ -196,6 +208,21 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
                 if (granted)
                     viewToLocation.acquireLocation();
+            });
+    private final ActivityResultLauncher<Void> pickContactFromLauncher =
+            registerForActivityResult(new PickContact(), contentUri -> {
+                if (contentUri != null)
+                    resultPickContact(contentUri, viewFromLocation);
+            });
+    private final ActivityResultLauncher<Void> pickContactViaLauncher =
+            registerForActivityResult(new PickContact(), contentUri -> {
+                if (contentUri != null)
+                    resultPickContact(contentUri, viewViaLocation);
+            });
+    private final ActivityResultLauncher<Void> pickContactToLauncher =
+            registerForActivityResult(new PickContact(), contentUri -> {
+                if (contentUri != null)
+                    resultPickContact(contentUri, viewToLocation);
             });
 
     public static void start(final Context context, @Nullable final Location fromLocation,
@@ -213,15 +240,15 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
     private class LocationContextMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
         private final LocationView locationView;
         private final ActivityResultLauncher<String> requestLocationPermissionLauncher;
-        private final int pickContactRequestCode;
+        private final ActivityResultLauncher<Void> pickContactLauncher;
         private final int pickStationRequestCode;
 
         public LocationContextMenuItemClickListener(final LocationView locationView,
                 final ActivityResultLauncher<String> requestLocationPermissionLauncher,
-                final int pickContactRequestCode, final int pickStationRequestCode) {
+                final ActivityResultLauncher<Void> pickContactLauncher, final int pickStationRequestCode) {
             this.locationView = locationView;
             this.requestLocationPermissionLauncher = requestLocationPermissionLauncher;
-            this.pickContactRequestCode = pickContactRequestCode;
+            this.pickContactLauncher = pickContactLauncher;
             this.pickStationRequestCode = pickStationRequestCode;
         }
 
@@ -234,7 +261,7 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
                     requestLocationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
                 return true;
             } else if (item.getItemId() == R.id.directions_location_contact) {
-                startActivityForResult(INTENT_PICK_CONTACTS, pickContactRequestCode);
+                pickContactLauncher.launch(null);
                 return true;
             } else if (item.getItemId() == R.id.directions_location_favorite_station) {
                 if (network != null)
@@ -321,13 +348,13 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
         viewFromLocation.setAdapter(autoCompleteAdapter);
         viewFromLocation.setListener(locationChangeListener);
         viewFromLocation.setContextMenuItemClickListener(new LocationContextMenuItemClickListener(viewFromLocation,
-                requestLocationPermissionFromLauncher, REQUEST_CODE_PICK_CONTACT_FROM, REQUEST_CODE_PICK_STATION_FROM));
+                requestLocationPermissionFromLauncher, pickContactFromLauncher, REQUEST_CODE_PICK_STATION_FROM));
 
         viewViaLocation = findViewById(R.id.directions_via);
         viewViaLocation.setAdapter(autoCompleteAdapter);
         viewViaLocation.setListener(locationChangeListener);
         viewViaLocation.setContextMenuItemClickListener(new LocationContextMenuItemClickListener(viewViaLocation,
-                requestLocationPermissionViaLauncher, REQUEST_CODE_PICK_CONTACT_VIA, REQUEST_CODE_PICK_STATION_VIA));
+                requestLocationPermissionViaLauncher, pickContactViaLauncher, REQUEST_CODE_PICK_STATION_VIA));
 
         viewToLocation = findViewById(R.id.directions_to);
         viewToLocation.setAdapter(autoCompleteAdapter);
@@ -344,7 +371,7 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
             }
         });
         viewToLocation.setContextMenuItemClickListener(new LocationContextMenuItemClickListener(viewToLocation,
-                requestLocationPermissionToLauncher, REQUEST_CODE_PICK_CONTACT_TO, REQUEST_CODE_PICK_STATION_TO));
+                requestLocationPermissionToLauncher, pickContactToLauncher, REQUEST_CODE_PICK_STATION_TO));
 
         viewProducts = findViewById(R.id.directions_products);
         viewProductToggles.add(findViewById(R.id.directions_products_i));
@@ -1134,16 +1161,7 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
 
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent result) {
-        if (requestCode == REQUEST_CODE_PICK_CONTACT_FROM) {
-            if (resultCode == Activity.RESULT_OK && result != null)
-                resultPickContact(result, viewFromLocation);
-        } else if (requestCode == REQUEST_CODE_PICK_CONTACT_VIA) {
-            if (resultCode == Activity.RESULT_OK && result != null)
-                resultPickContact(result, viewViaLocation);
-        } else if (requestCode == REQUEST_CODE_PICK_CONTACT_TO) {
-            if (resultCode == Activity.RESULT_OK && result != null)
-                resultPickContact(result, viewToLocation);
-        } else if (requestCode == REQUEST_CODE_PICK_STATION_FROM) {
+        if (requestCode == REQUEST_CODE_PICK_STATION_FROM) {
             if (resultCode == Activity.RESULT_OK && result != null)
                 resultPickStation(result, viewFromLocation);
         } else if (requestCode == REQUEST_CODE_PICK_STATION_VIA) {
@@ -1157,8 +1175,8 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
         }
     }
 
-    private void resultPickContact(final Intent result, final LocationView targetLocationView) {
-        final Cursor c = managedQuery(result.getData(), null, null, null, null);
+    private void resultPickContact(final Uri contentUri, final LocationView targetLocationView) {
+        final Cursor c = managedQuery(contentUri, null, null, null, null);
         if (c.moveToFirst()) {
             final String data = c
                     .getString(c.getColumnIndexOrThrow(CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS));
