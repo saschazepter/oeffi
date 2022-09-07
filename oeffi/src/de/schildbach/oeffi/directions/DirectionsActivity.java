@@ -1124,35 +1124,26 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
 
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent result) {
-        if (result == null)
-            return;
-
-        if (resultCode == Activity.RESULT_OK) {
-            switch (requestCode) {
-            case (REQUEST_CODE_PICK_CONTACT_FROM):
+        if (requestCode == REQUEST_CODE_PICK_CONTACT_FROM) {
+            if (resultCode == Activity.RESULT_OK && result != null)
                 resultPickContact(result, viewFromLocation);
-                break;
-
-            case (REQUEST_CODE_PICK_CONTACT_VIA):
+        } else if (requestCode == REQUEST_CODE_PICK_CONTACT_VIA) {
+            if (resultCode == Activity.RESULT_OK && result != null)
                 resultPickContact(result, viewViaLocation);
-                break;
-
-            case (REQUEST_CODE_PICK_CONTACT_TO):
+        } else if (requestCode == REQUEST_CODE_PICK_CONTACT_TO) {
+            if (resultCode == Activity.RESULT_OK && result != null)
                 resultPickContact(result, viewToLocation);
-                break;
-
-            case (REQUEST_CODE_PICK_STATION_FROM):
+        } else if (requestCode == REQUEST_CODE_PICK_STATION_FROM) {
+            if (resultCode == Activity.RESULT_OK && result != null)
                 resultPickStation(result, viewFromLocation);
-                break;
-
-            case (REQUEST_CODE_PICK_STATION_VIA):
+        } else if (requestCode == REQUEST_CODE_PICK_STATION_VIA) {
+            if (resultCode == Activity.RESULT_OK && result != null)
                 resultPickStation(result, viewViaLocation);
-                break;
-
-            case (REQUEST_CODE_PICK_STATION_TO):
+        } else if (requestCode == REQUEST_CODE_PICK_STATION_TO) {
+            if (resultCode == Activity.RESULT_OK && result != null)
                 resultPickStation(result, viewToLocation);
-                break;
-            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, result);
         }
     }
 
