@@ -17,11 +17,11 @@
 
 package de.schildbach.oeffi.stations;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import androidx.activity.ComponentActivity;
 import de.schildbach.oeffi.Application;
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.util.DialogBuilder;
@@ -38,7 +38,7 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DecodeForeignActivity extends Activity {
+public class DecodeForeignActivity extends ComponentActivity {
     private static final Pattern PATTERN_META_REFRESH = Pattern
             .compile("<meta\\s+http-equiv=\"refresh\"\\s+content=\"0;\\s+URL=([^\"]*)\"");
 

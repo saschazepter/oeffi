@@ -7,7 +7,6 @@ configurations {
     all*.exclude group: 'org.json', module: 'json'
     all*.exclude group: 'net.sf.kxml', module: 'kxml2'
     all*.exclude group: 'androidx.legacy', module: 'legacy-support-core-ui'
-    all*.exclude group: 'androidx.lifecycle', module: 'lifecycle-runtime'
 }
 
 dependencies {
@@ -17,6 +16,7 @@ dependencies {
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
     implementation 'androidx.drawerlayout:drawerlayout:1.1.1'
     implementation 'androidx.core:core:1.8.0'
+    implementation 'androidx.activity:activity:1.5.1'
     //noinspection GradleDependency
     implementation 'com.squareup.okhttp3:okhttp:3.12.13'
     //noinspection GradleDependency
@@ -92,6 +92,7 @@ android {
         exclude 'META-INF/*.version'
         exclude 'META-INF/proguard/**'
         exclude 'META-INF/*.kotlin_module'
+        exclude 'META-INF/com.android.tools/proguard/coroutines.pro'
         exclude 'kotlin/**'
     }
 }

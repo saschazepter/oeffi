@@ -18,7 +18,6 @@
 package de.schildbach.oeffi;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.ActivityManager.TaskDescription;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -31,6 +30,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.activity.ComponentActivity;
 import de.schildbach.oeffi.network.NetworkResources;
 import de.schildbach.oeffi.util.ErrorReporter;
 import de.schildbach.pte.NetworkId;
@@ -38,7 +38,7 @@ import de.schildbach.pte.dto.ResultHeader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class OeffiActivity extends Activity {
+public abstract class OeffiActivity extends ComponentActivity {
     protected Application application;
     protected SharedPreferences prefs;
 

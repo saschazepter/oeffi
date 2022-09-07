@@ -17,7 +17,6 @@
 
 package de.schildbach.oeffi.plans;
 
-import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -36,6 +35,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
+import androidx.activity.ComponentActivity;
 import androidx.annotation.Nullable;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
@@ -79,7 +79,7 @@ import java.util.TreeSet;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class PlanActivity extends Activity {
+public class PlanActivity extends ComponentActivity {
     public static final String INTENT_EXTRA_PLAN_ID = "plan_id"; // Used in launcher shortcuts
     private static final String INTENT_EXTRA_SELECTED_STATION_ID = PlanActivity.class.getName()
             + ".selected_station_id";

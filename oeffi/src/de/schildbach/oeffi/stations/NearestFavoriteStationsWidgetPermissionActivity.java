@@ -18,10 +18,10 @@
 package de.schildbach.oeffi.stations;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import androidx.activity.ComponentActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import org.slf4j.Logger;
@@ -31,7 +31,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class NearestFavoriteStationsWidgetPermissionActivity extends Activity {
+public class NearestFavoriteStationsWidgetPermissionActivity extends ComponentActivity {
     private static final Logger log = LoggerFactory.getLogger(NearestFavoriteStationsWidgetPermissionActivity.class);
 
     @Override

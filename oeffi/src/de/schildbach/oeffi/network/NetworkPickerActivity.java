@@ -19,7 +19,6 @@ package de.schildbach.oeffi.network;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.ActivityManager.TaskDescription;
 import android.content.Context;
 import android.content.Intent;
@@ -40,6 +39,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.activity.ComponentActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -75,7 +75,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class NetworkPickerActivity extends Activity implements ActivityCompat.OnRequestPermissionsResultCallback,
+public class NetworkPickerActivity extends ComponentActivity implements ActivityCompat.OnRequestPermissionsResultCallback,
         LocationHelper.Callback, NetworkClickListener, NetworkContextMenuItemListener {
     public static void start(final Context context) {
         final Intent intent = new Intent(context, NetworkPickerActivity.class);
