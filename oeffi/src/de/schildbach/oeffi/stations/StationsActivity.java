@@ -53,8 +53,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -116,7 +117,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class StationsActivity extends OeffiMainActivity implements StationsAware, LocationAware,
-        ActivityCompat.OnRequestPermissionsResultCallback, StationContextMenuItemListener {
+        StationContextMenuItemListener {
     private ConnectivityManager connectivityManager;
     private LocationManager locationManager;
     private SensorManager sensorManager;
@@ -159,6 +160,11 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
     private static final int DIALOG_NEARBY_STATIONS_ERROR = 1;
 
     private static final Logger log = LoggerFactory.getLogger(StationsActivity.class);
+
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
+                startLocationProvider();
+            });
 
     @Override
     protected String taskName() {
@@ -244,8 +250,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
 
         final Button locationPermissionRequestButton = findViewById(
                 R.id.stations_location_permission_request_button);
-        locationPermissionRequestButton.setOnClickListener(v -> ActivityCompat.requestPermissions(StationsActivity.this,
-                new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, 0));
+        locationPermissionRequestButton.setOnClickListener(v -> requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION));
 
         final Button locationSettingsButton = findViewById(R.id.stations_list_location_settings);
         locationSettingsButton.setOnClickListener(v -> startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)));
@@ -1340,13 +1345,6 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         }
 
         return null;
-    }
-
-    @Override
-    public void onRequestPermissionsResult(final int requestCode, final String[] permissions,
-            final int[] grantResults) {
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            startLocationProvider();
     }
 
     public boolean onStationContextMenuItemClick(final int adapterPosition, final NetworkId network,

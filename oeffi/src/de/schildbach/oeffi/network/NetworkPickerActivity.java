@@ -40,7 +40,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.activity.ComponentActivity;
-import androidx.core.app.ActivityCompat;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -75,8 +76,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class NetworkPickerActivity extends ComponentActivity implements ActivityCompat.OnRequestPermissionsResultCallback,
-        LocationHelper.Callback, NetworkClickListener, NetworkContextMenuItemListener {
+public class NetworkPickerActivity extends ComponentActivity implements LocationHelper.Callback, NetworkClickListener,
+        NetworkContextMenuItemListener {
     public static void start(final Context context) {
         final Intent intent = new Intent(context, NetworkPickerActivity.class);
         context.startActivity(intent);
@@ -102,9 +103,12 @@ public class NetworkPickerActivity extends ComponentActivity implements Activity
     private static final String INDEX_FILENAME = "networks.txt";
     private static final int MAX_LAST_NETWORKS = 3;
 
-    private static final int REQUEST_CODE_REQUEST_LOCATION_PERMISSION = 1;
-
     private static final Logger log = LoggerFactory.getLogger(NetworkPickerActivity.class);
+
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
+                maybeStartLocation();
+            });
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -195,8 +199,7 @@ public class NetworkPickerActivity extends ComponentActivity implements Activity
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_COARSE_LOCATION },
-                    REQUEST_CODE_REQUEST_LOCATION_PERMISSION);
+            requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
     }
 
     @Override
@@ -231,13 +234,6 @@ public class NetworkPickerActivity extends ComponentActivity implements Activity
         backgroundThread.getLooper().quit();
 
         super.onDestroy();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(final int requestCode, final String[] permissions,
-            final int[] grantResults) {
-        if (requestCode == REQUEST_CODE_REQUEST_LOCATION_PERMISSION)
-            maybeStartLocation();
     }
 
     public void maybeStartLocation() {

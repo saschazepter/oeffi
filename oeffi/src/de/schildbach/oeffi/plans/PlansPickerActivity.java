@@ -33,8 +33,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.pm.ShortcutInfoCompat;
 import androidx.core.content.pm.ShortcutManagerCompat;
@@ -66,8 +67,8 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.net.HttpURLConnection;
 
-public class PlansPickerActivity extends OeffiMainActivity implements ActivityCompat.OnRequestPermissionsResultCallback,
-        LocationHelper.Callback, PlanClickListener, PlanContextMenuItemListener {
+public class PlansPickerActivity extends OeffiMainActivity implements LocationHelper.Callback, PlanClickListener,
+        PlanContextMenuItemListener {
     private ConnectivityManager connectivityManager;
     private LocationHelper locationHelper;
 
@@ -84,10 +85,14 @@ public class PlansPickerActivity extends OeffiMainActivity implements ActivityCo
 
     private Cursor cursor;
 
-    private static final int REQUEST_CODE_REQUEST_LOCATION_PERMISSION = 1;
     private static final int THUMB_CACHE_SIZE = 2 * 1024 * 1024;
 
     private static final Logger log = LoggerFactory.getLogger(PlansPickerActivity.class);
+
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
+                maybeStartLocation();
+            });
 
     @Override
     protected String taskName() {
@@ -154,8 +159,7 @@ public class PlansPickerActivity extends OeffiMainActivity implements ActivityCo
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_COARSE_LOCATION },
-                    REQUEST_CODE_REQUEST_LOCATION_PERMISSION);
+            requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
     }
 
     @Override
@@ -184,13 +188,6 @@ public class PlansPickerActivity extends OeffiMainActivity implements ActivityCo
         unregisterReceiver(connectivityReceiver);
 
         super.onDestroy();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(final int requestCode, final String[] permissions,
-            final int[] grantResults) {
-        if (requestCode == REQUEST_CODE_REQUEST_LOCATION_PERMISSION)
-            maybeStartLocation();
     }
 
     public void maybeStartLocation() {

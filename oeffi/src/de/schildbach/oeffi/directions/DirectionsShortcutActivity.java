@@ -30,7 +30,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
-import androidx.core.app.ActivityCompat;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
 import com.google.common.base.Throwables;
 import de.schildbach.oeffi.Constants;
@@ -58,8 +59,7 @@ import org.slf4j.LoggerFactory;
 import javax.net.ssl.SSLException;
 import java.util.Set;
 
-public class DirectionsShortcutActivity extends OeffiActivity
-        implements ActivityCompat.OnRequestPermissionsResultCallback, LocationHelper.Callback {
+public class DirectionsShortcutActivity extends OeffiActivity implements LocationHelper.Callback {
     public static final String INTENT_EXTRA_NETWORK = "network";
     public static final String INTENT_EXTRA_TYPE = "type";
     public static final String INTENT_EXTRA_ID = "stationid";
@@ -76,9 +76,15 @@ public class DirectionsShortcutActivity extends OeffiActivity
     private final Handler handler = new Handler();
     private QueryTripsRunnable queryTripsRunnable;
 
-    private static final int REQUEST_CODE_REQUEST_LOCATION_PERMISSION = 1;
-
     private static final Logger log = LoggerFactory.getLogger(DirectionsShortcutActivity.class);
+
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
+                if (granted)
+                    maybeStartLocation();
+                else
+                    errorDialog(R.string.acquire_location_no_permission);
+            });
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -94,8 +100,7 @@ public class DirectionsShortcutActivity extends OeffiActivity
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
             maybeStartLocation();
         else
-            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION },
-                    REQUEST_CODE_REQUEST_LOCATION_PERMISSION);
+            requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
     }
 
     @Override
@@ -103,17 +108,6 @@ public class DirectionsShortcutActivity extends OeffiActivity
         backgroundThread.getLooper().quit();
 
         super.onDestroy();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(final int requestCode, final String[] permissions,
-            final int[] grantResults) {
-        if (requestCode == REQUEST_CODE_REQUEST_LOCATION_PERMISSION) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                maybeStartLocation();
-            else
-                errorDialog(R.string.acquire_location_no_permission);
-        }
     }
 
     public void maybeStartLocation() {

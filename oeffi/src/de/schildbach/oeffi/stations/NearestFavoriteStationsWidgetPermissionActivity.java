@@ -22,17 +22,26 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.activity.ComponentActivity;
-import androidx.core.app.ActivityCompat;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class NearestFavoriteStationsWidgetPermissionActivity extends ComponentActivity {
     private static final Logger log = LoggerFactory.getLogger(NearestFavoriteStationsWidgetPermissionActivity.class);
+
+    private final ActivityResultLauncher<String[]> requestPermissionsLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), results -> {
+                for (Map.Entry<String, Boolean> entry : results.entrySet())
+                    log.info("{} {}", entry.getKey(), entry.getValue() ? "granted" : "denied");
+                NearestFavoriteStationWidgetService.scheduleImmediate(this); // refresh app-widget
+                finish();
+            });
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -44,16 +53,6 @@ public class NearestFavoriteStationsWidgetPermissionActivity extends ComponentAc
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R || permissions.isEmpty())
                 permissions.add(Manifest.permission.ACCESS_BACKGROUND_LOCATION);
         log.info("Requesting permissions: {}", permissions);
-        ActivityCompat.requestPermissions(this, permissions.toArray(new String[0]), 0);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(final int requestCode, final String[] permissions,
-                                           final int[] grantResults) {
-        for (int i = 0; i < permissions.length; i++)
-            log.info("{}{} granted",
-                    permissions[i], grantResults[i] == PackageManager.PERMISSION_GRANTED ? "" : " " + "not");
-        NearestFavoriteStationWidgetService.scheduleImmediate(this); // refresh app-widget
-        finish();
+        requestPermissionsLauncher.launch(permissions.toArray(new String[0]));
     }
 }

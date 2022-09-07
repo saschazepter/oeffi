@@ -58,9 +58,10 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -132,8 +133,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-public class DirectionsActivity extends OeffiMainActivity implements ActivityCompat.OnRequestPermissionsResultCallback,
-        QueryHistoryClickListener, QueryHistoryContextMenuItemListener {
+public class DirectionsActivity extends OeffiMainActivity implements QueryHistoryClickListener,
+        QueryHistoryContextMenuItemListener {
     private ConnectivityManager connectivityManager;
     private LocationManager locationManager;
 
@@ -167,9 +168,6 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
 
     private static final int DIALOG_CLEAR_HISTORY = 1;
 
-    private static final int REQUEST_CODE_LOCATION_PERMISSION_FROM = 4;
-    private static final int REQUEST_CODE_LOCATION_PERMISSION_VIA = 5;
-    private static final int REQUEST_CODE_LOCATION_PERMISSION_TO = 6;
     private static final int REQUEST_CODE_PICK_CONTACT_FROM = 7;
     private static final int REQUEST_CODE_PICK_CONTACT_VIA = 8;
     private static final int REQUEST_CODE_PICK_CONTACT_TO = 9;
@@ -183,6 +181,22 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
     private static final String INTENT_EXTRA_TO_LOCATION = DirectionsActivity.class.getName() + ".to_location";
     private static final String INTENT_EXTRA_TIME_SPEC = DirectionsActivity.class.getName() + ".time_spec";
     private static final Intent INTENT_PICK_CONTACTS = new Intent(Intent.ACTION_PICK, CommonDataKinds.StructuredPostal.CONTENT_URI);
+
+    private final ActivityResultLauncher<String> requestLocationPermissionFromLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
+                if (granted)
+                    viewFromLocation.acquireLocation();
+            });
+    private final ActivityResultLauncher<String> requestLocationPermissionViaLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
+                if (granted)
+                    viewViaLocation.acquireLocation();
+            });
+    private final ActivityResultLauncher<String> requestLocationPermissionToLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
+                if (granted)
+                    viewToLocation.acquireLocation();
+            });
 
     public static void start(final Context context, @Nullable final Location fromLocation,
             @Nullable final Location toLocation, @Nullable final TimeSpec timeSpec, final int intentFlags) {
@@ -198,15 +212,15 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
 
     private class LocationContextMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
         private final LocationView locationView;
-        private final int locationPermissionRequestCode;
+        private final ActivityResultLauncher<String> requestLocationPermissionLauncher;
         private final int pickContactRequestCode;
         private final int pickStationRequestCode;
 
         public LocationContextMenuItemClickListener(final LocationView locationView,
-                final int locationPermissionRequestCode,
+                final ActivityResultLauncher<String> requestLocationPermissionLauncher,
                 final int pickContactRequestCode, final int pickStationRequestCode) {
             this.locationView = locationView;
-            this.locationPermissionRequestCode = locationPermissionRequestCode;
+            this.requestLocationPermissionLauncher = requestLocationPermissionLauncher;
             this.pickContactRequestCode = pickContactRequestCode;
             this.pickStationRequestCode = pickStationRequestCode;
         }
@@ -217,8 +231,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
                         Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
                     locationView.acquireLocation();
                 else
-                    ActivityCompat.requestPermissions(DirectionsActivity.this,
-                            new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, locationPermissionRequestCode);
+                    requestLocationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
                 return true;
             } else if (item.getItemId() == R.id.directions_location_contact) {
                 startActivityForResult(INTENT_PICK_CONTACTS, pickContactRequestCode);
@@ -308,15 +321,13 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
         viewFromLocation.setAdapter(autoCompleteAdapter);
         viewFromLocation.setListener(locationChangeListener);
         viewFromLocation.setContextMenuItemClickListener(new LocationContextMenuItemClickListener(viewFromLocation,
-                REQUEST_CODE_LOCATION_PERMISSION_FROM,
-                REQUEST_CODE_PICK_CONTACT_FROM, REQUEST_CODE_PICK_STATION_FROM));
+                requestLocationPermissionFromLauncher, REQUEST_CODE_PICK_CONTACT_FROM, REQUEST_CODE_PICK_STATION_FROM));
 
         viewViaLocation = findViewById(R.id.directions_via);
         viewViaLocation.setAdapter(autoCompleteAdapter);
         viewViaLocation.setListener(locationChangeListener);
         viewViaLocation.setContextMenuItemClickListener(new LocationContextMenuItemClickListener(viewViaLocation,
-                REQUEST_CODE_LOCATION_PERMISSION_VIA,
-                REQUEST_CODE_PICK_CONTACT_VIA, REQUEST_CODE_PICK_STATION_VIA));
+                requestLocationPermissionViaLauncher, REQUEST_CODE_PICK_CONTACT_VIA, REQUEST_CODE_PICK_STATION_VIA));
 
         viewToLocation = findViewById(R.id.directions_to);
         viewToLocation.setAdapter(autoCompleteAdapter);
@@ -333,8 +344,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
             }
         });
         viewToLocation.setContextMenuItemClickListener(new LocationContextMenuItemClickListener(viewToLocation,
-                REQUEST_CODE_LOCATION_PERMISSION_TO,
-                REQUEST_CODE_PICK_CONTACT_TO, REQUEST_CODE_PICK_STATION_TO));
+                requestLocationPermissionToLauncher, REQUEST_CODE_PICK_CONTACT_TO, REQUEST_CODE_PICK_STATION_TO));
 
         viewProducts = findViewById(R.id.directions_products);
         viewProductToggles.add(findViewById(R.id.directions_products_i));
@@ -1145,17 +1155,6 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
         } else {
             super.onActivityResult(requestCode, resultCode, result);
         }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(final int requestCode, final String[] permissions,
-            final int[] grantResults) {
-        if (requestCode == REQUEST_CODE_LOCATION_PERMISSION_FROM)
-            viewFromLocation.acquireLocation();
-        else if (requestCode == REQUEST_CODE_LOCATION_PERMISSION_VIA)
-            viewViaLocation.acquireLocation();
-        else if (requestCode == REQUEST_CODE_LOCATION_PERMISSION_TO)
-            viewToLocation.acquireLocation();
     }
 
     private void resultPickContact(final Intent result, final LocationView targetLocationView) {
