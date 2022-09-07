@@ -169,10 +169,6 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
 
     private static final int DIALOG_CLEAR_HISTORY = 1;
 
-    private static final int REQUEST_CODE_PICK_STATION_FROM = 10;
-    private static final int REQUEST_CODE_PICK_STATION_VIA = 11;
-    private static final int REQUEST_CODE_PICK_STATION_TO = 12;
-
     private static final Logger log = LoggerFactory.getLogger(DirectionsActivity.class);
 
     private static final String INTENT_EXTRA_FROM_LOCATION = DirectionsActivity.class.getName() + ".from_location";
@@ -224,6 +220,21 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
                 if (contentUri != null)
                     resultPickContact(contentUri, viewToLocation);
             });
+    private final ActivityResultLauncher<NetworkId> pickStationFromLauncher =
+            registerForActivityResult(new FavoriteStationsActivity.PickFavoriteStation(), contentUri -> {
+                if (contentUri != null)
+                    resultPickStation(contentUri, viewFromLocation);
+            });
+    private final ActivityResultLauncher<NetworkId> pickStationViaLauncher =
+            registerForActivityResult(new FavoriteStationsActivity.PickFavoriteStation(), contentUri -> {
+                if (contentUri != null)
+                    resultPickStation(contentUri, viewViaLocation);
+            });
+    private final ActivityResultLauncher<NetworkId> pickStationToLauncher =
+            registerForActivityResult(new FavoriteStationsActivity.PickFavoriteStation(), contentUri -> {
+                if (contentUri != null)
+                    resultPickStation(contentUri, viewToLocation);
+            });
 
     public static void start(final Context context, @Nullable final Location fromLocation,
             @Nullable final Location toLocation, @Nullable final TimeSpec timeSpec, final int intentFlags) {
@@ -241,15 +252,15 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
         private final LocationView locationView;
         private final ActivityResultLauncher<String> requestLocationPermissionLauncher;
         private final ActivityResultLauncher<Void> pickContactLauncher;
-        private final int pickStationRequestCode;
+        private final ActivityResultLauncher<NetworkId> pickStationLauncher;
 
         public LocationContextMenuItemClickListener(final LocationView locationView,
                 final ActivityResultLauncher<String> requestLocationPermissionLauncher,
-                final ActivityResultLauncher<Void> pickContactLauncher, final int pickStationRequestCode) {
+                final ActivityResultLauncher<Void> pickContactLauncher, final ActivityResultLauncher<NetworkId> pickStationLauncher) {
             this.locationView = locationView;
             this.requestLocationPermissionLauncher = requestLocationPermissionLauncher;
             this.pickContactLauncher = pickContactLauncher;
-            this.pickStationRequestCode = pickStationRequestCode;
+            this.pickStationLauncher = pickStationLauncher;
         }
 
         public boolean onMenuItemClick(final MenuItem item) {
@@ -265,7 +276,7 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
                 return true;
             } else if (item.getItemId() == R.id.directions_location_favorite_station) {
                 if (network != null)
-                    FavoriteStationsActivity.startForResult(DirectionsActivity.this, pickStationRequestCode, network);
+                    pickStationLauncher.launch(network);
                 return true;
             } else {
                 return false;
@@ -348,13 +359,13 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
         viewFromLocation.setAdapter(autoCompleteAdapter);
         viewFromLocation.setListener(locationChangeListener);
         viewFromLocation.setContextMenuItemClickListener(new LocationContextMenuItemClickListener(viewFromLocation,
-                requestLocationPermissionFromLauncher, pickContactFromLauncher, REQUEST_CODE_PICK_STATION_FROM));
+                requestLocationPermissionFromLauncher, pickContactFromLauncher, pickStationFromLauncher));
 
         viewViaLocation = findViewById(R.id.directions_via);
         viewViaLocation.setAdapter(autoCompleteAdapter);
         viewViaLocation.setListener(locationChangeListener);
         viewViaLocation.setContextMenuItemClickListener(new LocationContextMenuItemClickListener(viewViaLocation,
-                requestLocationPermissionViaLauncher, pickContactViaLauncher, REQUEST_CODE_PICK_STATION_VIA));
+                requestLocationPermissionViaLauncher, pickContactViaLauncher, pickStationViaLauncher));
 
         viewToLocation = findViewById(R.id.directions_to);
         viewToLocation.setAdapter(autoCompleteAdapter);
@@ -371,7 +382,7 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
             }
         });
         viewToLocation.setContextMenuItemClickListener(new LocationContextMenuItemClickListener(viewToLocation,
-                requestLocationPermissionToLauncher, pickContactToLauncher, REQUEST_CODE_PICK_STATION_TO));
+                requestLocationPermissionToLauncher, pickContactToLauncher, pickStationToLauncher));
 
         viewProducts = findViewById(R.id.directions_products);
         viewProductToggles.add(findViewById(R.id.directions_products_i));
@@ -1159,22 +1170,6 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
         return super.onCreateDialog(id);
     }
 
-    @Override
-    protected void onActivityResult(final int requestCode, final int resultCode, final Intent result) {
-        if (requestCode == REQUEST_CODE_PICK_STATION_FROM) {
-            if (resultCode == Activity.RESULT_OK && result != null)
-                resultPickStation(result, viewFromLocation);
-        } else if (requestCode == REQUEST_CODE_PICK_STATION_VIA) {
-            if (resultCode == Activity.RESULT_OK && result != null)
-                resultPickStation(result, viewViaLocation);
-        } else if (requestCode == REQUEST_CODE_PICK_STATION_TO) {
-            if (resultCode == Activity.RESULT_OK && result != null)
-                resultPickStation(result, viewToLocation);
-        } else {
-            super.onActivityResult(requestCode, resultCode, result);
-        }
-    }
-
     private void resultPickContact(final Uri contentUri, final LocationView targetLocationView) {
         final Cursor c = managedQuery(contentUri, null, null, null, null);
         if (c.moveToFirst()) {
@@ -1187,8 +1182,8 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
         }
     }
 
-    private void resultPickStation(final Intent result, final LocationView targetLocationView) {
-        final Cursor c = managedQuery(result.getData(), null, null, null, null);
+    private void resultPickStation(final Uri contentUri, final LocationView targetLocationView) {
+        final Cursor c = managedQuery(contentUri, null, null, null, null);
         if (c.moveToFirst()) {
             final Location location = FavoriteStationsProvider.getLocation(c);
             targetLocationView.setLocation(location);

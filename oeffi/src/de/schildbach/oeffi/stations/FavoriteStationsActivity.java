@@ -24,6 +24,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ViewAnimator;
+import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,10 +52,21 @@ public class FavoriteStationsActivity extends OeffiActivity
         context.startActivity(intent);
     }
 
-    public static void startForResult(final Activity activity, final int requestCode, final NetworkId network) {
-        final Intent intent = new Intent(activity, FavoriteStationsActivity.class);
-        intent.putExtra(INTENT_EXTRA_NETWORK, checkNotNull(network));
-        activity.startActivityForResult(intent, requestCode);
+    public static class PickFavoriteStation extends ActivityResultContract<NetworkId, Uri> {
+        @Override
+        public Intent createIntent(final Context context, final NetworkId network) {
+            final Intent intent = new Intent(context, FavoriteStationsActivity.class);
+            intent.putExtra(INTENT_EXTRA_NETWORK, checkNotNull(network));
+            return intent;
+        }
+
+        @Override
+        public Uri parseResult(final int resultCode, @Nullable final Intent intent) {
+            if (resultCode == Activity.RESULT_OK && intent != null)
+                return intent.getData();
+            else
+                return null;
+        }
     }
 
     @Nullable
