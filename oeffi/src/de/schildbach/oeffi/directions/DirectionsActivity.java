@@ -167,9 +167,6 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
 
     private static final int DIALOG_CLEAR_HISTORY = 1;
 
-    private static final int REQUEST_CODE_CONTACTS_PERMISSION_FROM = 1;
-    private static final int REQUEST_CODE_CONTACTS_PERMISSION_VIA = 2;
-    private static final int REQUEST_CODE_CONTACTS_PERMISSION_TO = 3;
     private static final int REQUEST_CODE_LOCATION_PERMISSION_FROM = 4;
     private static final int REQUEST_CODE_LOCATION_PERMISSION_VIA = 5;
     private static final int REQUEST_CODE_LOCATION_PERMISSION_TO = 6;
@@ -201,16 +198,14 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
 
     private class LocationContextMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
         private final LocationView locationView;
-        private final int contactsPermissionRequestCode;
         private final int locationPermissionRequestCode;
         private final int pickContactRequestCode;
         private final int pickStationRequestCode;
 
         public LocationContextMenuItemClickListener(final LocationView locationView,
-                final int contactsPermissionRequestCode, final int locationPermissionRequestCode,
+                final int locationPermissionRequestCode,
                 final int pickContactRequestCode, final int pickStationRequestCode) {
             this.locationView = locationView;
-            this.contactsPermissionRequestCode = contactsPermissionRequestCode;
             this.locationPermissionRequestCode = locationPermissionRequestCode;
             this.pickContactRequestCode = pickContactRequestCode;
             this.pickStationRequestCode = pickStationRequestCode;
@@ -226,12 +221,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
                             new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, locationPermissionRequestCode);
                 return true;
             } else if (item.getItemId() == R.id.directions_location_contact) {
-                if (ContextCompat.checkSelfPermission(DirectionsActivity.this,
-                        Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED)
-                    startActivityForResult(INTENT_PICK_CONTACTS, pickContactRequestCode);
-                else
-                    ActivityCompat.requestPermissions(DirectionsActivity.this,
-                            new String[] { Manifest.permission.READ_CONTACTS }, contactsPermissionRequestCode);
+                startActivityForResult(INTENT_PICK_CONTACTS, pickContactRequestCode);
                 return true;
             } else if (item.getItemId() == R.id.directions_location_favorite_station) {
                 if (network != null)
@@ -318,14 +308,14 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
         viewFromLocation.setAdapter(autoCompleteAdapter);
         viewFromLocation.setListener(locationChangeListener);
         viewFromLocation.setContextMenuItemClickListener(new LocationContextMenuItemClickListener(viewFromLocation,
-                REQUEST_CODE_CONTACTS_PERMISSION_FROM, REQUEST_CODE_LOCATION_PERMISSION_FROM,
+                REQUEST_CODE_LOCATION_PERMISSION_FROM,
                 REQUEST_CODE_PICK_CONTACT_FROM, REQUEST_CODE_PICK_STATION_FROM));
 
         viewViaLocation = findViewById(R.id.directions_via);
         viewViaLocation.setAdapter(autoCompleteAdapter);
         viewViaLocation.setListener(locationChangeListener);
         viewViaLocation.setContextMenuItemClickListener(new LocationContextMenuItemClickListener(viewViaLocation,
-                REQUEST_CODE_CONTACTS_PERMISSION_VIA, REQUEST_CODE_LOCATION_PERMISSION_VIA,
+                REQUEST_CODE_LOCATION_PERMISSION_VIA,
                 REQUEST_CODE_PICK_CONTACT_VIA, REQUEST_CODE_PICK_STATION_VIA));
 
         viewToLocation = findViewById(R.id.directions_to);
@@ -343,7 +333,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
             }
         });
         viewToLocation.setContextMenuItemClickListener(new LocationContextMenuItemClickListener(viewToLocation,
-                REQUEST_CODE_CONTACTS_PERMISSION_TO, REQUEST_CODE_LOCATION_PERMISSION_TO,
+                REQUEST_CODE_LOCATION_PERMISSION_TO,
                 REQUEST_CODE_PICK_CONTACT_TO, REQUEST_CODE_PICK_STATION_TO));
 
         viewProducts = findViewById(R.id.directions_products);
@@ -1169,13 +1159,7 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
     @Override
     public void onRequestPermissionsResult(final int requestCode, final String[] permissions,
             final int[] grantResults) {
-        if (requestCode == REQUEST_CODE_CONTACTS_PERMISSION_FROM)
-            startActivityForResult(INTENT_PICK_CONTACTS, REQUEST_CODE_PICK_CONTACT_FROM);
-        else if (requestCode == REQUEST_CODE_CONTACTS_PERMISSION_VIA)
-            startActivityForResult(INTENT_PICK_CONTACTS, REQUEST_CODE_PICK_CONTACT_VIA);
-        else if (requestCode == REQUEST_CODE_CONTACTS_PERMISSION_TO)
-            startActivityForResult(INTENT_PICK_CONTACTS, REQUEST_CODE_PICK_CONTACT_TO);
-        else if (requestCode == REQUEST_CODE_LOCATION_PERMISSION_FROM)
+        if (requestCode == REQUEST_CODE_LOCATION_PERMISSION_FROM)
             viewFromLocation.acquireLocation();
         else if (requestCode == REQUEST_CODE_LOCATION_PERMISSION_VIA)
             viewViaLocation.acquireLocation();
@@ -1184,18 +1168,14 @@ public class DirectionsActivity extends OeffiMainActivity implements ActivityCom
     }
 
     private void resultPickContact(final Intent result, final LocationView targetLocationView) {
-        try {
-            final Cursor c = managedQuery(result.getData(), null, null, null, null);
-            if (c.moveToFirst()) {
-                final String data = c
-                        .getString(c.getColumnIndexOrThrow(CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS));
-                final Location location = new Location(LocationType.ADDRESS, null, null, data.replace("\n", " "));
-                targetLocationView.setLocation(location);
-                log.info("Picked {} from contacts", location);
-                requestFocusFirst();
-            }
-        } catch (final SecurityException x) {
-            new Toast(this).longToast(R.string.directions_location_choose_error_permission, x.getMessage());
+        final Cursor c = managedQuery(result.getData(), null, null, null, null);
+        if (c.moveToFirst()) {
+            final String data = c
+                    .getString(c.getColumnIndexOrThrow(CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS));
+            final Location location = new Location(LocationType.ADDRESS, null, null, data.replace("\n", " "));
+            targetLocationView.setLocation(location);
+            log.info("Picked {} from contacts", location);
+            requestFocusFirst();
         }
     }
 

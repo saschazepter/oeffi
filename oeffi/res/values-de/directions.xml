@@ -4,7 +4,6 @@
     <string name="directions_location_context_current_location">Mein aktueller Standort</string>
     <string name="directions_location_context_contact">Adresse aus Kontakt</string>
     <string name="directions_location_context_favorite_station">Haltestellen-Favorit</string>
-    <string name="directions_location_choose_error_permission">Berechtigungs-Problem:\n%1$s</string>
     <string name="directions_products_prompt">Verkehrsmittel auswählen</string>
 
     <string-array name="directions_products">
