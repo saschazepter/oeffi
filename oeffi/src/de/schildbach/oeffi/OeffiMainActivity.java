@@ -34,9 +34,11 @@ import android.text.format.DateUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import androidx.annotation.Nullable;
+import androidx.core.view.MenuProvider;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -90,6 +92,7 @@ public abstract class OeffiMainActivity extends OeffiActivity {
 
     private DrawerLayout navigationDrawerLayout;
     private RecyclerView navigationDrawerListView;
+    private MenuProvider navigationDrawerMenuProvider;
     private View navigationDrawerFooterView;
     private View navigationDrawerFooterHeartView;
 
@@ -112,6 +115,89 @@ public abstract class OeffiMainActivity extends OeffiActivity {
         final long now = System.currentTimeMillis();
         versionCode = applicationVersionCode();
         lastVersionCode = prefs.getInt(Constants.PREFS_KEY_LAST_VERSION, 0);
+
+        navigationDrawerMenuProvider = new MenuProvider() {
+            @Override
+            public void onCreateMenu(final Menu menu, final MenuInflater inflater) {
+                inflater.inflate(R.menu.global_options, menu);
+            }
+
+            @Override
+            public void onPrepareMenu(final Menu menu) {
+                final MenuItem stationsItem = menu.findItem(R.id.global_options_stations);
+                stationsItem.setChecked(OeffiMainActivity.this instanceof StationsActivity);
+                final MenuItem directionsItem = menu.findItem(R.id.global_options_directions);
+                directionsItem.setChecked(OeffiMainActivity.this instanceof DirectionsActivity);
+                final MenuItem plansItem = menu.findItem(R.id.global_options_plans);
+                plansItem.setChecked(OeffiMainActivity.this instanceof PlansPickerActivity);
+                final MenuItem donateItem = menu.findItem(R.id.global_options_donate);
+                donateItem.setVisible(Variants.ENABLE_DONATE);
+            }
+
+            @Override
+            public boolean onMenuItemSelected(final MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.global_options_stations: {
+                        if (OeffiMainActivity.this instanceof StationsActivity)
+                            return true;
+                        final Intent intent = new Intent(OeffiMainActivity.this, StationsActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
+                        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+                        return true;
+                    }
+
+                    case R.id.global_options_directions: {
+                        if (OeffiMainActivity.this instanceof DirectionsActivity)
+                            return true;
+                        final Intent intent = new Intent(OeffiMainActivity.this, DirectionsActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
+                        if (OeffiMainActivity.this instanceof StationsActivity)
+                            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+                        else
+                            overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+                        return true;
+                    }
+
+                    case R.id.global_options_plans: {
+                        if (OeffiMainActivity.this instanceof PlansPickerActivity)
+                            return true;
+                        final Intent intent = new Intent(OeffiMainActivity.this, PlansPickerActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
+                        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+                        return true;
+                    }
+
+                    case R.id.global_options_donate: {
+                        if (Variants.ENABLE_DONATE)
+                            PreferenceActivity.start(OeffiMainActivity.this, DonateFragment.class.getName());
+                        return true;
+                    }
+
+                    case R.id.global_options_report_bug: {
+                        ErrorReporter.sendBugMail(OeffiMainActivity.this, application.packageInfo());
+                        return true;
+                    }
+
+                    case R.id.global_options_preferences: {
+                        PreferenceActivity.start(OeffiMainActivity.this);
+                        return true;
+                    }
+
+                    case R.id.global_options_about: {
+                        PreferenceActivity.start(OeffiMainActivity.this, AboutFragment.class.getName());
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+        };
 
         if (prefsGetNetwork() == null) {
             NetworkPickerActivity.start(this);
@@ -177,13 +263,13 @@ public abstract class OeffiMainActivity extends OeffiActivity {
 
         final NavigationMenuAdapter menuAdapter = new NavigationMenuAdapter(this,
                 item -> {
-                    onOptionsItemSelected(item);
+                    navigationDrawerMenuProvider.onMenuItemSelected(item);
                     navigationDrawerLayout.closeDrawers();
                     return false;
                 });
         final Menu menu = menuAdapter.getMenu();
-        onCreateOptionsMenu(menu);
-        onPrepareOptionsMenu(menu);
+        navigationDrawerMenuProvider.onCreateMenu(menu, getMenuInflater());
+        navigationDrawerMenuProvider.onPrepareMenu(menu);
 
         navigationDrawerListView.setLayoutManager(new LinearLayoutManager(this));
         navigationDrawerListView
@@ -234,99 +320,6 @@ public abstract class OeffiMainActivity extends OeffiActivity {
 
     protected void closeNavigation() {
         navigationDrawerLayout.closeDrawer(Gravity.LEFT);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        getMenuInflater().inflate(R.menu.global_options, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(final Menu menu) {
-        final MenuItem stationsItem = menu.findItem(R.id.global_options_stations);
-        stationsItem.setChecked(this instanceof StationsActivity);
-
-        final MenuItem directionsItem = menu.findItem(R.id.global_options_directions);
-        directionsItem.setChecked(this instanceof DirectionsActivity);
-
-        final MenuItem plansItem = menu.findItem(R.id.global_options_plans);
-        plansItem.setChecked(this instanceof PlansPickerActivity);
-
-        final MenuItem donateItem = menu.findItem(R.id.global_options_donate);
-        donateItem.setVisible(Variants.ENABLE_DONATE);
-
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.global_options_stations: {
-            if (this instanceof StationsActivity)
-                return true;
-
-            final Intent intent = new Intent(this, StationsActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish();
-            overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
-
-            return true;
-        }
-
-        case R.id.global_options_directions: {
-            if (this instanceof DirectionsActivity)
-                return true;
-
-            final Intent intent = new Intent(this, DirectionsActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish();
-            if (this instanceof StationsActivity)
-                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-            else
-                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
-
-            return true;
-        }
-
-        case R.id.global_options_plans: {
-            if (this instanceof PlansPickerActivity)
-                return true;
-
-            final Intent intent = new Intent(this, PlansPickerActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish();
-            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-
-            return true;
-        }
-
-        case R.id.global_options_donate: {
-            if (Variants.ENABLE_DONATE)
-                PreferenceActivity.start(this, DonateFragment.class.getName());
-            return true;
-        }
-
-        case R.id.global_options_report_bug: {
-            ErrorReporter.sendBugMail(this, application.packageInfo());
-            return true;
-        }
-
-        case R.id.global_options_preferences: {
-            PreferenceActivity.start(this);
-            return true;
-        }
-
-        case R.id.global_options_about: {
-            PreferenceActivity.start(this, AboutFragment.class.getName());
-            return true;
-        }
-        }
-
-        return false;
     }
 
     @Override
