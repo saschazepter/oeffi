@@ -1,4 +1,4 @@
-v12.1.1
+v12.1.1-v12.1.2
 
 * Use activity result API for permission requests, picking contacts and picking favorite stations.
 
