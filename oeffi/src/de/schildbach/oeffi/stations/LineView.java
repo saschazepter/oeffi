@@ -28,6 +28,7 @@ import android.graphics.Paint.FontMetrics;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ReplacementSpan;
@@ -36,7 +37,6 @@ import android.widget.TextView;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import de.schildbach.oeffi.R;
-import de.schildbach.oeffi.util.CheatSheet;
 import de.schildbach.pte.Standard;
 import de.schildbach.pte.dto.Line;
 import de.schildbach.pte.dto.Line.Attr;
@@ -177,16 +177,19 @@ public class LineView extends TextView {
                         "product_" + Character.toLowerCase(line.productCode()), "string", context.getPackageName());
                 final String sheet = Joiner.on('\n').skipNulls().join(line.name,
                         productResId != 0 ? context.getString(productResId) : null, line.network);
-                if (Strings.emptyToNull(sheet) != null)
-                    CheatSheet.setup(this, sheet);
-                else
-                    CheatSheet.remove(this);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                    if (Strings.emptyToNull(sheet) != null)
+                        setTooltipText(sheet);
+                    else
+                        setTooltipText(null);
             } else {
-                CheatSheet.remove(this);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                    setTooltipText(null);
             }
         } else {
             setText(null);
-            CheatSheet.remove(this);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                setTooltipText(null);
         }
     }
 
