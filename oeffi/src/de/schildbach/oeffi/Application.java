@@ -115,6 +115,12 @@ public class Application extends android.app.Application {
         FavoriteStationsProvider.deleteFavoriteStations(this, SBB);
         QueryHistoryProvider.deleteQueryHistory(this, SBB);
 
+        // 2022-09-12: migrate PL to use RT
+        final String PL = "PL";
+        migrateSelectedNetwork(PL, NetworkId.RT);
+        FavoriteStationsProvider.deleteFavoriteStations(this, PL);
+        QueryHistoryProvider.deleteQueryHistory(this, PL);
+
         log.info("Migrations took {}", watch);
     }
 

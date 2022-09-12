@@ -113,8 +113,6 @@
     <string name="network_mersey_comment">local and regional</string>
     <string name="network_tfi_label">Ireland &amp; Northern Ireland</string>
     <string name="network_tfi_comment">local and regional</string>
-    <string name="network_pl_label">Poland</string>
-    <string name="network_pl_comment">long-distance, regional and local (e.g. Warsaw)</string>
     <string name="network_dub_label">Dubai</string>
     <string name="network_dub_comment">local</string>
     <string name="network_bart_label">San Francisco</string>

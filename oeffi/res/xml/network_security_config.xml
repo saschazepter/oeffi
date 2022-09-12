@@ -17,7 +17,6 @@
         <domain includeSubdomains="false">railteam.hafas.eu</domain><!-- Railteam -->
         <domain includeSubdomains="false">mobil.vbl.ch</domain><!-- VBL -->
         <domain includeSubdomains="false">efa.vvo-online.de</domain><!-- VVO -->
-        <domain includeSubdomains="false">mobil.rozklad-pkp.pl</domain><!-- PKP -->
     </domain-config>
 
 </network-security-config>

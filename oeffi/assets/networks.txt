@@ -87,9 +87,6 @@ MERSEY|en-UK|GB;Liverpool|beta
 # IE
 TFI|ga-IE|IE;Dublin;GB;Belfast
 
-# PL
-PL|pl-PL|PL;Warschau
-
 # AE
 DUB|ae-AE|AE;Dubai|beta
 

@@ -50,7 +50,6 @@ import de.schildbach.pte.NvbwProvider;
 import de.schildbach.pte.NvvProvider;
 import de.schildbach.pte.OebbProvider;
 import de.schildbach.pte.ParisProvider;
-import de.schildbach.pte.PlProvider;
 import de.schildbach.pte.RtProvider;
 import de.schildbach.pte.RtaChicagoProvider;
 import de.schildbach.pte.SeProvider;
@@ -203,8 +202,6 @@ public final class NetworkProviderFactory {
             return new MerseyProvider();
         else if (networkId.equals(NetworkId.TFI))
             return new TfiProvider();
-        else if (networkId.equals(NetworkId.PL))
-            return new PlProvider();
         else if (networkId.equals(NetworkId.DUB))
             return new DubProvider();
         else if (networkId.equals(NetworkId.BART))
