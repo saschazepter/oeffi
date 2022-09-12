@@ -86,24 +86,6 @@ public class Application extends android.app.Application {
 
         final Stopwatch watch = Stopwatch.createStarted();
 
-        // 2018-07-06: migrate IVB to use OEBB
-        final String IVB = "IVB";
-        migrateSelectedNetwork(IVB, NetworkId.OEBB);
-        FavoriteStationsProvider.deleteFavoriteStations(this, IVB);
-        QueryHistoryProvider.deleteQueryHistory(this, IVB);
-
-        // 2018-11-05: migrate NRI to use RT
-        final String NRI = "NRI";
-        migrateSelectedNetwork(NRI, NetworkId.RT);
-        FavoriteStationsProvider.deleteFavoriteStations(this, NRI);
-        QueryHistoryProvider.deleteQueryHistory(this, NRI);
-
-        // 2018-12-06: migrate VAGFR to use NVBW
-        final String VAGFR = "VAGFR";
-        migrateSelectedNetwork(VAGFR, NetworkId.NVBW);
-        FavoriteStationsProvider.migrateFavoriteStations(this, VAGFR, NetworkId.NVBW);
-        QueryHistoryProvider.migrateQueryHistory(this, VAGFR, NetworkId.NVBW);
-
         // 2020-11-22: delete unused downloaded station databases
         final FilenameFilter filter = (dir, name) -> name.endsWith(".db") || name.endsWith(".db.meta");
         for (final File file : getFilesDir().listFiles(filter))
