@@ -23,13 +23,17 @@ import android.database.Cursor;
 import android.net.Uri;
 import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.dto.Location;
+import de.schildbach.pte.dto.LocationType;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 public class FavoriteUtils {
     public static Uri persist(final ContentResolver contentResolver, final int type, final NetworkId networkId,
             final Location station) {
+        checkArgument(station.type == LocationType.STATION, "not a station: %s", station);
         final ContentValues values = new ContentValues();
         values.put(FavoriteStationsProvider.KEY_TYPE, type);
         values.put(FavoriteStationsProvider.KEY_STATION_NETWORK, networkId.name());
