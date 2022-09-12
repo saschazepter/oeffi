@@ -1496,11 +1496,12 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
             try {
                 final SuggestLocationsResult result = networkProvider.suggestLocations(query,
                         EnumSet.of(LocationType.STATION), 0);
-                if (result.status == SuggestLocationsResult.Status.OK)
+                if (result.status == SuggestLocationsResult.Status.OK) {
                     log.info("Got {}", result.toShortString());
                     for (final Location l : result.getLocations())
                         if (l.type == LocationType.STATION)
                             stations.add(new Station(network, l));
+                }
             } catch (final IOException x) {
                 x.printStackTrace();
             }
