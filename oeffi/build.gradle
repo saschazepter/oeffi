@@ -11,7 +11,7 @@ configurations {
 
 dependencies {
     implementation project(':public-transport-enabler')
-    implementation 'androidx.annotation:annotation:1.4.0'
+    implementation 'androidx.annotation:annotation:1.5.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
     implementation 'androidx.drawerlayout:drawerlayout:1.1.1'
