@@ -103,6 +103,12 @@ public class Application extends android.app.Application {
         FavoriteStationsProvider.deleteFavoriteStations(this, PL);
         QueryHistoryProvider.deleteQueryHistory(this, PL);
 
+        // 2023-01-09: migrate VMS to use VVO
+        final String VMS = "VMS";
+        migrateSelectedNetwork(VMS, NetworkId.VVO);
+        FavoriteStationsProvider.migrateFavoriteStations(this, VMS, NetworkId.VVO);
+        QueryHistoryProvider.migrateQueryHistory(this, VMS, NetworkId.VVO);
+
         log.info("Migrations took {}", watch);
     }
 

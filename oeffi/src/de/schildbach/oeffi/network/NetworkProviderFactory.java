@@ -65,7 +65,6 @@ import de.schildbach.pte.VbbProvider;
 import de.schildbach.pte.VblProvider;
 import de.schildbach.pte.VbnProvider;
 import de.schildbach.pte.VgnProvider;
-import de.schildbach.pte.VmsProvider;
 import de.schildbach.pte.VmtProvider;
 import de.schildbach.pte.VmvProvider;
 import de.schildbach.pte.VrnProvider;
@@ -144,8 +143,6 @@ public final class NetworkProviderFactory {
             return new VmtProvider("{\"aid\":\"vj5d7i3g9m5d7e3\",\"type\":\"AID\"}");
         else if (networkId.equals(NetworkId.VVO))
             return new VvoProvider(HttpUrl.parse("https://efa.vvo-online.de/Oeffi/"));
-        else if (networkId.equals(NetworkId.VMS))
-            return new VmsProvider(HttpUrl.parse("https://efa.vms.de/Oeffi/"));
         else if (networkId.equals(NetworkId.VRR))
             return new VrrProvider();
         else if (networkId.equals(NetworkId.VRS))
