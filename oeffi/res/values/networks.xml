@@ -38,8 +38,8 @@
     <string name="network_nasa_comment">local and regional</string>
     <string name="network_vmt_label">Erfurt, Jena &amp; Central Thuringia</string>
     <string name="network_vmt_comment">local and regional</string>
-    <string name="network_vvo_label">Verkehrsverbund Oberelbe</string>
-    <string name="network_vvo_comment">Dresden, Chemnitz &amp; Mittelsachsen, local and regional</string>
+    <string name="network_vvo_label">Saxony</string>
+    <string name="network_vvo_comment">Dresden &amp; Chemnitz, local and regional</string>
     <string name="network_vrr_label">Verkehrsverbund Rhein-Ruhr</string>
     <string name="network_vrr_comment">North Rhine-Westphalia, Düsseldorf &amp; Dortmund, local and regional</string>
     <string name="network_vrs_label">Cologne &amp; Bonn</string>
