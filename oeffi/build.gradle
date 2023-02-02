@@ -7,6 +7,7 @@ configurations {
     all*.exclude group: 'org.json', module: 'json'
     all*.exclude group: 'net.sf.kxml', module: 'kxml2'
     all*.exclude group: 'androidx.legacy', module: 'legacy-support-core-ui'
+    all*.exclude group: 'androidx.core', module: 'core-ktx'
 }
 
 dependencies {
