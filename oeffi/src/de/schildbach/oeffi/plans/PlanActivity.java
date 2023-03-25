@@ -36,7 +36,6 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
 import androidx.activity.ComponentActivity;
-import androidx.annotation.Nullable;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -68,6 +67,7 @@ import okhttp3.HttpUrl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;

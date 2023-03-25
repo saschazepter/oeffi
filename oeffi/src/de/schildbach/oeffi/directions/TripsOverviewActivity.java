@@ -31,7 +31,6 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
-import androidx.annotation.Nullable;
 import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.Ordering;
 import com.google.common.util.concurrent.Uninterruptibles;
@@ -54,6 +53,7 @@ import de.schildbach.pte.exception.SessionExpiredException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nullable;
 import javax.net.ssl.SSLException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

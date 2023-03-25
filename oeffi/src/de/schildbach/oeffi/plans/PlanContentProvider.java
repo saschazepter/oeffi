@@ -25,7 +25,6 @@ import android.database.CursorWrapper;
 import android.database.MatrixCursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
-import androidx.annotation.Nullable;
 import com.google.common.base.Objects;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
@@ -42,6 +41,7 @@ import okhttp3.HttpUrl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nullable;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;

@@ -41,7 +41,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.BaseAdapter;
-import androidx.annotation.Nullable;
 import com.google.common.base.Preconditions;
 import de.schildbach.oeffi.R;
 import de.schildbach.pte.dto.Line;
@@ -53,6 +52,7 @@ import de.schildbach.pte.dto.Trip.Individual;
 import de.schildbach.pte.dto.Trip.Leg;
 import de.schildbach.pte.dto.Trip.Public;
 
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;

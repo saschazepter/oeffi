@@ -17,7 +17,6 @@
 
 package de.schildbach.oeffi.stations;
 
-import androidx.annotation.Nullable;
 import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.dto.Departure;
 import de.schildbach.pte.dto.LineDestination;
@@ -25,6 +24,7 @@ import de.schildbach.pte.dto.Location;
 import de.schildbach.pte.dto.Product;
 import de.schildbach.pte.dto.QueryDeparturesResult;
 
+import javax.annotation.Nullable;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;

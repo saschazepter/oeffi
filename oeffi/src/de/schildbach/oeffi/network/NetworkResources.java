@@ -20,8 +20,8 @@ package de.schildbach.oeffi.network;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import androidx.annotation.Nullable;
 
+import javax.annotation.Nullable;
 import java.util.Locale;
 
 import static com.google.common.base.Preconditions.checkNotNull;

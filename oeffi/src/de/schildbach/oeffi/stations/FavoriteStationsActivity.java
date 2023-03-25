@@ -25,7 +25,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ViewAnimator;
 import androidx.activity.result.contract.ActivityResultContract;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import de.schildbach.oeffi.MyActionBar;
@@ -39,6 +38,7 @@ import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.dto.Departure;
 import de.schildbach.pte.dto.Location;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;

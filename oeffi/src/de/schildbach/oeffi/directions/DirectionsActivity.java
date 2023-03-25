@@ -61,7 +61,6 @@ import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
@@ -118,6 +117,7 @@ import org.osmdroid.views.overlay.Overlay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nullable;
 import javax.net.ssl.SSLException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

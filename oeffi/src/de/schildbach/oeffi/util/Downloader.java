@@ -17,7 +17,6 @@
 
 package de.schildbach.oeffi.util;
 
-import androidx.annotation.Nullable;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
 import com.google.common.util.concurrent.Striped;
@@ -33,6 +32,7 @@ import okhttp3.ResponseBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nullable;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;

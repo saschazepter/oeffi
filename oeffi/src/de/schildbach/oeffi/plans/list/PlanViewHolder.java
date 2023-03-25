@@ -29,12 +29,12 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.network.NetworkResources;
 import okhttp3.Call;
 
+import javax.annotation.Nullable;
 import java.util.Date;
 
 public class PlanViewHolder extends RecyclerView.ViewHolder {

@@ -41,7 +41,6 @@ import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.PopupMenu;
 import android.widget.TextView.OnEditorActionListener;
-import androidx.annotation.Nullable;
 import com.google.common.base.Strings;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.R;
@@ -53,6 +52,7 @@ import de.schildbach.pte.dto.Location;
 import de.schildbach.pte.dto.LocationType;
 import de.schildbach.pte.dto.Point;
 
+import javax.annotation.Nullable;
 import java.util.Locale;
 
 public class LocationView extends FrameLayout implements LocationHelper.Callback {

@@ -19,8 +19,9 @@ package de.schildbach.oeffi.preference;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
-import androidx.annotation.Nullable;
 import de.schildbach.oeffi.R;
+
+import javax.annotation.Nullable;
 
 public class DirectionsFragment extends PreferenceFragment {
     @Override

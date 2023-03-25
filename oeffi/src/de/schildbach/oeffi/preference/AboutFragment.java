@@ -24,10 +24,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import androidx.annotation.Nullable;
 import de.schildbach.oeffi.Application;
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.util.Installer;
+
+import javax.annotation.Nullable;
 
 public class AboutFragment extends PreferenceFragment {
     private static final String KEY_ABOUT_VERSION = "about_version";

@@ -17,11 +17,11 @@
 
 package de.schildbach.oeffi.stations.list;
 
-import androidx.annotation.Nullable;
 import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.dto.Departure;
 import de.schildbach.pte.dto.Location;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public interface StationContextMenuItemListener {
