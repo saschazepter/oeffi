@@ -26,7 +26,7 @@ dependencies {
     implementation 'com.google.guava:guava:31.1-android'
     implementation 'org.osmdroid:osmdroid-android:6.1.14'
     implementation 'org.slf4j:slf4j-api:1.7.36'
-    implementation 'com.github.tony19:logback-android:2.0.1'
+    implementation 'com.github.tony19:logback-android:3.0.0'
     testImplementation 'junit:junit:4.13.2'
 }
 
