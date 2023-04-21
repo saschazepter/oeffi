@@ -58,6 +58,7 @@ import de.schildbach.pte.dto.Line;
 import de.schildbach.pte.dto.LineDestination;
 import de.schildbach.pte.dto.Location;
 import de.schildbach.pte.dto.LocationType;
+import de.schildbach.pte.dto.Product;
 import de.schildbach.pte.dto.QueryDeparturesResult;
 import de.schildbach.pte.dto.StationDepartures;
 import org.osmdroid.util.GeoPoint;
@@ -69,6 +70,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -693,9 +695,17 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
                 itemView.setOnClickListener(null);
             }
 
-            // position
-            positionView.setText(departure.position != null ? Constants.DESTINATION_ARROW_INVISIBLE_PREFIX
-                    + context.getString(R.string.position_platform, departure.position) : null);
+            // position: use german translation "Gleis" only for trains, otherwise use "Steig"
+            boolean isTrain = departure.line.product != null &&
+                    EnumSet.of(Product.HIGH_SPEED_TRAIN, Product.REGIONAL_TRAIN, Product.SUBURBAN_TRAIN,
+                            Product.SUBWAY).contains(departure.line.product);
+            positionView.setText(departure.position != null ?
+                    Constants.DESTINATION_ARROW_INVISIBLE_PREFIX +
+                            context.getString(isTrain ?
+                                            R.string.position_platform_train :
+                                            R.string.position_platform,
+                                    departure.position) :
+                    null);
 
             // capacity
             final int[] capacity = departure.capacity;
