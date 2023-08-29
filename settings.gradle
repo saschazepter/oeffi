@@ -8,5 +8,9 @@ def maxGradleVersion = GradleVersion.version("7.0") // excluding
 if (GradleVersion.current() < minGradleVersion || GradleVersion.current() >= maxGradleVersion)
     throw new GradleScriptException("build requires Gradle between ${minGradleVersion.version} (including) and ${maxGradleVersion.version} (excluding)", null)
 
+gradle.startParameter.excludedTaskNames << "lint"
+gradle.startParameter.excludedTaskNames << ":oeffi:lintVitalAospRelease"
+gradle.startParameter.excludedTaskNames << ":oeffi:lintVitalGoogleRelease"
+
 include 'oeffi'
 include 'public-transport-enabler'
