@@ -4,50 +4,40 @@ variables:
 
 before_script:
   - apt-get update
-
-after_script:
-  - gradle --version
+  - apt-get -y install podman
 
 bullseye-jdk11:
-  image: debian:bullseye-backports
+  image: debian:bullseye-slim
   script:
-    - apt-get -y install openjdk-11-jdk-headless gradle sdkmanager
-    - yes | sdkmanager --licenses >/dev/null || true
-    - gradle build --stacktrace
+    - podman build --file build.Containerfile --output build .
   artifacts:
     name: oeffi-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
     paths:
-      - oeffi/build/outputs/apk/**/*.apk
+      - build/*.apk
 
 bookworm-jdk17:
   image: debian:bookworm-slim
   script:
-    - apt-get -y install openjdk-17-jdk-headless gradle sdkmanager
-    - yes | sdkmanager --licenses >/dev/null || true
-    - gradle build --stacktrace
+    - podman build --file build.Containerfile --output build .
   artifacts:
     name: oeffi-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
     paths:
-      - oeffi/build/outputs/apk/**/*.apk
+      - build/*.apk
 
 jammy-jdk11:
   image: ubuntu:jammy
   script:
-    - apt-get -y install openjdk-11-jdk-headless gradle sdkmanager
-    - yes | sdkmanager --licenses >/dev/null || true
-    - gradle build --stacktrace
+    - podman build --file build.Containerfile --output build .
   artifacts:
     name: oeffi-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
     paths:
-      - oeffi/build/outputs/apk/**/*.apk
+      - build/*.apk
 
 lunar-jdk17:
   image: ubuntu:lunar
   script:
-    - apt-get -y install openjdk-17-jdk-headless gradle sdkmanager
-    - yes | sdkmanager --licenses >/dev/null || true
-    - gradle build --stacktrace
+    - podman build --file build.Containerfile --output build .
   artifacts:
     name: oeffi-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
     paths:
-      - oeffi/build/outputs/apk/**/*.apk
+      - build/*.apk
