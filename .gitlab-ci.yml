@@ -4,14 +4,19 @@ variables:
 
 before_script:
   - apt-get update
-  - apt-get -y upgrade
-  - apt-get -y install podman
-  - apt-get -y install ca-certificates
+  - apt-get -y install ca-certificates podman
+
+after_script:
+  - sha256sum build/*
 
 bullseye-jdk11:
   image: debian:bullseye-slim
   script:
-    - podman build --file build.Containerfile --output build .
+    - podman build --file build.Containerfile .
+    - export CID=`podman create de.schildbach.oeffi nop`
+    - mkdir -p build/
+    - podman cp $CID:/ build/
+    - podman rm -i $CID
   artifacts:
     name: oeffi-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
     paths:
@@ -20,7 +25,7 @@ bullseye-jdk11:
 bookworm-jdk17:
   image: debian:bookworm-slim
   script:
-    - podman build --file build.Containerfile --output build .
+    - podman build --events-backend none --file build.Containerfile --output build .
   artifacts:
     name: oeffi-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
     paths:
@@ -29,7 +34,11 @@ bookworm-jdk17:
 jammy-jdk11:
   image: ubuntu:jammy
   script:
-    - podman build --file build.Containerfile --output build .
+    - podman build --file build.Containerfile .
+    - export CID=`podman create de.schildbach.oeffi nop`
+    - mkdir -p build/
+    - podman cp $CID:/ build/
+    - podman rm -i $CID
   artifacts:
     name: oeffi-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
     paths:
@@ -38,7 +47,7 @@ jammy-jdk11:
 lunar-jdk17:
   image: ubuntu:lunar
   script:
-    - podman build --file build.Containerfile --output build .
+    - podman build --events-backend none --file build.Containerfile --output build .
   artifacts:
     name: oeffi-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
     paths:
