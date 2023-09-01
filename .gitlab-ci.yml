@@ -4,7 +4,9 @@ variables:
 
 before_script:
   - apt-get update
+  - apt-get -y upgrade
   - apt-get -y install podman
+  - apt-get -y install ca-certificates
 
 bullseye-jdk11:
   image: debian:bullseye-slim
