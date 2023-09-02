@@ -37,6 +37,7 @@ RUN /bin/mkdir project && \
     /usr/bin/gradle --project-dir project/ --no-build-cache --no-daemon --no-parallel clean :oeffi:assembleRelease
 # && \
 #    /bin/fusermount -u project
+RUN sha256sum /home/builder/project-backing/oeffi/build/outputs/apk/*/release/oeffi-*-release-unsigned.apk
 
 # export build output
 FROM scratch AS export-stage

@@ -13,37 +13,10 @@ before_script:
 after_script:
   - sha256sum build/*
 
-bullseye-jdk11:
-  image: debian:bullseye-slim
-  script:
-    - buildah build --file build.Containerfile --output build .
-  artifacts:
-    name: oeffi-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
-    paths:
-      - build/*.apk
-
-bookworm-jdk17:
+bookworm:
   image: debian:bookworm-slim
   script:
-    - buildah build --file build.Containerfile --output build .
-  artifacts:
-    name: oeffi-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
-    paths:
-      - build/*.apk
-
-jammy-jdk11:
-  image: ubuntu:jammy
-  script:
-    - buildah build --file build.Containerfile --output build .
-  artifacts:
-    name: oeffi-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
-    paths:
-      - build/*.apk
-
-lunar-jdk17:
-  image: ubuntu:lunar
-  script:
-    - buildah build --file build.Containerfile --output build .
+    - buildah build --cap-add=sys_admin --device /dev/fuse --file build.Containerfile --output build .
   artifacts:
     name: oeffi-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
     paths:
