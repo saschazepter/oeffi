@@ -8,6 +8,7 @@ before_script:
   # Switch to iptables legacy, as GitLab CI doesn't support nftables.
   - apt-get -y install --no-install-recommends iptables
   - update-alternatives --set iptables /usr/sbin/iptables-legacy
+  - buildah info
 
 after_script:
   - sha256sum build/*
