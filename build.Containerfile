@@ -15,7 +15,7 @@ FROM debian:bullseye-backports AS build-stage
 # install debian packages
 ENV DEBIAN_FRONTEND noninteractive
 RUN /usr/bin/apt-get update && \
-    /usr/bin/apt-get --yes install openjdk-11-jdk-headless gradle sdkmanager && \
+    /usr/bin/apt-get --yes install disorderfs openjdk-11-jdk-headless gradle sdkmanager && \
     /bin/ln -fs /usr/share/zoneinfo/CET /etc/localtime && \
     /usr/sbin/dpkg-reconfigure --frontend noninteractive tzdata && \
     /usr/sbin/adduser --disabled-login --gecos "" builder
@@ -23,17 +23,22 @@ RUN /usr/bin/apt-get update && \
 # give up privileges
 USER builder
 
-# copy source code
+# copy project source code
 WORKDIR /home/builder
-COPY --chown=builder / .
+COPY --chown=builder / project-backing/
 
 # accept SDK licenses
 ENV ANDROID_HOME /home/builder/android-sdk
 RUN yes | /usr/bin/sdkmanager --licenses >/dev/null
 
-# build
-RUN /usr/bin/gradle --no-build-cache --no-daemon --no-parallel clean :oeffi:assembleRelease
+# build project
+RUN /bin/mkdir project && \
+    /usr/bin/disorderfs --sort-dirents=yes --reverse-dirents=no project-backing project && \
+    /usr/bin/gradle --project-dir project/ --no-build-cache --no-daemon --no-parallel clean :oeffi:assembleRelease
+# && \
+#    /bin/fusermount -u project
+RUN sha256sum /home/builder/project-backing/oeffi/build/outputs/apk/*/release/oeffi-*-release-unsigned.apk
 
 # export build output
 FROM scratch AS export-stage
-COPY --from=build-stage /home/builder/oeffi/build/outputs/apk/*/release/oeffi-*-release-unsigned.apk /
+COPY --from=build-stage /home/builder/project-backing/oeffi/build/outputs/apk/*/release/oeffi-*-release-unsigned.apk /
