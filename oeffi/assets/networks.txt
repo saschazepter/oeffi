@@ -83,9 +83,6 @@ FINLAND|fi-FI|FI;Helsinki|beta
 TLEM|en-UK|GB;Greater London;Derbyshire;Leicestershire;Rutland;Northamptonshire;Nottinghamshire;Lincolnshire;Berkshire;Buckinghamshire;East Sussex;Hampshire;Isle of Wight;Kent;Oxfordshire;Surrey;West Sussex;Essex;Hertfordshire;Bedfordshire;Cambridgeshire;Norfolk;Suffolk;Somerset;Gloucestershire;Wiltshire;Dorset;Devon;Cornwall;West Devon;Stowford;Eastleigh;Swindon;Gloucester;Plymouth;Torbay;Bournemouth;Poole;Birmingham
 MERSEY|en-UK|GB;Liverpool|beta
 
-# IE
-TFI|ga-IE|IE;Dublin;GB;Belfast
-
 # AE
 DUB|ae-AE|AE;Dubai|beta
 

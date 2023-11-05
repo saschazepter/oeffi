@@ -109,6 +109,12 @@ public class Application extends android.app.Application {
         FavoriteStationsProvider.migrateFavoriteStations(this, VMS, NetworkId.VVO);
         QueryHistoryProvider.migrateQueryHistory(this, VMS, NetworkId.VVO);
 
+        // 2023-11-05: migrate TFI to use RT
+        final String TFI = "TFI";
+        migrateSelectedNetwork(TFI, NetworkId.RT);
+        FavoriteStationsProvider.deleteFavoriteStations(this, TFI);
+        QueryHistoryProvider.deleteQueryHistory(this, TFI);
+
         log.info("Migrations took {}", watch);
     }
 
