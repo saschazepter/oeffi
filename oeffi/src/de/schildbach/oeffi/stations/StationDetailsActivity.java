@@ -75,8 +75,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -195,86 +193,12 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
         resultStatusView = findViewById(R.id.stations_station_details_result_status);
 
         final Intent intent = getIntent();
-        final Uri uri = intent.getData();
-
-        if (uri != null && uri.getScheme().equals("http")) {
-            log.info("Got intent: {}", intent);
-
-            final String host = uri.getHost();
-            final String path = uri.getPath().trim();
-
-            if ("oeffi.schildbach.de".equals(host)) {
-                final NetworkId network = NetworkId.valueOf(uri.getQueryParameter("network").toUpperCase());
-                final String stationId = uri.getQueryParameter("id");
-                selectStation(new Station(network, new Location(LocationType.STATION, stationId, null, null)));
-            } else if ("qr.bvg.de".equals(host)) {
-                final Matcher m = Pattern.compile("/h(\\d+)").matcher(path);
-                if (m.matches()) {
-                    final NetworkId network = NetworkId.BVG;
-                    String stationId = bvgStationIdNfcToQr(m.group(1));
-                    if (stationId.length() <= 6) // mast
-                        stationId = '~' + stationId;
-                    selectStation(new Station(network, new Location(LocationType.STATION, stationId, null, null)));
-                } else {
-                    throw new IllegalArgumentException("could not parse path: '" + path + "'");
-                }
-            } else if ("mobil.s-bahn-berlin.de".equals(host)) {
-                if ("/".equals(path)) {
-                    final NetworkId network = NetworkId.VBB;
-                    final String qr = uri.getQueryParameter("QR");
-                    final String stationId = qr != null ? qr : uri.getQueryParameter("qr");
-                    selectStation(new Station(network, new Location(LocationType.STATION, stationId, null, null)));
-                } else {
-                    throw new IllegalArgumentException("could not parse path: '" + path + "'");
-                }
-            } else if ("www.mvg-live.de".equals(host)) {
-                final Matcher m = Pattern.compile("/qr/(\\d+)-\\d*-\\d*").matcher(path);
-                if (m.matches()) {
-                    final NetworkId network = NetworkId.MVV;
-                    final String stationId = m.group(1);
-                    selectStation(new Station(network, new Location(LocationType.STATION, stationId, null, null)));
-                } else {
-                    throw new IllegalArgumentException("could not parse path: '" + path + "'");
-                }
-            } else if ("wap.rmv.de".equals(host)) {
-                final NetworkId network = NetworkId.NVV;
-                final String stationId = uri.getQueryParameter("id");
-                selectStation(new Station(network, new Location(LocationType.STATION, stationId, null, null)));
-            } else if ("m.vrn.de".equals(host)) {
-                final Matcher m = Pattern.compile("/(\\d+)").matcher(path);
-                if (m.matches()) {
-                    final NetworkId network = NetworkId.VRN;
-                    final String stationId = Integer.toString(Integer.parseInt(m.group(1)) + 6000000);
-                    selectStation(new Station(network, new Location(LocationType.STATION, stationId, null, null)));
-                } else {
-                    throw new IllegalArgumentException("could not parse path: '" + path + "'");
-                }
-            } else if ("www.rheinbahn.de".equals(host)) {
-                final Matcher m = Pattern.compile("/QRBarcode/HS/(\\d+)_\\d*.html").matcher(path);
-                if (m.matches()) {
-                    final NetworkId network = NetworkId.VRR;
-                    final String stationId = Integer.toString(Integer.parseInt(m.group(1)) + 20000000);
-                    selectStation(new Station(network, new Location(LocationType.STATION, stationId, null, null)));
-                } else {
-                    throw new IllegalArgumentException("could not parse path: '" + path + "'");
-                }
-            } else if ("mobil.vvs.de".equals(host)) {
-                final NetworkId network = NetworkId.VVS;
-                final int stationId = Integer.parseInt(uri.getQueryParameter("name_dm"));
-                // final String lineId = uri.getQueryParameter("line");
-                selectStation(new Station(network, new Location(LocationType.STATION,
-                        Integer.toString(stationId < 10000 ? stationId + 5000000 : stationId), null, null)));
-            } else {
-                throw new RuntimeException("cannot handle host: '" + host + "'");
-            }
-        } else {
-            final NetworkId network = (NetworkId) checkNotNull(getIntent().getSerializableExtra(INTENT_EXTRA_NETWORK));
-            final Station station = new Station(network, (Location) intent.getSerializableExtra(INTENT_EXTRA_STATION));
-            if (intent.hasExtra(INTENT_EXTRA_DEPARTURES))
-                station.departures = (List<Departure>) intent.getSerializableExtra(INTENT_EXTRA_DEPARTURES);
-            selectStation(station);
-            statusMessage(getString(R.string.stations_station_details_progress));
-        }
+        final NetworkId network = (NetworkId) checkNotNull(intent.getSerializableExtra(INTENT_EXTRA_NETWORK));
+        final Station station = new Station(network, (Location) intent.getSerializableExtra(INTENT_EXTRA_STATION));
+        if (intent.hasExtra(INTENT_EXTRA_DEPARTURES))
+            station.departures = (List<Departure>) intent.getSerializableExtra(INTENT_EXTRA_DEPARTURES);
+        selectStation(station);
+        statusMessage(getString(R.string.stations_station_details_progress));
 
         favoriteButton
                 .setChecked(selectedFavState != null && selectedFavState == FavoriteStationsProvider.TYPE_FAVORITE);
