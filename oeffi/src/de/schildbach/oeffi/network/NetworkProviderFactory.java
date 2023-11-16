@@ -21,7 +21,7 @@ import com.google.common.base.Charsets;
 import com.google.common.io.BaseEncoding;
 import de.schildbach.pte.AbstractNetworkProvider;
 import de.schildbach.pte.AvvAachenProvider;
-import de.schildbach.pte.AvvProvider;
+import de.schildbach.pte.AvvAugsburgProvider;
 import de.schildbach.pte.BartProvider;
 import de.schildbach.pte.BayernProvider;
 import de.schildbach.pte.BsvagProvider;
@@ -119,8 +119,8 @@ public final class NetworkProviderFactory {
         else if (networkId.equals(NetworkId.INVG))
             return new InvgProvider("{\"type\":\"AID\",\"aid\":\"GITvwi3BGOmTQ2a5\"}",
                     "ERxotxpwFT7uYRsI".getBytes(Charsets.UTF_8));
-        else if (networkId.equals(NetworkId.AVV))
-            return new AvvProvider();
+        else if (networkId.equals(NetworkId.AVV_AUGSBURG))
+            return new AvvAugsburgProvider("{\"type\":\"AID\",\"aid\":\"jK91AVVZU77xY5oH\"}");
         else if (networkId.equals(NetworkId.VGN))
             return new VgnProvider(HttpUrl.parse("https://efa.vgn.de/vgnExt_oeffi/"));
         else if (networkId.equals(NetworkId.VVM))

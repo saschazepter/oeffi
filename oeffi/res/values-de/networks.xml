@@ -19,8 +19,8 @@
     <string name="network_mvv_comment">Lokal- und Regionalverkehr</string>
     <string name="network_invg_label">Ingolstadt</string>
     <string name="network_invg_comment">Lokal- und Regionalverkehr</string>
-    <string name="network_avv_label">Augsburg</string>
-    <string name="network_avv_comment">nur Tram und Bus</string>
+    <string name="network_avv_augsburg_label">Augsburg</string>
+    <string name="network_avv_augsburg_comment">nur Tram und Bus</string>
     <string name="network_vgn_label">Verkehrsverbund Großraum Nürnberg</string>
     <string name="network_vgn_comment">Nürnberg, Fürth &amp; Erlangen, Lokal- und Regionalverkehr</string>
     <string name="network_vvm_label">Mittelschwaben (Krumbach, Günzburg, …)</string>

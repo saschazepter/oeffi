@@ -18,8 +18,8 @@
     <string name="network_mvv_comment">local and regional</string>
     <string name="network_invg_label">Ingolstadt</string>
     <string name="network_invg_comment">local and regional</string>
-    <string name="network_avv_label">Augsburg</string>
-    <string name="network_avv_comment">tram and bus only</string>
+    <string name="network_avv_augsburg_label">Augsburg</string>
+    <string name="network_avv_augsburg_comment">tram and bus only</string>
     <string name="network_vgn_label">Verkehrsverbund Großraum Nürnberg</string>
     <string name="network_vgn_comment">Nuremberg, Fürth &amp; Erlangen, local and regional</string>
     <string name="network_vvm_label">Mittelschwaben (Krumbach, Günzburg, …)</string>

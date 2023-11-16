@@ -115,6 +115,12 @@ public class Application extends android.app.Application {
         FavoriteStationsProvider.deleteFavoriteStations(this, TFI);
         QueryHistoryProvider.deleteQueryHistory(this, TFI);
 
+        // 2023-11-16: migrate AVV to use AVV_AUGSBURG
+        final String AVV = "AVV";
+        migrateSelectedNetwork(AVV, NetworkId.AVV_AUGSBURG);
+        FavoriteStationsProvider.deleteFavoriteStations(this, AVV);
+        QueryHistoryProvider.deleteQueryHistory(this, AVV);
+
         log.info("Migrations took {}", watch);
     }
 

@@ -8,7 +8,7 @@ DB|de-DE|DE
 BVG|de-DE|Brandenburg;Berlin
 VBB|de-DE|Brandenburg
 BAYERN|de-DE|Bayern;Würzburg;Regensburg
-AVV|de-DE|Augsburg
+AVV_AUGSBURG|de-DE|Augsburg
 MVV|de-DE|Bayern;München
 INVG|de-DE|Ingolstadt
 VGN|de-DE|Nürnberg;Fürth;Erlangen
