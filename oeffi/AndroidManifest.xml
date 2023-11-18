@@ -181,6 +181,7 @@
             <intent-filter android:label="@string/directions_intentfilter_title">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="geo" />
             </intent-filter>
         </activity>
