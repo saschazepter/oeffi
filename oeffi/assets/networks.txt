@@ -61,9 +61,6 @@ PARIS|fr-FR|FR|alpha
 # ES
 SPAIN|es-ES|ES|alpha
 
-# BE
-SNCB|be-BE|BE|alpha
-
 # LU
 LU|lb-LU|LU;Luxemburg
 

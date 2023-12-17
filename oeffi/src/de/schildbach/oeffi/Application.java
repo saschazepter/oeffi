@@ -121,6 +121,12 @@ public class Application extends android.app.Application {
         FavoriteStationsProvider.deleteFavoriteStations(this, AVV);
         QueryHistoryProvider.deleteQueryHistory(this, AVV);
 
+        // 2023-12-17: migrate SNCB to use RT
+        final String SNCB = "SNCB";
+        migrateSelectedNetwork(SNCB, NetworkId.RT);
+        FavoriteStationsProvider.deleteFavoriteStations(this, SNCB);
+        QueryHistoryProvider.deleteQueryHistory(this, SNCB);
+
         log.info("Migrations took {}", watch);
     }
 

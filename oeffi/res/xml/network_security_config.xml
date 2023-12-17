@@ -10,7 +10,6 @@
 
     <!-- This is the hall of shame: public transport authorities which still do not support HTTPS. -->
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="false">www.belgianrail.be</domain><!-- SNCB/NMBS -->
         <domain includeSubdomains="false">android.vrsinfo.de</domain><!-- VRS -->
         <domain includeSubdomains="false">wojhati.rta.ae</domain><!-- RTA Dubai -->
         <domain includeSubdomains="false">appefa10.verbundlinie.at</domain><!-- STV -->

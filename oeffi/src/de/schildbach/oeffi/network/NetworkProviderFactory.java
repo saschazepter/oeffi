@@ -55,7 +55,6 @@ import de.schildbach.pte.RtProvider;
 import de.schildbach.pte.RtaChicagoProvider;
 import de.schildbach.pte.SeProvider;
 import de.schildbach.pte.ShProvider;
-import de.schildbach.pte.SncbProvider;
 import de.schildbach.pte.SpainProvider;
 import de.schildbach.pte.StvProvider;
 import de.schildbach.pte.SydneyProvider;
@@ -183,8 +182,6 @@ public final class NetworkProviderFactory {
             return new ParisProvider(NAVITIA_AUTHORIZATION);
         else if (networkId.equals(NetworkId.SPAIN))
             return new SpainProvider(NAVITIA_AUTHORIZATION);
-        else if (networkId.equals(NetworkId.SNCB))
-            return new SncbProvider("{\"type\":\"AID\",\"aid\":\"sncb-mobi\"}");
         else if (networkId.equals(NetworkId.LU))
             return new LuProvider("{\"type\":\"AID\",\"aid\":\"SkC81GuwuzL4e0\"}");
         else if (networkId.equals(NetworkId.NS))

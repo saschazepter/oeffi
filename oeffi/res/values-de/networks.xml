@@ -93,8 +93,6 @@
     <string name="network_paris_comment">Lokal- und Regionalverkehr</string>
     <string name="network_spain_label">Spanien</string>
     <string name="network_spain_comment">Lokal- und Regionalverkehr (z.B. Barcelona)</string>
-    <string name="network_sncb_label">Belgien</string>
-    <string name="network_sncb_comment">Fern-, Regional und Lokalverkehr (z.B. Antwerpen, Gent, Charleroi, Brüssel)</string>
     <string name="network_lu_label">Luxemburg</string>
     <string name="network_lu_comment">Lokal- und Regionalverkehr</string>
     <string name="network_ns_label">Niederlande</string>
