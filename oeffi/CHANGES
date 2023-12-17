@@ -1,3 +1,7 @@
+v12.1.18
+
+* Remove region: Belgium (SNCB)
+
 v12.1.15-v12.1.17
 
 * Migrate region Augsburg from EFA to Hafas
