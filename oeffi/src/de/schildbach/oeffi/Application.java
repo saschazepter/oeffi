@@ -91,18 +91,6 @@ public class Application extends android.app.Application {
         for (final File file : getFilesDir().listFiles(filter))
             file.delete();
 
-        // 2021-09-18: migrate SBB to use RT
-        final String SBB = "SBB";
-        migrateSelectedNetwork(SBB, NetworkId.RT);
-        FavoriteStationsProvider.deleteFavoriteStations(this, SBB);
-        QueryHistoryProvider.deleteQueryHistory(this, SBB);
-
-        // 2022-09-12: migrate PL to use RT
-        final String PL = "PL";
-        migrateSelectedNetwork(PL, NetworkId.RT);
-        FavoriteStationsProvider.deleteFavoriteStations(this, PL);
-        QueryHistoryProvider.deleteQueryHistory(this, PL);
-
         // 2023-01-09: migrate VMS to use VVO
         final String VMS = "VMS";
         migrateSelectedNetwork(VMS, NetworkId.VVO);
