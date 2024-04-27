@@ -127,6 +127,10 @@ public class Application extends android.app.Application {
         FavoriteStationsProvider.deleteFavoriteStations(this, SNCB);
         QueryHistoryProvider.deleteQueryHistory(this, SNCB);
 
+        // 2024-04-27: EFA-ID migration of MVV
+        FavoriteStationsProvider.migrateFavoriteStationIds(this, NetworkId.MVV, "0", "10000", 91000000);
+        QueryHistoryProvider.migrateQueryHistoryIds(this, NetworkId.MVV, "0", "10000", 91000000);
+
         log.info("Migrations took {}", watch);
     }
 
