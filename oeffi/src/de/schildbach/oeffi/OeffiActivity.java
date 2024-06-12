@@ -50,8 +50,7 @@ public abstract class OeffiActivity extends ComponentActivity {
         this.application = (Application) getApplication();
         this.prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        ErrorReporter.getInstance().check(this, applicationVersionCode(), applicationVersionFlavor(),
-                application.okHttpClient());
+        ErrorReporter.getInstance().check(this, applicationVersionCode(), application.okHttpClient());
     }
 
     protected void updateFragments(final int listFrameResId, final int mapFrameResId) {
@@ -98,10 +97,6 @@ public abstract class OeffiActivity extends ComponentActivity {
 
     protected final int applicationVersionCode() {
         return Application.versionCode(application);
-    }
-
-    protected final String applicationVersionFlavor() {
-        return Application.versionFlavor(application);
     }
 
     protected final long applicationFirstInstallTime() {

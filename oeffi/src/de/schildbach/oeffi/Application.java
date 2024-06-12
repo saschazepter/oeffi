@@ -197,13 +197,4 @@ public class Application extends android.app.Application {
     public static final int versionCode(final Application application) {
         return application.packageInfo().versionCode;
     }
-
-    public static final String versionFlavor(final Application application) {
-        final String applicationVersion = versionName(application);
-        final int applicationVersionSplit = applicationVersion.indexOf('-');
-        if (applicationVersionSplit >= 0)
-            return applicationVersion.substring(applicationVersionSplit + 1);
-        else
-            return null;
-    }
 }

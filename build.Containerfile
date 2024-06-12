@@ -48,4 +48,4 @@ RUN if [ -e /dev/fuse ] ; \
 
 # export build output
 FROM scratch AS export-stage
-COPY --from=build-stage /home/builder/project/oeffi/build/outputs/apk/*/release/oeffi-*-release-unsigned.apk /
+COPY --from=build-stage /home/builder/project/oeffi/build/outputs/apk/release/oeffi-release-unsigned.apk /

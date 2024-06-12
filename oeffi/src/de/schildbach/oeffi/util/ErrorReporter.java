@@ -315,15 +315,12 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler {
 
     private final static Pattern PATTERN_VERSION = Pattern.compile("<dt id=\"(\\d+)\">([^<]*)</dt>");
 
-    public void check(final Context context, final int applicationVersionCode, final String applicationVersionFlavor,
-            final OkHttpClient okHttpClient) {
+    public void check(final Context context, final int applicationVersionCode, final OkHttpClient okHttpClient) {
         if (!stackTraceFile.exists())
             return;
 
         final HttpUrl.Builder url = HttpUrl.parse(context.getString(R.string.about_changelog_summary)).newBuilder();
         url.addQueryParameter("version", Integer.toString(applicationVersionCode));
-        if (applicationVersionFlavor != null)
-            url.addQueryParameter("flavor", applicationVersionFlavor);
         url.addQueryParameter("sdk", Integer.toString(Build.VERSION.SDK_INT));
         url.addQueryParameter("check", null);
         final Request.Builder request = new Request.Builder().url(url.build());

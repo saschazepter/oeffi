@@ -341,18 +341,11 @@ public abstract class OeffiMainActivity extends OeffiActivity {
 
     private void downloadAndProcessMessages(final String network) {
         final HttpUrl.Builder remoteUrl = Constants.MESSAGES_BASE_URL.newBuilder();
-        final StringBuilder remoteFileName = new StringBuilder("messages");
-        final String flavor = applicationVersionFlavor();
-        if (flavor != null)
-            remoteFileName.append('-').append(flavor);
-        remoteFileName.append(".txt");
-        remoteUrl.addPathSegment(remoteFileName.toString());
+        remoteUrl.addPathSegment("messages.txt");
         final String installerPackageName = Installer.installerPackageName(this);
         if (installerPackageName != null)
             remoteUrl.addEncodedQueryParameter("installer", installerPackageName);
         remoteUrl.addQueryParameter("version", Integer.toString(versionCode));
-        if (flavor != null)
-            remoteUrl.addQueryParameter("flavor", flavor);
         remoteUrl.addQueryParameter("sdk", Integer.toString(Build.VERSION.SDK_INT));
         remoteUrl.addQueryParameter("task", taskName());
         final File localFile = new File(getFilesDir(), "messages.txt");
