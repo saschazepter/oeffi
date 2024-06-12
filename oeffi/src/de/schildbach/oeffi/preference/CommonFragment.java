@@ -17,7 +17,6 @@
 
 package de.schildbach.oeffi.preference;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import de.schildbach.oeffi.R;
@@ -25,13 +24,11 @@ import de.schildbach.oeffi.R;
 import javax.annotation.Nullable;
 
 public class CommonFragment extends PreferenceFragment {
-    private static final String KEY_BATTERY_OPTIMIZATIONS = "battery_optimizations";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.preference_common);
-        findPreference(KEY_BATTERY_OPTIMIZATIONS).setEnabled(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M);
     }
 }

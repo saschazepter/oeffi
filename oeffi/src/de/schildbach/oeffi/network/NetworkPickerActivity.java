@@ -18,7 +18,6 @@
 package de.schildbach.oeffi.network;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.ActivityManager.TaskDescription;
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +28,6 @@ import android.content.res.Resources;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -570,11 +568,5 @@ public class NetworkPickerActivity extends ComponentActivity implements Location
         final int color = getResources().getColor(colorResId);
         actionBar.setBackgroundColor(color);
         setTaskDescription(new TaskDescription(null, null, color));
-    }
-
-    @TargetApi(24)
-    @Override
-    public boolean isInMultiWindowMode() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && super.isInMultiWindowMode();
     }
 }

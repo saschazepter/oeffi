@@ -17,12 +17,10 @@
 
 package de.schildbach.oeffi;
 
-import android.annotation.TargetApi;
 import android.app.ActivityManager.TaskDescription;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
@@ -151,11 +149,5 @@ public abstract class OeffiActivity extends ComponentActivity {
         }
 
         return str;
-    }
-
-    @TargetApi(24)
-    @Override
-    public boolean isInMultiWindowMode() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && super.isInMultiWindowMode();
     }
 }
