@@ -130,8 +130,6 @@ public abstract class OeffiMainActivity extends OeffiActivity {
                 directionsItem.setChecked(OeffiMainActivity.this instanceof DirectionsActivity);
                 final MenuItem plansItem = menu.findItem(R.id.global_options_plans);
                 plansItem.setChecked(OeffiMainActivity.this instanceof PlansPickerActivity);
-                final MenuItem donateItem = menu.findItem(R.id.global_options_donate);
-                donateItem.setVisible(Variants.ENABLE_DONATE);
             }
 
             @Override
@@ -174,8 +172,7 @@ public abstract class OeffiMainActivity extends OeffiActivity {
                     }
 
                     case R.id.global_options_donate: {
-                        if (Variants.ENABLE_DONATE)
-                            PreferenceActivity.start(OeffiMainActivity.this, DonateFragment.class.getName());
+                        PreferenceActivity.start(OeffiMainActivity.this, DonateFragment.class.getName());
                         return true;
                     }
 

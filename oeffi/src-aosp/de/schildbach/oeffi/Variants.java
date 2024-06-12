@@ -18,5 +18,4 @@
 package de.schildbach.oeffi;
 
 public class Variants {
-    public static final boolean ENABLE_DONATE = true;
 }
