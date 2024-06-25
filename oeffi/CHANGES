@@ -1,4 +1,4 @@
-v13.0
+v13.0-v13.0.1
 
 * Running the app now requires Android 7.0 (Nougat) or higher.
 * Building the app now requires OpenJDK 17.
