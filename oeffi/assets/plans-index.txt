@@ -32,6 +32,7 @@ leipzig_tag|51.345476,12.379382|2020-11-18|Leipzig Linien Tag|Leipziger Verkehrs
 leipzig_nacht|51.345476,12.379382|2020-11-18|Leipzig Linien Nacht|Leipziger Verkehrsbetriebe GmbH
 halle_tag|51.477347,11.985263|2020-08-27|Halle Linien Tag|SWH/HAVAG
 halle_nacht|51.477347,11.985263|2020-08-27|Halle Linien Nacht|SWH/HAVAG
+jena|50.9248984,11.587666|2024|Jena|Jenaer Nahverkehr GmbH
 muenchen_schnellbahn|48.140377,11.560643|2019-12|München Schnellbahn|MVV
 muenchen_tram_metrobus|48.140377,11.560643|2019-12-15|München Tram/MetroBus|MVV/MVG
 muenchen_nacht|48.140377,11.560643|2019-12-15|München Nachtnetz|MVG
@@ -63,8 +64,8 @@ hamburg_usar|53.552946,10.006782|2023-12-10|Hamburg Schnellbahn/Regional|HVV
 hamburg_metrobus_gross|53.552946,10.006782|2023-12-10|Hamburg MetroBus Liniennetz|HVV
 hamburg_region|53.552946,10.006782|2023-12-10|Hamburg Regionalverkehr|HVV
 hamburg_weiss_bus|53.552946,10.006782|2024-01-08|Hamburg Busliniennetz|Lucas Weiss
-kiel_liniennetz|54.313282,10.132341|2019-12|Kiel Liniennetz|KVG
-kiel_nacht|54.313282,10.132341|2019-12|Kiel Nachtliniennetz|KVG
+kiel_liniennetz|54.313282,10.132341|2023-12|Kiel Liniennetz|KVG
+kiel_nacht|54.313282,10.132341|2022-12|Kiel Nachtliniennetz|KVG
 luebeck_region|53.858795,10.664646|2018-12-09|Lübeck Liniennetz Region|LVG, nah.sh, Stadtverkehr Lübeck||SH
 rostock_vvw_liniennetz|54.078139,12.131724|2023-08-28|Rostock Liniennetz|Verkehrsverbund Warnow
 rostock_vvw_region|54.078139,12.131724|2023-08-28|Rostock Region|Verkehrsverbund Warnow
@@ -106,6 +107,7 @@ rmv_nacht|50.106318,8.662139|2020-12-13|Rhein-Main Nachtnetz|RMV
 mainz|50.001395,8.258818|2019-12-15|Mainz Tag|Mainzer Verkehrsgesellschaft mbH
 mainz_nacht|50.001395,8.258818|2019-12-15|Mainz Nacht|Mainzer Verkehrsgesellschaft mbH
 koeln_schnellverkehr|50.943579,6.95796|2019-12-15|Köln Schnellverkehr|Verkehrsverbund Rhein-Sieg GmbH
+koeln_stadtbahn|50.943579,6.95796|2024-04-02|Köln Stadtbahn|Kölner Verkehrs-Betriebe AG
 koeln_bus|50.943579,6.95796|2019-12-15|Köln Busnetz|Verkehrsverbund Rhein-Sieg GmbH
 bonn_schnellverkehr|50.732784,7.096447|2019-12-15|Bonn Schnellverkehr|Verkehrsverbund Rhein-Sieg GmbH
 bonn_bus|50.732784,7.096447|2019-12-15|Bonn Busnetz|Verkehrsverbund Rhein-Sieg GmbH
