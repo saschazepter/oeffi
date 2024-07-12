@@ -116,8 +116,8 @@
             android:exported="true"
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/station_details_activity_title"
-            android:taskAffinity="de.schildbach.oeffi.stations">
-        </activity>
+            android:taskAffinity="de.schildbach.oeffi.stations"
+            android:showWhenLocked="true" />
 
         <activity
             android:name=".stations.FavoriteStationsActivity"
@@ -196,7 +196,8 @@
             android:name=".directions.TripDetailsActivity"
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/trip_details_title"
-            android:taskAffinity="de.schildbach.oeffi.directions" />
+            android:taskAffinity="de.schildbach.oeffi.directions"
+            android:showWhenLocked="true" />
 
         <activity
             android:name=".directions.DirectionsShortcutActivity"
@@ -243,7 +244,8 @@
             android:configChanges="keyboard|keyboardHidden"
             android:launchMode="singleTop"
             android:taskAffinity="de.schildbach.oeffi.plans"
-            android:theme="@style/My.Theme.Fullscreen">
+            android:theme="@style/My.Theme.Fullscreen"
+            android:showWhenLocked="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>

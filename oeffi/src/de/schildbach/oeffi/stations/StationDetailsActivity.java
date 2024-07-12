@@ -34,7 +34,6 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
@@ -256,11 +255,6 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
         backgroundThread.getLooper().quit();
 
         super.onDestroy();
-    }
-
-    @Override
-    public void onAttachedToWindow() {
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
     }
 
     @Override

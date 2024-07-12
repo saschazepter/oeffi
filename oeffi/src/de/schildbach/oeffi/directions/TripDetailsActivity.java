@@ -44,7 +44,6 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -364,11 +363,6 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         locationManager.removeUpdates(TripDetailsActivity.this);
 
         super.onDestroy();
-    }
-
-    @Override
-    public void onAttachedToWindow() {
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
     }
 
     @Override
