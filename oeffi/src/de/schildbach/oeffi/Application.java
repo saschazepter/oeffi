@@ -119,6 +119,12 @@ public class Application extends android.app.Application {
         FavoriteStationsProvider.migrateFavoriteStationIds(this, NetworkId.MVV, "0", "10000", 91000000);
         QueryHistoryProvider.migrateQueryHistoryIds(this, NetworkId.MVV, "0", "10000", 91000000);
 
+        // 2024-08-09: migrate Finland to use RT
+        final String FINLAND = "FINLAND";
+        migrateSelectedNetwork(FINLAND, NetworkId.RT);
+        FavoriteStationsProvider.deleteFavoriteStations(this, FINLAND);
+        QueryHistoryProvider.deleteQueryHistory(this, FINLAND);
+
         log.info("Migrations took {}", watch);
     }
 
