@@ -81,18 +81,10 @@
     <string name="network_stv_comment">local and regional</string>
     <string name="network_vmobil_label">Bregenz &amp; Vorarlberg</string>
     <string name="network_vmobil_comment">Not available, because the VVV explicitly desires not to be included in Offi. You can use the ÖBB instead, it works well for Vorarlberg too.</string>
-    <string name="network_czech_republic_label">Prague</string>
-    <string name="network_czech_republic_comment">local and regional</string>
     <string name="network_vbl_label">Lucerne</string>
     <string name="network_vbl_comment">tram and bus only</string>
     <string name="network_zvv_label">Zurich</string>
     <string name="network_zvv_comment">local and regional</string>
-    <string name="network_it_label">Italy</string>
-    <string name="network_it_comment">long-distance, regional and local (e.g. Milan, Rome, Naples)</string>
-    <string name="network_paris_label">Paris</string>
-    <string name="network_paris_comment">local and regional</string>
-    <string name="network_spain_label">Spain</string>
-    <string name="network_spain_comment">local and regional (e.g. Barcelona)</string>
     <string name="network_lu_label">Luxembourg</string>
     <string name="network_lu_comment">local and regional</string>
     <string name="network_ns_label">Netherlands</string>
@@ -115,8 +107,6 @@
     <string name="network_cmta_comment">local and regional</string>
     <string name="network_sydney_label">Sydney</string>
     <string name="network_sydney_comment">local and regional</string>
-    <string name="network_nicaragua_label">Nicaragua</string>
-    <string name="network_nicaragua_comment">national and urban buses</string>
     <string name="network_met_label">Melbourne</string>
     <string name="network_met_comment">Not available, because the PTV does not offer an EFA API any more.</string>
 

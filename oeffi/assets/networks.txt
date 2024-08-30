@@ -45,21 +45,9 @@ VVT|de-AT|Tirol|disabled
 SVV|de-AT|Salzburg|disabled
 VMOBIL|de-AT|Vorarlberg;Bregenz|disabled
 
-# CZ
-CZECH_REPUBLIC|cs-CZ|Tschechien;Praha;Prag|beta
-
 # CH
 VBL|de-CH|Luzern
 ZVV|de-CH|Zürich
-
-# IT
-IT|it-IT|IT|alpha
-
-# FR
-PARIS|fr-FR|FR|alpha
-
-# ES
-SPAIN|es-ES|ES|alpha
 
 # LU
 LU|lb-LU|LU;Luxemburg
@@ -88,6 +76,3 @@ CMTA|us-US|US;Texas;Austin|beta
 # AU
 SYDNEY|en-AU|AU;New South Wales;Sydney
 MET|en-AU|AU;Victoria;Melbourne|disabled
-
-# NI
-NICARAGUA|es-NI|NI;Managua|beta

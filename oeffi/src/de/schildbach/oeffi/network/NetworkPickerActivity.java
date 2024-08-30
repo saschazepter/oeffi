@@ -56,7 +56,6 @@ import de.schildbach.oeffi.network.list.NetworksAdapter;
 import de.schildbach.oeffi.util.DividerItemDecoration;
 import de.schildbach.oeffi.util.GeocoderThread;
 import de.schildbach.oeffi.util.LocationHelper;
-import de.schildbach.pte.AbstractNavitiaProvider;
 import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.NetworkProvider;
 import de.schildbach.pte.dto.Location;
@@ -474,10 +473,6 @@ public class NetworkPickerActivity extends ComponentActivity implements Location
             return false;
 
         final NetworkProvider networkProvider = NetworkProviderFactory.provider(NetworkId.valueOf(network.id));
-
-        // workaround, because of network access for navitia
-        if (AbstractNavitiaProvider.class.isAssignableFrom(networkProvider.getClass()))
-            return false;
 
         boolean inArea = false;
 

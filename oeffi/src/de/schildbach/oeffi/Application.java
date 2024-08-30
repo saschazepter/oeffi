@@ -125,6 +125,36 @@ public class Application extends android.app.Application {
         FavoriteStationsProvider.deleteFavoriteStations(this, FINLAND);
         QueryHistoryProvider.deleteQueryHistory(this, FINLAND);
 
+        // 2024-08-30: migrate Czech Republic to use RT
+        final String CZECH_REPUBLIC = "CZECH_REPUBLIC";
+        migrateSelectedNetwork(CZECH_REPUBLIC, NetworkId.RT);
+        FavoriteStationsProvider.deleteFavoriteStations(this, CZECH_REPUBLIC);
+        QueryHistoryProvider.deleteQueryHistory(this, CZECH_REPUBLIC);
+
+        // 2024-08-30: migrate Italy to use RT
+        final String IT = "IT";
+        migrateSelectedNetwork(IT, NetworkId.RT);
+        FavoriteStationsProvider.deleteFavoriteStations(this, IT);
+        QueryHistoryProvider.deleteQueryHistory(this, IT);
+
+        // 2024-08-30: migrate Paris to use RT
+        final String PARIS = "PARIS";
+        migrateSelectedNetwork(PARIS, NetworkId.RT);
+        FavoriteStationsProvider.deleteFavoriteStations(this, PARIS);
+        QueryHistoryProvider.deleteQueryHistory(this, PARIS);
+
+        // 2024-08-30: migrate Spain to use RT
+        final String SPAIN = "SPAIN";
+        migrateSelectedNetwork(SPAIN, NetworkId.RT);
+        FavoriteStationsProvider.deleteFavoriteStations(this, SPAIN);
+        QueryHistoryProvider.deleteQueryHistory(this, SPAIN);
+
+        // 2024-08-30: migrate Nicaragua to use RT
+        final String NICARAGUA = "NICARAGUA";
+        migrateSelectedNetwork(NICARAGUA, NetworkId.RT);
+        FavoriteStationsProvider.deleteFavoriteStations(this, NICARAGUA);
+        QueryHistoryProvider.deleteQueryHistory(this, NICARAGUA);
+
         log.info("Migrations took {}", watch);
     }
 
