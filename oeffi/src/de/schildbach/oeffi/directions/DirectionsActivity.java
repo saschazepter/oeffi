@@ -307,7 +307,6 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
         backgroundHandler = new Handler(backgroundThread.getLooper());
 
         setContentView(R.layout.directions_content);
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
         findViewById(android.R.id.content).setOnApplyWindowInsetsListener((v, insets) -> {
             v.setPadding(insets.getSystemWindowInsetLeft(), 0, insets.getSystemWindowInsetRight(), 0);
             return insets;

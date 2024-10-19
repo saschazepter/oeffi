@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,6 +36,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
 import androidx.activity.ComponentActivity;
+import androidx.activity.EdgeToEdge;
+import androidx.activity.SystemBarStyle;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -116,6 +119,7 @@ public class PlanActivity extends ComponentActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
+        EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT));
         super.onCreate(savedInstanceState);
         this.application = (Application) getApplication();
 
@@ -125,7 +129,6 @@ public class PlanActivity extends ComponentActivity {
         backgroundHandler = new Handler(backgroundThread.getLooper());
 
         setContentView(R.layout.plans_content);
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
 
         final Animation zoomControlsAnimation = AnimationUtils.loadAnimation(this, R.anim.zoom_controls);
         zoomControlsAnimation.setFillAfter(true); // workaround: set through code because XML does not work

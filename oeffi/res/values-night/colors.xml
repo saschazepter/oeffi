@@ -23,7 +23,6 @@
     <color name="bg_delayed">#444444</color>
     <color name="bg_current_time">#ffff00</color>
     <color name="bg_position">#bbbbbb</color>
-    <color name="bg_status_bar">#44000000</color>
 
     <item name="alpha_bright_white" format="float" type="dimen">0.8</item>
 

@@ -37,9 +37,6 @@
     <color name="bg_position">#757575</color>
     <color name="bg_position_darkdefault">#bbbbbb</color>
     <color name="bg_highlighted_darkdefault">#ff4444</color>
-    <color name="bg_status_bar">#44000000</color>
-    <color name="bg_navigation_bar">@android:color/black</color>
-    <color name="bg_navigation_bar_fullscreen">#44000000</color>
 
     <item name="alpha_bright_white" format="float" type="dimen">1</item>
 

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <!-- background -->
-    <color name="bg_status_bar">@android:color/transparent</color>
-    <color name="bg_navigation_bar">@android:color/transparent</color>
-    <color name="bg_navigation_bar_fullscreen">@android:color/transparent</color>
-
-</resources>

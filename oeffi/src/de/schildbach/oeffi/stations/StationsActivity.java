@@ -184,7 +184,6 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         res = getResources();
 
         setContentView(R.layout.stations_content);
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
         findViewById(android.R.id.content).setOnApplyWindowInsetsListener((v, insets) -> {
             v.setPadding(insets.getSystemWindowInsetLeft(), 0, insets.getSystemWindowInsetRight(), 0);
             return insets;

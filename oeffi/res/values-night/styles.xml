@@ -5,8 +5,6 @@
 
     <style name="My.Theme" parent="@android:style/Theme.Material.NoActionBar">
         <item name="android:windowBackground">@color/bg_level0</item>
-        <item name="android:statusBarColor">@color/bg_status_bar</item>
-        <item name="android:navigationBarColor">@color/bg_navigation_bar</item>
         <item name="android:textViewStyle">@style/My.Widget.TextView</item>
         <item name="android:autoCompleteTextViewStyle">@style/My.Widget.AutoCompleteTextView</item>
         <item name="android:dropDownListViewStyle">@style/My.Widget.ListView.DropDown</item>
@@ -17,8 +15,6 @@
     </style>
 
     <style name="My.Theme.Preference" parent="@android:style/Theme.Material">
-        <item name="android:statusBarColor">@color/bg_action_bar</item>
-        <item name="android:navigationBarColor">@color/bg_level0</item>
         <item name="android:actionBarStyle">@style/My.Widget.ActionBar</item>
     </style>
 
