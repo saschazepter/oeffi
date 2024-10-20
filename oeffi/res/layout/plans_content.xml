@@ -4,6 +4,7 @@
     android:id="@+id/plans_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_plan"
     android:inAnimation="@android:anim/fade_in"
     android:outAnimation="@android:anim/fade_out">
 
@@ -24,7 +25,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
             android:text="@string/plan_progress_loading"
-            android:textColor="@color/fg_significant_on_dark"
+            android:textColor="@color/fg_significant_on_light"
             android:textStyle="bold" />
     </LinearLayout>
 
