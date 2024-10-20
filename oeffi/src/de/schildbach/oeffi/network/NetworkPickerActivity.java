@@ -124,7 +124,6 @@ public class NetworkPickerActivity extends ComponentActivity implements Location
         backgroundHandler = new Handler(backgroundThread.getLooper());
 
         setContentView(R.layout.network_picker_content);
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
         findViewById(android.R.id.content).setOnApplyWindowInsetsListener((v, insets) -> {
             v.setPadding(insets.getSystemWindowInsetLeft(), 0, insets.getSystemWindowInsetRight(), 0);
             return insets;
