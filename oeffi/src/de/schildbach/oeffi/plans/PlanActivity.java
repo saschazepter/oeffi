@@ -37,6 +37,7 @@ import android.widget.TextView;
 import android.widget.ViewAnimator;
 import androidx.activity.ComponentActivity;
 import androidx.activity.EdgeToEdge;
+import androidx.activity.SystemBarStyle;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -84,6 +85,9 @@ public class PlanActivity extends ComponentActivity {
     public static final String INTENT_EXTRA_PLAN_ID = "plan_id"; // Used in launcher shortcuts
     private static final String INTENT_EXTRA_SELECTED_STATION_ID = PlanActivity.class.getName()
             + ".selected_station_id";
+    // plan backgrounds are always white, so force navigation bar to light mode
+    private static final SystemBarStyle NAVIGATION_BAR_STYLE = SystemBarStyle.light(Color.TRANSPARENT,
+            Color.TRANSPARENT);
 
     public static Intent intent(final Context context, final String planId, final String selectedStationId) {
         final Intent intent = new Intent(Intent.ACTION_VIEW, null, context, PlanActivity.class);
@@ -118,7 +122,7 @@ public class PlanActivity extends ComponentActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        EdgeToEdge.enable(this, Constants.STATUS_BAR_STYLE);
+        EdgeToEdge.enable(this, Constants.STATUS_BAR_STYLE, NAVIGATION_BAR_STYLE);
         super.onCreate(savedInstanceState);
         this.application = (Application) getApplication();
 
