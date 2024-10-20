@@ -37,7 +37,6 @@ import android.widget.TextView;
 import android.widget.ViewAnimator;
 import androidx.activity.ComponentActivity;
 import androidx.activity.EdgeToEdge;
-import androidx.activity.SystemBarStyle;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -119,7 +118,7 @@ public class PlanActivity extends ComponentActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT));
+        EdgeToEdge.enable(this, Constants.STATUS_BAR_STYLE);
         super.onCreate(savedInstanceState);
         this.application = (Application) getApplication();
 

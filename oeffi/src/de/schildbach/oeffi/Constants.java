@@ -17,7 +17,9 @@
 
 package de.schildbach.oeffi;
 
+import android.graphics.Color;
 import android.text.format.DateUtils;
+import androidx.activity.SystemBarStyle;
 import okhttp3.HttpUrl;
 
 import java.util.Locale;
@@ -65,4 +67,6 @@ public class Constants {
     public static final String DESTINATION_ARROW_PREFIX = Character.toString(Constants.CHAR_RIGHTWARDS_ARROW)
             + Constants.CHAR_THIN_SPACE;
     public static final String DESTINATION_ARROW_INVISIBLE_PREFIX = "     ";
+
+    public static final SystemBarStyle STATUS_BAR_STYLE = SystemBarStyle.dark(Color.TRANSPARENT);
 }

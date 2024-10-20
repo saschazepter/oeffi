@@ -31,7 +31,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.activity.ComponentActivity;
 import androidx.activity.EdgeToEdge;
-import androidx.activity.SystemBarStyle;
 import de.schildbach.oeffi.network.NetworkResources;
 import de.schildbach.oeffi.util.ErrorReporter;
 import de.schildbach.pte.NetworkId;
@@ -47,7 +46,7 @@ public abstract class OeffiActivity extends ComponentActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT));
+        EdgeToEdge.enable(this, Constants.STATUS_BAR_STYLE);
         super.onCreate(savedInstanceState);
         this.application = (Application) getApplication();
         this.prefs = PreferenceManager.getDefaultSharedPreferences(this);
