@@ -63,7 +63,9 @@ import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.common.base.Throwables;
@@ -307,9 +309,11 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
         backgroundHandler = new Handler(backgroundThread.getLooper());
 
         setContentView(R.layout.directions_content);
-        findViewById(android.R.id.content).setOnApplyWindowInsetsListener((v, insets) -> {
-            v.setPadding(insets.getSystemWindowInsetLeft(), 0, insets.getSystemWindowInsetRight(), 0);
-            return insets;
+        final View contentView = findViewById(android.R.id.content);
+        ViewCompat.setOnApplyWindowInsetsListener(contentView, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(insets.left, 0, insets.right, 0);
+            return windowInsets;
         });
 
         final MyActionBar actionBar = getMyActionBar();
@@ -455,10 +459,11 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
         viewQueryHistoryList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         queryHistoryListAdapter = new QueryHistoryAdapter(this, network, this, this);
         viewQueryHistoryList.setAdapter(queryHistoryListAdapter);
-        viewQueryHistoryList.setOnApplyWindowInsetsListener((v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(viewQueryHistoryList, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(),
-                    insets.getSystemWindowInsetBottom());
-            return insets;
+                    insets.bottom);
+            return windowInsets;
         });
 
         viewQueryHistoryEmpty = findViewById(R.id.directions_query_history_empty);
@@ -545,15 +550,17 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
         });
         final TextView mapDisclaimerView = findViewById(R.id.directions_map_disclaimer);
         mapDisclaimerView.setText(mapView.getTileProvider().getTileSource().getCopyrightNotice());
-        mapDisclaimerView.setOnApplyWindowInsetsListener((v, insets) -> {
-            v.setPadding(0,0,0, insets.getSystemWindowInsetBottom());
-            return insets;
+        ViewCompat.setOnApplyWindowInsetsListener(mapDisclaimerView, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(0, 0, 0, insets.bottom);
+            return windowInsets;
         });
 
         final ZoomControls zoom = findViewById(R.id.directions_map_zoom);
-        zoom.setOnApplyWindowInsetsListener((v, insets) -> {
-            v.setPadding(0, 0, 0, insets.getSystemWindowInsetBottom());
-            return insets;
+        ViewCompat.setOnApplyWindowInsetsListener(zoom, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(0, 0, 0, insets.bottom);
+            return windowInsets;
         });
         mapView.setZoomControls(zoom);
 

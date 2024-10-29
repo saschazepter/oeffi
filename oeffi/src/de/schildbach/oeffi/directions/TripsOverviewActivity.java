@@ -31,6 +31,9 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.Ordering;
 import com.google.common.util.concurrent.Uninterruptibles;
@@ -130,9 +133,11 @@ public class TripsOverviewActivity extends OeffiActivity {
         final Uri historyUri = historyUriStr != null ? Uri.parse(historyUriStr) : null;
 
         setContentView(R.layout.directions_trip_overview_content);
-        findViewById(android.R.id.content).setOnApplyWindowInsetsListener((v, insets) -> {
-            v.setPadding(insets.getSystemWindowInsetLeft(), 0, insets.getSystemWindowInsetRight(), 0);
-            return insets;
+        final View contentView = findViewById(android.R.id.content);
+        ViewCompat.setOnApplyWindowInsetsListener(contentView, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(insets.left, 0, insets.right, 0);
+            return windowInsets;
         });
 
         final MyActionBar actionBar = getMyActionBar();
@@ -163,9 +168,11 @@ public class TripsOverviewActivity extends OeffiActivity {
         });
         barView.setOnScrollListener(() -> handler.post(checkMoreRunnable));
 
-        findViewById(R.id.directions_trip_overview_disclaimer_group).setOnApplyWindowInsetsListener((v, insets) -> {
-            v.setPadding(0, 0, 0, insets.getSystemWindowInsetBottom());
-            return insets;
+        final View disclaimerView = findViewById(R.id.directions_trip_overview_disclaimer_group);
+        ViewCompat.setOnApplyWindowInsetsListener(disclaimerView, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(0, 0, 0, insets.bottom);
+            return windowInsets;
         });
 
         processResult(result, dep);

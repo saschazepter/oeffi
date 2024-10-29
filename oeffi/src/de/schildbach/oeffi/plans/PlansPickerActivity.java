@@ -38,7 +38,10 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.pm.ShortcutInfoCompat;
 import androidx.core.content.pm.ShortcutManagerCompat;
+import androidx.core.graphics.Insets;
 import androidx.core.graphics.drawable.IconCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.common.util.concurrent.FutureCallback;
@@ -110,9 +113,11 @@ public class PlansPickerActivity extends OeffiMainActivity implements LocationHe
         thumbCache = new Cache(cacheDir, THUMB_CACHE_SIZE);
 
         setContentView(R.layout.plans_picker_content);
-        findViewById(android.R.id.content).setOnApplyWindowInsetsListener((v, insets) -> {
-            v.setPadding(insets.getSystemWindowInsetLeft(), 0, insets.getSystemWindowInsetRight(), 0);
-            return insets;
+        final View contentView = findViewById(android.R.id.content);
+        ViewCompat.setOnApplyWindowInsetsListener(contentView, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(insets.left, 0, insets.right, 0);
+            return windowInsets;
         });
 
         actionBar = getMyActionBar();
@@ -130,10 +135,10 @@ public class PlansPickerActivity extends OeffiMainActivity implements LocationHe
         listView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         listAdapter = new PlansAdapter(this, cursor, thumbCache, this, this, application.okHttpClient());
         listView.setAdapter(listAdapter);
-        listView.setOnApplyWindowInsetsListener((v, insets) -> {
-            v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(),
-                    insets.getSystemWindowInsetBottom());
-            return insets;
+        ViewCompat.setOnApplyWindowInsetsListener(listView, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), insets.bottom);
+            return windowInsets;
         });
 
         connectivityWarningView = findViewById(R.id.plans_picker_connectivity_warning_box);

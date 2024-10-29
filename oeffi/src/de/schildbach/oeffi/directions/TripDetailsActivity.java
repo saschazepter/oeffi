@@ -50,6 +50,9 @@ import android.widget.PopupMenu;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import com.google.common.base.MoreObjects;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.LocationAware;
@@ -186,9 +189,11 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         scheduleTripIntent = scheduleTripIntent(trip);
 
         setContentView(R.layout.directions_trip_details_content);
-        findViewById(android.R.id.content).setOnApplyWindowInsetsListener((v, insets) -> {
-            v.setPadding(insets.getSystemWindowInsetLeft(), 0, insets.getSystemWindowInsetRight(), 0);
-            return insets;
+        final View contentView = findViewById(android.R.id.content);
+        ViewCompat.setOnApplyWindowInsetsListener(contentView, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(insets.left, 0, insets.right, 0);
+            return windowInsets;
         });
 
         final MyActionBar actionBar = getMyActionBar();
@@ -281,9 +286,11 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         ((TextView) findViewById(R.id.directions_trip_details_footer))
                 .setText(Html.fromHtml(getString(R.string.directions_trip_details_realtime)));
 
-        findViewById(R.id.directions_trip_details_disclaimer_group).setOnApplyWindowInsetsListener((v, insets) -> {
-            v.setPadding(0, 0, 0, insets.getSystemWindowInsetBottom());
-            return insets;
+        final View disclaimerView = findViewById(R.id.directions_trip_details_disclaimer_group);
+        ViewCompat.setOnApplyWindowInsetsListener(disclaimerView, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(0, 0, 0, insets.bottom);
+            return windowInsets;
         });
         final TextView disclaimerSourceView = findViewById(R.id.directions_trip_details_disclaimer_source);
         updateDisclaimerSource(disclaimerSourceView, network.name(), null);
@@ -312,9 +319,10 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
         });
         final TextView mapDisclaimerView = findViewById(R.id.directions_trip_details_map_disclaimer);
         mapDisclaimerView.setText(mapView.getTileProvider().getTileSource().getCopyrightNotice());
-        mapDisclaimerView.setOnApplyWindowInsetsListener((v, insets) -> {
-            v.setPadding(0,0,0, insets.getSystemWindowInsetBottom());
-            return insets;
+        ViewCompat.setOnApplyWindowInsetsListener(mapDisclaimerView, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(0, 0, 0, insets.bottom);
+            return windowInsets;
         });
     }
 

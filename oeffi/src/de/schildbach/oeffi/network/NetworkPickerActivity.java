@@ -43,6 +43,9 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import de.schildbach.oeffi.AreaAware;
@@ -123,9 +126,11 @@ public class NetworkPickerActivity extends ComponentActivity implements Location
         backgroundHandler = new Handler(backgroundThread.getLooper());
 
         setContentView(R.layout.network_picker_content);
-        findViewById(android.R.id.content).setOnApplyWindowInsetsListener((v, insets) -> {
-            v.setPadding(insets.getSystemWindowInsetLeft(), 0, insets.getSystemWindowInsetRight(), 0);
-            return insets;
+        final View contentView = findViewById(android.R.id.content);
+        ViewCompat.setOnApplyWindowInsetsListener(contentView, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(insets.left, 0, insets.right, 0);
+            return windowInsets;
         });
 
         actionBar = findViewById(R.id.action_bar);
@@ -138,18 +143,19 @@ public class NetworkPickerActivity extends ComponentActivity implements Location
         final String network = prefsGetNetwork();
         listAdapter = new NetworksAdapter(this, network, this, this);
         listView.setAdapter(listAdapter);
-        listView.setOnApplyWindowInsetsListener((v, insets) -> {
-            v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(),
-                    insets.getSystemWindowInsetBottom());
-            return insets;
+        ViewCompat.setOnApplyWindowInsetsListener(listView, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), insets.bottom);
+            return windowInsets;
         });
 
         mapView = findViewById(R.id.network_picker_map);
         final TextView mapDisclaimerView = findViewById(R.id.network_picker_map_disclaimer);
         mapDisclaimerView.setText(mapView.getTileProvider().getTileSource().getCopyrightNotice());
-        mapDisclaimerView.setOnApplyWindowInsetsListener((v, insets) -> {
-            v.setPadding(0, 0, 0, insets.getSystemWindowInsetBottom());
-            return insets;
+        ViewCompat.setOnApplyWindowInsetsListener(mapDisclaimerView, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(0, 0, 0, insets.bottom);
+            return windowInsets;
         });
 
         if (network != null) {

@@ -56,6 +56,9 @@ import android.widget.ViewAnimator;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -184,9 +187,11 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         res = getResources();
 
         setContentView(R.layout.stations_content);
-        findViewById(android.R.id.content).setOnApplyWindowInsetsListener((v, insets) -> {
-            v.setPadding(insets.getSystemWindowInsetLeft(), 0, insets.getSystemWindowInsetRight(), 0);
-            return insets;
+        final View contentView = findViewById(android.R.id.content);
+        ViewCompat.setOnApplyWindowInsetsListener(contentView, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(insets.left, 0, insets.right, 0);
+            return windowInsets;
         });
 
         actionBar = getMyActionBar();
@@ -265,22 +270,26 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         mapView.setLocationAware(this);
         final TextView mapDisclaimerView = findViewById(R.id.stations_map_disclaimer);
         mapDisclaimerView.setText(mapView.getTileProvider().getTileSource().getCopyrightNotice());
-        mapDisclaimerView.setOnApplyWindowInsetsListener((v, insets) -> {
-            v.setPadding(0, 0, 0, insets.getSystemWindowInsetBottom());
-            return insets;
+        ViewCompat.setOnApplyWindowInsetsListener(mapDisclaimerView, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(0, 0, 0, insets.bottom);
+            return windowInsets;
         });
 
         final ZoomControls zoom = findViewById(R.id.stations_map_zoom);
-        zoom.setOnApplyWindowInsetsListener((v, insets) -> {
-            v.setPadding(0, 0, 0, insets.getSystemWindowInsetBottom());
-            return insets;
+        ViewCompat.setOnApplyWindowInsetsListener(zoom, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(0, 0, 0, insets.bottom);
+            return windowInsets;
         });
         mapView.setZoomControls(zoom);
 
         connectivityWarningView = findViewById(R.id.stations_connectivity_warning_box);
-        findViewById(R.id.stations_disclaimer_group).setOnApplyWindowInsetsListener((v, insets) -> {
-            v.setPadding(0, 0, 0, insets.getSystemWindowInsetBottom());
-            return insets;
+        final View disclaimerView = findViewById(R.id.stations_disclaimer_group);
+        ViewCompat.setOnApplyWindowInsetsListener(disclaimerView, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(0, 0, 0, insets.bottom);
+            return windowInsets;
         });
         disclaimerSourceView = findViewById(R.id.stations_disclaimer_source);
 
@@ -414,10 +423,11 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
         stationList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         stationListAdapter = new StationsAdapter(this, maxDeparturesPerStation, products, this, this);
         stationList.setAdapter(stationListAdapter);
-        stationList.setOnApplyWindowInsetsListener((v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(stationList, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(),
-                    insets.getSystemWindowInsetBottom() + (int)(48 * res.getDisplayMetrics().density));
-            return insets;
+                    insets.bottom + (int) (48 * res.getDisplayMetrics().density));
+            return windowInsets;
         });
         stationList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

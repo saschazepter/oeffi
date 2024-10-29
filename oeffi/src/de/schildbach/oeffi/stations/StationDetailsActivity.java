@@ -37,6 +37,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.common.base.Joiner;
@@ -137,9 +140,11 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
         backgroundHandler = new Handler(backgroundThread.getLooper());
 
         setContentView(R.layout.stations_station_details_content);
-        findViewById(android.R.id.content).setOnApplyWindowInsetsListener((v, insets) -> {
-            v.setPadding(insets.getSystemWindowInsetLeft(), 0, insets.getSystemWindowInsetRight(), 0);
-            return insets;
+        final View contentView = findViewById(android.R.id.content);
+        ViewCompat.setOnApplyWindowInsetsListener(contentView, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(insets.left, 0, insets.right, 0);
+            return windowInsets;
         });
 
         actionBar = getMyActionBar();
@@ -173,19 +178,21 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
         listView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         listAdapter = new DeparturesAdapter(this);
         listView.setAdapter(listAdapter);
-        listView.setOnApplyWindowInsetsListener((v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(listView, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(),
-                    insets.getSystemWindowInsetBottom() + (int)(48 * getResources().getDisplayMetrics().density));
-            return insets;
+                    insets.bottom + (int) (48 * getResources().getDisplayMetrics().density));
+            return windowInsets;
         });
 
         mapView = findViewById(R.id.stations_station_details_map);
         mapView.setStationsAware(this);
         final TextView mapDisclaimerView = findViewById(R.id.stations_station_details_map_disclaimer);
         mapDisclaimerView.setText(mapView.getTileProvider().getTileSource().getCopyrightNotice());
-        mapDisclaimerView.setOnApplyWindowInsetsListener((v, insets) -> {
-            v.setPadding(0,0,0, insets.getSystemWindowInsetBottom());
-            return insets;
+        ViewCompat.setOnApplyWindowInsetsListener(mapDisclaimerView, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(0, 0, 0, insets.bottom);
+            return windowInsets;
         });
 
         resultStatusView = findViewById(R.id.stations_station_details_result_status);
@@ -201,9 +208,11 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
         favoriteButton
                 .setChecked(selectedFavState != null && selectedFavState == FavoriteStationsProvider.TYPE_FAVORITE);
 
-        findViewById(R.id.stations_station_details_disclaimer_group).setOnApplyWindowInsetsListener((v, insets) -> {
-            v.setPadding(0, 0, 0, insets.getSystemWindowInsetBottom());
-            return insets;
+        final View disclaimerView = findViewById(R.id.stations_station_details_disclaimer_group);
+        ViewCompat.setOnApplyWindowInsetsListener(disclaimerView, (v, windowInsets) -> {
+            final Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(0, 0, 0, insets.bottom);
+            return windowInsets;
         });
         disclaimerSourceView = findViewById(R.id.stations_station_details_disclaimer_source);
         updateDisclaimerSource(disclaimerSourceView, selectedNetwork.name(), null);
