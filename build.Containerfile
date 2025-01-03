@@ -19,7 +19,11 @@ FROM debian:bookworm-slim AS build-stage
 # install debian packages
 ENV DEBIAN_FRONTEND noninteractive
 RUN /usr/bin/apt-get update && \
-    /usr/bin/apt-get --yes install disorderfs openjdk-17-jdk-headless gradle sdkmanager && \
+    /usr/bin/apt-get --yes install disorderfs sdkmanager wget apt-transport-https gnupg && \
+    /usr/bin/wget -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | apt-key add - && \
+    echo "deb https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | /usr/bin/tee /etc/apt/sources.list.d/adoptium.list && \
+    /usr/bin/apt-get update && \
+    /usr/bin/apt-get --yes install temurin-11-jdk && \
     /bin/ln -fs /usr/share/zoneinfo/CET /etc/localtime && \
     /usr/sbin/dpkg-reconfigure --frontend noninteractive tzdata && \
     /bin/ln -s /proc/self/mounts /etc/mtab && \
@@ -41,7 +45,7 @@ RUN if [ -e /dev/fuse ] ; \
       then /bin/mv project project.u && /bin/mkdir project && \
       /usr/bin/disorderfs --sort-dirents=yes --reverse-dirents=no project.u project ; \
     fi && \
-    /usr/bin/gradle --project-dir project/ --no-build-cache --no-daemon --no-parallel clean :oeffi:assembleRelease && \
+    (cd project && ./gradlew --no-build-cache --no-daemon --no-parallel clean :oeffi:assembleRelease ) && \
     if [ -e /dev/fuse ] ; \
       then /bin/fusermount -u project | true && /bin/rmdir project && /bin/mv project.u project ; \
     fi
