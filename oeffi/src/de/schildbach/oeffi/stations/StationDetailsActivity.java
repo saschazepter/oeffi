@@ -433,9 +433,8 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
         @Override
         public int getItemCount() {
             final List<Departure> selectedDepartures = StationDetailsActivity.this.selectedDepartures;
-            if (selectedDepartures == null || selectedDepartures.isEmpty())
-                return 1;
-            return selectedDepartures.size();
+            final int numDepartures = selectedDepartures != null ? selectedDepartures.size() : 0;
+            return numDepartures + 1; // account for header
         }
 
         @Override
