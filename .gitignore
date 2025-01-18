@@ -1,8 +1,5 @@
 # Gradle
-/gradle/
 /.gradle/
-/gradlew
-/gradlew.bat
 build/
 
 # IntelliJ IDEA
