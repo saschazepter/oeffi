@@ -18,7 +18,10 @@ FROM debian:bookworm-slim AS build-stage
 
 # install debian packages
 ENV DEBIAN_FRONTEND noninteractive
-RUN /usr/bin/apt-get update && \
+RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked \
+    --mount=target=/var/cache/apt,type=cache,sharing=locked \
+    /bin/rm -f /etc/apt/apt.conf.d/docker-clean && \
+    /usr/bin/apt-get update && \
     /usr/bin/apt-get --yes --no-install-recommends install disorderfs openjdk-17-jdk-headless gradle sdkmanager && \
     /bin/ln -fs /usr/share/zoneinfo/CET /etc/localtime && \
     /usr/sbin/dpkg-reconfigure --frontend noninteractive tzdata && \
