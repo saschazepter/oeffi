@@ -46,6 +46,7 @@ import de.schildbach.pte.NsProvider;
 import de.schildbach.pte.NvbwProvider;
 import de.schildbach.pte.NvvProvider;
 import de.schildbach.pte.OebbProvider;
+import de.schildbach.pte.PlProvider;
 import de.schildbach.pte.RtProvider;
 import de.schildbach.pte.RtaChicagoProvider;
 import de.schildbach.pte.SeProvider;
@@ -86,7 +87,8 @@ public final class NetworkProviderFactory {
             return cachedNetworkProvider;
 
         final AbstractNetworkProvider networkProvider = forId(networkId);
-        networkProvider.setUserAgent(USER_AGENT);
+        if (networkId != NetworkId.PL)
+            networkProvider.setUserAgent(USER_AGENT);
         providerCache.put(networkId, networkProvider);
         return networkProvider;
     }
@@ -178,6 +180,8 @@ public final class NetworkProviderFactory {
             return new TlemProvider();
         else if (networkId.equals(NetworkId.MERSEY))
             return new MerseyProvider();
+        else if (networkId.equals(NetworkId.PL))
+            return new PlProvider("{\"type\":\"AID\",\"aid\":\"DrxJYtYZQpEBCtcb\"}");
         else if (networkId.equals(NetworkId.DUB))
             return new DubProvider();
         else if (networkId.equals(NetworkId.BART))
