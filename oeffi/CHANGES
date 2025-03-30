@@ -1,4 +1,29 @@
-v13.0.4-v13.0.10
+import requests import time from datetime import datetime
+
+API-Endpunkt für Abfahrtszeiten (Beispiel-URL)
+
+API_URL = "https://api.deinverkehrsverbund.de/abfahrtszeiten"
+
+Funktion, um Abfahrtszeiten zu erhalten
+
+def get_abfahrtszeiten(station_id): try: response = requests.get(f"{API_URL}/{station_id}") response.raise_for_status() return response.json() except requests.exceptions.RequestException as e: print(f"Fehler beim Abruf: {e}") return []
+
+Automatische Aktualisierung der Abfahrtszeiten
+
+def update_abfahrtszeiten(station_id, interval=10): while True: print(f"Aktualisiere Station {station_id}...") abfahrten = get_abfahrtszeiten(station_id)
+
+if abfahrten:
+        print(f"Neue Zeiten: {abfahrten}")
+            else:
+                    print("Keine Abfahrtszeiten verfügbar.")
+                        
+                            time.sleep(interval * 60)
+                            
+                            Beispielstation und Start des Skripts
+                            
+                            station_id = "obstwiesen_id" update_abfahrtszeiten(station_id, interval=10)
+                            
+                            v13.0.4-v13.0.10
 
 * Target Android 15.
 
