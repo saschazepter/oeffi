@@ -27,10 +27,10 @@
     <string name="global_options_stations_comment">Abfahrtszeiten und Verspätungen</string>
     <string name="global_options_directions_comment">Von Tür zu Tür</string>
     <string name="global_options_plans_comment">Für den groben Überblick</string>
-    <string name="global_options_donate_title">Spenden</string>
     <string name="global_options_report_bug_title">Fehler melden</string>
     <string name="global_options_preferences_title">Einstellungen</string>
     <string name="global_options_about_title">Über Öffi</string>
+    <string name="global_options_gift_url">https://oeffi.schildbach.de/gift_de.html</string>
 
     <!-- preferences -->
     <string name="global_preferences_title">Allgemein</string>
@@ -57,11 +57,6 @@
     <string name="about_faq_summary">https://oeffi.schildbach.de/faq.html</string>
     <string name="about_participate_title">Mitmachen</string>
     <string name="about_market_app_title">Öffi bewerten oder rezensieren</string>
-    <string name="about_donate_title">Spenden</string>
-    <string name="about_donate_bitcoin_title">Bitcoins spenden</string>
-    <string name="about_donate_bitcoin_summary">Bitcoin ist eine Internet-Währung.</string>
-    <string name="about_donate_euro_title">Euros spenden</string>
-    <string name="about_donate_euro_summary">https://oeffi.schildbach.de/donate_de.html</string>
 
     <!-- network picker -->
     <string name="network_picker_firsttime_message">Da du Öffi das erste Mal nutzt, musst Du die Region wählen die am besten passt. Du kannst das später ändern.</string>
