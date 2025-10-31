@@ -52,7 +52,6 @@ import de.schildbach.oeffi.network.NetworkPickerActivity;
 import de.schildbach.oeffi.network.NetworkResources;
 import de.schildbach.oeffi.plans.PlansPickerActivity;
 import de.schildbach.oeffi.preference.AboutFragment;
-import de.schildbach.oeffi.preference.DonateFragment;
 import de.schildbach.oeffi.preference.PreferenceActivity;
 import de.schildbach.oeffi.stations.StationsActivity;
 import de.schildbach.oeffi.util.DialogBuilder;
@@ -171,11 +170,6 @@ public abstract class OeffiMainActivity extends OeffiActivity {
                         return true;
                     }
 
-                    case R.id.global_options_donate: {
-                        PreferenceActivity.start(OeffiMainActivity.this, DonateFragment.class.getName());
-                        return true;
-                    }
-
                     case R.id.global_options_report_bug: {
                         ErrorReporter.sendBugMail(OeffiMainActivity.this, application.packageInfo());
                         return true;
@@ -291,6 +285,8 @@ public abstract class OeffiMainActivity extends OeffiActivity {
         navigationDrawerFooterView.setOnClickListener(v -> {
             handler.removeCallbacksAndMessages(null);
             heartbeat.start();
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.global_options_gift_url))));
+            closeNavigation();
         });
 
         actionBar.setDrawer(v -> toggleNavigation());
