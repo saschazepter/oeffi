@@ -20,7 +20,6 @@ package de.schildbach.oeffi.preference;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -65,9 +64,6 @@ public class AboutFragment extends PreferenceFragment {
     }
 
     private void removeOrDisablePreference(final Preference preference) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            preference.getParent().removePreference(preference);
-        else
-            preference.setEnabled(false);
+        preference.getParent().removePreference(preference);
     }
 }

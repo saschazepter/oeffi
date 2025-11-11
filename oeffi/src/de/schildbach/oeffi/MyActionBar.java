@@ -19,7 +19,6 @@ package de.schildbach.oeffi;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -147,8 +146,7 @@ public class MyActionBar extends LinearLayout {
         if (descriptionRes != 0) {
             final String description = context.getString(descriptionRes);
             button.setContentDescription(description);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                button.setTooltipText(description);
+            button.setTooltipText(description);
         }
         addView(button, BUTTON_INSERT_INDEX, buttonParams);
 
@@ -167,8 +165,7 @@ public class MyActionBar extends LinearLayout {
         if (descriptionRes != 0) {
             final String description = context.getString(descriptionRes);
             button.setContentDescription(description);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                button.setTooltipText(description);
+            button.setTooltipText(description);
         }
         addView(button, BUTTON_INSERT_INDEX, buttonParams);
 
@@ -178,8 +175,7 @@ public class MyActionBar extends LinearLayout {
     public View addProgressButton() {
         progressAlwaysVisible = true;
         progressView.setVisibility(View.VISIBLE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            progressButton.setTooltipText(progressButton.getContentDescription());
+        progressButton.setTooltipText(progressButton.getContentDescription());
         return getProgressButton();
     }
 
