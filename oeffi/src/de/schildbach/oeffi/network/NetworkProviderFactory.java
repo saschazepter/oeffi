@@ -45,6 +45,7 @@ import de.schildbach.pte.NvbwProvider;
 import de.schildbach.pte.NvvProvider;
 import de.schildbach.pte.OebbProvider;
 import de.schildbach.pte.PlProvider;
+import de.schildbach.pte.RmvProvider;
 import de.schildbach.pte.RtProvider;
 import de.schildbach.pte.SeProvider;
 import de.schildbach.pte.ShProvider;
@@ -101,6 +102,8 @@ public final class NetworkProviderFactory {
             return new VbbProvider("{\"type\":\"AID\",\"aid\":\"hafas-vbb-apps\"}");
         else if (networkId.equals(NetworkId.NVV))
             return new NvvProvider("{\"type\":\"AID\",\"aid\":\"Kt8eNOH7qjVeSxNA\"}");
+        else if (networkId.equals(NetworkId.RMV))
+            return new RmvProvider("{\"type\":\"AID\",\"aid\":\"ikfr894fkfddXxA0U\"}");
         else if (networkId.equals(NetworkId.BAYERN))
             return new BayernProvider();
         else if (networkId.equals(NetworkId.MVV))

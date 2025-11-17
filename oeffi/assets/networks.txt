@@ -13,7 +13,8 @@ MVV|de-DE|Bayern;München
 INVG|de-DE|Ingolstadt
 VGN|de-DE|Nürnberg;Fürth;Erlangen
 VVM|de-DE|Schwaben;Mittelschwaben;Krumbach;Günzburg;Memmingen
-NVV|de-DE|Hessen;Frankfurt am Main;Kassel
+NVV|de-DE|Hessen;Kassel
+RMV|de-DE|Rhine-Main;Frankfurt am Main;Wiesbaden;Darmstadt;Mainz|beta
 VMV|de-DE|Mecklenburg-Vorpommern;Schwerin
 SH|de-DE|Schleswig-Holstein;Kiel;Lübeck;Hamburg
 GVH|de-DE|Niedersachsen;Hannover;Hamburg

@@ -10,8 +10,10 @@
     <string name="network_bvg_comment">Berlin, local and regional</string>
     <string name="network_vbb_label">Verkehrsverbund Berlin-Brandenburg</string>
     <string name="network_vbb_comment">Brandenburg &amp; Berlin, local and regional</string>
-    <string name="network_nvv_label">Hesse (Frankfurt/Rhine-Main, Kassel, …)</string>
+    <string name="network_nvv_label">Hesse (Kassel, …)</string>
     <string name="network_nvv_comment">local and regional</string>
+    <string name="network_rmv_label">Rhine-Main (Frankfurt, Wiesbaden, Darmstadt, …)</string>
+    <string name="network_rmv_comment">local and regional</string>
     <string name="network_bayern_label">Bavaria (Würzburg, Regensburg, …)</string>
     <string name="network_bayern_comment">local and regional</string>
     <string name="network_mvv_label">Munich</string>
