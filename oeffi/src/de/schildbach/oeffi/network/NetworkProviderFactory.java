@@ -26,7 +26,6 @@ import de.schildbach.pte.BartProvider;
 import de.schildbach.pte.BayernProvider;
 import de.schildbach.pte.BsvagProvider;
 import de.schildbach.pte.BvgProvider;
-import de.schildbach.pte.CmtaProvider;
 import de.schildbach.pte.DbProvider;
 import de.schildbach.pte.DingProvider;
 import de.schildbach.pte.DsbProvider;
@@ -188,8 +187,6 @@ public final class NetworkProviderFactory {
             return new BartProvider("{\"type\":\"AID\",\"aid\":\"kEwHkFUCIL500dym\"}");
         else if (networkId.equals(NetworkId.RTACHICAGO))
             return new RtaChicagoProvider();
-        else if (networkId.equals(NetworkId.CMTA))
-            return new CmtaProvider("{\"type\":\"AID\",\"aid\":\"web9j2nak29uz41irb\"}");
         else if (networkId.equals(NetworkId.SYDNEY))
             return new SydneyProvider();
         else

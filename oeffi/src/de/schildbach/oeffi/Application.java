@@ -155,6 +155,12 @@ public class Application extends android.app.Application {
         FavoriteStationsProvider.deleteFavoriteStations(this, NICARAGUA);
         QueryHistoryProvider.deleteQueryHistory(this, NICARAGUA);
 
+        // 2025-11-18: migrate CMTA to use BART
+        final String CMTA = "CMTA";
+        migrateSelectedNetwork(CMTA, NetworkId.BART);
+        FavoriteStationsProvider.deleteFavoriteStations(this, CMTA);
+        QueryHistoryProvider.deleteQueryHistory(this, CMTA);
+
         log.info("Migrations took {}", watch);
     }
 
