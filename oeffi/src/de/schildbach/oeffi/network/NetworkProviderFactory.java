@@ -47,7 +47,6 @@ import de.schildbach.pte.NvvProvider;
 import de.schildbach.pte.OebbProvider;
 import de.schildbach.pte.PlProvider;
 import de.schildbach.pte.RtProvider;
-import de.schildbach.pte.RtaChicagoProvider;
 import de.schildbach.pte.SeProvider;
 import de.schildbach.pte.ShProvider;
 import de.schildbach.pte.StvProvider;
@@ -185,8 +184,6 @@ public final class NetworkProviderFactory {
             return new DubProvider();
         else if (networkId.equals(NetworkId.BART))
             return new BartProvider("{\"type\":\"AID\",\"aid\":\"kEwHkFUCIL500dym\"}");
-        else if (networkId.equals(NetworkId.RTACHICAGO))
-            return new RtaChicagoProvider();
         else if (networkId.equals(NetworkId.SYDNEY))
             return new SydneyProvider();
         else

@@ -161,6 +161,12 @@ public class Application extends android.app.Application {
         FavoriteStationsProvider.deleteFavoriteStations(this, CMTA);
         QueryHistoryProvider.deleteQueryHistory(this, CMTA);
 
+        // 2025-11-18: migrate RTACHICAGO to use BART
+        final String RTACHICAGO = "RTACHICAGO";
+        migrateSelectedNetwork(RTACHICAGO, NetworkId.BART);
+        FavoriteStationsProvider.deleteFavoriteStations(this, RTACHICAGO);
+        QueryHistoryProvider.deleteQueryHistory(this, RTACHICAGO);
+
         log.info("Migrations took {}", watch);
     }
 
