@@ -50,6 +50,8 @@
     <string name="network_mvg_comment">local and regional</string>
     <string name="network_vrn_label">Rhineland-Palatinate, Rhine-Neckar &amp; Baden-Württemberg</string>
     <string name="network_vrn_comment">local and regional</string>
+    <string name="network_vgs_label">Saarbrücken &amp; Saarland</string>
+    <string name="network_vgs_comment">local and regional</string>
     <string name="network_vvs_label">Stuttgart</string>
     <string name="network_vvs_comment">local and regional</string>
     <string name="network_ding_label">Ulm</string>
@@ -60,8 +62,6 @@
     <string name="network_nvbw_comment">local and regional</string>
     <string name="network_vvv_label">Plauen &amp; Vogtland</string>
     <string name="network_vvv_comment">local and regional</string>
-    <string name="network_vgs_label">Saarbrücken &amp; Saarland</string>
-    <string name="network_vgs_comment">Not available, because the saarVV explicitly desires not to be included in Offi. You can select the Deutsche Bahn instead, it works well for the Saarland too.</string>
     <string name="network_oebb_label">ÖBB-Personenverkehr AG</string>
     <string name="network_oebb_comment">Austria, long-distance and regional (e.g. Vienna, Graz, Linz, Salzburg, Innsbruck)</string>
     <string name="network_wien_label">Vienna</string>

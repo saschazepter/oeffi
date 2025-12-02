@@ -55,6 +55,7 @@ import de.schildbach.pte.VbbProvider;
 import de.schildbach.pte.VblProvider;
 import de.schildbach.pte.VbnProvider;
 import de.schildbach.pte.VgnProvider;
+import de.schildbach.pte.VgsProvider;
 import de.schildbach.pte.VmtProvider;
 import de.schildbach.pte.VmvProvider;
 import de.schildbach.pte.VrnProvider;
@@ -140,6 +141,8 @@ public final class NetworkProviderFactory {
             return new MvgProvider();
         else if (networkId.equals(NetworkId.VRN))
             return new VrnProvider();
+        else if (networkId.equals(NetworkId.VGS))
+            return new VgsProvider("{\"type\":\"AID\",\"aid\":\"yCW9qZFSye1wIv3gCzm5r7d2kJ3LIF\"}");
         else if (networkId.equals(NetworkId.VVS))
             return new VvsProvider();
         else if (networkId.equals(NetworkId.DING))

@@ -51,6 +51,8 @@
     <string name="network_mvg_comment">Lokal- und Regionalverkehr</string>
     <string name="network_vrn_label">Rheinland-Pfalz, Rhein-Neckar &amp; Baden-Württemberg</string>
     <string name="network_vrn_comment">Lokal- und Regionalverkehr</string>
+    <string name="network_vgs_label">Saarbrücken &amp; Saarland</string>
+    <string name="network_vgs_comment">Lokal- und Regionalverkehr</string>
     <string name="network_vvs_label">Stuttgart</string>
     <string name="network_vvs_comment">Lokal- und Regionalverkehr</string>
     <string name="network_ding_label">Ulm</string>
@@ -61,8 +63,6 @@
     <string name="network_nvbw_comment">Lokal- und Regionalverkehr</string>
     <string name="network_vvv_label">Plauen &amp; Vogtland</string>
     <string name="network_vvv_comment">Lokal- und Regionalverkehr</string>
-    <string name="network_vgs_label">Saarbrücken &amp; Saarland</string>
-    <string name="network_vgs_comment">Nicht verfügbar, weil der saarVV darum gebeten hat, nicht in Öffi enthalten zu sein. Du kannst stattdessen die Deutsche Bahn verwenden, das funktioniert für das Saarland auch gut.</string>
     <string name="network_oebb_label">ÖBB-Personenverkehr AG</string>
     <string name="network_oebb_comment">Österreich, Fern- und Regionalverkehr (z.B. Wien, Graz, Linz, Salzburg, Innsbruck)</string>
     <string name="network_wien_label">Wien</string>

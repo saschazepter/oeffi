@@ -27,12 +27,12 @@ VRS|de-DE|Köln;Bonn
 AVV_AACHEN|de-DE|Aachen
 MVG|de-DE|Märkischer Kreis;Lüdenscheid
 VRN|de-DE|Baden-Württemberg;Rheinland-Pfalz;Mannheim;Mainz;Trier
+VGS|de-DE|Saarland;Saarbrücken
 VVS|de-DE|Baden-Württemberg;Stuttgart
 DING|de-DE|Baden-Württemberg;Ulm;Neu-Ulm
 KVV|de-DE|Baden-Württemberg;Karlsruhe
 NVBW|de-DE|Baden-Württemberg;Konstanz;Basel;Basel-Stadt;Reutlingen;Rottweil;Tübingen;Sigmaringen;Freiburg im Breisgau;Elsass;Bas-Rhin;Straßburg
 VVV|de-DE|Vogtland;Plauen
-VGS|de-DE|Saarland;Saarbrücken|disabled
 
 # AT
 OEBB|de-AT|AT
