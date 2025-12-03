@@ -34,7 +34,6 @@ import android.os.StatFs;
 import androidx.core.app.ActivityManagerCompat;
 import androidx.core.content.FileProvider;
 import com.google.common.base.Joiner;
-import com.google.common.base.Strings;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.R;
 import de.schildbach.pte.NetworkId;
@@ -182,8 +181,7 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler {
         report.append("Phone Model: " + Build.MODEL + "\n");
         report.append("Android Version: " + Build.VERSION.RELEASE + "\n");
         report.append("Android security patch level: ").append(Build.VERSION.SECURITY_PATCH).append("\n");
-        report.append("ABIs: ").append(Joiner.on(", ").skipNulls().join(Strings.emptyToNull(Build.CPU_ABI),
-                Strings.emptyToNull(Build.CPU_ABI2))).append("\n");
+        report.append("ABIs: ").append(Joiner.on(", ").join(Build.SUPPORTED_ABIS)).append("\n");
         report.append("Board: " + Build.BOARD + "\n");
         report.append("Brand: " + Build.BRAND + "\n");
         report.append("Device: " + Build.DEVICE + "\n");
