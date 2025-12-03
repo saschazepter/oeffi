@@ -42,7 +42,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.common.base.Joiner;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.MyActionBar;
 import de.schildbach.oeffi.OeffiActivity;
@@ -77,6 +76,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -647,7 +649,9 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
             // message
             if (departure.message != null || departure.line.message != null) {
                 msgView.setVisibility(View.VISIBLE);
-                msgView.setText(Joiner.on('\n').skipNulls().join(departure.message, departure.line.message));
+                msgView.setText(Stream.of(departure.message, departure.line.message)
+                        .filter(Objects::nonNull)
+                        .collect(Collectors.joining("\n")));
             } else {
                 msgView.setVisibility(View.GONE);
                 msgView.setText(null);
