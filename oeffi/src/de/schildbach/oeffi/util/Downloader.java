@@ -46,7 +46,7 @@ import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.Semaphore;
 
-import static com.google.common.base.Preconditions.checkState;
+import static de.schildbach.pte.util.Preconditions.checkState;
 
 public class Downloader {
     private final File cacheDir;

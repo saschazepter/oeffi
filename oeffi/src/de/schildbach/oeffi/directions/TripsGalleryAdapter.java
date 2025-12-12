@@ -41,7 +41,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.BaseAdapter;
-import com.google.common.base.Preconditions;
 import de.schildbach.oeffi.R;
 import de.schildbach.pte.dto.Line;
 import de.schildbach.pte.dto.Stop;
@@ -58,6 +57,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static de.schildbach.pte.util.Preconditions.checkArgument;
 
 public final class TripsGalleryAdapter extends BaseAdapter {
     private List<Trip> trips = Collections.emptyList();
@@ -147,8 +148,8 @@ public final class TripsGalleryAdapter extends BaseAdapter {
     }
 
     public void setMinMaxTimes(final long minTime, final long maxTime) {
-        Preconditions.checkArgument(minTime > 0);
-        Preconditions.checkArgument(maxTime > minTime);
+        checkArgument(minTime > 0);
+        checkArgument(maxTime > minTime);
 
         if (minTime != this.minTime || maxTime != this.maxTime) {
             this.minTime = minTime;
@@ -165,8 +166,8 @@ public final class TripsGalleryAdapter extends BaseAdapter {
     }
 
     public float timeToCoord(final long time, final int height) {
-        Preconditions.checkArgument(time > 0);
-        Preconditions.checkArgument(height > 0);
+        checkArgument(time > 0);
+        checkArgument(height > 0);
 
         final long timeDiff = maxTime - minTime;
         if (timeDiff == 0)

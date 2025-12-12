@@ -30,7 +30,7 @@ import de.schildbach.pte.dto.Product;
 import java.util.List;
 import java.util.Set;
 
-import static com.google.common.base.Preconditions.checkArgument;
+import static de.schildbach.pte.util.Preconditions.checkArgument;
 
 public class StationsAdapter extends RecyclerView.Adapter<StationViewHolder> implements CompassNeedleView.Callback {
     private final Context context;
