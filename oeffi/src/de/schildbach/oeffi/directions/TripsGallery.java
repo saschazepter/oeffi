@@ -188,10 +188,10 @@ public class TripsGallery extends Gallery {
 
                 if (Math.abs(diffMin) > DateUtils.SECOND_IN_MILLIS * 10
                         || Math.abs(diffMax) > DateUtils.SECOND_IN_MILLIS * 10) {
-                    minTime = currentMinTime + diffMin / 3;
-                    maxTime = currentMaxTime + diffMax / 3;
+                    minTime = currentMinTime + diffMin / 5;
+                    maxTime = currentMaxTime + diffMax / 5;
 
-                    handler.postDelayed(this, 25); // 40 fps
+                    handler.postDelayed(this, 20); // 50 fps
                 }
             }
 
