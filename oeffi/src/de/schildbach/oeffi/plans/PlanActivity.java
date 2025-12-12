@@ -38,9 +38,6 @@ import android.widget.ViewAnimator;
 import androidx.activity.ComponentActivity;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.SystemBarStyle;
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
 import de.schildbach.oeffi.Application;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.R;
@@ -53,7 +50,6 @@ import de.schildbach.oeffi.stations.StationContextMenu;
 import de.schildbach.oeffi.stations.StationDetailsActivity;
 import de.schildbach.oeffi.util.Downloader;
 import de.schildbach.oeffi.util.Toast;
-import de.schildbach.oeffi.util.UiThreadExecutor;
 import de.schildbach.oeffi.util.ZoomControls;
 import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.NetworkProvider;
@@ -78,6 +74,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.CompletableFuture;
 
 import static java.util.Objects.requireNonNull;
 
@@ -216,16 +213,13 @@ public class PlanActivity extends ComponentActivity {
         final Downloader downloader = new Downloader(getCacheDir());
         final HttpUrl remoteUrl = planUrlStr != null ? HttpUrl.parse(planUrlStr)
                 : Constants.PLANS_BASE_URL.newBuilder().addEncodedPathSegment(planFilename).build();
-        final ListenableFuture<Integer> download = downloader.download(application.okHttpClient(), remoteUrl, planFile);
-        Futures.addCallback(download, new FutureCallback<Integer>() {
-            public void onSuccess(final @Nullable Integer status) {
-                if (status == HttpURLConnection.HTTP_OK)
-                    loadPlan(planFile);
-            }
+        final CompletableFuture<Integer> download = downloader.download(application.okHttpClient(), remoteUrl, planFile);
 
-            public void onFailure(final Throwable t) {
+        download.whenComplete((status, t) -> {
+            if (t == null && status == HttpURLConnection.HTTP_OK) {
+                runOnUiThread(() -> loadPlan(planFile));
             }
-        }, new UiThreadExecutor());
+        });
 
         if (planFile.exists())
             loadPlan(planFile);

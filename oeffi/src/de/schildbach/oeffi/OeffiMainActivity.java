@@ -42,9 +42,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.common.base.Strings;
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
 import de.schildbach.oeffi.directions.DirectionsActivity;
 import de.schildbach.oeffi.network.NetworkPickerActivity;
 import de.schildbach.oeffi.network.NetworkResources;
@@ -58,7 +55,6 @@ import de.schildbach.oeffi.util.Downloader;
 import de.schildbach.oeffi.util.ErrorReporter;
 import de.schildbach.oeffi.util.Installer;
 import de.schildbach.oeffi.util.NavigationMenuAdapter;
-import de.schildbach.oeffi.util.UiThreadExecutor;
 import de.schildbach.pte.NetworkId;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -68,7 +64,6 @@ import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nullable;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -81,6 +76,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.CompletableFuture;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -346,16 +342,13 @@ public abstract class OeffiMainActivity extends OeffiActivity {
         remoteUrl.addQueryParameter("task", taskName());
         final File localFile = new File(getFilesDir(), "messages.txt");
         final Downloader downloader = new Downloader(getCacheDir());
-        final ListenableFuture<Integer> download = downloader.download(application.okHttpClient(), remoteUrl.build(),
+        final CompletableFuture<Integer> download = downloader.download(application.okHttpClient(), remoteUrl.build(),
                 localFile);
-        Futures.addCallback(download, new FutureCallback<Integer>() {
-            public void onSuccess(final @Nullable Integer status) {
-                processMessages(network);
+        download.whenComplete((status, t) -> {
+            if (t == null) {
+                runOnUiThread(() -> processMessages(network));
             }
-
-            public void onFailure(final Throwable t) {
-            }
-        }, new UiThreadExecutor());
+        });
     }
 
     private void processMessages(final String network) {

@@ -25,10 +25,6 @@ import android.database.CursorWrapper;
 import android.database.MatrixCursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
-import com.google.common.util.concurrent.MoreExecutors;
 import de.schildbach.oeffi.Application;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.util.Downloader;
@@ -57,6 +53,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 
 import static java.util.Objects.requireNonNull;
@@ -113,27 +111,22 @@ public class PlanContentProvider extends ContentProvider {
     @Override
     public Cursor query(final Uri uri, final String[] projection, final String selection, final String[] selectionArgs,
             final String sortOrder) {
-        final FutureCallback<Integer> notifyChangeCallback = new FutureCallback<Integer>() {
-            public void onSuccess(final @Nullable Integer status) {
-                if (status == HttpURLConnection.HTTP_OK)
-                    getContext().getContentResolver().notifyChange(uri, null);
-            }
-
-            public void onFailure(final Throwable t) {
-            }
+        BiConsumer<? super Integer, ? super Throwable> notifyChangeCallback = (status, t) -> {
+            if (t == null && status == HttpURLConnection.HTTP_OK)
+                getContext().getContentResolver().notifyChange(uri, null);
         };
 
         final File indexFile = new File(getContext().getFilesDir(), Constants.PLAN_INDEX_FILENAME);
         final HttpUrl remoteIndexUrl = Constants.PLANS_BASE_URL.newBuilder()
                 .addPathSegment(Constants.PLAN_INDEX_FILENAME).build();
-        final ListenableFuture<Integer> download = downloader.download(application.okHttpClient(), remoteIndexUrl, indexFile);
-        Futures.addCallback(download, notifyChangeCallback, MoreExecutors.directExecutor());
+        final CompletableFuture<Integer> download = downloader.download(application.okHttpClient(), remoteIndexUrl, indexFile);
+        download.whenComplete(notifyChangeCallback);
 
         final File stationsFile = new File(getContext().getFilesDir(), Constants.PLAN_STATIONS_FILENAME);
         final HttpUrl remoteStationsUrl = Constants.PLANS_BASE_URL.newBuilder()
                 .addPathSegment(Constants.PLAN_STATIONS_FILENAME + ".bz2").build();
-        final ListenableFuture<Integer> stationsDownload = downloader.download(application.okHttpClient(), remoteStationsUrl, stationsFile, true);
-        Futures.addCallback(stationsDownload, notifyChangeCallback, MoreExecutors.directExecutor());
+        final CompletableFuture<Integer> stationsDownload = downloader.download(application.okHttpClient(), remoteStationsUrl, stationsFile, true);
+        stationsDownload.whenComplete(notifyChangeCallback);
 
         final List<String> pathSegments = uri.getPathSegments();
         if (pathSegments.size() <= 2) {
