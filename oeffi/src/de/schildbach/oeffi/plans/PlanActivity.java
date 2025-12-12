@@ -79,7 +79,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 
 public class PlanActivity extends ComponentActivity {
     public static final String INTENT_EXTRA_PLAN_ID = "plan_id"; // Used in launcher shortcuts
@@ -91,7 +91,7 @@ public class PlanActivity extends ComponentActivity {
 
     public static Intent intent(final Context context, final String planId, final String selectedStationId) {
         final Intent intent = new Intent(Intent.ACTION_VIEW, null, context, PlanActivity.class);
-        intent.putExtra(INTENT_EXTRA_PLAN_ID, checkNotNull(planId));
+        intent.putExtra(INTENT_EXTRA_PLAN_ID, requireNonNull(planId));
         if (selectedStationId != null)
             intent.putExtra(INTENT_EXTRA_SELECTED_STATION_ID, selectedStationId);
         return intent;
@@ -150,7 +150,7 @@ public class PlanActivity extends ComponentActivity {
         bubble = findViewById(R.id.plans_bubble);
         bubble.setVisibility(View.GONE);
         bubble.setOnClickListener(v -> {
-            final Station selection = checkNotNull(PlanActivity.this.selection);
+            final Station selection = requireNonNull(PlanActivity.this.selection);
             final PopupMenu contextMenu = new StationContextMenu(PlanActivity.this, v, selection.network,
                     selection.location, null, false, false, false, false, false);
             contextMenu.setOnMenuItemClickListener(item -> {
@@ -178,8 +178,8 @@ public class PlanActivity extends ComponentActivity {
             updateScale();
         });
 
-        final String planId = checkNotNull(getIntent().getExtras().getString(INTENT_EXTRA_PLAN_ID),
-                "Required intent extra: %s", INTENT_EXTRA_PLAN_ID);
+        final String planId = requireNonNull(getIntent().getExtras().getString(INTENT_EXTRA_PLAN_ID), () ->
+                "Required intent extra: " + INTENT_EXTRA_PLAN_ID);
         final Uri planContentUri = PlanContentProvider.planUri(planId);
         final String planFilename = planId + ".png";
         final File planFile = new File(getDir(Constants.PLANS_DIR, Context.MODE_PRIVATE), planFilename);

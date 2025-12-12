@@ -29,7 +29,7 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 
 public class Station {
     public final NetworkId network;
@@ -46,12 +46,12 @@ public class Station {
 
     public Station(final NetworkId network, final Location location) {
         this.network = network;
-        this.location = checkNotNull(location);
+        this.location = requireNonNull(location);
     }
 
     public Station(final NetworkId network, final Location location, final List<LineDestination> lines) {
         this.network = network;
-        this.location = checkNotNull(location);
+        this.location = requireNonNull(location);
         setLines(lines);
     }
 

@@ -70,7 +70,7 @@ import java.util.NavigableSet;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 
 public class TripsOverviewActivity extends OeffiActivity {
     private static final String INTENT_EXTRA_NETWORK = TripsOverviewActivity.class.getName() + ".network";
@@ -83,7 +83,7 @@ public class TripsOverviewActivity extends OeffiActivity {
         final Intent intent = new Intent(context, TripsOverviewActivity.class);
         if (result.queryUri != null)
             intent.setData(Uri.parse(result.queryUri));
-        intent.putExtra(INTENT_EXTRA_NETWORK, checkNotNull(network));
+        intent.putExtra(INTENT_EXTRA_NETWORK, requireNonNull(network));
         intent.putExtra(INTENT_EXTRA_RESULT, result);
         intent.putExtra(INTENT_EXTRA_ARR_DEP, depArr == TimeSpec.DepArr.DEPART);
         if (historyUri != null)

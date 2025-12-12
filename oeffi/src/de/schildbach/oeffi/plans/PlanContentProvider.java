@@ -59,7 +59,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 
 public class PlanContentProvider extends ContentProvider {
     public static final Uri CONTENT_URI = Uri.parse("content://de.schildbach.oeffi.plans");
@@ -297,7 +297,7 @@ public class PlanContentProvider extends ContentProvider {
                     final String network = i.next();
                     final String localId = i.next();
                     final String label = i.next();
-                    final String planId = checkNotNull(i.next());
+                    final String planId = requireNonNull(i.next());
                     if ((planIdFilter == null || planIdFilter.equals(planId))
                             && (networkFilter == null || networkFilter.equals(network))
                             && (localIdFilter == null || localIdFilter.equals(localId))) {

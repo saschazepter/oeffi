@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 
 public class GeocoderThread extends Thread {
     public interface Callback {
@@ -60,14 +60,14 @@ public class GeocoderThread extends Thread {
 
     public GeocoderThread(final Context context, final double latitude, final double longitude,
             final Callback callback) {
-        this.geocoder = new Geocoder(checkNotNull(context), Locale.GERMANY);
+        this.geocoder = new Geocoder(requireNonNull(context), Locale.GERMANY);
         checkArgument(latitude > -90);
         checkArgument(latitude < 90);
         this.latitude = latitude;
         checkArgument(longitude > -180);
         checkArgument(longitude < 180);
         this.longitude = longitude;
-        this.callback = checkNotNull(callback);
+        this.callback = requireNonNull(callback);
 
         callbackHandler = new Handler(Looper.myLooper());
 

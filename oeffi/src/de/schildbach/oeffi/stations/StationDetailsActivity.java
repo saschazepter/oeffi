@@ -81,7 +81,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 
 public class StationDetailsActivity extends OeffiActivity implements StationsAware {
     private static final String INTENT_EXTRA_NETWORK = StationDetailsActivity.class.getName() + ".network";
@@ -96,7 +96,7 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
             @Nullable final List<Departure> departures) {
         checkArgument(station.type == LocationType.STATION);
         final Intent intent = new Intent(context, StationDetailsActivity.class);
-        intent.putExtra(StationDetailsActivity.INTENT_EXTRA_NETWORK, checkNotNull(networkId));
+        intent.putExtra(StationDetailsActivity.INTENT_EXTRA_NETWORK, requireNonNull(networkId));
         intent.putExtra(StationDetailsActivity.INTENT_EXTRA_STATION, station);
         if (departures != null)
             intent.putExtra(StationDetailsActivity.INTENT_EXTRA_DEPARTURES, (Serializable) departures);
@@ -200,7 +200,7 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
         resultStatusView = findViewById(R.id.stations_station_details_result_status);
 
         final Intent intent = getIntent();
-        final NetworkId network = (NetworkId) checkNotNull(intent.getSerializableExtra(INTENT_EXTRA_NETWORK));
+        final NetworkId network = (NetworkId) requireNonNull(intent.getSerializableExtra(INTENT_EXTRA_NETWORK));
         final Station station = new Station(network, (Location) intent.getSerializableExtra(INTENT_EXTRA_STATION));
         if (intent.hasExtra(INTENT_EXTRA_DEPARTURES))
             station.departures = (List<Departure>) intent.getSerializableExtra(INTENT_EXTRA_DEPARTURES);
@@ -449,7 +449,7 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
         public Departure getItem(final int position) {
             if (position == 0)
                 return null;
-            return checkNotNull(selectedDepartures).get(position - 1);
+            return requireNonNull(selectedDepartures).get(position - 1);
         }
 
         @Override

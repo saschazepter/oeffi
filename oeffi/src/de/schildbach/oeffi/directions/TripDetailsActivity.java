@@ -93,7 +93,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 
 public class TripDetailsActivity extends OeffiActivity implements LocationListener, LocationAware {
     private static final String INTENT_EXTRA_NETWORK = TripDetailsActivity.class.getName() + ".network";
@@ -101,8 +101,8 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
 
     public static void start(final Context context, final NetworkId network, final Trip trip) {
         final Intent intent = new Intent(context, TripDetailsActivity.class);
-        intent.putExtra(INTENT_EXTRA_NETWORK, checkNotNull(network));
-        intent.putExtra(INTENT_EXTRA_TRIP, checkNotNull(trip));
+        intent.putExtra(INTENT_EXTRA_NETWORK, requireNonNull(network));
+        intent.putExtra(INTENT_EXTRA_TRIP, requireNonNull(trip));
         context.startActivity(intent);
     }
 
