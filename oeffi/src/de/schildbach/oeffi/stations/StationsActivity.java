@@ -62,7 +62,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.common.primitives.Ints;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.LocationAware;
 import de.schildbach.oeffi.MyActionBar;
@@ -306,8 +305,9 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                     private final Drawable drawableBlock = getResources().getDrawable(R.drawable.ic_block_black_24dp);
                     private final int starMargin = getResources()
                             .getDimensionPixelOffset(R.dimen.text_padding_horizontal_lax);
-                    private final int actionTriggerThreshold = Ints.max(drawableStar.getIntrinsicWidth(),
-                            drawableClear.getIntrinsicWidth(), drawableBlock.getIntrinsicWidth()) + starMargin * 2;
+                    private final int actionTriggerThreshold = Math.max(drawableStar.getIntrinsicWidth(),
+                            Math.max(drawableClear.getIntrinsicWidth(), drawableBlock.getIntrinsicWidth()))
+                            + starMargin * 2;
 
                     @Override
                     public boolean isItemViewSwipeEnabled() {
