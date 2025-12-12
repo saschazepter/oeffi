@@ -34,7 +34,6 @@ import android.widget.TextView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import com.google.common.util.concurrent.Uninterruptibles;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.MyActionBar;
 import de.schildbach.oeffi.OeffiActivity;
@@ -309,7 +308,7 @@ public class TripsOverviewActivity extends OeffiActivity {
                         break;
                     }
 
-                    Uninterruptibles.sleepUninterruptibly(tries, TimeUnit.SECONDS);
+                    try { TimeUnit.SECONDS.sleep(tries); } catch (InterruptedException ix) {}
 
                     // try again
                     continue;
