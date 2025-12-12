@@ -62,7 +62,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.common.collect.ComparisonChain;
 import com.google.common.primitives.Ints;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.LocationAware;
@@ -106,6 +105,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -991,15 +991,15 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
     }
 
     private static void sortStations(final List<Station> stations) {
-        Collections.sort(stations, (station1, station2) -> {
-            return ComparisonChain.start()
-                    // order by distance
-                    .compareTrueFirst(station1.hasDistanceAndBearing, station2.hasDistanceAndBearing)
-                    .compare(station1.distance, station2.distance)
-                    // order by product
-                    .compare(station1.getRelevantProduct(), station2.getRelevantProduct())
-                    .result();
-        });
+        Collections.sort(stations, (station1, station2) ->
+                Comparator
+                        // order by distance
+                        .<Station, Boolean>comparing(station -> station.hasDistanceAndBearing)
+                        .thenComparing(station -> station.distance)
+                        // order by product
+                        .thenComparing(Station::getRelevantProduct)
+                        .compare(station1, station2)
+        );
     }
 
     private void postLoadNextVisible(final long delay) {
