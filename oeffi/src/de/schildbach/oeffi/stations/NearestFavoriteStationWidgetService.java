@@ -47,7 +47,6 @@ import android.view.View;
 import android.widget.RemoteViews;
 import androidx.annotation.WorkerThread;
 import androidx.core.content.ContextCompat;
-import com.google.common.base.Throwables;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.network.NetworkProviderFactory;
@@ -341,14 +340,12 @@ public class NearestFavoriteStationWidgetService extends JobService {
                         log.info("Could not query departures for station " + stationId, x);
                     } catch (final SSLException x) {
                         setHeader(appWidgetId, favorite.name);
-                        setMessage(getString(R.string.nearest_favorite_station_widget_error_ssl,
-                                Throwables.getRootCause(x).getClass().getSimpleName()));
+                        setMessage(getString(R.string.nearest_favorite_station_widget_error_ssl, x.getMessage()));
                         appWidgetManager.updateAppWidget(appWidgetId, views);
                         log.info("Could not query departures for station " + stationId, x);
                     } catch (final Exception x) {
                         setHeader(appWidgetId, favorite.name);
-                        setMessage(getString(R.string.nearest_favorite_station_widget_error_exception,
-                                Throwables.getRootCause(x).toString()));
+                        setMessage(getString(R.string.nearest_favorite_station_widget_error_exception, x.getMessage()));
                         appWidgetManager.updateAppWidget(appWidgetId, views);
                         log.info("Could not query departures for station " + stationId, x);
                     }
