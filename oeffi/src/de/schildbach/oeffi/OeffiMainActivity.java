@@ -41,7 +41,6 @@ import androidx.core.view.MenuProvider;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.common.base.Strings;
 import de.schildbach.oeffi.directions.DirectionsActivity;
 import de.schildbach.oeffi.network.NetworkPickerActivity;
 import de.schildbach.oeffi.network.NetworkResources;
@@ -459,11 +458,11 @@ public abstract class OeffiMainActivity extends OeffiActivity {
                                 return false;
                     }
                 } else if (name.equals("installer")) {
-                    final String installer = Strings.nullToEmpty(Installer.installerPackageName(this));
+                    final String installer = Installer.installerPackageName(this);
                     if (!value.equalsIgnoreCase(installer))
                         return false;
                 } else if (name.equals("not-installer")) {
-                    final String installer = Strings.nullToEmpty(Installer.installerPackageName(this));
+                    final String installer = Installer.installerPackageName(this);
                     if (value.equalsIgnoreCase(installer))
                         return false;
                 } else {
