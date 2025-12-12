@@ -33,7 +33,6 @@ import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Gallery;
-import com.google.common.math.LongMath;
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.util.Formats;
 import de.schildbach.pte.dto.Trip;
@@ -170,14 +169,14 @@ public class TripsGallery extends Gallery {
                 maxTime = currentTime;
 
             // padding
-            final long timeDiff = LongMath.checkedSubtract(maxTime, minTime);
+            final long timeDiff = maxTime - minTime;
             long timePadding = timeDiff / 12;
             if (timeDiff < DateUtils.MINUTE_IN_MILLIS * 30) // zoom limit
                 timePadding = (DateUtils.MINUTE_IN_MILLIS * 30 - timeDiff) / 2;
             if (timePadding < DateUtils.MINUTE_IN_MILLIS) // minimum padding
                 timePadding = DateUtils.MINUTE_IN_MILLIS;
-            minTime = LongMath.checkedSubtract(minTime, timePadding);
-            maxTime = LongMath.checkedAdd(maxTime, timePadding);
+            minTime = minTime - timePadding;
+            maxTime = maxTime + timePadding;
 
             // animate
             final long currentMinTime = adapter.getMinTime();
