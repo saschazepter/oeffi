@@ -92,6 +92,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 
@@ -571,7 +572,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
                 else if (fare.units == null && fare.unitName == null)
                     unitView.setText(null);
                 else
-                    unitView.setText(String.format("(%s)", MoreObjects.firstNonNull(fare.units, fare.unitName)));
+                    unitView.setText(String.format("(%s)", Optional.ofNullable(fare.units).orElse(fare.unitName)));
                 faresTable.addView(fareRow, i++);
             }
         } else {
