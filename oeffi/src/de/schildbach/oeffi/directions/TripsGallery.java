@@ -163,7 +163,7 @@ public class TripsGallery extends Gallery {
             }
 
             // snap to current time
-            if (minTime == 0 || (currentTime > minTime - DateUtils.MINUTE_IN_MILLIS * 30 && currentTime < minTime))
+            if (minTime == Long.MAX_VALUE || (currentTime > minTime - DateUtils.MINUTE_IN_MILLIS * 30 && currentTime < minTime))
                 minTime = currentTime;
             else if (maxTime == 0 || (currentTime < maxTime + DateUtils.MINUTE_IN_MILLIS * 30 && currentTime > maxTime))
                 maxTime = currentTime;
