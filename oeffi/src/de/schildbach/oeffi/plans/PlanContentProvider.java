@@ -25,7 +25,6 @@ import android.database.CursorWrapper;
 import android.database.MatrixCursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
-import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
@@ -59,6 +58,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -282,7 +282,7 @@ public class PlanContentProvider extends ContentProvider {
                         yOffset = 0;
                         final String params = line.substring(11).trim();
                         if (!params.isEmpty()) {
-                            final Iterator<String> i = Splitter.on(',').trimResults().split(params).iterator();
+                            final Iterator<String> i = Stream.of(params.split(",")).map(String::trim).iterator();
                             if (i.hasNext())
                                 xScaleFactor = Float.parseFloat(i.next());
                             if (i.hasNext())
@@ -298,11 +298,11 @@ public class PlanContentProvider extends ContentProvider {
                         log.info("Ignoring command: {}", line);
                     }
                 } else {
-                    final Iterator<String> i = Splitter.on('|').trimResults().split(line).iterator();
-                    final String network = Strings.emptyToNull(i.next());
-                    final String localId = Strings.emptyToNull(i.next());
-                    final String label = Strings.emptyToNull(i.next());
-                    final String planId = checkNotNull(Strings.emptyToNull(i.next()));
+                    final Iterator<String> i = Stream.of(line.split("\\|")).map(s -> !s.trim().isEmpty() ? s.trim() : null).iterator();
+                    final String network = i.next();
+                    final String localId = i.next();
+                    final String label = i.next();
+                    final String planId = checkNotNull(i.next());
                     if ((planIdFilter == null || planIdFilter.equals(planId))
                             && (networkFilter == null || networkFilter.equals(network))
                             && (localIdFilter == null || localIdFilter.equals(localId))) {
