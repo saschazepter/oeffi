@@ -25,7 +25,6 @@ import android.database.CursorWrapper;
 import android.database.MatrixCursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
-import com.google.common.base.Strings;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -207,21 +206,17 @@ public class PlanContentProvider extends ContentProvider {
                 if (line.length() == 0 || line.charAt(0) == '#')
                     continue;
 
-                final String[] fields = line.split("\\|");
-                final int numFields = fields.length;
+                final Iterator<String> fieldIterator = Stream.of(line.split("\\|")).map(s -> !s.trim().isEmpty() ? s.trim() : null).iterator();
 
-                if (numFields < 4)
-                    throw new IOException("bad line: '" + line + "', " + numFields + " fields");
-
-                final String planId = fields[0];
+                final String planId = fieldIterator.next();
                 final int rowId = planId.hashCode(); // FIXME colliding hashcodes
-                final String[] coords = fields[1].split(",");
+                final String[] coords = fieldIterator.next().split(",");
                 final Point p = Point.fromDouble(Double.parseDouble(coords[0]), Double.parseDouble(coords[1]));
-                final Date planValidFrom = parse(fields[2], dateFormat);
-                final String planName = fields[3];
-                final String planDisclaimer = numFields > 4 ? Strings.emptyToNull(fields[4]) : null;
-                final String planUrl = numFields > 5 ? Strings.emptyToNull(fields[5]) : null;
-                final String planNetworkLogo = numFields > 6 ? Strings.emptyToNull(fields[6]) : null;
+                final Date planValidFrom = parse(fieldIterator.next(), dateFormat);
+                final String planName = fieldIterator.next();
+                final String planDisclaimer = fieldIterator.hasNext() ? fieldIterator.next() : null;
+                final String planUrl = fieldIterator.hasNext() ? fieldIterator.next() : null;
+                final String planNetworkLogo = fieldIterator.hasNext() ? fieldIterator.next() : null;
 
                 boolean filterMatch = true;
                 if (query != null && !planName.toLowerCase(Constants.DEFAULT_LOCALE).contains(query)
@@ -326,7 +321,7 @@ public class PlanContentProvider extends ContentProvider {
     }
 
     private static Date parse(String string, final DateFormat dateFormat) throws IOException {
-        if (string.length() == 0)
+        if (string == null)
             return null;
         else if (string.length() == 4)
             string += "-01-01";
