@@ -17,7 +17,6 @@
 
 package de.schildbach.oeffi.util;
 
-import com.google.common.util.concurrent.Striped;
 import de.schildbach.oeffi.util.bzip2.BZip2CompressorInputStream;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -43,13 +42,14 @@ import java.net.HttpURLConnection;
 import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Semaphore;
 
 import static de.schildbach.pte.util.Preconditions.checkState;
 
 public class Downloader {
     private final File cacheDir;
-    private final Striped<Semaphore> semaphores = Striped.semaphore(8, 1);
+    private final ConcurrentHashMap<File, Semaphore> semaphores = new ConcurrentHashMap<>();
 
     private static final Random random = new Random();
     private static final Logger log = LoggerFactory.getLogger(Downloader.class);
@@ -75,7 +75,7 @@ public class Downloader {
     public CompletableFuture<Integer> download(final OkHttpClient okHttpClient, final HttpUrl remoteUrl,
             final File targetFile, final boolean unzip, @Nullable final ProgressCallback progressCallback) {
         final CompletableFuture<Integer> future = new CompletableFuture<>();
-        final Semaphore semaphore = semaphores.get(targetFile);
+        final Semaphore semaphore = semaphores.computeIfAbsent(targetFile, file -> new Semaphore(1));
         if (semaphore.tryAcquire()) {
             final Headers meta = targetFile.exists() ? loadMeta(targetFile) : null;
             final Request.Builder request = new Request.Builder();
