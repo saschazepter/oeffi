@@ -22,7 +22,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Handler;
 import android.os.Looper;
-import com.google.common.base.Strings;
 import de.schildbach.pte.dto.Location;
 import de.schildbach.pte.dto.LocationType;
 import de.schildbach.pte.dto.Point;
@@ -119,13 +118,12 @@ public class GeocoderThread extends Thread {
 
         final int maxAddressLineIndex = address.getMaxAddressLineIndex();
         final Location location;
-        if (Strings.emptyToNull(address.getFeatureName()) != null && Strings.emptyToNull(address.getLocality()) != null
-                && Strings.emptyToNull(address.getPostalCode()) != null) {
-            final String thoroughfare = Strings.emptyToNull(address.getThoroughfare());
+        if (address.getFeatureName() != null && address.getLocality() != null && address.getPostalCode() != null) {
+            final String thoroughfare = address.getThoroughfare();
             location = new Location(LocationType.ADDRESS, null, coord,
                     Stream.of(address.getPostalCode(), address.getLocality()).filter(Objects::nonNull).collect(Collectors.joining(" ")),
                     Stream.of(thoroughfare, address.getFeatureName()).filter(Objects::nonNull).collect(Collectors.joining(" ")));
-        } else if (maxAddressLineIndex >= 2 && Strings.emptyToNull(address.getAddressLine(2)) != null) {
+        } else if (maxAddressLineIndex >= 2 && address.getAddressLine(2) != null) {
             location = new Location(LocationType.ADDRESS, null, coord, address.getAddressLine(1),
                     address.getAddressLine(0));
         } else {
