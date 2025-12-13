@@ -75,9 +75,12 @@ android {
         exclude 'META-INF/proguard/**'
         exclude 'META-INF/services/**'
         exclude 'META-INF/*.kotlin_module'
+        exclude 'META-INF/kotlin-project-structure-metadata.json'
         exclude 'META-INF/**/coroutines.pro'
         exclude 'DebugProbesKt.bin'
         exclude 'kotlin/**'
+        exclude 'commonMain/default/**'
+        exclude 'nonJvmMain/default/**'
     }
 }
 
