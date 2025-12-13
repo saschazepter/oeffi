@@ -6,7 +6,6 @@ plugins {
 configurations {
     all*.exclude group: 'org.json', module: 'json'
     all*.exclude group: 'net.sf.kxml', module: 'kxml2'
-    all*.exclude group: 'androidx.legacy', module: 'legacy-support-core-ui'
     all*.exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
     all*.exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
 }
