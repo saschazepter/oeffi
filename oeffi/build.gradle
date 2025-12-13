@@ -37,10 +37,6 @@ android {
     compileSdkVersion 'android-34'
     buildToolsVersion '36.1.0'
 
-    defaultConfig {
-        generatedDensities = ['hdpi', 'xhdpi']
-    }
-
     buildTypes {
         all {
             minifyEnabled true
