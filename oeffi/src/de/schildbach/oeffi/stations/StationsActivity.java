@@ -997,7 +997,7 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                         .<Station, Boolean>comparing(station -> station.hasDistanceAndBearing)
                         .thenComparing(station -> station.distance)
                         // order by product
-                        .thenComparing(Station::getRelevantProduct)
+                        .thenComparing(Station::getRelevantProduct, Comparator.nullsLast(Product::compareTo))
                         .compare(station1, station2)
         );
     }
