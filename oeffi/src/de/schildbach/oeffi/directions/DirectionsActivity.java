@@ -69,8 +69,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.common.base.Throwables;
-import com.google.common.primitives.Floats;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.FromViaToAware;
 import de.schildbach.oeffi.MyActionBar;
@@ -1134,8 +1132,7 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
             protected void onSSLException(final SSLException x) {
                 final DialogBuilder builder = DialogBuilder.warn(DirectionsActivity.this,
                         R.string.directions_alert_ssl_exception_title);
-                builder.setMessage(getString(R.string.directions_alert_ssl_exception_message,
-                        Throwables.getRootCause(x).toString()));
+                builder.setMessage(getString(R.string.directions_alert_ssl_exception_message, x.getMessage()));
                 builder.setNeutralButton(R.string.directions_alert_ssl_exception_button_dismiss, null);
                 builder.show();
             }
@@ -1371,7 +1368,16 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
         public void onNestedScroll(final CoordinatorLayout coordinatorLayout, final View child, final View target,
                 final int dxConsumed, final int dyConsumed, final int dxUnconsumed, final int dyUnconsumed,
                 final int type) {
-            child.setTranslationY(Floats.constrainToRange(child.getTranslationY() - dyConsumed, -child.getHeight(), 0));
+            child.setTranslationY(clamp(child.getTranslationY() - dyConsumed, -child.getHeight(), 0));
         }
+    }
+
+    // use Math.clamp() on Android API 35+
+    private static float clamp(float value, float min, float max) {
+        if (value < min)
+            return min;
+        if (value > max)
+            return max;
+        return value;
     }
 }

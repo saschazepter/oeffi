@@ -23,7 +23,6 @@ import android.graphics.Typeface;
 import android.os.Handler;
 import android.text.SpannableStringBuilder;
 import android.text.style.StyleSpan;
-import com.google.common.util.concurrent.Uninterruptibles;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.R;
 import de.schildbach.pte.NetworkProvider;
@@ -139,7 +138,7 @@ public abstract class QueryTripsRunnable implements Runnable {
                     }
                 }
 
-                Uninterruptibles.sleepUninterruptibly(tries, TimeUnit.SECONDS);
+                try { TimeUnit.SECONDS.sleep(tries); } catch (InterruptedException ix) {}
 
                 // try again
                 continue;

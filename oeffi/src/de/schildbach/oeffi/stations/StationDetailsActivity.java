@@ -42,7 +42,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.common.base.Joiner;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.MyActionBar;
 import de.schildbach.oeffi.OeffiActivity;
@@ -77,9 +76,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
+import static de.schildbach.pte.util.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 public class StationDetailsActivity extends OeffiActivity implements StationsAware {
     private static final String INTENT_EXTRA_NETWORK = StationDetailsActivity.class.getName() + ".network";
@@ -94,7 +96,7 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
             @Nullable final List<Departure> departures) {
         checkArgument(station.type == LocationType.STATION);
         final Intent intent = new Intent(context, StationDetailsActivity.class);
-        intent.putExtra(StationDetailsActivity.INTENT_EXTRA_NETWORK, checkNotNull(networkId));
+        intent.putExtra(StationDetailsActivity.INTENT_EXTRA_NETWORK, requireNonNull(networkId));
         intent.putExtra(StationDetailsActivity.INTENT_EXTRA_STATION, station);
         if (departures != null)
             intent.putExtra(StationDetailsActivity.INTENT_EXTRA_DEPARTURES, (Serializable) departures);
@@ -198,7 +200,7 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
         resultStatusView = findViewById(R.id.stations_station_details_result_status);
 
         final Intent intent = getIntent();
-        final NetworkId network = (NetworkId) checkNotNull(intent.getSerializableExtra(INTENT_EXTRA_NETWORK));
+        final NetworkId network = (NetworkId) requireNonNull(intent.getSerializableExtra(INTENT_EXTRA_NETWORK));
         final Station station = new Station(network, (Location) intent.getSerializableExtra(INTENT_EXTRA_STATION));
         if (intent.hasExtra(INTENT_EXTRA_DEPARTURES))
             station.departures = (List<Departure>) intent.getSerializableExtra(INTENT_EXTRA_DEPARTURES);
@@ -447,7 +449,7 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
         public Departure getItem(final int position) {
             if (position == 0)
                 return null;
-            return checkNotNull(selectedDepartures).get(position - 1);
+            return requireNonNull(selectedDepartures).get(position - 1);
         }
 
         @Override
@@ -647,7 +649,9 @@ public class StationDetailsActivity extends OeffiActivity implements StationsAwa
             // message
             if (departure.message != null || departure.line.message != null) {
                 msgView.setVisibility(View.VISIBLE);
-                msgView.setText(Joiner.on('\n').skipNulls().join(departure.message, departure.line.message));
+                msgView.setText(Stream.of(departure.message, departure.line.message)
+                        .filter(Objects::nonNull)
+                        .collect(Collectors.joining("\n")));
             } else {
                 msgView.setVisibility(View.GONE);
                 msgView.setText(null);

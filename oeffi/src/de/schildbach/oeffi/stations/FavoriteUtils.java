@@ -28,12 +28,13 @@ import de.schildbach.pte.dto.LocationType;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.google.common.base.Preconditions.checkArgument;
+import static de.schildbach.pte.util.Preconditions.checkArgument;
 
 public class FavoriteUtils {
     public static Uri persist(final ContentResolver contentResolver, final int type, final NetworkId networkId,
             final Location station) {
-        checkArgument(station.type == LocationType.STATION, "not a station: %s", station);
+        checkArgument(station.type == LocationType.STATION, () ->
+                "not a station: " + station);
         final ContentValues values = new ContentValues();
         values.put(FavoriteStationsProvider.KEY_TYPE, type);
         values.put(FavoriteStationsProvider.KEY_STATION_NETWORK, networkId.name());

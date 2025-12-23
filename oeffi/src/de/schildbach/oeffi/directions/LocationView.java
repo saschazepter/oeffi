@@ -41,7 +41,6 @@ import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.PopupMenu;
 import android.widget.TextView.OnEditorActionListener;
-import com.google.common.base.Strings;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.util.GeocoderThread;
@@ -351,7 +350,7 @@ public class LocationView extends FrameLayout implements LocationHelper.Callback
 
         if (locationType == LocationType.COORD && coord == null)
             return null;
-        else if (locationType == LocationType.ANY && Strings.isNullOrEmpty(name))
+        else if (locationType == LocationType.ANY && (name == null || name.isEmpty()))
             return null;
         else
             return new Location(locationType, id, coord, name != null ? place : null, name);

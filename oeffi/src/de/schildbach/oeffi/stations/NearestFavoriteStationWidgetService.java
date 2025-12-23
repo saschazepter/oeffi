@@ -47,8 +47,6 @@ import android.view.View;
 import android.widget.RemoteViews;
 import androidx.annotation.WorkerThread;
 import androidx.core.content.ContextCompat;
-import com.google.common.base.Throwables;
-import com.google.common.util.concurrent.SettableFuture;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.R;
 import de.schildbach.oeffi.network.NetworkProviderFactory;
@@ -71,6 +69,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -204,10 +203,10 @@ public class NearestFavoriteStationWidgetService extends JobService {
         widgetsHeader(appWidgetIds, getString(R.string.acquire_location_start, provider));
         log.info("Acquiring {} location", provider);
 
-        final SettableFuture<Location> future = SettableFuture.create();
+        final CompletableFuture<Location> future = new CompletableFuture<>();
         locationManager.requestSingleUpdate(provider, new LocationListener() {
             public void onLocationChanged(final Location location) {
-                future.set(location);
+                future.complete(location);
             }
 
             public void onProviderEnabled(final String provider) {
@@ -341,14 +340,12 @@ public class NearestFavoriteStationWidgetService extends JobService {
                         log.info("Could not query departures for station " + stationId, x);
                     } catch (final SSLException x) {
                         setHeader(appWidgetId, favorite.name);
-                        setMessage(getString(R.string.nearest_favorite_station_widget_error_ssl,
-                                Throwables.getRootCause(x).getClass().getSimpleName()));
+                        setMessage(getString(R.string.nearest_favorite_station_widget_error_ssl, x.getMessage()));
                         appWidgetManager.updateAppWidget(appWidgetId, views);
                         log.info("Could not query departures for station " + stationId, x);
                     } catch (final Exception x) {
                         setHeader(appWidgetId, favorite.name);
-                        setMessage(getString(R.string.nearest_favorite_station_widget_error_exception,
-                                Throwables.getRootCause(x).toString()));
+                        setMessage(getString(R.string.nearest_favorite_station_widget_error_exception, x.getMessage()));
                         appWidgetManager.updateAppWidget(appWidgetId, views);
                         log.info("Could not query departures for station " + stationId, x);
                     }

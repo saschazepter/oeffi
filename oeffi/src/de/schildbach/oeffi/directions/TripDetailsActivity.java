@@ -53,7 +53,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import com.google.common.base.MoreObjects;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.LocationAware;
 import de.schildbach.oeffi.MyActionBar;
@@ -92,8 +91,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 
 public class TripDetailsActivity extends OeffiActivity implements LocationListener, LocationAware {
     private static final String INTENT_EXTRA_NETWORK = TripDetailsActivity.class.getName() + ".network";
@@ -101,8 +101,8 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
 
     public static void start(final Context context, final NetworkId network, final Trip trip) {
         final Intent intent = new Intent(context, TripDetailsActivity.class);
-        intent.putExtra(INTENT_EXTRA_NETWORK, checkNotNull(network));
-        intent.putExtra(INTENT_EXTRA_TRIP, checkNotNull(trip));
+        intent.putExtra(INTENT_EXTRA_NETWORK, requireNonNull(network));
+        intent.putExtra(INTENT_EXTRA_TRIP, requireNonNull(trip));
         context.startActivity(intent);
     }
 
@@ -571,7 +571,7 @@ public class TripDetailsActivity extends OeffiActivity implements LocationListen
                 else if (fare.units == null && fare.unitName == null)
                     unitView.setText(null);
                 else
-                    unitView.setText(String.format("(%s)", MoreObjects.firstNonNull(fare.units, fare.unitName)));
+                    unitView.setText(String.format("(%s)", Optional.ofNullable(fare.units).orElse(fare.unitName)));
                 faresTable.addView(fareRow, i++);
             }
         } else {

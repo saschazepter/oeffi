@@ -62,9 +62,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.common.collect.ComparisonChain;
-import com.google.common.collect.Ordering;
-import com.google.common.primitives.Ints;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.LocationAware;
 import de.schildbach.oeffi.MyActionBar;
@@ -87,7 +84,6 @@ import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.NetworkProvider;
 import de.schildbach.pte.NetworkProvider.Capability;
 import de.schildbach.pte.dto.Departure;
-import de.schildbach.pte.dto.Line;
 import de.schildbach.pte.dto.LineDestination;
 import de.schildbach.pte.dto.Location;
 import de.schildbach.pte.dto.LocationType;
@@ -108,6 +104,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -308,8 +305,9 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
                     private final Drawable drawableBlock = getResources().getDrawable(R.drawable.ic_block_black_24dp);
                     private final int starMargin = getResources()
                             .getDimensionPixelOffset(R.dimen.text_padding_horizontal_lax);
-                    private final int actionTriggerThreshold = Ints.max(drawableStar.getIntrinsicWidth(),
-                            drawableClear.getIntrinsicWidth(), drawableBlock.getIntrinsicWidth()) + starMargin * 2;
+                    private final int actionTriggerThreshold = Math.max(drawableStar.getIntrinsicWidth(),
+                            Math.max(drawableClear.getIntrinsicWidth(), drawableBlock.getIntrinsicWidth()))
+                            + starMargin * 2;
 
                     @Override
                     public boolean isItemViewSwipeEnabled() {
@@ -993,32 +991,15 @@ public class StationsActivity extends OeffiMainActivity implements StationsAware
     }
 
     private static void sortStations(final List<Station> stations) {
-        Collections.sort(stations, (station1, station2) -> {
-            ComparisonChain chain = ComparisonChain.start();
-
-            // order by distance
-            chain = chain.compareTrueFirst(station1.hasDistanceAndBearing, station2.hasDistanceAndBearing)
-                    .compare(station1.distance, station2.distance);
-
-            // order by lines
-            final List<LineDestination> lines1 = station1.getLines();
-            final List<LineDestination> lines2 = station2.getLines();
-            final List<LineDestination> lineDestinations1 = lines1 != null ? lines1
-                    : Collections.emptyList();
-            final List<LineDestination> lineDestinations2 = lines2 != null ? lines2
-                    : Collections.emptyList();
-            final int length1 = lineDestinations1.size();
-            final int length2 = lineDestinations2.size();
-            final int length = Math.max(length1, length2);
-
-            for (int i = 0; i < length; i++) {
-                final Line line1 = i < length1 ? lineDestinations1.get(i).line : null;
-                final Line line2 = i < length2 ? lineDestinations2.get(i).line : null;
-                chain = chain.compare(line1, line2, Ordering.natural().nullsLast());
-            }
-
-            return chain.result();
-        });
+        Collections.sort(stations, (station1, station2) ->
+                Comparator
+                        // order by distance
+                        .<Station, Boolean>comparing(station -> station.hasDistanceAndBearing)
+                        .thenComparing(station -> station.distance)
+                        // order by product
+                        .thenComparing(Station::getRelevantProduct, Comparator.nullsLast(Product::compareTo))
+                        .compare(station1, station2)
+        );
     }
 
     private void postLoadNextVisible(final long delay) {

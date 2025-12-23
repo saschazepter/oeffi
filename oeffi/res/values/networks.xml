@@ -10,8 +10,10 @@
     <string name="network_bvg_comment">Berlin, local and regional</string>
     <string name="network_vbb_label">Verkehrsverbund Berlin-Brandenburg</string>
     <string name="network_vbb_comment">Brandenburg &amp; Berlin, local and regional</string>
-    <string name="network_nvv_label">Hesse (Frankfurt/Rhine-Main, Kassel, …)</string>
+    <string name="network_nvv_label">Hesse (Kassel, …)</string>
     <string name="network_nvv_comment">local and regional</string>
+    <string name="network_rmv_label">Rhine-Main (Frankfurt, Wiesbaden, Darmstadt, …)</string>
+    <string name="network_rmv_comment">local and regional</string>
     <string name="network_bayern_label">Bavaria (Würzburg, Regensburg, …)</string>
     <string name="network_bayern_comment">local and regional</string>
     <string name="network_mvv_label">Munich</string>
@@ -50,6 +52,8 @@
     <string name="network_mvg_comment">local and regional</string>
     <string name="network_vrn_label">Rhineland-Palatinate, Rhine-Neckar &amp; Baden-Württemberg</string>
     <string name="network_vrn_comment">local and regional</string>
+    <string name="network_vgs_label">Saarbrücken &amp; Saarland</string>
+    <string name="network_vgs_comment">local and regional</string>
     <string name="network_vvs_label">Stuttgart</string>
     <string name="network_vvs_comment">local and regional</string>
     <string name="network_ding_label">Ulm</string>
@@ -60,8 +64,6 @@
     <string name="network_nvbw_comment">local and regional</string>
     <string name="network_vvv_label">Plauen &amp; Vogtland</string>
     <string name="network_vvv_comment">local and regional</string>
-    <string name="network_vgs_label">Saarbrücken &amp; Saarland</string>
-    <string name="network_vgs_comment">Not available, because the saarVV explicitly desires not to be included in Offi. You can select the Deutsche Bahn instead, it works well for the Saarland too.</string>
     <string name="network_oebb_label">ÖBB-Personenverkehr AG</string>
     <string name="network_oebb_comment">Austria, long-distance and regional (e.g. Vienna, Graz, Linz, Salzburg, Innsbruck)</string>
     <string name="network_wien_label">Vienna</string>
@@ -103,10 +105,6 @@
     <string name="network_dub_comment">local</string>
     <string name="network_bart_label">San Francisco</string>
     <string name="network_bart_comment">local and regional</string>
-    <string name="network_rtachicago_label">Chicago</string>
-    <string name="network_rtachicago_comment">local and regional</string>
-    <string name="network_cmta_label">Austin, Texas</string>
-    <string name="network_cmta_comment">local and regional</string>
     <string name="network_sydney_label">Sydney</string>
     <string name="network_sydney_comment">local and regional</string>
     <string name="network_met_label">Melbourne</string>

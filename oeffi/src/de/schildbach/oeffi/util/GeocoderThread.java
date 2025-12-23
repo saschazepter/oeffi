@@ -22,8 +22,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Handler;
 import android.os.Looper;
-import com.google.common.base.Joiner;
-import com.google.common.base.Strings;
 import de.schildbach.pte.dto.Location;
 import de.schildbach.pte.dto.LocationType;
 import de.schildbach.pte.dto.Point;
@@ -33,9 +31,12 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
+import static de.schildbach.pte.util.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 public class GeocoderThread extends Thread {
     public interface Callback {
@@ -58,14 +59,14 @@ public class GeocoderThread extends Thread {
 
     public GeocoderThread(final Context context, final double latitude, final double longitude,
             final Callback callback) {
-        this.geocoder = new Geocoder(checkNotNull(context), Locale.GERMANY);
+        this.geocoder = new Geocoder(requireNonNull(context), Locale.GERMANY);
         checkArgument(latitude > -90);
         checkArgument(latitude < 90);
         this.latitude = latitude;
         checkArgument(longitude > -180);
         checkArgument(longitude < 180);
         this.longitude = longitude;
-        this.callback = checkNotNull(callback);
+        this.callback = requireNonNull(callback);
 
         callbackHandler = new Handler(Looper.myLooper());
 
@@ -117,14 +118,12 @@ public class GeocoderThread extends Thread {
 
         final int maxAddressLineIndex = address.getMaxAddressLineIndex();
         final Location location;
-        if (Strings.emptyToNull(address.getFeatureName()) != null && Strings.emptyToNull(address.getLocality()) != null
-                && Strings.emptyToNull(address.getPostalCode()) != null) {
-            final Joiner joiner = Joiner.on(' ').skipNulls();
-            final String thoroughfare = Strings.emptyToNull(address.getThoroughfare());
+        if (address.getFeatureName() != null && address.getLocality() != null && address.getPostalCode() != null) {
+            final String thoroughfare = address.getThoroughfare();
             location = new Location(LocationType.ADDRESS, null, coord,
-                    joiner.join(address.getPostalCode(), address.getLocality()),
-                    joiner.join(thoroughfare, address.getFeatureName()));
-        } else if (maxAddressLineIndex >= 2 && Strings.emptyToNull(address.getAddressLine(2)) != null) {
+                    Stream.of(address.getPostalCode(), address.getLocality()).filter(Objects::nonNull).collect(Collectors.joining(" ")),
+                    Stream.of(thoroughfare, address.getFeatureName()).filter(Objects::nonNull).collect(Collectors.joining(" ")));
+        } else if (maxAddressLineIndex >= 2 && address.getAddressLine(2) != null) {
             location = new Location(LocationType.ADDRESS, null, coord, address.getAddressLine(1),
                     address.getAddressLine(0));
         } else {

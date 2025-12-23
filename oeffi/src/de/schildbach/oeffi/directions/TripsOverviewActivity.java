@@ -34,9 +34,6 @@ import android.widget.TextView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import com.google.common.collect.ComparisonChain;
-import com.google.common.collect.Ordering;
-import com.google.common.util.concurrent.Uninterruptibles;
 import de.schildbach.oeffi.Constants;
 import de.schildbach.oeffi.MyActionBar;
 import de.schildbach.oeffi.OeffiActivity;
@@ -65,13 +62,14 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.NavigableSet;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 
 public class TripsOverviewActivity extends OeffiActivity {
     private static final String INTENT_EXTRA_NETWORK = TripsOverviewActivity.class.getName() + ".network";
@@ -84,7 +82,7 @@ public class TripsOverviewActivity extends OeffiActivity {
         final Intent intent = new Intent(context, TripsOverviewActivity.class);
         if (result.queryUri != null)
             intent.setData(Uri.parse(result.queryUri));
-        intent.putExtra(INTENT_EXTRA_NETWORK, checkNotNull(network));
+        intent.putExtra(INTENT_EXTRA_NETWORK, requireNonNull(network));
         intent.putExtra(INTENT_EXTRA_RESULT, result);
         intent.putExtra(INTENT_EXTRA_ARR_DEP, depArr == TimeSpec.DepArr.DEPART);
         if (historyUri != null)
@@ -100,11 +98,10 @@ public class TripsOverviewActivity extends OeffiActivity {
         if (trip1.equals(trip2))
             return 0;
         else
-            return ComparisonChain.start() //
-                    .compare(trip1.getFirstDepartureTime(), trip2.getFirstDepartureTime()) //
-                    .compare(trip1.getLastArrivalTime(), trip2.getLastArrivalTime()) //
-                    .compare(trip1.numChanges, trip2.numChanges, Ordering.natural().nullsLast()) //
-                    .result();
+            return Comparator.comparing(Trip::getFirstDepartureTime)
+                    .thenComparing(Trip::getLastArrivalTime)
+                    .thenComparing(trip -> trip.numChanges, Comparator.nullsLast(Integer::compareTo))
+                    .compare(trip1, trip2);
     });
     private boolean queryMoreTripsRunning = false;
 
@@ -311,7 +308,7 @@ public class TripsOverviewActivity extends OeffiActivity {
                         break;
                     }
 
-                    Uninterruptibles.sleepUninterruptibly(tries, TimeUnit.SECONDS);
+                    try { TimeUnit.SECONDS.sleep(tries); } catch (InterruptedException ix) {}
 
                     // try again
                     continue;
