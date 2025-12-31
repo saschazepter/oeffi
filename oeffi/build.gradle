@@ -20,7 +20,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.3.2'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
     implementation 'androidx.drawerlayout:drawerlayout:1.2.0'
-    implementation 'androidx.core:core:1.13.1'
+    implementation 'androidx.core:core:1.17.0'
     implementation 'androidx.activity:activity:1.9.3'
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
@@ -82,7 +82,11 @@ android {
         exclude '**/*.kotlin_metadata'
         exclude 'okhttp3/internal/publicsuffix/NOTICE'
         exclude 'commonMain/default/**'
+        exclude 'nativeMain/default/**'
+        exclude 'nativeOtherMain/default/**'
         exclude 'nonJvmMain/default/**'
+        exclude 'concurrentMain/default/**'
+        exclude 'linuxMain/default/**'
     }
 }
 
