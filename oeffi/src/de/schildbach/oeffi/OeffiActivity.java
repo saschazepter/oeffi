@@ -20,7 +20,6 @@ package de.schildbach.oeffi;
 import android.app.ActivityManager.TaskDescription;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
