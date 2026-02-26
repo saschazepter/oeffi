@@ -27,14 +27,6 @@
         android:key="about_changelog"
         android:summary="@string/about_changelog_summary"
         android:title="@string/about_changelog_title" />
-    <Preference
-        android:key="about_faq"
-        android:summary="@string/about_faq_summary"
-        android:title="@string/about_faq_title">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:data="@string/about_faq_summary" />
-    </Preference>
 
     <PreferenceCategory android:title="@string/about_participate_title">
         <Preference
