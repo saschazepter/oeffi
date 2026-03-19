@@ -374,10 +374,7 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
         viewToLocation.setListener(locationChangeListener);
         viewToLocation.setOnEditorActionListener((v, actionId, event) -> {
             if (event == null || event.getAction() == KeyEvent.ACTION_DOWN) {
-                if (actionId == EditorInfo.IME_ACTION_GO) {
-                    viewGo.performClick();
-                    return true;
-                } else if (actionId == EditorInfo.IME_ACTION_DONE) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
                     requestFocusFirst();
                     return true;
                 }
