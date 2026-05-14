@@ -20,8 +20,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="de.schildbach.oeffi"
-    android:versionCode="140002"
-    android:versionName="14.0.2">
+    android:versionCode="140003"
+    android:versionName="14.0.3">
 
     <uses-sdk
         android:minSdkVersion="26"
