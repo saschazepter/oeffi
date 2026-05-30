@@ -5,6 +5,8 @@
 
     <string name="network_rt_label">Europa</string>
     <string name="network_rt_comment">nur Fernverkehr</string>
+    <string name="network_transitous_label">Europa (Motis)</string>
+    <string name="network_transitous_comment">Lokal-, Regional- und Fernverkehr</string>
     <string name="network_db_label">Deutsche Bahn</string>
     <string name="network_db_comment">Deutschland, Fern- und Regionalverkehr</string>
     <string name="network_bvg_label">Berliner Verkehrsbetriebe</string>

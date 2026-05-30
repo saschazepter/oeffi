@@ -4,6 +4,8 @@
 
     <string name="network_rt_label">Europe</string>
     <string name="network_rt_comment">long-distance only</string>
+    <string name="network_transitous_label">Europe (Motis)</string>
+    <string name="network_transitous_comment">local, regional and long-distance</string>
     <string name="network_db_label">Deutsche Bahn</string>
     <string name="network_db_comment">Germany, long-distance and regional</string>
     <string name="network_bvg_label">Berliner Verkehrsbetriebe</string>
