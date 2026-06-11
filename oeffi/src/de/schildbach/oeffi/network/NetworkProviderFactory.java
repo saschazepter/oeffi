@@ -162,7 +162,7 @@ public final class NetworkProviderFactory {
         else if (networkId.equals(NetworkId.LINZ))
             return new LinzProvider();
         else if (networkId.equals(NetworkId.STV))
-            return new StvProvider();
+            return new StvProvider("{\"type\":\"AID\",\"aid\":\"wf7mcf9bv3nv8g5f\"}");
         else if (networkId.equals(NetworkId.VBL))
             return new VblProvider();
         else if (networkId.equals(NetworkId.ZVV))
