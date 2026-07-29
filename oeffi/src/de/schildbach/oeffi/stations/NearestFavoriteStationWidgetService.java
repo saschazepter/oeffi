@@ -184,10 +184,10 @@ public class NearestFavoriteStationWidgetService extends JobService {
 
         log.info("Available location providers: {}", locationManager.getAllProviders());
         final String provider;
-        final LocationProvider fused = locationManager.getProvider("fused");
-        if (fused != null) {
-            // prefer fused provider from Google Play Services
-            provider = fused.getName();
+        //only use fused provider if it is enabled
+        if (locationManager.isProviderEnabled(LocationManager.FUSED_PROVIDER)) {
+            // Prefer fused provider from Google Play Services
+            provider = LocationManager.FUSED_PROVIDER;
         } else {
             // otherwise, we want to use as little power as possible
             final Criteria criteria = new Criteria();
