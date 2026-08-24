@@ -14,16 +14,7 @@
     </string-array>
 
     <string name="directions_set_time_prompt">Zeit setzen auf</string>
-
-    <string-array name="directions_set_time">
-        <item>↦ abfahren jetzt</item>
-        <item>↦ abfahren in … Minuten</item>
-        <item>↦ abfahren um … Uhr</item>
-        <item>⇥ ankommen um … Uhr</item>
-    </string-array>
-
-    <string name="directions_set_time_relative_prompt">Abfahren in</string>
-    <string name="directions_set_time_relative_fixed">fester Zeitpunkt</string>
+    <string name="directions_set_time_pick_date">Datum wählen</string>
 
     <string-array name="directions_optimize_trip">
         <item>Schnelle Verbindung</item>
