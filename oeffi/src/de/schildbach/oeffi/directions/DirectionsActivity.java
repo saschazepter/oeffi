@@ -432,13 +432,10 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
         viewBike = findViewById(R.id.directions_option_bike);
 
         viewTimeDepArr = findViewById(R.id.directions_time_dep_arr);
-        viewTimeDepArr.setOnClickListener(v -> {
-            final DepArr depArr = time.depArr == DepArr.DEPART ? DepArr.ARRIVE : DepArr.DEPART;
-            if (time instanceof TimeSpec.Absolute)
-                time = new TimeSpec.Absolute(depArr, ((TimeSpec.Absolute) time).timeMs);
-            else
-                time = new TimeSpec.Relative(depArr, ((TimeSpec.Relative) time).diffMs);
-            updateGUI();
+        viewTimeDepArr.setOnClickListener(v -> toggleDepArr());
+        viewTimeDepArr.setOnLongClickListener(v -> {
+            toggleDepArr();
+            return true;
         });
 
         viewTime1 = findViewById(R.id.directions_time_1);
@@ -784,6 +781,15 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
         blinkColonVisible = !blinkColonVisible;
         updateTimeView();
     };
+
+    private void toggleDepArr() {
+        final DepArr depArr = time.depArr == DepArr.DEPART ? DepArr.ARRIVE : DepArr.DEPART;
+        if (time instanceof TimeSpec.Absolute)
+            time = new TimeSpec.Absolute(depArr, ((TimeSpec.Absolute) time).timeMs);
+        else
+            time = new TimeSpec.Relative(depArr, ((TimeSpec.Relative) time).diffMs);
+        updateGUI();
+    }
 
     private void handleDiffClick() {
         final int[] relativeTimeValues = getResources().getIntArray(R.array.directions_set_time_relative);
