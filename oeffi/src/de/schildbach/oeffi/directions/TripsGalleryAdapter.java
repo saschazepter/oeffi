@@ -62,6 +62,7 @@ import static de.schildbach.pte.util.Preconditions.checkArgument;
 
 public final class TripsGalleryAdapter extends BaseAdapter {
     private List<Trip> trips = Collections.emptyList();
+    private @Nullable StationColorAssigner stationColors = null;
     private boolean canScrollLater = true, canScrollEarlier = true;
     private long minTime = 0, maxTime = 0;
 
@@ -80,11 +81,20 @@ public final class TripsGalleryAdapter extends BaseAdapter {
     private final Paint individualTimePaint = new Paint();
     private final Paint publicTimePaint = new Paint();
     private final Paint cannotScrollPaint = new Paint();
+    private final Paint transferGapPaint = new Paint();
+    private final Paint transferCapPaint = new Paint();
+    private final Paint passingMarkerPaint = new Paint();
+    private final Paint passingMarkerOutlinePaint = new Paint();
     private final int colorSignificantInverse;
     private final int colorDelayed;
 
     private static final float ROUNDED_CORNER_RADIUS = 8f;
     private static final float CIRCLE_CORNER_RADIUS = 16f;
+    private static final float TRANSFER_GAP_FRACTION = 0.3f;
+    private static final int TRANSFER_GAP_ALPHA = 128;
+    private static final float TRANSFER_CAP_HEIGHT_DP = 3f;
+    private static final float PASSING_MARKER_FRACTION = 0.6f;
+    private static final float PASSING_MARKER_WIDTH_DP = 3f;
     private final int tripWidth;
 
     public TripsGalleryAdapter(final Context context) {
@@ -137,12 +147,35 @@ public final class TripsGalleryAdapter extends BaseAdapter {
         publicTimePaint.setTextAlign(Align.CENTER);
 
         cannotScrollPaint.setStyle(Paint.Style.FILL);
+
+        final float density = res.getDisplayMetrics().density;
+
+        transferGapPaint.setStyle(Paint.Style.FILL);
+
+        transferCapPaint.setStyle(Paint.Style.FILL);
+
+        passingMarkerPaint.setStyle(Paint.Style.STROKE);
+        passingMarkerPaint.setStrokeWidth(PASSING_MARKER_WIDTH_DP * density);
+        passingMarkerPaint.setStrokeCap(Paint.Cap.ROUND);
+        passingMarkerPaint.setAntiAlias(true);
+
+        passingMarkerOutlinePaint.setStyle(Paint.Style.STROKE);
+        passingMarkerOutlinePaint.setStrokeWidth((PASSING_MARKER_WIDTH_DP + 2f) * density);
+        passingMarkerOutlinePaint.setStrokeCap(Paint.Cap.ROUND);
+        passingMarkerOutlinePaint.setColor(Color.argb(160, 0, 0, 0));
+        passingMarkerOutlinePaint.setAntiAlias(true);
     }
 
     public void setTrips(final List<Trip> trips, final boolean canScrollLater, final boolean canScrollEarlier) {
         this.trips = trips;
         this.canScrollLater = canScrollLater;
         this.canScrollEarlier = canScrollEarlier;
+
+        notifyDataSetChanged();
+    }
+
+    public void setStationColors(final StationColorAssigner stationColors) {
+        this.stationColors = stationColors;
 
         notifyDataSetChanged();
     }
@@ -381,8 +414,21 @@ public final class TripsGalleryAdapter extends BaseAdapter {
                     }
                 }
 
-                // then iterate all individual legs
                 final int nLegs = legs.size();
+
+                // then fill waiting times at transfers with the colors of the transfer stations
+                if (stationColors != null) {
+                    for (int iLeg = 0; iLeg < nLegs; iLeg++) {
+                        final Leg leg = legs.get(iLeg);
+                        if (leg instanceof Public) {
+                            final Public departingLeg = nextPublicLeg(legs, iLeg);
+                            if (departingLeg != null)
+                                drawTransferGap(canvas, width, height, (Public) leg, departingLeg);
+                        }
+                    }
+                }
+
+                // then iterate all individual legs
                 for (int iLeg = 0; iLeg < nLegs; iLeg++) {
                     final Leg leg = legs.get(iLeg);
                     if (leg instanceof Individual) {
@@ -457,7 +503,8 @@ public final class TripsGalleryAdapter extends BaseAdapter {
                             publicArrivalTime);
 
                 // last, iterate all public legs
-                for (final Leg leg : legs) {
+                for (int iLeg = 0; iLeg < nLegs; iLeg++) {
+                    final Leg leg = legs.get(iLeg);
                     if (leg instanceof Public) {
                         final Public publicLeg = (Public) leg;
                         final Line line = publicLeg.line;
@@ -513,6 +560,21 @@ public final class TripsGalleryAdapter extends BaseAdapter {
                             canvas.drawRoundRect(legBox, radius, radius, publicStrokePaint);
                         }
 
+                        // transfer station caps and markers for relevant stations passed through
+                        if (stationColors != null) {
+                            final float capInset = Math.min(radius, legBox.width() / 4);
+                            final float capHeight = Math.min(TRANSFER_CAP_HEIGHT_DP * density, legBox.height() / 3);
+                            if (previousPublicLeg(legs, iLeg) != null)
+                                drawTransferCap(canvas, stationColors.assignedColor(publicLeg.departureStop.location),
+                                        legBox.left + capInset, legBox.top, legBox.right - capInset,
+                                        legBox.top + capHeight);
+                            if (nextPublicLeg(legs, iLeg) != null)
+                                drawTransferCap(canvas, stationColors.assignedColor(publicLeg.arrivalStop.location),
+                                        legBox.left + capInset, legBox.bottom - capHeight, legBox.right - capInset,
+                                        legBox.bottom);
+                            drawPassingMarkers(canvas, height, publicLeg);
+                        }
+
                         // line label
                         final String[] lineLabels = splitLineLabel(line.label != null ? line.label : "?");
                         publicLabelPaint.setColor(labelColor);
@@ -546,6 +608,88 @@ public final class TripsGalleryAdapter extends BaseAdapter {
                         }
                     }
                 }
+            }
+        }
+
+        private @Nullable Public previousPublicLeg(final List<Leg> legs, final int iLeg) {
+            for (int i = iLeg - 1; i >= 0; i--)
+                if (legs.get(i) instanceof Public)
+                    return (Public) legs.get(i);
+            return null;
+        }
+
+        private @Nullable Public nextPublicLeg(final List<Leg> legs, final int iLeg) {
+            for (int i = iLeg + 1; i < legs.size(); i++)
+                if (legs.get(i) instanceof Public)
+                    return (Public) legs.get(i);
+            return null;
+        }
+
+        private void drawTransferGap(final Canvas canvas, final int width, final int height,
+                final Public arrivingLeg, final Public departingLeg) {
+            final Date arrivalTime = arrivingLeg.arrivalStop.getArrivalTime();
+            final Date departureTime = departingLeg.departureStop.getDepartureTime();
+            if (arrivalTime == null || departureTime == null)
+                return;
+            final float yArrival = timeToCoord(arrivalTime.getTime(), height);
+            final float yDeparture = timeToCoord(departureTime.getTime(), height);
+            if (yDeparture <= yArrival)
+                return;
+
+            final Integer arrivalColor = stationColors.assignedColor(arrivingLeg.arrivalStop.location);
+            final Integer departureColor = stationColors.assignedColor(departingLeg.departureStop.location);
+            final boolean sameColor = arrivalColor != null && arrivalColor.equals(departureColor);
+            final float yMiddle = (yArrival + yDeparture) / 2;
+            final float left = width * (1f - TRANSFER_GAP_FRACTION) / 2f;
+            final float right = left + width * TRANSFER_GAP_FRACTION;
+
+            // if changing stations, upper half is the arrival station, lower half the departure station
+            if (arrivalColor != null) {
+                transferGapPaint.setColor(arrivalColor);
+                transferGapPaint.setAlpha(TRANSFER_GAP_ALPHA);
+                canvas.drawRect(left, yArrival, right, departureColor == null || sameColor ? yDeparture : yMiddle,
+                        transferGapPaint);
+            }
+            if (departureColor != null && !sameColor) {
+                transferGapPaint.setColor(departureColor);
+                transferGapPaint.setAlpha(TRANSFER_GAP_ALPHA);
+                canvas.drawRect(left, arrivalColor == null ? yArrival : yMiddle, right, yDeparture, transferGapPaint);
+            }
+        }
+
+        private void drawTransferCap(final Canvas canvas, final @Nullable Integer color, final float left,
+                final float top, final float right, final float bottom) {
+            if (color == null)
+                return;
+            transferCapPaint.setColor(color);
+            canvas.drawRect(left, top, right, bottom, transferCapPaint);
+        }
+
+        private void drawPassingMarkers(final Canvas canvas, final int height, final Public publicLeg) {
+            final List<Stop> intermediateStops = publicLeg.intermediateStops;
+            if (intermediateStops == null)
+                return;
+            final float halfLength = legBox.width() * PASSING_MARKER_FRACTION / 2;
+            final int nStops = intermediateStops.size();
+            for (int iStop = 0; iStop < nStops; iStop++) {
+                final Stop stop = intermediateStops.get(iStop);
+                if (!stationColors.isRelevant(stop.location))
+                    continue;
+                final Integer color = stationColors.assignedColor(stop.location);
+                if (color == null)
+                    continue;
+                final Date arrivalTime = stop.getArrivalTime();
+                final Date time = arrivalTime != null ? arrivalTime : stop.getDepartureTime();
+                if (time == null)
+                    continue;
+                final float y = timeToCoord(time.getTime(), height);
+                if (y < legBox.top || y > legBox.bottom)
+                    continue;
+                canvas.drawLine(legBox.centerX() - halfLength, y, legBox.centerX() + halfLength, y,
+                        passingMarkerOutlinePaint);
+                passingMarkerPaint.setColor(color);
+                canvas.drawLine(legBox.centerX() - halfLength, y, legBox.centerX() + halfLength, y,
+                        passingMarkerPaint);
             }
         }
 

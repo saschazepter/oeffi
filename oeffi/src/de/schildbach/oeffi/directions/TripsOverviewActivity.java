@@ -103,6 +103,9 @@ public class TripsOverviewActivity extends OeffiActivity {
                     .thenComparing(trip -> trip.numChanges, Comparator.nullsLast(Integer::compareTo))
                     .compare(trip1, trip2);
     });
+    // lives as long as this query session, including trips loaded later by scrolling; on configuration changes it is
+    // rebuilt, which keeps most colors because they are derived from the station, only rehashed ones may change
+    private final StationColorAssigner stationColors = new StationColorAssigner();
     private boolean queryMoreTripsRunning = false;
 
     private final Handler handler = new Handler();
@@ -144,6 +147,7 @@ public class TripsOverviewActivity extends OeffiActivity {
         actionBar.addProgressButton().setOnClickListener(v -> handler.post(checkMoreRunnable));
 
         barView = findViewById(R.id.trips_bar_view);
+        barView.setStationColors(stationColors);
         barView.setOnItemClickListener((parent, v, position, id) -> {
             final Trip trip = (Trip) barView.getAdapter().getItem(position);
 
@@ -357,6 +361,7 @@ public class TripsOverviewActivity extends OeffiActivity {
 
         // determine new trips
         trips.addAll(result.trips);
+        stationColors.registerTrips(trips);
 
         // redraw
         barView.setTrips(new ArrayList<>(trips), result.context != null && result.context.canQueryLater(),
