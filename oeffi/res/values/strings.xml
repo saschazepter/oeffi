@@ -279,6 +279,8 @@
     <string name="directions_preferences_walk_speed_summary">How fast you can walk? This does not affect all transport networks.</string>
     <string name="directions_preferences_accessibility_title">Accessibility</string>
     <string name="directions_preferences_accessibility_summary">How accessible do you need the route to be? This does not affect all transport networks.</string>
+    <string name="directions_preferences_transfer_station_colors_title">Color transfer stations</string>
+    <string name="directions_preferences_transfer_station_colors_summary">In the trips overview, mark each transfer station with its own color, so trips changing at the same station can be spotted at a glance.</string>
 
     <!-- plans picker -->
     <string name="plans_picker_context_open_title">Open plan</string>

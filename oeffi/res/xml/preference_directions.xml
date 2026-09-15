@@ -22,5 +22,10 @@
         android:key="accessibility"
         android:summary="@string/directions_preferences_accessibility_summary"
         android:title="@string/directions_preferences_accessibility_title" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="transfer_station_colors"
+        android:summary="@string/directions_preferences_transfer_station_colors_summary"
+        android:title="@string/directions_preferences_transfer_station_colors_title" />
 
 </PreferenceScreen>
