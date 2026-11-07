@@ -167,6 +167,89 @@ public class StationColorAssignerTest {
     }
 
     @Test
+    public void alternativeStartStationsGetColors() {
+        final Location home = address("Hauptstraße 1");
+        final Location bus = station("1", "Hauptstraße");
+        final Location tram = station("2", "Marktplatz");
+        final Location destination = station("3", "Hagen Hbf");
+
+        final Trip a = trip(walk(home, bus, 0, 5), leg("B1", bus, destination, 8, 40));
+        final Trip b = trip(walk(home, tram, 10, 18), leg("T2", tram, destination, 20, 50));
+
+        final StationColorAssigner assigner = new StationColorAssigner();
+        assigner.registerTrips(Arrays.asList(a, b));
+        assertNotNull(assigner.assignedColor(bus));
+        assertNotNull(assigner.assignedColor(tram));
+        assertTrue(!assigner.assignedColor(bus).equals(assigner.assignedColor(tram)));
+    }
+
+    @Test
+    public void singleStartStationGetsNoColor() {
+        final Location home = address("Hauptstraße 1");
+        final Location bus = station("1", "Hauptstraße");
+        final Location destination1 = station("3", "Hagen Hbf");
+        final Location destination2 = station("4", "Hagen Vorhalle");
+
+        final Trip a = trip(walk(home, bus, 0, 5), leg("B1", bus, destination1, 8, 40));
+        final Trip b = trip(walk(home, bus, 10, 15), leg("B2", bus, destination2, 18, 50));
+
+        final StationColorAssigner assigner = new StationColorAssigner();
+        assigner.registerTrips(Arrays.asList(a, b));
+        assertNull(assigner.assignedColor(bus));
+    }
+
+    @Test
+    public void alternativeEndStationsGetColors() {
+        final Location origin = station("1", "Düsseldorf Hbf");
+        final Location hagen = station("2", "Hagen Hbf");
+        final Location vorhalle = station("3", "Hagen Vorhalle");
+        final Location work = address("Industriestraße 5");
+
+        final Trip a = trip(leg("RE4", origin, hagen, 0, 40), walk(hagen, work, 40, 55));
+        final Trip b = trip(leg("RE7", origin, vorhalle, 10, 45), walk(vorhalle, work, 45, 52));
+
+        final StationColorAssigner assigner = new StationColorAssigner();
+        assigner.registerTrips(Arrays.asList(a, b));
+        assertNotNull(assigner.assignedColor(hagen));
+        assertNotNull(assigner.assignedColor(vorhalle));
+        assertNull(assigner.assignedColor(origin));
+    }
+
+    @Test
+    public void startAtStationButWalkToAlternative() {
+        final Location hbf = station("1", "Bochum Hbf");
+        final Location bus = station("2", "Bochum Hbf (Bus)");
+        final Location destination = station("3", "Witten Hbf");
+
+        final Trip a = trip(leg("RE4", hbf, destination, 0, 15));
+        final Trip b = trip(walk(hbf, bus, 5, 9), leg("B1", bus, destination, 10, 40));
+
+        final StationColorAssigner assigner = new StationColorAssigner();
+        assigner.registerTrips(Arrays.asList(a, b));
+        assertNotNull(assigner.assignedColor(hbf));
+        assertNotNull(assigner.assignedColor(bus));
+    }
+
+    @Test
+    public void startStationColoredOnceAlternativeAppears() {
+        final Location home = address("Hauptstraße 1");
+        final Location bus = station("1", "Hauptstraße");
+        final Location tram = station("2", "Marktplatz");
+        final Location destination = station("3", "Hagen Hbf");
+
+        final Trip a = trip(walk(home, bus, 0, 5), leg("B1", bus, destination, 8, 40));
+        final Trip b = trip(walk(home, tram, 10, 18), leg("T2", tram, destination, 20, 50));
+
+        final StationColorAssigner assigner = new StationColorAssigner();
+        assigner.registerTrips(Collections.singletonList(a));
+        assertNull(assigner.assignedColor(bus));
+
+        assigner.registerTrips(Arrays.asList(a, b));
+        assertNotNull(assigner.assignedColor(bus));
+        assertNotNull(assigner.assignedColor(tram));
+    }
+
+    @Test
     public void keyPrefersId() {
         assertEquals("42", StationColorAssigner.keyOf(station("42", "Foo")));
         assertEquals("Foo", StationColorAssigner.keyOf(new Location(LocationType.STATION, null, null, "Foo")));
@@ -174,6 +257,16 @@ public class StationColorAssignerTest {
 
     private static Location station(final String id, final String name) {
         return new Location(LocationType.STATION, id, null, name);
+    }
+
+    private static Location address(final String name) {
+        return new Location(LocationType.ADDRESS, null, null, name);
+    }
+
+    private static Trip.Individual walk(final Location from, final Location to, final int depMinute,
+            final int arrMinute) {
+        return new Trip.Individual(Trip.Individual.Type.WALK, from, minute(depMinute), to, minute(arrMinute), null,
+                0);
     }
 
     private static Trip.Public leg(final String label, final Location from, final Location to, final int depMinute,

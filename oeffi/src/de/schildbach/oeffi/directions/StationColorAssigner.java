@@ -30,14 +30,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 /**
  * Assigns colors to transfer stations for the lifetime of one trip query session, including trips loaded later by
- * scrolling. Colors are derived from a hash of the station, so they are reproducible across sessions. If a color is
- * too close to an already assigned color or to a line color, it is rehashed with a salt.
+ * scrolling. Start and destination stations get colors too, if the trips of the session use more than one of them,
+ * e.g. when starting at an address with several stations in walking distance. Colors are derived from a hash of the
+ * station, so they are reproducible across sessions. If a color is too close to an already assigned color or to a
+ * line color, it is rehashed with a salt.
  *
  * Assignments are append-only: once a station has a color, it never changes, even if stations or line colors that
  * would have influenced the choice show up later.
@@ -118,6 +121,24 @@ public final class StationColorAssigner {
             }
         }
 
+        // then assign start and destination stations, but only if there are alternatives to tell apart
+        final Set<String> startStations = new LinkedHashSet<>();
+        final Set<String> destinationStations = new LinkedHashSet<>();
+        for (final Trip trip : trips) {
+            final Public firstPublicLeg = trip.getFirstPublicLeg();
+            if (firstPublicLeg != null)
+                addKey(startStations, firstPublicLeg.departureStop.location);
+            final Public lastPublicLeg = trip.getLastPublicLeg();
+            if (lastPublicLeg != null)
+                addKey(destinationStations, lastPublicLeg.arrivalStop.location);
+        }
+        if (startStations.size() > 1)
+            for (final String key : startStations)
+                colorFor(key);
+        if (destinationStations.size() > 1)
+            for (final String key : destinationStations)
+                colorFor(key);
+
         // last, assign stations that are passed through, but relevant in any trip
         for (final Trip trip : trips) {
             if (trip.legs == null)
@@ -149,11 +170,14 @@ public final class StationColorAssigner {
     }
 
     private void addRelevant(final @Nullable Location location) {
-        if (location == null)
-            return;
+        if (location != null)
+            addKey(relevantStations, location);
+    }
+
+    private static void addKey(final Set<String> keys, final Location location) {
         final String key = keyOf(location);
         if (key != null)
-            relevantStations.add(key);
+            keys.add(key);
     }
 
     private @Nullable Integer colorFor(final Location location) {

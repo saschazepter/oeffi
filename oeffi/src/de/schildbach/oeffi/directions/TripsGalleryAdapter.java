@@ -416,14 +416,26 @@ public final class TripsGalleryAdapter extends BaseAdapter {
 
                 final int nLegs = legs.size();
 
-                // then fill waiting times at transfers with the colors of the transfer stations
+                // then fill waiting times at transfer, start and destination stations with their colors
                 if (stationColors != null) {
                     for (int iLeg = 0; iLeg < nLegs; iLeg++) {
                         final Leg leg = legs.get(iLeg);
                         if (leg instanceof Public) {
+                            final Public publicLeg = (Public) leg;
                             final Public departingLeg = nextPublicLeg(legs, iLeg);
                             if (departingLeg != null)
-                                drawTransferGap(canvas, width, height, (Public) leg, departingLeg);
+                                drawTransferGap(canvas, width, height, publicLeg, departingLeg);
+                            else if (iLeg + 1 < nLegs && legs.get(iLeg + 1) instanceof Individual)
+                                drawStationWait(canvas, width, height,
+                                        stationColors.assignedColor(publicLeg.arrivalStop.location),
+                                        publicLeg.arrivalStop.getArrivalTime(),
+                                        ((Individual) legs.get(iLeg + 1)).departureTime);
+                            if (previousPublicLeg(legs, iLeg) == null && iLeg > 0
+                                    && legs.get(iLeg - 1) instanceof Individual)
+                                drawStationWait(canvas, width, height,
+                                        stationColors.assignedColor(publicLeg.departureStop.location),
+                                        ((Individual) legs.get(iLeg - 1)).arrivalTime,
+                                        publicLeg.departureStop.getDepartureTime());
                         }
                     }
                 }
@@ -560,18 +572,17 @@ public final class TripsGalleryAdapter extends BaseAdapter {
                             canvas.drawRoundRect(legBox, radius, radius, publicStrokePaint);
                         }
 
-                        // transfer station caps and markers for relevant stations passed through
+                        // caps for colored transfer, start and destination stations, and markers for relevant
+                        // stations passed through
                         if (stationColors != null) {
                             final float capInset = Math.min(radius, legBox.width() / 4);
                             final float capHeight = Math.min(TRANSFER_CAP_HEIGHT_DP * density, legBox.height() / 3);
-                            if (previousPublicLeg(legs, iLeg) != null)
-                                drawTransferCap(canvas, stationColors.assignedColor(publicLeg.departureStop.location),
-                                        legBox.left + capInset, legBox.top, legBox.right - capInset,
-                                        legBox.top + capHeight);
-                            if (nextPublicLeg(legs, iLeg) != null)
-                                drawTransferCap(canvas, stationColors.assignedColor(publicLeg.arrivalStop.location),
-                                        legBox.left + capInset, legBox.bottom - capHeight, legBox.right - capInset,
-                                        legBox.bottom);
+                            drawTransferCap(canvas, stationColors.assignedColor(publicLeg.departureStop.location),
+                                    legBox.left + capInset, legBox.top, legBox.right - capInset,
+                                    legBox.top + capHeight);
+                            drawTransferCap(canvas, stationColors.assignedColor(publicLeg.arrivalStop.location),
+                                    legBox.left + capInset, legBox.bottom - capHeight, legBox.right - capInset,
+                                    legBox.bottom);
                             drawPassingMarkers(canvas, height, publicLeg);
                         }
 
@@ -655,6 +666,20 @@ public final class TripsGalleryAdapter extends BaseAdapter {
                 transferGapPaint.setAlpha(TRANSFER_GAP_ALPHA);
                 canvas.drawRect(left, arrivalColor == null ? yArrival : yMiddle, right, yDeparture, transferGapPaint);
             }
+        }
+
+        private void drawStationWait(final Canvas canvas, final int width, final int height,
+                final @Nullable Integer color, final @Nullable Date from, final @Nullable Date to) {
+            if (color == null || from == null || to == null)
+                return;
+            final float yFrom = timeToCoord(from.getTime(), height);
+            final float yTo = timeToCoord(to.getTime(), height);
+            if (yTo <= yFrom)
+                return;
+            final float left = width * (1f - TRANSFER_GAP_FRACTION) / 2f;
+            transferGapPaint.setColor(color);
+            transferGapPaint.setAlpha(TRANSFER_GAP_ALPHA);
+            canvas.drawRect(left, yFrom, left + width * TRANSFER_GAP_FRACTION, yTo, transferGapPaint);
         }
 
         private void drawTransferCap(final Canvas canvas, final @Nullable Integer color, final float left,
