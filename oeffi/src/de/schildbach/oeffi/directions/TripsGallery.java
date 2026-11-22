@@ -135,6 +135,10 @@ public class TripsGallery extends Gallery {
         adapter.setTrips(trips, canScrollLater, canScrollEarlier);
     }
 
+    public void setStationColors(final StationColorAssigner stationColors) {
+        adapter.setStationColors(stationColors);
+    }
+
     public void setOnScrollListener(final OnScrollListener onScrollListener) {
         this.onScrollListener = onScrollListener;
     }

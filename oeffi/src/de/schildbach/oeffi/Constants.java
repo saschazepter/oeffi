@@ -56,6 +56,7 @@ public class Constants {
     public static final String PREFS_KEY_OPTIMIZE_TRIP = "optimize_trip";
     public static final String PREFS_KEY_WALK_SPEED = "walk_speed";
     public static final String PREFS_KEY_ACCESSIBILITY = "accessibility";
+    public static final String PREFS_KEY_TRANSFER_STATION_COLORS = "transfer_station_colors";
     public static final String PREFS_KEY_LAST_VERSION = "last_version";
     public static final String PREFS_KEY_SHOW_INFO = "show_hints";
     public static final String PREFS_KEY_LAST_INFO_AT = "last_hint_at";

@@ -278,6 +278,8 @@
     <string name="directions_preferences_walk_speed_summary">Wie schnell kannst du laufen? Diese Einstellung wirkt sich nicht auf alle Verkehrsnetze aus.</string>
     <string name="directions_preferences_accessibility_title">Barrierefreiheit</string>
     <string name="directions_preferences_accessibility_summary">Wie barrierefrei muss die Route sein? Diese Einstellung wirkt sich nicht auf alle Verkehrsnetze aus.</string>
+    <string name="directions_preferences_transfer_station_colors_title">Umstiegsbahnhöfe einfärben</string>
+    <string name="directions_preferences_transfer_station_colors_summary">In der Verbindungsübersicht jeden Umstiegsbahnhof in einer eigenen Farbe markieren, damit Verbindungen mit gleichem Umstieg sofort auffallen.</string>
 
     <!-- plans picker -->
     <string name="plans_picker_context_open_title">Plan öffnen</string>
