@@ -259,7 +259,7 @@ paris_metro|48.855414,2.34488|2012-12|Paris Metro|Nathan Kaufmann, Creative Comm
 
 # po
 
-warsaw_rail|52.230515,21.010702|2011-12-01|Warsaw Rail Transport|ztm|https://www.ztm.waw.pl/mapa/duze/tramwaje.gif
+warsaw_rail|52.230515,21.010702|2014-01-01|Warsaw Rail Transport|ztm|https://www.wtp.waw.pl/wp-content/uploads/sites/2/2024/01/szynowa.pdf
 
 # cz
 
