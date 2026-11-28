@@ -26,12 +26,17 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
@@ -41,13 +46,17 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
 import android.provider.ContactsContract.CommonDataKinds;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.ImageSpan;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -57,8 +66,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -420,33 +432,20 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
         viewBike = findViewById(R.id.directions_option_bike);
 
         viewTimeDepArr = findViewById(R.id.directions_time_dep_arr);
-        viewTimeDepArr.setOnClickListener(v -> {
-            final DialogBuilder builder = DialogBuilder.get(DirectionsActivity.this);
-            builder.setTitle(R.string.directions_set_time_prompt);
-            builder.setItems(R.array.directions_set_time, (dialog, which) -> {
-                final String[] parts = getResources().getStringArray(R.array.directions_set_time_values)[which]
-                        .split("_");
-                final DepArr depArr = DepArr.valueOf(parts[0]);
-                if (parts[1].equals("AT")) {
-                    time = new TimeSpec.Absolute(depArr, time.timeInMillis());
-                } else if (parts[1].equals("IN")) {
-                    if (parts.length > 2) {
-                        time = new TimeSpec.Relative(depArr,
-                                Long.parseLong(parts[2]) * DateUtils.MINUTE_IN_MILLIS);
-                    } else {
-                        time = new TimeSpec.Relative(depArr, 0);
-                        handleDiffClick();
-                    }
-                } else {
-                    throw new IllegalStateException(parts[1]);
-                }
-                updateGUI();
-            });
-            builder.show();
+        viewTimeDepArr.setOnClickListener(v -> toggleDepArr());
+        viewTimeDepArr.setOnLongClickListener(v -> {
+            toggleDepArr();
+            return true;
         });
 
         viewTime1 = findViewById(R.id.directions_time_1);
+        viewTime1.setOnClickListener(v -> handleDiffClick());
+        viewTime1.setOnLongClickListener(v -> {
+            handleDatePick();
+            return true;
+        });
         viewTime2 = findViewById(R.id.directions_time_2);
+        viewTime2.setOnClickListener(v -> handleTimePick());
 
         viewGo = findViewById(R.id.directions_go);
         viewGo.setOnClickListener(v -> handleGo());
@@ -680,6 +679,7 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
             unregisterReceiver(tickReceiver);
             tickReceiver = null;
         }
+        handler.removeCallbacks(blinkRunnable);
 
         mapView.onPause();
         super.onPause();
@@ -742,65 +742,59 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
         viewTimeDepArr
                 .setText(time.depArr == DepArr.DEPART ? R.string.directions_time_dep : R.string.directions_time_arr);
 
-        if (time == null) {
-            viewTime1.setVisibility(View.GONE);
-            viewTime2.setVisibility(View.GONE);
-        } else if (time instanceof TimeSpec.Absolute) {
+        if (time instanceof TimeSpec.Absolute) {
             final long now = System.currentTimeMillis();
             final long t = ((TimeSpec.Absolute) time).timeMs;
-            viewTime1.setVisibility(View.VISIBLE);
-            viewTime1.setOnClickListener(dateClickListener);
             viewTime1.setText(Formats.formatDate(this, now, t));
-            viewTime2.setVisibility(View.VISIBLE);
-            viewTime2.setOnClickListener(timeClickListener);
-            viewTime2.setText(Formats.formatTime(this, t));
         } else if (time instanceof TimeSpec.Relative) {
             final long diff = ((TimeSpec.Relative) time).diffMs;
-            viewTime1.setVisibility(View.VISIBLE);
             viewTime1
                     .setText(diff > 0 ? getString(R.string.directions_time_relative, Formats.formatTimeDiff(this, diff))
                             : getString(R.string.time_now));
-            viewTime1.setOnClickListener(diffClickListener);
-            viewTime2.setVisibility(View.GONE);
+        }
+        updateTimeView();
+    }
+
+    private void updateTimeView() {
+        handler.removeCallbacks(blinkRunnable);
+
+        if (time instanceof TimeSpec.Relative) {
+            final String timeStr = Formats.formatTime(this, time.timeInMillis());
+            final SpannableString text = new SpannableString(timeStr);
+            final int colon = timeStr.indexOf(':');
+            if (!blinkColonVisible && colon != -1)
+                text.setSpan(new ForegroundColorSpan(Color.TRANSPARENT), colon, colon + 1,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            viewTime2.setText(text);
+            // blink only while in foreground; tickReceiver is registered exactly then
+            if (tickReceiver != null)
+                handler.postDelayed(blinkRunnable, 500);
+        } else {
+            blinkColonVisible = true;
+            viewTime2.setText(Formats.formatTime(this, ((TimeSpec.Absolute) time).timeMs));
         }
     }
 
-    private final OnClickListener dateClickListener = v -> {
-        final Calendar calendar = new GregorianCalendar();
-        calendar.setTimeInMillis(((TimeSpec.Absolute) time).timeMs);
-        final int year = calendar.get(Calendar.YEAR);
-        final int month = calendar.get(Calendar.MONTH);
-        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+    private boolean blinkColonVisible = true;
 
-        new DatePickerDialog(DirectionsActivity.this, 0, (view, year1, month1, day1) -> {
-            calendar.set(Calendar.YEAR, year1);
-            calendar.set(Calendar.MONTH, month1);
-            calendar.set(Calendar.DAY_OF_MONTH, day1);
-            time = new TimeSpec.Absolute(time.depArr, calendar.getTimeInMillis());
-            updateGUI();
-        }, year, month, day).show();
+    private final Runnable blinkRunnable = () -> {
+        blinkColonVisible = !blinkColonVisible;
+        updateTimeView();
     };
 
-    private final OnClickListener timeClickListener = v -> {
-        final Calendar calendar = new GregorianCalendar();
-        calendar.setTimeInMillis(((TimeSpec.Absolute) time).timeMs);
-        final int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        final int minute = calendar.get(Calendar.MINUTE);
-
-        new TimePickerDialog(DirectionsActivity.this, 0, (view, hour1, minute1) -> {
-            calendar.set(Calendar.HOUR_OF_DAY, hour1);
-            calendar.set(Calendar.MINUTE, minute1);
-            time = new TimeSpec.Absolute(time.depArr, calendar.getTimeInMillis());
-            updateGUI();
-        }, hour, minute, DateFormat.is24HourFormat(DirectionsActivity.this)).show();
-    };
-
-    private final OnClickListener diffClickListener = v -> handleDiffClick();
+    private void toggleDepArr() {
+        final DepArr depArr = time.depArr == DepArr.DEPART ? DepArr.ARRIVE : DepArr.DEPART;
+        if (time instanceof TimeSpec.Absolute)
+            time = new TimeSpec.Absolute(depArr, ((TimeSpec.Absolute) time).timeMs);
+        else
+            time = new TimeSpec.Relative(depArr, ((TimeSpec.Relative) time).diffMs);
+        updateGUI();
+    }
 
     private void handleDiffClick() {
         final int[] relativeTimeValues = getResources().getIntArray(R.array.directions_set_time_relative);
         final String[] relativeTimeStrings = new String[relativeTimeValues.length + 1];
-        relativeTimeStrings[relativeTimeValues.length] = getString(R.string.directions_set_time_relative_fixed);
+        relativeTimeStrings[relativeTimeValues.length] = getString(R.string.directions_set_time_pick_date);
         for (int i = 0; i < relativeTimeValues.length; i++) {
             if (relativeTimeValues[i] == 0)
                 relativeTimeStrings[i] = getString(R.string.time_now);
@@ -809,17 +803,114 @@ public class DirectionsActivity extends OeffiMainActivity implements QueryHistor
                         Formats.formatTimeDiff(this, relativeTimeValues[i] * DateUtils.MINUTE_IN_MILLIS));
         }
         final DialogBuilder builder = DialogBuilder.get(this);
-        builder.setTitle(R.string.directions_set_time_relative_prompt);
+        builder.setTitle(R.string.directions_set_time_prompt);
         builder.setItems(relativeTimeStrings, (dialog, which) -> {
             if (which < relativeTimeValues.length) {
                 final int mins = relativeTimeValues[which];
-                time = new TimeSpec.Relative(mins * DateUtils.MINUTE_IN_MILLIS);
+                time = new TimeSpec.Relative(time.depArr, mins * DateUtils.MINUTE_IN_MILLIS);
+                updateGUI();
             } else {
-                time = new TimeSpec.Absolute(DepArr.DEPART, time.timeInMillis());
+                handleDatePick();
             }
-            updateGUI();
         });
         builder.show();
+    }
+
+    private void handleDatePick() {
+        final Calendar calendar = new GregorianCalendar();
+        calendar.setTimeInMillis(time.timeInMillis());
+        handleDatePick(calendar);
+    }
+
+    private void handleDatePick(final Calendar calendar) {
+        new DatePickerDialog(DirectionsActivity.this, 0, (view, year, month, day) -> {
+            calendar.set(Calendar.YEAR, year);
+            calendar.set(Calendar.MONTH, month);
+            calendar.set(Calendar.DAY_OF_MONTH, day);
+            time = new TimeSpec.Absolute(time.depArr, calendar.getTimeInMillis());
+            updateGUI();
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+    }
+
+    private void handleTimePick() {
+        final Calendar calendar = new GregorianCalendar();
+        calendar.setTimeInMillis(time.timeInMillis());
+        final int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        final int minute = calendar.get(Calendar.MINUTE);
+
+        final TimePickerDialog dialog = new TimePickerDialog(DirectionsActivity.this, 0, (view, hour1, minute1) -> {
+            // confirming without a change must not freeze a relative time
+            if (hour1 == hour && minute1 == minute)
+                return;
+            calendar.set(Calendar.HOUR_OF_DAY, hour1);
+            calendar.set(Calendar.MINUTE, minute1);
+            time = new TimeSpec.Absolute(time.depArr, calendar.getTimeInMillis());
+            updateGUI();
+        }, hour, minute, DateFormat.is24HourFormat(DirectionsActivity.this));
+        // the placeholder text must not be empty, or the button is not created at all
+        dialog.setButton(DialogInterface.BUTTON_NEUTRAL, " ", (d, which) -> {
+            // read the picked time from the view tree before the dialog closes
+            final TimePicker picker = findTimePicker(dialog.getWindow().getDecorView());
+            if (picker != null) {
+                calendar.set(Calendar.HOUR_OF_DAY, picker.getHour());
+                calendar.set(Calendar.MINUTE, picker.getMinute());
+            }
+            handleDatePick(calendar);
+        });
+        dialog.setOnShowListener(d -> initCalendarButton(dialog));
+        dialog.show();
+    }
+
+    private void initCalendarButton(final TimePickerDialog dialog) {
+        final Button button = dialog.getButton(DialogInterface.BUTTON_NEUTRAL);
+        final View toggle = dialog.findViewById(getResources().getIdentifier("toggle_mode", "id", "android"));
+        if (button == null || toggle == null)
+            return;
+
+        // move the button out of the (cramped) button bar into the row of the keyboard toggle
+        final ViewGroup bar = (ViewGroup) button.getParent();
+        final ViewGroup row = (ViewGroup) toggle.getParent();
+        if (row instanceof LinearLayout) {
+            bar.removeView(button);
+            final LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.gravity = Gravity.CENTER_VERTICAL;
+            row.addView(button, row.indexOfChild(toggle) + 1, params);
+        }
+
+        // the calendar symbol goes into the button text; carry over tint, tint mode and view state
+        // from the keyboard toggle, because a drawable without a view of its own has no state and
+        // would fall back to the disabled color
+        final Drawable icon = getDrawable(R.drawable.ic_today_white_24dp).mutate();
+        if (toggle instanceof ImageView) {
+            final ColorStateList tint = ((ImageView) toggle).getImageTintList();
+            if (tint != null) {
+                icon.setTintList(tint);
+                final PorterDuff.Mode tintMode = ((ImageView) toggle).getImageTintMode();
+                icon.setTintMode(tintMode != null ? tintMode : PorterDuff.Mode.SRC_IN);
+            }
+            icon.setState(toggle.getDrawableState());
+        }
+        icon.setBounds(0, 0, icon.getIntrinsicWidth(), icon.getIntrinsicHeight());
+        final SpannableString text = new SpannableString(" ");
+        text.setSpan(new ImageSpan(icon, ImageSpan.ALIGN_BOTTOM), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        button.setText(text);
+        button.setContentDescription(getString(R.string.directions_set_time_pick_date));
+        button.setTooltipText(getString(R.string.directions_set_time_pick_date));
+    }
+
+    private static TimePicker findTimePicker(final View view) {
+        if (view instanceof TimePicker)
+            return (TimePicker) view;
+        if (view instanceof ViewGroup) {
+            final ViewGroup group = (ViewGroup) view;
+            for (int i = 0; i < group.getChildCount(); i++) {
+                final TimePicker picker = findTimePicker(group.getChildAt(i));
+                if (picker != null)
+                    return picker;
+            }
+        }
+        return null;
     }
 
     private void updateMap() {

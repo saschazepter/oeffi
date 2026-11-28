@@ -15,22 +15,7 @@
     </string-array>
 
     <string name="directions_set_time_prompt">Set time to</string>
-
-    <string-array name="directions_set_time">
-        <item>↦ depart now</item>
-        <item>↦ depart in … minutes</item>
-        <item>↦ depart at … (fixed time)</item>
-        <item>⇥ arrive by … (fixed time)</item>
-    </string-array>
-    <string-array name="directions_set_time_values">
-        <item>DEPART_IN_0</item>
-        <item>DEPART_IN</item>
-        <item>DEPART_AT</item>
-        <item>ARRIVE_AT</item>
-    </string-array>
-
-    <string name="directions_set_time_relative_prompt">Depart in</string>
-    <string name="directions_set_time_relative_fixed">fixed time</string>
+    <string name="directions_set_time_pick_date">pick date</string>
 
     <integer-array name="directions_set_time_relative">
         <item>0</item>
